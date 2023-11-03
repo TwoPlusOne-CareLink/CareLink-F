@@ -48,7 +48,6 @@ function Main() {
             <SignInBtn onClick={GoToSignIn}>로그인</SignInBtn>
             <SignUpBtn onClick={GoToSignUp}>회원가입</SignUpBtn>
           </SignBtns>
-
         </MainBody>
       </MainWrapper>
     </Wrap>
@@ -211,4 +210,3 @@ const SignUpBtn = styled.button`
     box-shadow: 8px 4px 62px 2px rgba(34, 51, 90, 0.12);
   }
 `
-
