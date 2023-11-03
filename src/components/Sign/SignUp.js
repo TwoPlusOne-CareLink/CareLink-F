@@ -15,7 +15,7 @@ function SignUp() {
   }
 
   const UserSignUp = () => {
-    navigate("/")
+    navigate("/signin")
     alert("가입이 완료되었습니다!")
   }
 
@@ -99,13 +99,14 @@ function SignUp() {
 }
 
 export default SignUp
-
+/*메인 전체를 감싸는 div */
 const Wrap = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
 `
 
+/*회원가입 메인 div */
 const SignUpWrap = styled.div`
   width: 800px;
   height: 800px;
@@ -115,6 +116,7 @@ const SignUpWrap = styled.div`
   justify-content: center;
   align-items: center;
 `
+/*회원가입 타이틀 */
 const SignUpTitle = styled.span`
   width: 400px;
   text-align: center;
@@ -122,7 +124,7 @@ const SignUpTitle = styled.span`
   font-family: "GmarketSansMedium";
   user-select: none;
 `
-
+/*회원가입  */
 const SignUpBody = styled.div`
   margin-top: 20px;
   border: transparent;
@@ -134,7 +136,7 @@ const SignUpInputDiv = styled.div`
   width: 400px;
   height: 50px;
   margin: 10px auto;
-  border: 1px solid #efefef;
+  border: transparent;
   /* box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.2); */
   border-radius: 10px;
   display: flex;
@@ -190,7 +192,7 @@ const SignUpInput = styled.input`
   height: 60%;
   margin-left: 10px;
   border: transparent;
-  border-bottom: 1px solid #efefef;
+  border-bottom: 1px solid black;
   font-size: 18px;
   outline: none;
 `
@@ -219,9 +221,10 @@ const SignUpBtn = styled.button`
   border-radius: 8px;
   background-color: #223359;
   color: white;
-  font-size: 30px;
+  font-size: 25px;
   &:hover {
     background-color: #192849;
+    cursor: pointer;
   }
 `
 const SignUpCancelBtn = styled.button`
@@ -231,13 +234,14 @@ const SignUpCancelBtn = styled.button`
   border-radius: 8px;
   background-color: #223359;
   color: white;
-  font-size: 30px;
+  font-size: 25px;
   &:hover {
     background-color: #192849;
+    cursor: pointer;
   }
 `
 const LogInGo = styled.div`
-  font-size: 30px;
+  font-size: 25px;
   margin: 20px auto;
   height: 30px;
   text-align: center;
@@ -247,5 +251,6 @@ const LogInGo = styled.div`
 const LogInGoBtn = styled.a`
   &:hover {
     font-weight: bold;
+    cursor: pointer;
   }
 `
