@@ -224,6 +224,7 @@ const SignUpBtn = styled.button`
   font-size: 25px;
   &:hover {
     background-color: #192849;
+    cursor: pointer;
   }
 `
 const SignUpCancelBtn = styled.button`
@@ -236,6 +237,7 @@ const SignUpCancelBtn = styled.button`
   font-size: 25px;
   &:hover {
     background-color: #192849;
+    cursor: pointer;
   }
 `
 const LogInGo = styled.div`
@@ -249,5 +251,6 @@ const LogInGo = styled.div`
 const LogInGoBtn = styled.a`
   &:hover {
     font-weight: bold;
+    cursor: pointer;
   }
 `
