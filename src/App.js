@@ -7,6 +7,7 @@ import SignUpPage from "./pages/SignUpPage"
 import { createGlobalStyle } from "styled-components"
 import DoctorMainPage from "./pages/DocotrMainPage"
 import HospitalMainPage from "./pages/HospitalMainPage"
+import HospitalSearchPage from "./pages/HospitalSearchPage"
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/doctor" element={<DoctorMainPage />} />
           <Route path="/hospital" element={<HospitalMainPage />} />
+          <Route path="/HospitalSearch" element={<HospitalSearchPage />} />
         </Routes>
       </BrowserRouter>
     </>
