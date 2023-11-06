@@ -1,12 +1,17 @@
 import React, { useState } from "react"
+
 import styled from "styled-components"
 import ReadingGlasses from "../../assets/images/ReadingGlasses.png"
 import KaKaoMap from "../../assets/images/KaKaoMap.png"
+import DoctorProfileImg from "../../assets/images/DoctorProfileImg.jpg"
+import { useNavigate } from "react-router-dom"
 
 function HospitalSearch() {
+  const navigate = useNavigate()
+
   const [hospitalModal, setHospitalModal] = useState()
 
-  const hospitalResultOpen = () => {
+  const hospitalResultToggle = () => {
     setHospitalModal(!hospitalModal)
   }
 
@@ -20,7 +25,7 @@ function HospitalSearch() {
             <MapSearchImg />
           </MapSearchInputs>
           <MapSearchResults>
-            <MapSearchResult onClick={hospitalResultOpen}>
+            <MapSearchResult onClick={hospitalResultToggle}>
               <ResultNumber>1</ResultNumber>
               <ResultName>하늘하늘병원</ResultName>
               <ResultAddress>
@@ -73,15 +78,44 @@ function HospitalSearch() {
                           <DiagoniasItem>안과</DiagoniasItem>
                         </DiagoniasItems>
                       </HospitalDiagonias>
-                      {/* <HospitalDoctors>
-                        <Doctorstitle>의사정보</Doctorstitle>
-                      </HospitalDoctors> */}
+                      <HospitalDoctors>
+                        <DoctorsTitle>의사정보</DoctorsTitle>
+                        <DoctorInfos>
+                          <DoctorInfo>
+                            <DoctorImg />
+                            <DoctorName>이코사 의사</DoctorName>
+                            <DoctorItem>내과</DoctorItem>
+                          </DoctorInfo>
+                          <DoctorInfo>
+                            <DoctorImg />
+                            <DoctorName>이코사 의사</DoctorName>
+                            <DoctorItem>내과</DoctorItem>
+                          </DoctorInfo>
+                          <DoctorInfo>
+                            <DoctorImg />
+                            <DoctorName>이코사 의사</DoctorName>
+                            <DoctorItem>내과</DoctorItem>
+                          </DoctorInfo>
+                          <DoctorInfo>
+                            <DoctorImg />
+                            <DoctorName>이코사 의사</DoctorName>
+                            <DoctorItem>내과</DoctorItem>
+                          </DoctorInfo>
+                          <DoctorInfo>
+                            <DoctorImg />
+                            <DoctorName>이코사 의사</DoctorName>
+                            <DoctorItem>내과</DoctorItem>
+                          </DoctorInfo>
+                        </DoctorInfos>
+                      </HospitalDoctors>
                     </HospitalContent>
                     <HospitalContent2>
                       <HospitalMap></HospitalMap>
                       <HospitalBtns>
                         <ReservationBtn>예약하기</ReservationBtn>
-                        <BackBtn>뒤로가기</BackBtn>
+                        <BackBtn onClick={hospitalResultToggle}>
+                          뒤로가기
+                        </BackBtn>
                       </HospitalBtns>
                     </HospitalContent2>
                   </HospitalModalContent>
@@ -204,10 +238,11 @@ const HospitalModalOverlay = styled.div`
   right: 0;
   bottom: 0;
   background-color: rgba(49, 49, 49, 0.8);
+  position: sticky;
 `
 const HospitalModalContent = styled.div`
   width: 1000px;
-  height: 800px;
+  height: 650px;
   border: transparent;
   border-radius: 12px;
   background-color: white;
@@ -215,22 +250,20 @@ const HospitalModalContent = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  top: 6%;
-  left: 20%;
+  top: 13%;
+  left: 23%;
   transform: translate(0, 0);
   position: absolute;
 `
 
 const HospitalContent = styled.div`
   width: 480px;
-  height: 730px;
-  border: 1px solid black;
+  height: 550px;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
+  justify-content: space-between;
 `
 const HospitalTitles = styled.div`
-  border: 1px solid black;
   width: 480px;
   height: 50px;
   display: flex;
@@ -240,88 +273,170 @@ const HospitalTitles = styled.div`
 `
 
 const HospitalTitle = styled.div`
+  margin-left: 10px;
   font-size: 35px;
+  font-weight: 600;
 `
 const HospitalLike = styled.div`
   font-size: 20px;
 `
-const HospitalAddress = styled.div`
-  margin-top: 10px;
-  border: 1px solid black;
+const HospitalAddress = styled.span`
+  margin-left: 10px;
   font-size: 20px;
+  font-weight: 600;
 `
 
 const HospitalContent2 = styled.div`
-  border: 1px solid black;
   width: 400px;
-  height: 730px;
+  height: 550px;
   margin-left: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 `
-const HospitalMap = styled.div``
-const HospitalBtns = styled.div``
-const ReservationBtn = styled.button``
-const BackBtn = styled.button``
+const HospitalMap = styled.div`
+  width: 400px;
+  height: 450px;
+  border-radius: 12px;
+  background-image: url(${KaKaoMap});
+  background-size: cover;
+`
+const HospitalBtns = styled.div`
+  width: 330px;
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`
+const ReservationBtn = styled.button`
+  width: 150px;
+  height: 50px;
+  border: transparent;
+  border-radius: 12px;
+  background-color: #223359;
+  font-size: 25px;
+  color: white;
+
+  &:hover {
+    background-color: #192849;
+    cursor: pointer;
+  }
+`
+const BackBtn = styled.button`
+  width: 150px;
+  height: 50px;
+  border: transparent;
+  border-radius: 12px;
+  background-color: #223359;
+  font-size: 25px;
+  color: white;
+
+  &:hover {
+    background-color: #192849;
+    cursor: pointer;
+  }
+`
 
 const HospitalTels = styled.div`
-  border: 1px solid black;
   display: flex;
+  flex-direction: row;
+  align-items: center;
 `
-const HospitalTelTitle = styled.div`
+const HospitalTelTitle = styled.span`
   margin-right: 10px;
+  padding: 10px;
   font-size: 20px;
+  font-weight: 600;
 `
 const HospitalTel = styled.div`
   font-size: 20px;
 `
 
 const HospitalDayTime = styled.div``
+
 const DayTimeContent = styled.div`
+  margin-top: 10px;
+  border-radius: 12px;
+  background-color: #223359;
+  color: white;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(50%, auto));
-  /* place-items: center; */
 `
-const DayTimeTitle = styled.div`
-  padding: 10px;
+const DayTimeTitle = styled.span`
+  margin-left: 10px;
   font-size: 20px;
+  font-weight: 600;
 `
 
 const DayContent = styled.div`
-  border: 1px solid black;
-  height: 40px;
+  padding: 12px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-
-  /* flex-direction: row;
-  justify-content: space-between;
-  align-items: center; */
 `
 const DayTitle = styled.div`
   margin-right: 12px;
+  font-weight: 600;
 `
 const TimeTitle = styled.div``
 
 const HospitalDiagonias = styled.div``
 const DiagoniasItems = styled.div`
-  border: 1px solid black;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(14%, auto));
+  grid-template-columns: repeat(auto-fill, minmax(20%, auto));
   place-items: center;
 `
 const DiagoniasTitle = styled.div`
   padding: 10px;
-  /* border: 1px solid black; */
   font-size: 20px;
+  font-weight: 600;
 `
-const DiagoniasItem = styled.div`
-  /* margin-left: 10px; */
+const DiagoniasItem = styled.span`
+  width: 80%;
   padding: 6px;
-  height: 40px;
-  /* margin: 0 12px; */
-  display: flex;
-  /* justify-content: center; */
-  align-items: center;
-  /* border: 1px solid black; */
+  border-radius: 8px;
+  background-color: #223359;
   text-align: center;
+  color: white;
 `
+
+const HospitalDoctors = styled.div`
+  width: 100%;
+`
+const DoctorsTitle = styled.div`
+  margin-left: 10px;
+  margin-bottom: 8px;
+  font-size: 20px;
+  font-weight: bold;
+`
+
+const DoctorInfos = styled.div`
+  /* border: 1px solid #efefef; */
+  /* box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.05); */
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20%, 0));
+  place-items: center;
+`
+const DoctorInfo = styled.div`
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+const DoctorImg = styled.div`
+  width: 55px;
+  height: 55px;
+  border: 1px solid black;
+  border-radius: 50%;
+  background-image: url(${DoctorProfileImg});
+  background-size: cover;
+`
+const DoctorName = styled.span`
+  margin-top: 10px;
+`
+const DoctorItem = styled.span``
