@@ -108,12 +108,12 @@ const MainBody = styled.div`
 const CunsultingBtn = styled.button`
   height: 250px;
   border: 1px solid transparent;
-  border-radius: 12px;
+  border-radius: 16px;
   background-color: #223359;
   display: grid;
   grid-column: auto / span 2;
-  /* place-items: center; */
   color: white;
+  user-select: none;
 
   &:hover {
     box-shadow: 8px 4px 62px 2px rgba(34, 51, 89, 0.12);
@@ -135,12 +135,13 @@ const CUnsultingBtnContent = styled.span`
 const SearchBtn = styled.button`
   height: 250px;
   border: 1px solid transparent;
-  border-radius: 12px;
+  border-radius: 16px;
   background-color: #4dc9c2;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  user-select: none;
 
   &:hover {
     box-shadow: 8px 4px 62px 0px rgba(34, 51, 89, 0.05);
@@ -163,11 +164,11 @@ const MainBtn = styled.button`
   height: 220px;
   border: 1px solid transparent;
   box-shadow: 8px 4px 62px 0px rgba(34, 51, 89, 0.08);
-  border-radius: 12px;
+  border-radius: 16px;
   background-color: white;
   display: grid;
-  /* grid-column: auto; */
   place-items: center;
+  user-select: none;
 
   &:hover {
     box-shadow: 8px 4px 62px 2px rgba(34, 51, 89, 0.12);
@@ -188,9 +189,10 @@ const SignInBtn = styled.button`
   margin-bottom: 10px;
   border: 1px solid transparent;
   box-shadow: 8px 4px 62px 0px rgba(34, 51, 89, 0.08);
-  border-radius: 12px;
+  border-radius: 16px;
   background-color: white;
   font-size: 40px;
+  user-select: none;
 
   &:hover {
     box-shadow: 8px 4px 62px 2px rgba(34, 51, 89, 0.12);
@@ -203,8 +205,9 @@ const SignUpBtn = styled.button`
   font-size: 40px;
   border: 1px solid transparent;
   box-shadow: 8px 4px 62px 0px rgba(34, 51, 89, 0.08);
-  border-radius: 12px;
+  border-radius: 16px;
   background-color: white;
+  user-select: none;
 
   &:hover {
     box-shadow: 8px 4px 62px 2px rgba(34, 51, 90, 0.12);

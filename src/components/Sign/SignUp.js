@@ -132,12 +132,12 @@ const SignUpBody = styled.div`
   box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.12);
 `
 
+/*회원가입항목 입력 픽토그램과 Input을 감싸는 div*/
 const SignUpInputDiv = styled.div`
   width: 400px;
   height: 50px;
   margin: 10px auto;
   border: transparent;
-  /* box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.2); */
   border-radius: 10px;
   display: flex;
   flex-direction: row;
@@ -149,6 +149,7 @@ const SignUpInputDiv = styled.div`
     outline: auto;
   }
 `
+/*유저 픽토그램 */
 const SignUpUserImg = styled.div`
   width: 25px;
   height: 25px;
@@ -156,6 +157,7 @@ const SignUpUserImg = styled.div`
   background-size: cover;
   user-select: none;
 `
+/*비밀번호 픽토그램 */
 const SignUpLockImg = styled.div`
   width: 25px;
   height: 25px;
@@ -163,7 +165,7 @@ const SignUpLockImg = styled.div`
   background-size: cover;
   user-select: none;
 `
-
+/*이메일 픽토그램 */
 const SignUpEmailImg = styled.div`
   width: 25px;
   height: 25px;
@@ -171,7 +173,7 @@ const SignUpEmailImg = styled.div`
   background-size: cover;
   user-select: none;
 `
-
+/*전화번호 픽토그램 */
 const SignUpPhoneImg = styled.div`
   width: 25px;
   height: 25px;
@@ -179,6 +181,7 @@ const SignUpPhoneImg = styled.div`
   background-size: cover;
   user-select: none;
 `
+/*주소 픽토그램 */
 const SignUpAddressImg = styled.div`
   width: 25px;
   height: 25px;
@@ -187,6 +190,7 @@ const SignUpAddressImg = styled.div`
   user-select: none;
 `
 
+/*회원가입 항목 Input */
 const SignUpInput = styled.input`
   width: 87%;
   height: 60%;
@@ -196,6 +200,8 @@ const SignUpInput = styled.input`
   font-size: 18px;
   outline: none;
 `
+
+/*회원가입 제출폼 */
 const SignUpForm = styled.form`
   width: 450px;
   height: 540px;
@@ -204,7 +210,7 @@ const SignUpForm = styled.form`
   justify-content: center;
   align-items: center;
 `
-
+/*회원가입 , 취소 버튼 감싸는 div */
 const SignUpBtns = styled.div`
   width: 400px;
   height: 50px;
@@ -213,7 +219,7 @@ const SignUpBtns = styled.div`
   justify-content: space-between;
   user-select: none;
 `
-
+/*회원가입 버튼 */
 const SignUpBtn = styled.button`
   width: 190px;
   height: 50px;
@@ -224,8 +230,10 @@ const SignUpBtn = styled.button`
   font-size: 25px;
   &:hover {
     background-color: #192849;
+    cursor: pointer;
   }
 `
+/*가입취소버튼 */
 const SignUpCancelBtn = styled.button`
   width: 190px;
   height: 50px;
@@ -236,8 +244,10 @@ const SignUpCancelBtn = styled.button`
   font-size: 25px;
   &:hover {
     background-color: #192849;
+    cursor: pointer;
   }
 `
+/*이미 계정이 있으신가요? 와 로그인을 감싸는 div */
 const LogInGo = styled.div`
   font-size: 25px;
   margin: 20px auto;
@@ -246,8 +256,10 @@ const LogInGo = styled.div`
   user-select: none;
 `
 
+/*로그인 화면으로 가는 링크 */
 const LogInGoBtn = styled.a`
   &:hover {
     font-weight: bold;
+    cursor: pointer;
   }
 `

@@ -15,10 +15,14 @@ function SignIn() {
     navigate("/signup")
   }
 
+  const GoToMainPage = () => {
+    navigate(-1)
+  }
+
   return (
     <Wrap>
       <SignInWrap>
-        <SignInTitle>CareLink</SignInTitle>
+        <SignInTitle onClick={GoToMainPage}>CareLink</SignInTitle>
         <SignInBody>
           <SignInDiv>
             <SignInInputDiv>
@@ -47,12 +51,13 @@ function SignIn() {
 
 export default SignIn
 
+/*로그인 메인 전체 */
 const Wrap = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
 `
-
+/*로그인 메인 감싸는 div */
 const SignInWrap = styled.div`
   width: 800px;
   height: 800px;
@@ -62,10 +67,11 @@ const SignInWrap = styled.div`
   justify-content: center;
   align-items: center;
 `
-
+/*로그인 타이틀 */
 const SignInTitle = styled.span`
   font-size: 80px;
   user-select: none;
+  cursor: pointer;
 `
 const SignInBody = styled.div`
   width: 450px;
@@ -83,7 +89,6 @@ const SignInBody = styled.div`
 const SignInDiv = styled.div`
   width: 360px;
   height: 150px;
-  margin-bottom: 40px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -136,6 +141,7 @@ const SignInPassword = styled.input`
 const SignBtns = styled.div`
   width: 300px;
   height: 50px;
+  margin-top: 40px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -152,6 +158,7 @@ const SignInBtn = styled.button`
   font-size: 23px;
   &:hover {
     background-color: #192849;
+    cursor: pointer;
   }
 `
 const SignUpBtn = styled.button`
@@ -164,5 +171,6 @@ const SignUpBtn = styled.button`
   font-size: 23px;
   &:hover {
     background-color: #192849;
+    cursor: pointer;
   }
 `
