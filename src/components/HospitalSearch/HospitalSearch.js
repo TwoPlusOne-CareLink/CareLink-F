@@ -1,7 +1,9 @@
 import React from "react"
+
 import styled from "styled-components"
 import ReadingGlasses from "../../assets/images/ReadingGlasses.png"
 import KaKaoMap from "../../assets/images/KaKaoMap.png"
+import HospitalDetailModal from "./HospitalDetailModal"
 
 function HospitalSearch() {
   return (
@@ -13,16 +15,7 @@ function HospitalSearch() {
             <MapSearchInput placeholder="검색" />
             <MapSearchImg />
           </MapSearchInputs>
-          <MapSearchResults>
-            <MapSearchResult>
-              <ResultNumber>1</ResultNumber>
-              <ResultName>하늘하늘병원</ResultName>
-              <ResultAddress>
-                서울특별시 강동구 강동로 하늘하늘병원
-              </ResultAddress>
-              <ResultTel>02-4786-7835</ResultTel>
-            </MapSearchResult>
-          </MapSearchResults>
+          <HospitalDetailModal />
         </MapSearch>
       </HospitalWrapper>
     </Wrap>
@@ -88,35 +81,3 @@ const MapSearchInput = styled.input`
   font-size: 20px;
   outline: none;
 `
-const MapSearchResults = styled.div`
-  width: 600px;
-  height: 530px;
-  border: transparent;
-  border-radius: 12px;
-  box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.12);
-  padding: 10px;
-`
-
-const MapSearchResult = styled.div`
-  margin: 10px auto;
-  padding: 12px;
-  border: transparent;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  user-select: none;
-  font-size: 18px;
-
-  &:hover {
-    background-color: #efefef;
-    font-weight: 600;
-    cursor: pointer;
-  }
-`
-const ResultNumber = styled.div``
-const ResultName = styled.div``
-
-const ResultAddress = styled.div``
-const ResultTel = styled.div``

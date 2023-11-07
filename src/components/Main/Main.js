@@ -13,6 +13,18 @@ function Main() {
     navigate("/signup")
   }
 
+  const GoToHospitalSearch = () => {
+    navigate("/hospitalsearch")
+  }
+
+  const GoToCunsulting = () => {
+    navigate("/cunsulting")
+  }
+
+  const GoToHealthCheck = () => {
+    navigate("/healthcheck")
+  }
+
   return (
     <Wrap>
       <MainWrapper>
@@ -24,13 +36,13 @@ function Main() {
           </MainHeaderContent>
         </MainHeader>
         <MainBody>
-          <CunsultingBtn>
-            <CunsultingBtnTitle>비대면 상담</CunsultingBtnTitle>
-            <CUnsultingBtnContent>
+          <ConsultingBtn onClick={GoToCunsulting}>
+            <ConsultingBtnTitle>비대면 상담</ConsultingBtnTitle>
+            <ConsultingBtnContent>
               전문 의료인의 상담을 받아보세요.
-            </CUnsultingBtnContent>
-          </CunsultingBtn>
-          <SearchBtn>
+            </ConsultingBtnContent>
+          </ConsultingBtn>
+          <SearchBtn onClick={GoToHospitalSearch}>
             <SearchBtnContent>
               내 주변에 가까운 병원이 궁금하거나
               <br />
@@ -38,7 +50,7 @@ function Main() {
             </SearchBtnContent>
             <SearchBtnTitle>병원찾기</SearchBtnTitle>
           </SearchBtn>
-          <MainBtn>
+          <MainBtn onClick={GoToHealthCheck}>
             <MainBtnContent>헬스케어</MainBtnContent>
           </MainBtn>
           <MainBtn>
@@ -105,7 +117,7 @@ const MainBody = styled.div`
   gap: 15px;
 `
 /*비대면 상담 버튼 */
-const CunsultingBtn = styled.button`
+const ConsultingBtn = styled.button`
   height: 250px;
   border: 1px solid transparent;
   border-radius: 16px;
@@ -117,16 +129,17 @@ const CunsultingBtn = styled.button`
 
   &:hover {
     box-shadow: 8px 4px 62px 2px rgba(34, 51, 89, 0.12);
+    cursor: pointer;
   }
 `
 /*비대면 상담 버튼 내부 비대면 상담  */
-const CunsultingBtnTitle = styled.span`
+const ConsultingBtnTitle = styled.span`
   margin-top: 40px;
   font-family: "GmarketSansMedium";
   font-size: 90px;
 `
 /*비대면 상담 버튼 내부 안내글귀 */
-const CUnsultingBtnContent = styled.span`
+const ConsultingBtnContent = styled.span`
   margin-bottom: 20px;
   font-size: 25px;
 `
@@ -145,6 +158,7 @@ const SearchBtn = styled.button`
 
   &:hover {
     box-shadow: 8px 4px 62px 0px rgba(34, 51, 89, 0.05);
+    cursor: pointer;
   }
 `
 /*병원찾기 타이틀 */
@@ -172,6 +186,7 @@ const MainBtn = styled.button`
 
   &:hover {
     box-shadow: 8px 4px 62px 2px rgba(34, 51, 89, 0.12);
+    cursor: pointer;
   }
 `
 /*헬스케어, 질병백과 타이틀 */
@@ -196,6 +211,7 @@ const SignInBtn = styled.button`
 
   &:hover {
     box-shadow: 8px 4px 62px 2px rgba(34, 51, 89, 0.12);
+    cursor: pointer;
   }
 `
 /*로그아웃 버튼 */
@@ -211,5 +227,6 @@ const SignUpBtn = styled.button`
 
   &:hover {
     box-shadow: 8px 4px 62px 2px rgba(34, 51, 90, 0.12);
+    cursor: pointer;
   }
 `

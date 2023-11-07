@@ -3,40 +3,15 @@ import styled, { css } from "styled-components"
 import useDetectClose from "../../hooks/useDetectClose"
 import { useNavigate } from "react-router-dom"
 
-function MainNav() {
+function DoctorNav() {
   const navigate = useNavigate()
 
-  const [cunsultingIsOpen, cunsultingRef, cunsultingHandler] =
-    useDetectClose(false)
-  const [myPageIsOpen, myPageRef, myPageHandler] = useDetectClose(false)
-  const [healthIsOpen, healthRef, healthHandler] = useDetectClose(false)
-
   const GoToMain = () => {
-    navigate("/")
+    navigate("/doctor")
   }
 
   const GoToLogout = () => {
-    navigate("/")
-  }
-
-  const GoToHospitalSearch = () => {
-    navigate("/hospitalsearch")
-  }
-
-  const GoToCunsulting = () => {
-    navigate("/cunsulting")
-  }
-
-  const GoToCunsultingHistory = () => {
-    navigate("/cunsultinghistory")
-  }
-
-  const GoToHealthCheck = () => {
-    navigate("/healthcheck")
-  }
-
-  const GoToUserInfo = () => {
-    navigate("/userinfoupdate")
+    navigate("/doctor")
   }
 
   return (
@@ -48,47 +23,10 @@ function MainNav() {
         <NavBody>
           <NavMenu>
             <NavMenuItem>
-              <NavMenuItemTitle onClick={GoToHospitalSearch}>
-                병원 찾기
-              </NavMenuItemTitle>
+              <NavMenuItemTitle>비대면 상담목록</NavMenuItemTitle>
             </NavMenuItem>
             <NavMenuItem>
-              <NavMenuItemTitle onClick={cunsultingHandler} ref={cunsultingRef}>
-                비대면 상담
-              </NavMenuItemTitle>
-              <NavMenuItemContents isDropped={cunsultingIsOpen}>
-                <Ul>
-                  <Li>
-                    <Link onClick={GoToCunsulting}>비대면 상담</Link>
-                  </Li>
-                  <Li>
-                    <Link onClick={GoToCunsultingHistory}>나의 상담내역</Link>
-                  </Li>
-                </Ul>
-              </NavMenuItemContents>
-            </NavMenuItem>
-            <NavMenuItem>
-              <NavMenuItemTitle onClick={GoToHealthCheck}>
-                헬스케어
-              </NavMenuItemTitle>
-            </NavMenuItem>
-            <NavMenuItem>
-              <NavMenuItemTitle>질병백과</NavMenuItemTitle>
-            </NavMenuItem>
-            <NavMenuItem>
-              <NavMenuItemTitle onClick={myPageHandler} ref={myPageRef}>
-                마이페이지
-              </NavMenuItemTitle>
-              <NavMenuItemContents isDropped={myPageIsOpen}>
-                <Ul>
-                  <Li>
-                    <Link onClick={GoToUserInfo}>회원정보수정</Link>
-                  </Li>
-                  <Li>
-                    <Link>회원탈퇴</Link>
-                  </Li>
-                </Ul>
-              </NavMenuItemContents>
+              <NavMenuItemTitle>비대면 상담내역</NavMenuItemTitle>
             </NavMenuItem>
           </NavMenu>
         </NavBody>
@@ -100,7 +38,7 @@ function MainNav() {
   )
 }
 
-export default MainNav
+export default DoctorNav
 
 const Wrap = styled.div`
   width: 15vw;
