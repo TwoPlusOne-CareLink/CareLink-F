@@ -1,19 +1,18 @@
 import React from "react"
-import HospitalSearch from "../components/HospitalSearch/HospitalSearch"
 import MainNav from "../components/Main/MainNav"
-import styled from "styled-components"
+import UserInfoUpdate from "../components/User/UserInfoUpdate"
+import { styled } from "styled-components"
 
-function HospitalSearchPage() {
+function UserInfoPage() {
   return (
     <PageWrap>
       <MainNav />
-      <HospitalSearch />
-      
+      <UserInfoUpdate />
     </PageWrap>
   )
 }
 
-export default HospitalSearchPage
+export default UserInfoPage
 
 const PageWrap = styled.div`
   display: flex;

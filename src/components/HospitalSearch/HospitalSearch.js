@@ -1,21 +1,11 @@
-import React, { useState } from "react"
+import React from "react"
 
 import styled from "styled-components"
 import ReadingGlasses from "../../assets/images/ReadingGlasses.png"
 import KaKaoMap from "../../assets/images/KaKaoMap.png"
-// import DoctorProfileImg from "../../assets/images/DoctorProfileImg.jpg"
-import { useNavigate } from "react-router-dom"
 import HospitalDetailModal from "./HospitalDetailModal"
 
 function HospitalSearch() {
-  const navigate = useNavigate()
-
-  // const [hospitalModal, setHospitalModal] = useState()
-
-  // const hospitalResultToggle = () => {
-  //   setHospitalModal(!hospitalModal)
-  // }
-
   return (
     <Wrap>
       <HospitalWrapper>

@@ -9,6 +9,10 @@ function DoctorMain() {
     navigate("/signin")
   }
 
+  const DGoToCunsultingList = () => {
+    navigate("/doctorcunsultinglist")
+  }
+
   return (
     <Wrap>
       <DMainWrapper>
@@ -20,7 +24,9 @@ function DoctorMain() {
           </DMainHeaderContent>
         </DMainHeader>
         <DMainBody>
-          <DCunsultingBtn>비대면 상담목록</DCunsultingBtn>
+          <DCunsultingBtn onClick={DGoToCunsultingList}>
+            비대면 상담목록
+          </DCunsultingBtn>
           <DCunsultingListBtn>비대면 상담내역</DCunsultingListBtn>
           <DLogInBtn onClick={DGoToLogIn}>로그인</DLogInBtn>
         </DMainBody>
@@ -85,6 +91,7 @@ const DCunsultingBtn = styled.button`
   color: white;
   &:hover {
     box-shadow: 8px 4px 62px 2px rgba(34, 51, 89, 0.12);
+    cursor: pointer;
   }
 `
 /*비대면 상담내역 버튼 */
@@ -97,6 +104,7 @@ const DCunsultingListBtn = styled.button`
   color: white;
   &:hover {
     box-shadow: 8px 4px 62px 0px rgba(34, 51, 89, 0.05);
+    cursor: pointer;
   }
 `
 /*로그인 화면 이동 버튼 */
