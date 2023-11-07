@@ -16,7 +16,7 @@ function SignIn() {
   }
 
   const GoToMainPage = () => {
-    navigate(-1)
+    navigate("/")
   }
 
   return (

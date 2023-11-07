@@ -14,6 +14,10 @@ function SignUp() {
     navigate(-1)
   }
 
+  const GoToLogin = () => {
+    navigate("/signin")
+  }
+
   const UserSignUp = () => {
     navigate("/signin")
     alert("가입이 완료되었습니다!")
@@ -90,7 +94,7 @@ function SignUp() {
           </SignUpBtns>
           <LogInGo>
             이미 계정이 있다면?
-            <LogInGoBtn onClick={BeforeLogin}> 로그인</LogInGoBtn>
+            <LogInGoBtn onClick={GoToLogin}> 로그인</LogInGoBtn>
           </LogInGo>
         </SignUpBody>
       </SignUpWrap>

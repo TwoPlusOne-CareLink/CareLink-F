@@ -17,6 +17,10 @@ function Main() {
     navigate("/hospitalsearch")
   }
 
+  const GoToCunsulting = () => {
+    navigate("/cunsulting")
+  }
+
   return (
     <Wrap>
       <MainWrapper>
@@ -28,7 +32,7 @@ function Main() {
           </MainHeaderContent>
         </MainHeader>
         <MainBody>
-          <ConsultingBtn>
+          <ConsultingBtn onClick={GoToCunsulting}>
             <ConsultingBtnTitle>비대면 상담</ConsultingBtnTitle>
             <ConsultingBtnContent>
               전문 의료인의 상담을 받아보세요.

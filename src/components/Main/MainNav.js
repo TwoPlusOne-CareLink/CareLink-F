@@ -1,22 +1,48 @@
 import React from "react"
 import styled, { css } from "styled-components"
 import useDetectClose from "../../hooks/useDetectClose"
+import { useNavigate } from "react-router-dom"
 
 function MainNav() {
+  const navigate = useNavigate()
+
   const [cunsultingIsOpen, cunsultingRef, cunsultingHandler] =
     useDetectClose(false)
   const [myPageIsOpen, myPageRef, myPageHandler] = useDetectClose(false)
   const [healthIsOpen, healthRef, healthHandler] = useDetectClose(false)
+
+  const GoToMain = () => {
+    navigate("/")
+  }
+
+  const GoToLogout = () => {
+    navigate("/")
+  }
+
+  const GoToHospitalSearch = () => {
+    navigate("/hospitalsearch")
+  }
+
+  const GoToCunsulting = () => {
+    navigate("/cunsulting")
+  }
+
+  const GoToCunsultingHistory = () => {
+    navigate("/cunsultinghistory")
+  }
+
   return (
     <Wrap>
       <NavWrapper>
         <NavBarHeader>
-          <NavBarTitle>CareLink</NavBarTitle>
+          <NavBarTitle onClick={GoToMain}>CareLink</NavBarTitle>
         </NavBarHeader>
         <NavBody>
           <NavMenu>
             <NavMenuItem>
-              <NavMenuItemTitle>병원 찾기</NavMenuItemTitle>
+              <NavMenuItemTitle onClick={GoToHospitalSearch}>
+                병원 찾기
+              </NavMenuItemTitle>
             </NavMenuItem>
             <NavMenuItem>
               <NavMenuItemTitle onClick={cunsultingHandler} ref={cunsultingRef}>
@@ -25,10 +51,10 @@ function MainNav() {
               <NavMenuItemContents isDropped={cunsultingIsOpen}>
                 <Ul>
                   <Li>
-                    <Link>비대면 상담</Link>
+                    <Link onClick={GoToCunsulting}>비대면 상담</Link>
                   </Li>
                   <Li>
-                    <Link>나의 상담내역</Link>
+                    <Link onClick={GoToCunsultingHistory}>나의 상담내역</Link>
                   </Li>
                 </Ul>
               </NavMenuItemContents>
@@ -69,7 +95,7 @@ function MainNav() {
           </NavMenu>
         </NavBody>
         <NavFooter>
-          <NavLogout>로그아웃</NavLogout>
+          <NavLogout onClick={GoToLogout}>로그아웃</NavLogout>
         </NavFooter>
       </NavWrapper>
     </Wrap>
@@ -99,6 +125,7 @@ const NavBarHeader = styled.div`
 `
 const NavBarTitle = styled.div`
   font-size: 40px;
+  cursor: pointer;
 `
 
 const NavBody = styled.div`
