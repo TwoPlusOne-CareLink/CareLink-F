@@ -31,6 +31,10 @@ function MainNav() {
     navigate("/cunsultinghistory")
   }
 
+  const GoToHealthCheck = () => {
+    navigate("/healthcheck")
+  }
+
   return (
     <Wrap>
       <NavWrapper>
@@ -66,7 +70,7 @@ function MainNav() {
               <NavMenuItemContents isDropped={healthIsOpen}>
                 <Ul>
                   <Li>
-                    <Link>체크리스트 작성</Link>
+                    <Link onClick={GoToHealthCheck}>체크리스트 작성</Link>
                   </Li>
                   <Li>
                     <Link>체크리스트 작성내역</Link>

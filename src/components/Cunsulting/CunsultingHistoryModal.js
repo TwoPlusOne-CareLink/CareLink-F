@@ -70,34 +70,6 @@ function CunsultingHistoryModal() {
           </HistoryModalOverlay>
         </HistoryModalWrap>
       )}
-      <CunsultingHistoryContent>
-        <CunsultingHistoryImg />
-        <CunsultingHistoryName>두번째 상담</CunsultingHistoryName>
-      </CunsultingHistoryContent>
-      <CunsultingHistoryContent>
-        <CunsultingHistoryImg />
-        <CunsultingHistoryName>세번째 상담</CunsultingHistoryName>
-      </CunsultingHistoryContent>
-      <CunsultingHistoryContent>
-        <CunsultingHistoryImg />
-        <CunsultingHistoryName>네번째 상담</CunsultingHistoryName>
-      </CunsultingHistoryContent>
-      <CunsultingHistoryContent>
-        <CunsultingHistoryImg />
-        <CunsultingHistoryName>다섯번째 상담</CunsultingHistoryName>
-      </CunsultingHistoryContent>
-      <CunsultingHistoryContent>
-        <CunsultingHistoryImg />
-        <CunsultingHistoryName>여섯번째 상담</CunsultingHistoryName>
-      </CunsultingHistoryContent>
-      <CunsultingHistoryContent>
-        <CunsultingHistoryImg />
-        <CunsultingHistoryName>일곱번째 상담</CunsultingHistoryName>
-      </CunsultingHistoryContent>
-      <CunsultingHistoryContent>
-        <CunsultingHistoryImg />
-        <CunsultingHistoryName>여덟번째 상담</CunsultingHistoryName>
-      </CunsultingHistoryContent>
     </CunsultingHistoryBody>
   )
 }

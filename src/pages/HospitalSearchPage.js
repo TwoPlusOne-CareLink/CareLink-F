@@ -8,6 +8,7 @@ function HospitalSearchPage() {
     <PageWrap>
       <MainNav />
       <HospitalSearch />
+      
     </PageWrap>
   )
 }
