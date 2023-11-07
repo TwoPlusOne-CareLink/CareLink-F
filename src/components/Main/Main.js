@@ -21,6 +21,10 @@ function Main() {
     navigate("/cunsulting")
   }
 
+  const GoToHealthCheck = () => {
+    navigate("/healthcheck")
+  }
+
   return (
     <Wrap>
       <MainWrapper>
@@ -46,7 +50,7 @@ function Main() {
             </SearchBtnContent>
             <SearchBtnTitle>병원찾기</SearchBtnTitle>
           </SearchBtn>
-          <MainBtn>
+          <MainBtn onClick={GoToHealthCheck}>
             <MainBtnContent>헬스케어</MainBtnContent>
           </MainBtn>
           <MainBtn>
@@ -125,6 +129,7 @@ const ConsultingBtn = styled.button`
 
   &:hover {
     box-shadow: 8px 4px 62px 2px rgba(34, 51, 89, 0.12);
+    cursor: pointer;
   }
 `
 /*비대면 상담 버튼 내부 비대면 상담  */
@@ -181,6 +186,7 @@ const MainBtn = styled.button`
 
   &:hover {
     box-shadow: 8px 4px 62px 2px rgba(34, 51, 89, 0.12);
+    cursor: pointer;
   }
 `
 /*헬스케어, 질병백과 타이틀 */
@@ -205,6 +211,7 @@ const SignInBtn = styled.button`
 
   &:hover {
     box-shadow: 8px 4px 62px 2px rgba(34, 51, 89, 0.12);
+    cursor: pointer;
   }
 `
 /*로그아웃 버튼 */
@@ -220,5 +227,6 @@ const SignUpBtn = styled.button`
 
   &:hover {
     box-shadow: 8px 4px 62px 2px rgba(34, 51, 90, 0.12);
+    cursor: pointer;
   }
 `

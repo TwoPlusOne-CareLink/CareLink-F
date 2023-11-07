@@ -10,8 +10,9 @@ import HospitalMainPage from "./pages/HospitalMainPage"
 import HospitalSearchPage from "./pages/HospitalSearchPage"
 import CunsultingPage from "./pages/CunsultingPage"
 import CunsultingHistoryPage from "./pages/CunsultingHistoryPage"
-import TestPage from "./pages/TestPage"
 import HealthCheckPage from "./pages/HealthCheckPage"
+import UserInfoPage from "./pages/UserInfoPage"
+import DoctorCunsultingPage from "./pages/DoctorCunsultingPage"
 
 function App() {
   return (
@@ -22,7 +23,6 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/doctor" element={<DoctorMainPage />} />
           <Route path="/hospital" element={<HospitalMainPage />} />
           <Route path="/hospitalsearch" element={<HospitalSearchPage />} />
           <Route path="/cunsulting" element={<CunsultingPage />} />
@@ -30,8 +30,15 @@ function App() {
             path="/cunsultinghistory"
             element={<CunsultingHistoryPage />}
           />
-          <Route path="/test" element={<TestPage />} />
           <Route path="/healthCheck" element={<HealthCheckPage />} />
+          <Route path="/userinfoupdate" element={<UserInfoPage />} />
+        </Routes>
+        <Routes>
+          <Route path="/doctor" element={<DoctorMainPage />} />
+          <Route
+            path="/doctorcunsultingList"
+            element={<DoctorCunsultingPage />}
+          />
         </Routes>
       </BrowserRouter>
     </>
