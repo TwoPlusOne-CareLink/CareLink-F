@@ -9,8 +9,15 @@ function DoctorMain() {
     navigate("/signin")
   }
 
-  const DGoToCunsultingList = () => {
-    navigate("/doctorcunsultinglist")
+  const DLogout = () => {
+    navigate("/doctor")
+  }
+
+  const DGoToConsultingList = () => {
+    navigate("/doctorconsultinglist")
+  }
+  const GoToDConsultingHistory = () => {
+    navigate("/doctorconsultinghistory")
   }
 
   return (
@@ -24,11 +31,14 @@ function DoctorMain() {
           </DMainHeaderContent>
         </DMainHeader>
         <DMainBody>
-          <DCunsultingBtn onClick={DGoToCunsultingList}>
+          <DConsultingBtn onClick={DGoToConsultingList}>
             비대면 상담목록
-          </DCunsultingBtn>
-          <DCunsultingListBtn>비대면 상담내역</DCunsultingListBtn>
-          <DLogInBtn onClick={DGoToLogIn}>로그인</DLogInBtn>
+          </DConsultingBtn>
+          <DConsultingListBtn onClick={GoToDConsultingHistory}>
+            비대면 상담내역
+          </DConsultingListBtn>
+          {/* <DLogInBtn onClick={DGoToLogIn}>로그인</DLogInBtn> */}
+          <DLogoutBtn onClick={DLogout}>로그아웃</DLogoutBtn>
         </DMainBody>
       </DMainWrapper>
     </Wrap>
@@ -82,7 +92,7 @@ const DMainBody = styled.div`
   gap: 10px;
 `
 /*비대면 상담목록 버튼 */
-const DCunsultingBtn = styled.button`
+const DConsultingBtn = styled.button`
   border: transparent;
   border-radius: 16px;
   background-color: #223359;
@@ -95,7 +105,7 @@ const DCunsultingBtn = styled.button`
   }
 `
 /*비대면 상담내역 버튼 */
-const DCunsultingListBtn = styled.button`
+const DConsultingListBtn = styled.button`
   border: transparent;
   border-radius: 16px;
   background-color: #4dc9c2;
@@ -117,5 +127,19 @@ const DLogInBtn = styled.button`
 
   &:hover {
     box-shadow: 8px 4px 62px 2px rgba(34, 51, 89, 0.12);
+    cursor: pointer;
+  }
+`
+/*의사 로그아웃 */
+const DLogoutBtn = styled.button`
+  border: transparent;
+  border-radius: 16px;
+  background-color: white;
+  box-shadow: 8px 4px 62px 2px rgba(34, 51, 89, 0.08);
+  font-size: 40px;
+
+  &:hover {
+    box-shadow: 8px 4px 62px 2px rgba(34, 51, 89, 0.12);
+    cursor: pointer;
   }
 `

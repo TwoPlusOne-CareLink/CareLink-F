@@ -18,6 +18,78 @@ function HospitalDetailModal() {
         <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
         <ResultTel>02-4786-7835</ResultTel>
       </MapSearchResult>
+      <MapSearchResult onClick={hospitalResultToggle}>
+        <ResultNumber>1</ResultNumber>
+        <ResultName>하늘하늘병원</ResultName>
+        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
+        <ResultTel>02-4786-7835</ResultTel>
+      </MapSearchResult>
+      <MapSearchResult onClick={hospitalResultToggle}>
+        <ResultNumber>1</ResultNumber>
+        <ResultName>하늘하늘병원</ResultName>
+        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
+        <ResultTel>02-4786-7835</ResultTel>
+      </MapSearchResult>
+      <MapSearchResult onClick={hospitalResultToggle}>
+        <ResultNumber>1</ResultNumber>
+        <ResultName>하늘하늘병원</ResultName>
+        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
+        <ResultTel>02-4786-7835</ResultTel>
+      </MapSearchResult>
+      <MapSearchResult onClick={hospitalResultToggle}>
+        <ResultNumber>1</ResultNumber>
+        <ResultName>하늘하늘병원</ResultName>
+        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
+        <ResultTel>02-4786-7835</ResultTel>
+      </MapSearchResult>
+      <MapSearchResult onClick={hospitalResultToggle}>
+        <ResultNumber>1</ResultNumber>
+        <ResultName>하늘하늘병원</ResultName>
+        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
+        <ResultTel>02-4786-7835</ResultTel>
+      </MapSearchResult>
+      <MapSearchResult onClick={hospitalResultToggle}>
+        <ResultNumber>1</ResultNumber>
+        <ResultName>하늘하늘병원</ResultName>
+        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
+        <ResultTel>02-4786-7835</ResultTel>
+      </MapSearchResult>
+      <MapSearchResult onClick={hospitalResultToggle}>
+        <ResultNumber>1</ResultNumber>
+        <ResultName>하늘하늘병원</ResultName>
+        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
+        <ResultTel>02-4786-7835</ResultTel>
+      </MapSearchResult>
+      <MapSearchResult onClick={hospitalResultToggle}>
+        <ResultNumber>1</ResultNumber>
+        <ResultName>하늘하늘병원</ResultName>
+        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
+        <ResultTel>02-4786-7835</ResultTel>
+      </MapSearchResult>
+      <MapSearchResult onClick={hospitalResultToggle}>
+        <ResultNumber>1</ResultNumber>
+        <ResultName>하늘하늘병원</ResultName>
+        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
+        <ResultTel>02-4786-7835</ResultTel>
+      </MapSearchResult>
+      <MapSearchResult onClick={hospitalResultToggle}>
+        <ResultNumber>1</ResultNumber>
+        <ResultName>하늘하늘병원</ResultName>
+        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
+        <ResultTel>02-4786-7835</ResultTel>
+      </MapSearchResult>
+      <MapSearchResult onClick={hospitalResultToggle}>
+        <ResultNumber>1</ResultNumber>
+        <ResultName>하늘하늘병원</ResultName>
+        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
+        <ResultTel>02-4786-7835</ResultTel>
+      </MapSearchResult>
+      <MapSearchResult onClick={hospitalResultToggle}>
+        <ResultNumber>1</ResultNumber>
+        <ResultName>하늘하늘병원</ResultName>
+        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
+        <ResultTel>02-4786-7835</ResultTel>
+      </MapSearchResult>
       {hospitalModal && (
         <HospitalModalWrap>
           <HospitalModalOverlay>
@@ -109,16 +181,30 @@ function HospitalDetailModal() {
 export default HospitalDetailModal
 
 const MapSearchResults = styled.div`
-  width: 600px;
+  width: 620px;
   height: 530px;
   border: transparent;
   border-radius: 12px;
   box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.12);
   padding: 10px;
+
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: white;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #223359;
+    border-radius: 4px;
+  }
 `
 
 const MapSearchResult = styled.div`
-  margin: 10px auto;
+  margin: 7px auto;
   padding: 12px;
   border: transparent;
   border-radius: 12px;
@@ -130,8 +216,9 @@ const MapSearchResult = styled.div`
   font-size: 18px;
 
   &:hover {
-    background-color: #efefef;
+    background-color: #223359;
     font-weight: 600;
+    color: white;
     cursor: pointer;
   }
 `

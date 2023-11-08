@@ -4,7 +4,7 @@ import HistoryImg from "../../assets/images/DoctorImg.png"
 import Like from "../../assets/images/heart.png"
 import XBtn from "../../assets/images/XBtn.png"
 
-function CunsultingHistoryModal() {
+function ConsultingHistoryModal() {
   const [historyModal, setHistoryModal] = useState()
 
   const HistoryModalToggle = () => {
@@ -12,17 +12,16 @@ function CunsultingHistoryModal() {
   }
 
   return (
-    <CunsultingHistoryBody>
-      <CunsultingHistoryContent onClick={HistoryModalToggle}>
-        <CunsultingHistoryImg />
-        <CunsultingHistoryName>첫번째 상담</CunsultingHistoryName>
-      </CunsultingHistoryContent>
+    <ConsultingHistoryBody>
+      <ConsultingHistoryContent onClick={HistoryModalToggle}>
+        <ConsultingHistoryImg />
+        <ConsultingHistoryName>첫번째 상담</ConsultingHistoryName>
+      </ConsultingHistoryContent>
       {historyModal && (
         <HistoryModalWrap>
           <HistoryModalOverlay>
             <HistoryModalContent>
               <HistoryModalContentHeader>
-                <HistoryHeaderBeenText></HistoryHeaderBeenText>
                 <HistoryModalContentTitle>
                   상담 상세내역
                 </HistoryModalContentTitle>
@@ -70,26 +69,25 @@ function CunsultingHistoryModal() {
           </HistoryModalOverlay>
         </HistoryModalWrap>
       )}
-    </CunsultingHistoryBody>
+    </ConsultingHistoryBody>
   )
 }
 
-export default CunsultingHistoryModal
+export default ConsultingHistoryModal
 
-const CunsultingHistoryBody = styled.div`
+const ConsultingHistoryBody = styled.div`
   width: 1300px;
   height: 660px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(25%, auto));
   place-items: center;
 `
-const CunsultingHistoryContent = styled.div`
+const ConsultingHistoryContent = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 `
-const CunsultingHistoryImg = styled.div`
+const ConsultingHistoryImg = styled.div`
   width: 305px;
   height: 280px;
   border: transparent;
@@ -97,7 +95,7 @@ const CunsultingHistoryImg = styled.div`
   background-image: url(${HistoryImg});
   background-size: cover;
 `
-const CunsultingHistoryName = styled.span`
+const ConsultingHistoryName = styled.span`
   margin-top: 15px;
   font-weight: 600;
 `
@@ -128,13 +126,10 @@ const HistoryModalContent = styled.div`
   border-radius: 12px;
   background-color: white;
   top: 11%;
-  left: 17%;
+  left: 19%;
   transform: translate(10%, 0);
   position: absolute;
   user-select: none;
-`
-const HistoryHeaderBeenText = styled.div`
-  width: 30px;
 `
 
 const HistoryModalContentHeader = styled.div`

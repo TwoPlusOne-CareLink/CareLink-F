@@ -46,6 +46,7 @@ const HealthCheckFormHeader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
 `
 const HealthCheckFormTitle = styled.span`
   font-size: 25px;

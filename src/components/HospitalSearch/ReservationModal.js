@@ -153,12 +153,12 @@ const ReservationOverlay = styled.div`
 `
 const ReservationContent = styled.div`
   width: 1100px;
-  height: 740px;
+  height: 700px;
   border-radius: 12px;
   background-color: white;
   top: 0;
   left: 0;
-  transform: translate(-5%, -6%);
+  transform: translate(-5%, -4%);
 `
 
 const ReservationHeader = styled.div`
@@ -179,7 +179,7 @@ const ReservationTitle = styled.span`
 
 const ReservationBody = styled.div`
   width: 1100px;
-  height: 670px;
+  height: 630px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -187,7 +187,7 @@ const ReservationBody = styled.div`
 `
 const ReservationCalendar = styled.div`
   width: 700px;
-  height: 550px;
+  height: 600px;
   border-radius: 12px;
   margin: 0 10px;
   background-image: url(${CalendarImg});
@@ -221,7 +221,7 @@ const ReservationInput = styled.input`
   border: transparent;
   border-bottom: 1px solid black;
   font-size: 15px;
-  text-align: right;
+  text-align: center;
   outline: none;
 `
 const ReservationFormDate = styled.div`
@@ -301,7 +301,7 @@ const ReservationTel = styled.input`
   border: transparent;
   border-bottom: 1px solid black;
   font-size: 15px;
-  text-align: right;
+  text-align: center;
   outline: none;
 `
 const ReservationTexts = styled.div`

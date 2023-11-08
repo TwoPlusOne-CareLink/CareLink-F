@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 function MainNav() {
   const navigate = useNavigate()
 
-  const [cunsultingIsOpen, cunsultingRef, cunsultingHandler] =
+  const [ConsultingIsOpen, ConsultingRef, ConsultingHandler] =
     useDetectClose(false)
   const [myPageIsOpen, myPageRef, myPageHandler] = useDetectClose(false)
   const [healthIsOpen, healthRef, healthHandler] = useDetectClose(false)
@@ -23,12 +23,12 @@ function MainNav() {
     navigate("/hospitalsearch")
   }
 
-  const GoToCunsulting = () => {
-    navigate("/cunsulting")
+  const GoToConsulting = () => {
+    navigate("/consulting")
   }
 
-  const GoToCunsultingHistory = () => {
-    navigate("/cunsultinghistory")
+  const GoToConsultingHistory = () => {
+    navigate("/consultinghistory")
   }
 
   const GoToHealthCheck = () => {
@@ -53,16 +53,16 @@ function MainNav() {
               </NavMenuItemTitle>
             </NavMenuItem>
             <NavMenuItem>
-              <NavMenuItemTitle onClick={cunsultingHandler} ref={cunsultingRef}>
+              <NavMenuItemTitle onClick={ConsultingHandler} ref={ConsultingRef}>
                 비대면 상담
               </NavMenuItemTitle>
-              <NavMenuItemContents isDropped={cunsultingIsOpen}>
+              <NavMenuItemContents isDropped={ConsultingIsOpen}>
                 <Ul>
                   <Li>
-                    <Link onClick={GoToCunsulting}>비대면 상담</Link>
+                    <Link onClick={GoToConsulting}>비대면 상담</Link>
                   </Li>
                   <Li>
-                    <Link onClick={GoToCunsultingHistory}>나의 상담내역</Link>
+                    <Link onClick={GoToConsultingHistory}>나의 상담내역</Link>
                   </Li>
                 </Ul>
               </NavMenuItemContents>

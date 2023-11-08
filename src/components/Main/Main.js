@@ -17,8 +17,8 @@ function Main() {
     navigate("/hospitalsearch")
   }
 
-  const GoToCunsulting = () => {
-    navigate("/cunsulting")
+  const GoToConsulting = () => {
+    navigate("/consulting")
   }
 
   const GoToHealthCheck = () => {
@@ -36,7 +36,7 @@ function Main() {
           </MainHeaderContent>
         </MainHeader>
         <MainBody>
-          <ConsultingBtn onClick={GoToCunsulting}>
+          <ConsultingBtn onClick={GoToConsulting}>
             <ConsultingBtnTitle>비대면 상담</ConsultingBtnTitle>
             <ConsultingBtnContent>
               전문 의료인의 상담을 받아보세요.
@@ -59,6 +59,7 @@ function Main() {
           <SignBtns>
             <SignInBtn onClick={GoToSignIn}>로그인</SignInBtn>
             <SignUpBtn onClick={GoToSignUp}>회원가입</SignUpBtn>
+            {/* <LogoutBtn>로그아웃</LogoutBtn> */}
           </SignBtns>
         </MainBody>
       </MainWrapper>
@@ -202,7 +203,7 @@ const SignInBtn = styled.button`
   width: 100%;
   height: 105px;
   margin-bottom: 10px;
-  border: 1px solid transparent;
+  border: transparent;
   box-shadow: 8px 4px 62px 0px rgba(34, 51, 89, 0.08);
   border-radius: 16px;
   background-color: white;
@@ -214,15 +215,31 @@ const SignInBtn = styled.button`
     cursor: pointer;
   }
 `
-/*로그아웃 버튼 */
+/*회원가입 버튼 */
 const SignUpBtn = styled.button`
   width: 100%;
   height: 105px;
-  font-size: 40px;
-  border: 1px solid transparent;
+  border: transparent;
   box-shadow: 8px 4px 62px 0px rgba(34, 51, 89, 0.08);
   border-radius: 16px;
   background-color: white;
+  font-size: 40px;
+  user-select: none;
+
+  &:hover {
+    box-shadow: 8px 4px 62px 2px rgba(34, 51, 90, 0.12);
+    cursor: pointer;
+  }
+`
+/**로그아웃 버튼 */
+const LogoutBtn = styled.button`
+  width: 100%;
+  height: 210px;
+  font-size: 40px;
+  border: transparent;
+  border-radius: 16px;
+  background-color: white;
+  box-shadow: 8px 4px 62px 0px rgba(34, 51, 90, 0.08);
   user-select: none;
 
   &:hover {
