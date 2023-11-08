@@ -2,67 +2,67 @@ import React from "react"
 import styled from "styled-components"
 import SelectImg from "../../assets/images/DoctorProfileImg.jpg"
 
-function Cunsulting() {
+function Consulting() {
   return (
     <Wrap>
-      <CunsultingWrapper>
-        <CunsultingHeader>
-          <CunsultingHeaderTitle>비대면 상담 제출하기</CunsultingHeaderTitle>
-        </CunsultingHeader>
-        <CunsultingBody>
-          <CunsultingImgContent>
-            <CunsultingImg />
-            <CunsultingBtn>사진선택</CunsultingBtn>
-          </CunsultingImgContent>
-          <CunsultingFormContent>
-            <CunsultingTitles>
-              <CunsultingTitle>제목</CunsultingTitle>
-              <CunsultingTitleInput
+      <ConsultingWrapper>
+        <ConsultingHeader>
+          <ConsultingHeaderTitle>비대면 상담 제출하기</ConsultingHeaderTitle>
+        </ConsultingHeader>
+        <ConsultingBody>
+          <ConsultingImgContent>
+            <ConsultingImg />
+            <ConsultingBtn>사진선택</ConsultingBtn>
+          </ConsultingImgContent>
+          <ConsultingFormContent>
+            <ConsultingTitles>
+              <ConsultingTitle>제목</ConsultingTitle>
+              <ConsultingTitleInput
                 maxlength="20"
                 placeholder="상담 제목을 입력해주세요"
               />
-            </CunsultingTitles>
-            <CunsultingIds>
-              <CunsultingId>아이디</CunsultingId>
-              <CunsultingInput
+            </ConsultingTitles>
+            <ConsultingIds>
+              <ConsultingId>아이디</ConsultingId>
+              <ConsultingInput
                 id="userId"
                 maxlength="10"
                 placeholder="아이디를 입력해주세요"
               />
-            </CunsultingIds>
-            <CunsultingNames>
-              <CunsultingName>이름</CunsultingName>
-              <CunsultingNameInput
+            </ConsultingIds>
+            <ConsultingNames>
+              <ConsultingName>이름</ConsultingName>
+              <ConsultingNameInput
                 id="userName"
                 maxlength="4"
                 placeholder="이름을 입력해주세요"
               />
-            </CunsultingNames>
-            <CunsultingDiagnosis>
-              <CunsultingDiagnosisName>상담과목</CunsultingDiagnosisName>
-              <CunsultingDiagnosisSelect>
+            </ConsultingNames>
+            <ConsultingDiagnosis>
+              <ConsultingDiagnosisName>상담과목</ConsultingDiagnosisName>
+              <ConsultingDiagnosisSelect>
                 <SelectDiagnosis>소아과</SelectDiagnosis>
                 <SelectDiagnosis>내과</SelectDiagnosis>
                 <SelectDiagnosis>이비인후과</SelectDiagnosis>
                 <SelectDiagnosis>치과</SelectDiagnosis>
-              </CunsultingDiagnosisSelect>
-            </CunsultingDiagnosis>
-            <CunsultingTexts>
-              <CunsultingTextName>상담내용</CunsultingTextName>
-              <CunsultingText maxlength="200" placeholder="내용 입력" />
-            </CunsultingTexts>
-            <CunsultingFormBtns>
-              <CunsultingSubmitBtn>제출하기</CunsultingSubmitBtn>
-              <CunsultingCancelBtn>취소하기</CunsultingCancelBtn>
-            </CunsultingFormBtns>
-          </CunsultingFormContent>
-        </CunsultingBody>
-      </CunsultingWrapper>
+              </ConsultingDiagnosisSelect>
+            </ConsultingDiagnosis>
+            <ConsultingTexts>
+              <ConsultingTextName>상담내용</ConsultingTextName>
+              <ConsultingText maxlength="200" placeholder="내용 입력" />
+            </ConsultingTexts>
+            <ConsultingFormBtns>
+              <ConsultingSubmitBtn>제출하기</ConsultingSubmitBtn>
+              <ConsultingCancelBtn>취소하기</ConsultingCancelBtn>
+            </ConsultingFormBtns>
+          </ConsultingFormContent>
+        </ConsultingBody>
+      </ConsultingWrapper>
     </Wrap>
   )
 }
 
-export default Cunsulting
+export default Consulting
 
 const Wrap = styled.div`
   width: 85vw;
@@ -70,7 +70,7 @@ const Wrap = styled.div`
   display: flex;
 `
 
-const CunsultingWrapper = styled.div`
+const ConsultingWrapper = styled.div`
   width: 1100px;
   height: 700px;
   border: transparent;
@@ -79,18 +79,18 @@ const CunsultingWrapper = styled.div`
   margin: auto;
 `
 
-const CunsultingHeader = styled.div`
+const ConsultingHeader = styled.div`
   width: 1100px;
   height: 105px;
   display: flex;
   justify-content: center;
   align-items: center;
 `
-const CunsultingHeaderTitle = styled.span`
+const ConsultingHeaderTitle = styled.span`
   font-size: 30px;
   font-family: "GmarketSansMedium";
 `
-const CunsultingBody = styled.div`
+const ConsultingBody = styled.div`
   width: 1100px;
   height: 550px;
   display: flex;
@@ -98,7 +98,7 @@ const CunsultingBody = styled.div`
   justify-content: center;
   align-items: center;
 `
-const CunsultingImgContent = styled.div`
+const ConsultingImgContent = styled.div`
   width: 500px;
   height: 570px;
   display: flex;
@@ -106,7 +106,7 @@ const CunsultingImgContent = styled.div`
   justify-content: space-between;
   align-items: center;
 `
-const CunsultingImg = styled.div`
+const ConsultingImg = styled.div`
   width: 450px;
   height: 450px;
   border: transparent;
@@ -114,7 +114,7 @@ const CunsultingImg = styled.div`
   background-image: url(${SelectImg});
   background-size: cover;
 `
-const CunsultingBtn = styled.button`
+const ConsultingBtn = styled.button`
   width: 170px;
   height: 55px;
   border: transparent;
@@ -129,7 +129,7 @@ const CunsultingBtn = styled.button`
     cursor: pointer;
   }
 `
-const CunsultingFormContent = styled.div`
+const ConsultingFormContent = styled.div`
   width: 500px;
   height: 570px;
   display: flex;
@@ -137,7 +137,7 @@ const CunsultingFormContent = styled.div`
   justify-content: space-between;
   align-items: center;
 `
-const CunsultingTitles = styled.div`
+const ConsultingTitles = styled.div`
   width: 450px;
   height: 70px;
   /* border: 1px solid black; */
@@ -146,11 +146,11 @@ const CunsultingTitles = styled.div`
   justify-content: space-between;
   align-items: center;
 `
-const CunsultingTitle = styled.span`
+const ConsultingTitle = styled.span`
   font-size: 25px;
   font-family: "GmarketSansMedium";
 `
-const CunsultingTitleInput = styled.input`
+const ConsultingTitleInput = styled.input`
   width: 300px;
   height: 30px;
   padding: 5px;
@@ -160,14 +160,14 @@ const CunsultingTitleInput = styled.input`
   font-size: 15px;
   outline: none;
 `
-const CunsultingIdNames = styled.div`
+const ConsultingIdNames = styled.div`
   width: 450px;
   height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `
-const CunsultingIds = styled.div`
+const ConsultingIds = styled.div`
   width: 450px;
   height: 70px;
   display: flex;
@@ -175,11 +175,11 @@ const CunsultingIds = styled.div`
   justify-content: space-between;
   align-items: center;
 `
-const CunsultingId = styled.span`
+const ConsultingId = styled.span`
   font-size: 25px;
   font-family: "GmarketSansMedium";
 `
-const CunsultingInput = styled.input`
+const ConsultingInput = styled.input`
   width: 300px;
   height: 30px;
   padding: 5px;
@@ -189,7 +189,7 @@ const CunsultingInput = styled.input`
   text-align: right;
   outline: none;
 `
-const CunsultingNames = styled.div`
+const ConsultingNames = styled.div`
   width: 450px;
   height: 70px;
   display: flex;
@@ -197,11 +197,11 @@ const CunsultingNames = styled.div`
   justify-content: space-between;
   align-items: center;
 `
-const CunsultingName = styled.span`
+const ConsultingName = styled.span`
   font-size: 25px;
   font-family: "GmarketSansMedium";
 `
-const CunsultingNameInput = styled.input`
+const ConsultingNameInput = styled.input`
   width: 300px;
   height: 30px;
   padding: 5px;
@@ -211,7 +211,7 @@ const CunsultingNameInput = styled.input`
   text-align: right;
   outline: none;
 `
-const CunsultingDiagnosis = styled.div`
+const ConsultingDiagnosis = styled.div`
   width: 450px;
   height: 70px;
   display: flex;
@@ -219,11 +219,11 @@ const CunsultingDiagnosis = styled.div`
   justify-content: space-between;
   align-items: center;
 `
-const CunsultingDiagnosisName = styled.span`
+const ConsultingDiagnosisName = styled.span`
   font-size: 25px;
   font-family: "GmarketSansMedium";
 `
-const CunsultingDiagnosisSelect = styled.select`
+const ConsultingDiagnosisSelect = styled.select`
   width: 311px;
   height: 40px;
   border: 1px solid black;
@@ -233,7 +233,7 @@ const CunsultingDiagnosisSelect = styled.select`
   outline: none;
 `
 const SelectDiagnosis = styled.option``
-const CunsultingTexts = styled.div`
+const ConsultingTexts = styled.div`
   width: 450px;
   height: 270px;
   display: flex;
@@ -241,25 +241,25 @@ const CunsultingTexts = styled.div`
   justify-content: space-between;
   align-items: center;
 `
-const CunsultingTextName = styled.span`
+const ConsultingTextName = styled.span`
   font-size: 25px;
   font-family: "GmarketSansMedium";
 `
-const CunsultingText = styled.textarea`
+const ConsultingText = styled.textarea`
   width: 300px;
   height: 190px;
   padding: 5px;
   resize: none;
   outline: none;
 `
-const CunsultingFormBtns = styled.div`
+const ConsultingFormBtns = styled.div`
   width: 300px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `
-const CunsultingSubmitBtn = styled.button`
+const ConsultingSubmitBtn = styled.button`
   width: 130px;
   height: 55px;
   border: transparent;
@@ -273,7 +273,7 @@ const CunsultingSubmitBtn = styled.button`
     cursor: pointer;
   }
 `
-const CunsultingCancelBtn = styled.button`
+const ConsultingCancelBtn = styled.button`
   width: 130px;
   height: 55px;
   border: transparent;

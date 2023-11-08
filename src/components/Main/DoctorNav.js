@@ -14,6 +14,14 @@ function DoctorNav() {
     navigate("/doctor")
   }
 
+  const GoToDConsultingList = () => {
+    navigate("/doctorconsultinglist")
+  }
+
+  const GoToDConsultingHistory = () => {
+    navigate("/doctorconsultinghistory")
+  }
+
   return (
     <Wrap>
       <NavWrapper>
@@ -23,10 +31,14 @@ function DoctorNav() {
         <NavBody>
           <NavMenu>
             <NavMenuItem>
-              <NavMenuItemTitle>비대면 상담목록</NavMenuItemTitle>
+              <NavMenuItemTitle onClick={GoToDConsultingList}>
+                비대면 상담목록
+              </NavMenuItemTitle>
             </NavMenuItem>
             <NavMenuItem>
-              <NavMenuItemTitle>비대면 상담내역</NavMenuItemTitle>
+              <NavMenuItemTitle onClick={GoToDConsultingHistory}>
+                비대면 상담내역
+              </NavMenuItemTitle>
             </NavMenuItem>
           </NavMenu>
         </NavBody>

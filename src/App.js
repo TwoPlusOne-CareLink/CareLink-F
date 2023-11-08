@@ -8,11 +8,12 @@ import { createGlobalStyle } from "styled-components"
 import DoctorMainPage from "./pages/DoctorMainPage"
 import HospitalMainPage from "./pages/HospitalMainPage"
 import HospitalSearchPage from "./pages/HospitalSearchPage"
-import CunsultingPage from "./pages/CunsultingPage"
-import CunsultingHistoryPage from "./pages/CunsultingHistoryPage"
+import ConsultingPage from "./pages/ConsultingPage"
+import ConsultingHistoryPage from "./pages/ConsultingHistoryPage"
 import HealthCheckPage from "./pages/HealthCheckPage"
 import UserInfoPage from "./pages/UserInfoPage"
-import DoctorCunsultingPage from "./pages/DoctorCunsultingPage"
+import DoctorConsultingPage from "./pages/DoctorConsultingPage"
+import DoctorConsultingHistoryPage from "./pages/DoctorConsultingHistoryPage"
 
 function App() {
   return (
@@ -25,19 +26,23 @@ function App() {
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/hospital" element={<HospitalMainPage />} />
           <Route path="/hospitalsearch" element={<HospitalSearchPage />} />
-          <Route path="/cunsulting" element={<CunsultingPage />} />
+          <Route path="/consulting" element={<ConsultingPage />} />
           <Route
-            path="/cunsultinghistory"
-            element={<CunsultingHistoryPage />}
+            path="/consultinghistory"
+            element={<ConsultingHistoryPage />}
           />
-          <Route path="/healthCheck" element={<HealthCheckPage />} />
+          <Route path="/healthcheck" element={<HealthCheckPage />} />
           <Route path="/userinfoupdate" element={<UserInfoPage />} />
         </Routes>
         <Routes>
           <Route path="/doctor" element={<DoctorMainPage />} />
           <Route
-            path="/doctorcunsultingList"
-            element={<DoctorCunsultingPage />}
+            path="/doctorconsultinglist"
+            element={<DoctorConsultingPage />}
+          />
+          <Route
+            path="/doctorconsultinghistory"
+            element={<DoctorConsultingHistoryPage />}
           />
         </Routes>
       </BrowserRouter>
