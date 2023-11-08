@@ -9,8 +9,15 @@ function DoctorMain() {
     navigate("/signin")
   }
 
+  const DLogout = () => {
+    navigate("/doctor")
+  }
+
   const DGoToConsultingList = () => {
     navigate("/doctorconsultinglist")
+  }
+  const GoToDConsultingHistory = () => {
+    navigate("/doctorconsultinghistory")
   }
 
   return (
@@ -27,8 +34,11 @@ function DoctorMain() {
           <DConsultingBtn onClick={DGoToConsultingList}>
             비대면 상담목록
           </DConsultingBtn>
-          <DConsultingListBtn>비대면 상담내역</DConsultingListBtn>
-          <DLogInBtn onClick={DGoToLogIn}>로그인</DLogInBtn>
+          <DConsultingListBtn onClick={GoToDConsultingHistory}>
+            비대면 상담내역
+          </DConsultingListBtn>
+          {/* <DLogInBtn onClick={DGoToLogIn}>로그인</DLogInBtn> */}
+          <DLogoutBtn onClick={DLogout}>로그아웃</DLogoutBtn>
         </DMainBody>
       </DMainWrapper>
     </Wrap>
@@ -117,5 +127,19 @@ const DLogInBtn = styled.button`
 
   &:hover {
     box-shadow: 8px 4px 62px 2px rgba(34, 51, 89, 0.12);
+    cursor: pointer;
+  }
+`
+/*의사 로그아웃 */
+const DLogoutBtn = styled.button`
+  border: transparent;
+  border-radius: 16px;
+  background-color: white;
+  box-shadow: 8px 4px 62px 2px rgba(34, 51, 89, 0.08);
+  font-size: 40px;
+
+  &:hover {
+    box-shadow: 8px 4px 62px 2px rgba(34, 51, 89, 0.12);
+    cursor: pointer;
   }
 `

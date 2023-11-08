@@ -5,44 +5,44 @@ import { useNavigate } from "react-router-dom"
 function DoctorNav() {
   const navigate = useNavigate()
 
-  const GoToMain = () => {
-    navigate("/doctor")
+  const HGoToMain = () => {
+    navigate("/hospital")
   }
 
-  const GoToLogout = () => {
-    navigate("/doctor")
+  const HGoToLogout = () => {
+    navigate("/hospital")
   }
 
-  const GoToDConsultingList = () => {
-    navigate("/doctorconsultinglist")
+  const GoToHospitalDoctorList = () => {
+    navigate("/hospitaldoctorList")
   }
 
-  const GoToDConsultingHistory = () => {
-    navigate("/doctorconsultinghistory")
+  const GoToHospitalcheck = () => {
+    navigate("/hospitalcheck")
   }
 
   return (
     <Wrap>
       <NavWrapper>
         <NavBarHeader>
-          <NavBarTitle onClick={GoToMain}>CareLink</NavBarTitle>
+          <NavBarTitle onClick={HGoToMain}>CareLink</NavBarTitle>
         </NavBarHeader>
         <NavBody>
           <NavMenu>
             <NavMenuItem>
-              <NavMenuItemTitle onClick={GoToDConsultingList}>
-                비대면 상담목록
+              <NavMenuItemTitle onClick={GoToHospitalDoctorList}>
+                의사목록조회
               </NavMenuItemTitle>
             </NavMenuItem>
             <NavMenuItem>
-              <NavMenuItemTitle onClick={GoToDConsultingHistory}>
-                비대면 상담내역
+              <NavMenuItemTitle onClick={GoToHospitalcheck}>
+                예약내역조회
               </NavMenuItemTitle>
             </NavMenuItem>
           </NavMenu>
         </NavBody>
         <NavFooter>
-          <NavLogout onClick={GoToLogout}>로그아웃</NavLogout>
+          <NavLogout onClick={HGoToLogout}>로그아웃</NavLogout>
         </NavFooter>
       </NavWrapper>
     </Wrap>
@@ -108,7 +108,6 @@ const NavMenuItemTitle = styled.button`
     cursor: pointer;
   }
 `
-
 const NavFooter = styled.div`
   width: 250px;
   /* height: 93px; */

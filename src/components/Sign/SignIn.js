@@ -67,7 +67,6 @@ const SignInWrap = styled.div`
 const SignInTitle = styled.span`
   font-size: 80px;
   user-select: none;
-  cursor: pointer;
 `
 const SignInBody = styled.div`
   width: 450px;

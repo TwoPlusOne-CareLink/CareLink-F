@@ -10,7 +10,7 @@ function ReservationDatePicker() {
 
   return (
     <DateWrap>
-      <ReactDatePicker
+      {/* <ReactDatePicker
         dateFormat="yyyy-MM-dd"
         selected={startDate}
         onChange={(date) => setStartDate(date)}
@@ -21,7 +21,7 @@ function ReservationDatePicker() {
         placeholderText="시작일"
         local={ko}
       />
-      <Dash>-</Dash>
+      <Dash>-</Dash> */}
       <ReactDatePicker
         dateFormat="yyyy-MM-dd"
         selected={endDate}
@@ -30,7 +30,7 @@ function ReservationDatePicker() {
         startDate={new Date()}
         endDate={null}
         minDate={startDate}
-        placeholderText="종료일"
+        placeholderText="예약날짜"
         local={ko}
       />
     </DateWrap>
@@ -45,14 +45,15 @@ const DateWrap = styled.div`
   justify-content: space-between;
   align-items: center;
   input {
-    width: 122px;
+    width: 262px;
     height: 30px;
     border: 1px solid black;
     border-radius: 8px;
     margin: auto;
-    font-size: 17px;
+    font-size: 15px;
     text-align: center;
     outline: none;
+    user-select: none;
   }
 `
 const Dash = styled.span`

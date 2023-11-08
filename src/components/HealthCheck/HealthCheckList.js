@@ -45,45 +45,41 @@ function HealthCheckList() {
                     <PostModalBodyContents>
                       <PostModalBodyContent>
                         <PostModalContentName>이름</PostModalContentName>
-                        <PostModalContentInput placeholder="이름" readOnly />
+                        <PostModalContentResult>d</PostModalContentResult>
                       </PostModalBodyContent>
                       <PostModalBodyContent>
                         <PostModalContentName>성별</PostModalContentName>
-                        <PostModalContentInput placeholder="성별" readOnly />
+                        <PostModalContentResult>d</PostModalContentResult>
                       </PostModalBodyContent>
                       <PostModalBodyContent>
                         <PostModalContentName>나이</PostModalContentName>
-                        <PostModalContentInput placeholder="나이" readOnly />
+                        <PostModalContentResult>d</PostModalContentResult>
                       </PostModalBodyContent>
                       <PostModalBodyContent>
                         <PostModalContentName>신장</PostModalContentName>
-                        <PostModalContentInput placeholder="신장" readOnly />
+                        <PostModalContentResult>cm</PostModalContentResult>
                       </PostModalBodyContent>
                       <PostModalBodyContent>
                         <PostModalContentName>체중</PostModalContentName>
-                        <PostModalContentInput placeholder="체중" readOnly />
+                        <PostModalContentResult>kg</PostModalContentResult>
                       </PostModalBodyContent>
                       <PostModalBodyContent>
                         <PostModalContentName>심박수</PostModalContentName>
-                        <PostModalContentInput placeholder="심박수" readOnly />
+                        <PostModalContentResult>bpm</PostModalContentResult>
                       </PostModalBodyContent>
                       <PostModalBodyContent>
                         <PostModalContentName>혈당</PostModalContentName>
-                        <PostModalContentInput placeholder="혈당" readOnly />
+                        <PostModalContentResult>
+                          100mg/dL
+                        </PostModalContentResult>
                       </PostModalBodyContent>
                       <PostModalBodyContent>
                         <PostModalContentName>수축혈압</PostModalContentName>
-                        <PostModalContentInput
-                          placeholder="수축혈압"
-                          readOnly
-                        />
+                        <PostModalContentResult>mmHg</PostModalContentResult>
                       </PostModalBodyContent>
                       <PostModalBodyContent>
                         <PostModalContentName>이완혈압</PostModalContentName>
-                        <PostModalContentInput
-                          placeholder="이완혈압"
-                          readOnly
-                        />
+                        <PostModalContentResult>mmHg</PostModalContentResult>
                       </PostModalBodyContent>
                     </PostModalBodyContents>
                     <PostModalContentTexts>
@@ -175,8 +171,9 @@ const HealthCheckPost = styled.div`
   user-select: none;
 
   &:hover {
-    background-color: #dcdcdc;
-    box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    background-color: #223359;
+    color: white;
     font-weight: 600;
     cursor: pointer;
   }
@@ -290,7 +287,7 @@ const PostModalContentName = styled.span`
   margin-left: 3px;
   font-family: "GmarketSansMedium";
 `
-const PostModalContentInput = styled.input`
+const PostModalContentResult = styled.span`
   padding: 8px;
   text-align: center;
   outline: none;
