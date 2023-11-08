@@ -49,7 +49,7 @@ function HealthCheckBody() {
         </HealthCheckFormContent>
       </HealthCheckFormContents>
       <HealthCheckFormTexts>
-        <HealthCheckFormTextTitle>내용</HealthCheckFormTextTitle>
+        <HealthCheckFormTextTitle>작성내용</HealthCheckFormTextTitle>
         <HealthCheckFormText placeholder="상세 내역을 입력해주세요" />
       </HealthCheckFormTexts>
       <HealthCheckFormBtns>
@@ -110,6 +110,7 @@ const HealthCheckFormTextTitle = styled.span`
   margin: 30px 0 10px 5px;
   font-size: 15px;
   font-family: "GmarketSansMedium";
+  text-align: center;
   user-select: none;
 `
 const HealthCheckFormText = styled.textarea`
@@ -117,6 +118,7 @@ const HealthCheckFormText = styled.textarea`
   height: 380px;
   margin: auto;
   padding: 10px;
+  border-radius: 8px;
   outline: none;
   resize: none;
 `

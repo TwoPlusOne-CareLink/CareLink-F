@@ -9,8 +9,8 @@ function DoctorMain() {
     navigate("/signin")
   }
 
-  const DGoToCunsultingList = () => {
-    navigate("/doctorcunsultinglist")
+  const DGoToConsultingList = () => {
+    navigate("/doctorconsultinglist")
   }
 
   return (
@@ -24,10 +24,10 @@ function DoctorMain() {
           </DMainHeaderContent>
         </DMainHeader>
         <DMainBody>
-          <DCunsultingBtn onClick={DGoToCunsultingList}>
+          <DConsultingBtn onClick={DGoToConsultingList}>
             비대면 상담목록
-          </DCunsultingBtn>
-          <DCunsultingListBtn>비대면 상담내역</DCunsultingListBtn>
+          </DConsultingBtn>
+          <DConsultingListBtn>비대면 상담내역</DConsultingListBtn>
           <DLogInBtn onClick={DGoToLogIn}>로그인</DLogInBtn>
         </DMainBody>
       </DMainWrapper>
@@ -82,7 +82,7 @@ const DMainBody = styled.div`
   gap: 10px;
 `
 /*비대면 상담목록 버튼 */
-const DCunsultingBtn = styled.button`
+const DConsultingBtn = styled.button`
   border: transparent;
   border-radius: 16px;
   background-color: #223359;
@@ -95,7 +95,7 @@ const DCunsultingBtn = styled.button`
   }
 `
 /*비대면 상담내역 버튼 */
-const DCunsultingListBtn = styled.button`
+const DConsultingListBtn = styled.button`
   border: transparent;
   border-radius: 16px;
   background-color: #4dc9c2;

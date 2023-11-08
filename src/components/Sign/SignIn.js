@@ -15,14 +15,10 @@ function SignIn() {
     navigate("/signup")
   }
 
-  const GoToMainPage = () => {
-    navigate("/")
-  }
-
   return (
     <Wrap>
       <SignInWrap>
-        <SignInTitle onClick={GoToMainPage}>CareLink</SignInTitle>
+        <SignInTitle>CareLink</SignInTitle>
         <SignInBody>
           <SignInDiv>
             <SignInInputDiv>

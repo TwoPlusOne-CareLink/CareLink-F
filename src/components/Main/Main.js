@@ -17,8 +17,8 @@ function Main() {
     navigate("/hospitalsearch")
   }
 
-  const GoToCunsulting = () => {
-    navigate("/cunsulting")
+  const GoToConsulting = () => {
+    navigate("/consulting")
   }
 
   const GoToHealthCheck = () => {
@@ -36,7 +36,7 @@ function Main() {
           </MainHeaderContent>
         </MainHeader>
         <MainBody>
-          <ConsultingBtn onClick={GoToCunsulting}>
+          <ConsultingBtn onClick={GoToConsulting}>
             <ConsultingBtnTitle>비대면 상담</ConsultingBtnTitle>
             <ConsultingBtnContent>
               전문 의료인의 상담을 받아보세요.
