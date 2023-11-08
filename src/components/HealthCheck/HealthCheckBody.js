@@ -7,35 +7,64 @@ function HealthCheckBody() {
       <HealthCheckFormContents>
         <HealthCheckFormContent>
           <HealthCheckContentTitle>이름</HealthCheckContentTitle>
-          <HealthCheckContentInput maxLength="6" placeholder="이름 입력" />
+          <HealthCheckContentInput
+            type="text"
+            maxLength="6"
+            placeholder="이름 입력"
+          />
         </HealthCheckFormContent>
         <HealthCheckFormContent>
           <HealthCheckContentTitle>성별</HealthCheckContentTitle>
-          <HealthCheckContentInput maxLength="2" placeholder="성별 입력" />
+          <HealthCheckContentInput
+            type="text"
+            maxLength="2"
+            placeholder="성별 입력"
+          />
         </HealthCheckFormContent>
         <HealthCheckFormContent>
           <HealthCheckContentTitle>나이</HealthCheckContentTitle>
-          <HealthCheckContentInput maxLength="3" placeholder="나이 입력" />
+          <HealthCheckContentInput
+            type="number"
+            maxLength="3"
+            placeholder="나이 입력"
+          />
         </HealthCheckFormContent>
         <HealthCheckFormContent>
           <HealthCheckContentTitle>신장</HealthCheckContentTitle>
-          <HealthCheckContentInput maxlength="6" placeholder="키 입력" />
+          <HealthCheckContentInput
+            type="number"
+            maxlength="6"
+            placeholder="키 입력"
+          />
         </HealthCheckFormContent>
         <HealthCheckFormContent>
           <HealthCheckContentTitle>체중</HealthCheckContentTitle>
-          <HealthCheckContentInput maxlength="3" placeholder="몸무게 입력" />
+          <HealthCheckContentInput
+            type="number"
+            maxlength="3"
+            placeholder="몸무게 입력"
+          />
         </HealthCheckFormContent>
         <HealthCheckFormContent>
           <HealthCheckContentTitle>심박수</HealthCheckContentTitle>
-          <HealthCheckContentInput maxlength="3" placeholder="심박수 입력" />
+          <HealthCheckContentInput
+            type="number"
+            maxlength="3"
+            placeholder="심박수 입력"
+          />
         </HealthCheckFormContent>
         <HealthCheckFormContent>
           <HealthCheckContentTitle>혈당</HealthCheckContentTitle>
-          <HealthCheckContentInput maxlength="3" placeholder="혈당수치 입력" />
+          <HealthCheckContentInput
+            type="number"
+            maxlength="3"
+            placeholder="혈당수치 입력"
+          />
         </HealthCheckFormContent>
         <HealthCheckFormContent>
           <HealthCheckContentTitle>수축혈압</HealthCheckContentTitle>
           <HealthCheckContentInput
+            type="number"
             maxlength="3"
             placeholder="수축혈압수치 입력"
           />
@@ -43,6 +72,7 @@ function HealthCheckBody() {
         <HealthCheckFormContent>
           <HealthCheckContentTitle>이완혈압</HealthCheckContentTitle>
           <HealthCheckContentInput
+            type="number"
             maxlength="3"
             placeholder="이완혈압수치 입력"
           />
@@ -96,6 +126,16 @@ const HealthCheckContentInput = styled.input`
   border: transparent;
   border-bottom: 1px solid black;
   text-align: center;
+
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `
 
 const HealthCheckFormTexts = styled.div`
@@ -129,6 +169,7 @@ const HealthCheckFormBtns = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
 `
 const HealthCheckFormBtn = styled.button`
   width: 200px;

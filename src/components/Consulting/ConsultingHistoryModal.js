@@ -27,7 +27,7 @@ function ConsultingHistoryModal() {
                 </HistoryModalContentTitle>
                 <HistoryXBtn onClick={HistoryModalToggle} />
               </HistoryModalContentHeader>
-              {/* <HistoryModalContentBody>
+              <HistoryModalContentBody>
                 <HistoryContent1>
                   <HistoryContent1Detail>
                     <HistoryContent1Titles>
@@ -64,7 +64,7 @@ function ConsultingHistoryModal() {
                     옷차림에 유념해 주시면 좋을 것 같습니다.
                   </HistoryDoctorText>
                 </HistoryContent2>
-              </HistoryModalContentBody> */}
+              </HistoryModalContentBody>
             </HistoryModalContent>
           </HistoryModalOverlay>
         </HistoryModalWrap>

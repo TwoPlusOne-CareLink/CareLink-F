@@ -53,7 +53,6 @@ function Consulting() {
             </ConsultingTexts>
             <ConsultingFormBtns>
               <ConsultingSubmitBtn>제출하기</ConsultingSubmitBtn>
-              <ConsultingCancelBtn>취소하기</ConsultingCancelBtn>
             </ConsultingFormBtns>
           </ConsultingFormContent>
         </ConsultingBody>
@@ -85,6 +84,7 @@ const ConsultingHeader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
 `
 const ConsultingHeaderTitle = styled.span`
   font-size: 30px;
@@ -97,6 +97,7 @@ const ConsultingBody = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  user-select: none;
 `
 const ConsultingImgContent = styled.div`
   width: 500px;
@@ -156,17 +157,17 @@ const ConsultingTitleInput = styled.input`
   padding: 5px;
   border: 1px solid black;
   border-radius: 4px;
-  text-align: right;
+  text-align: center;
   font-size: 15px;
   outline: none;
 `
-const ConsultingIdNames = styled.div`
-  width: 450px;
-  height: 100px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`
+// const ConsultingIdNames = styled.div`
+//   width: 450px;
+//   height: 100px;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+// `
 const ConsultingIds = styled.div`
   width: 450px;
   height: 70px;
@@ -186,7 +187,7 @@ const ConsultingInput = styled.input`
   border: 1px solid black;
   border-radius: 4px;
   font-size: 15px;
-  text-align: right;
+  text-align: center;
   outline: none;
 `
 const ConsultingNames = styled.div`
@@ -208,7 +209,7 @@ const ConsultingNameInput = styled.input`
   border: 1px solid black;
   border-radius: 4px;
   font-size: 15px;
-  text-align: right;
+  text-align: center;
   outline: none;
 `
 const ConsultingDiagnosis = styled.div`
@@ -253,28 +254,14 @@ const ConsultingText = styled.textarea`
   outline: none;
 `
 const ConsultingFormBtns = styled.div`
-  width: 300px;
+  width: 350px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: right;
   align-items: center;
 `
 const ConsultingSubmitBtn = styled.button`
-  width: 130px;
-  height: 55px;
-  border: transparent;
-  border-radius: 8px;
-  background-color: #223359;
-  color: white;
-  font-size: 25px;
-
-  &:hover {
-    background-color: #192849;
-    cursor: pointer;
-  }
-`
-const ConsultingCancelBtn = styled.button`
-  width: 130px;
+  width: 300px;
   height: 55px;
   border: transparent;
   border-radius: 8px;

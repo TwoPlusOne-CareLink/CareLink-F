@@ -9,6 +9,18 @@ function HospitalMain() {
     navigate("/signin")
   }
 
+  const HLogout = () => {
+    navigate("/hospital")
+  }
+
+  const GoToHospitalDoctorList = () => {
+    navigate("/hospitalDoctorList")
+  }
+
+  const GoToHospitalcheck = () => {
+    navigate("/hospitalcheck")
+  }
+
   return (
     <Wrap>
       <HMainWrapper>
@@ -20,9 +32,14 @@ function HospitalMain() {
           </HMainHeaderContent>
         </HMainHeader>
         <HMainBody>
-          <HDoctorListBtn>의사목록조회</HDoctorListBtn>
-          <HReservationBtn>예약내역조회</HReservationBtn>
+          <HDoctorListBtn onClick={GoToHospitalDoctorList}>
+            의사목록조회
+          </HDoctorListBtn>
+          <HReservationBtn onClick={GoToHospitalcheck}>
+            예약내역조회
+          </HReservationBtn>
           <HLogInBtn onClick={HGoToLogIn}>로그인</HLogInBtn>
+          {/* <HLogoutBtn onClick={HLogout}>로그아웃</HLogoutBtn> */}
         </HMainBody>
       </HMainWrapper>
     </Wrap>
@@ -87,8 +104,10 @@ const HDoctorListBtn = styled.button`
   font-size: 40px;
   font-family: "GmarketSansMedium";
   color: white;
+  user-select: none;
   &:hover {
     box-shadow: 8px 4px 62px 2px rgba(34, 51, 89, 0.12);
+    cursor: pointer;
   }
 `
 /*병원 예약 목록 버튼 */
@@ -99,8 +118,10 @@ const HReservationBtn = styled.button`
   font-size: 40px;
   font-family: "GmarketSansMedium";
   color: white;
+  user-select: none;
   &:hover {
     box-shadow: 8px 4px 62px 0px rgba(34, 51, 89, 0.05);
+    cursor: pointer;
   }
 `
 /*로그인 버튼 */
@@ -110,8 +131,23 @@ const HLogInBtn = styled.button`
   background-color: white;
   box-shadow: 8px 4px 62px 2px rgba(34, 51, 89, 0.08);
   font-size: 40px;
+  user-select: none;
 
   &:hover {
     box-shadow: 8px 4px 62px 2px rgba(34, 51, 89, 0.12);
+    cursor: pointer;
+  }
+`
+const HLogoutBtn = styled.button`
+  border: transparent;
+  border-radius: 16px;
+  background-color: white;
+  box-shadow: 8px 4px 62px 2px rgba(34, 51, 89, 0.08);
+  font-size: 40px;
+  user-select: none;
+
+  &:hover {
+    box-shadow: 8px 4px 62px 2px rgba(34, 51, 89, 0.12);
+    cursor: pointer;
   }
 `
