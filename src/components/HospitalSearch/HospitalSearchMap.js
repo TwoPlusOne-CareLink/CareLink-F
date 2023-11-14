@@ -48,29 +48,6 @@ export default function HospitalSearchMap() {
     },
   ])
 
-  // const [positions, setPositions] = useState([
-  //   {
-  //     title: "카카오",
-  //     latlng: { lat: 33.450705, lng: 126.570677 },
-  //     text: "카카오입니다",
-  //   },
-  //   {
-  //     title: "생태연못",
-  //     latlng: { lat: 33.450936, lng: 126.569477 },
-  //     text: "생태연못 입니다",
-  //   },
-  //   {
-  //     title: "텃밭",
-  //     latlng: { lat: 33.450879, lng: 126.56994 },
-  //     text: "텃밭입니다",
-  //   },
-  //   {
-  //     title: "근린공원",
-  //     latlng: { lat: 33.451393, lng: 126.570738 },
-  //     text: "근린공원 입니다",
-  //   },
-  // ])
-
   return (
     <Map
       center={{

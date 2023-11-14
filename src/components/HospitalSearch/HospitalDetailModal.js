@@ -6,24 +6,18 @@ import ReservationModal from "./ReservationModal"
 import HospitalMainModal from "./HospitalMainModal"
 
 function HospitalDetailModal() {
-  const [hospitalModals, setHospitalModals] = useState()
+  const [hospitalModal, setHospitalModal] = useState(false)
+  const [selectedHospitalId, setSelectedHospitalId] = useState(false)
 
-  function hospitalModalsToggle(hospitalId) {
-    setHospitalModals(
-      hospitalModals === hospitalId ? !hospitalModals : hospitalId
-    )
+  const hospitalSelectedHospitalId = () => {
+    setSelectedHospitalId(!selectedHospitalId)
   }
 
-  // function hospitalResultToggle(hospitalId) {
-
-  //   setHospitalModals((prevModals) => {
-  //     if (prevModals.includes(hospitalId)) {
-  //       return prevModals.filter((modalId) => modalId !== hospitalId)
-  //     } else {
-  //       return [...prevModals, HospitalMainModal]
-  //     }
-  //   })
-  // }
+  function hospitalModalsToggle(hospitalId) {
+    setHospitalModal((prevModals) =>
+      prevModals === hospitalId ? !prevModals : hospitalId
+    )
+  }
 
   const [hospital, setHospital] = useState([
     {
@@ -64,105 +58,121 @@ function HospitalDetailModal() {
     },
   ])
 
+  const [doctor, setDoctor] = useState([
+    {
+      doctorId: 1,
+      doctorImg: { DoctorProfileImg },
+      imgName: "의사사진",
+      departmentId: 1,
+      departmentName: "내과",
+      doctorName: "이승진",
+    },
+    {
+      doctorId: 2,
+      doctorImg: { DoctorProfileImg },
+      imgName: "의사사진",
+      departmentId: 1,
+      departmentName: "안과",
+      doctorName: "정성민",
+    },
+    {
+      doctorId: 3,
+      doctorImg: { DoctorProfileImg },
+      imgName: "의사사진",
+      departmentId: 1,
+      departmentName: "소아과",
+      doctorName: "윤시호",
+    },
+  ])
+
   return (
     <MapSearchResults>
       {hospital.map((item) => (
-        <MapSearchResult key={item.hospitalId} onClick={hospitalModalsToggle}>
+        <MapSearchResult
+          key={item.hospitalId}
+          onClick={() => setSelectedHospitalId(item.hospitalId)}
+        >
           <ResultName>{item.name}</ResultName>
           <ResultAddress>{item.address}</ResultAddress>
           <ResultTel>{item.tel}</ResultTel>
         </MapSearchResult>
       ))}
-      {hospitalModals &&
-        hospital.map((item) => (
-          <HospitalModalWrap key={item.hospitalId}>
-            <HospitalModalOverlay>
-              <HospitalModalContent>
-                <HospitalContents>
-                  <HospitalContent>
-                    <HospitalTitles>
-                      <HospitalTitle>{item.name}</HospitalTitle>
-                      <HospitalLike>❤️100</HospitalLike>
-                    </HospitalTitles>
-                    <HospitalAddress>
-                      서울특별시 강동구 강동로 하늘하늘병원
-                    </HospitalAddress>
-                    <HospitalTels>
-                      <HospitalTelTitle>병원번호</HospitalTelTitle>
-                      <HospitalTel>02-4568-7865</HospitalTel>
-                    </HospitalTels>
-                    <HospitalDayTime>
-                      <DayTimeTitle>진료일 및 진료시간</DayTimeTitle>
-                      <DayTimeContent>
-                        <DayContent>
-                          <DayTitle>매 주 월 ~ 금</DayTitle>
-                          <TimeTitle>09:00 ~ 19:00</TimeTitle>
-                        </DayContent>
-                        <DayContent>
-                          <DayTitle>점심시간</DayTitle>
-                          <TimeTitle>18:00 ~ 23:00</TimeTitle>
-                        </DayContent>
-                        <DayContent>
-                          <DayTitle>매 주 토요일</DayTitle>
-                          <TimeTitle>18:00 ~ 23:00</TimeTitle>
-                        </DayContent>
-                        <DayContent>
-                          <DayTitle>공휴일 및 일요일</DayTitle>
-                          <TimeTitle>휴무</TimeTitle>
-                        </DayContent>
-                      </DayTimeContent>
-                    </HospitalDayTime>
-                    <HospitalDiagonias>
-                      <DiagoniasTitle>진료과목</DiagoniasTitle>
-                      <DiagoniasItems>
-                        <DiagoniasItem>소아과</DiagoniasItem>
-                        <DiagoniasItem>내과</DiagoniasItem>
-                        <DiagoniasItem>안과</DiagoniasItem>
-                      </DiagoniasItems>
-                    </HospitalDiagonias>
-                    <HospitalDoctors>
-                      <DoctorsTitle>의사정보</DoctorsTitle>
-                      <DoctorInfos>
-                        <DoctorInfo>
-                          <DoctorImg />
-                          <DoctorName>이코사 의사</DoctorName>
-                          <DoctorItem>내과</DoctorItem>
-                        </DoctorInfo>
-                        <DoctorInfo>
-                          <DoctorImg />
-                          <DoctorName>이코사 의사</DoctorName>
-                          <DoctorItem>내과</DoctorItem>
-                        </DoctorInfo>
-                        <DoctorInfo>
-                          <DoctorImg />
-                          <DoctorName>이코사 의사</DoctorName>
-                          <DoctorItem>내과</DoctorItem>
-                        </DoctorInfo>
-                        <DoctorInfo>
-                          <DoctorImg />
-                          <DoctorName>이코사 의사</DoctorName>
-                          <DoctorItem>내과</DoctorItem>
-                        </DoctorInfo>
-                        <DoctorInfo>
-                          <DoctorImg />
-                          <DoctorName>이코사 의사</DoctorName>
-                          <DoctorItem>내과</DoctorItem>
-                        </DoctorInfo>
-                      </DoctorInfos>
-                    </HospitalDoctors>
-                  </HospitalContent>
-                  <HospitalContent2>
-                    <HospitalMap />
-                    <ReservationModal
-                      hostpitalModals={hospitalModals}
-                      hospitalModalsToggle={hospitalModalsToggle}
-                    />
-                  </HospitalContent2>
-                </HospitalContents>
-              </HospitalModalContent>
-            </HospitalModalOverlay>
-          </HospitalModalWrap>
-        ))}
+      {selectedHospitalId && (
+        <HospitalModalWrap>
+          <HospitalModalOverlay>
+            <HospitalModalContent>
+              <HospitalContents>
+                {hospital.map((item) => {
+                  if (item.hospitalId === selectedHospitalId) {
+                    return (
+                      <HospitalContent key={item.hospitalId}>
+                        <HospitalTitles>
+                          <HospitalTitle>{item.name}</HospitalTitle>
+                          <HospitalLike>❤️100</HospitalLike>
+                        </HospitalTitles>
+                        <HospitalAddress>{item.address}</HospitalAddress>
+                        <HospitalTels>
+                          <HospitalTelTitle>병원번호</HospitalTelTitle>
+                          <HospitalTel>{item.tel}</HospitalTel>
+                        </HospitalTels>
+                        <HospitalDayTime>
+                          <DayTimeTitle>진료일 및 진료시간</DayTimeTitle>
+                          <DayTimeContent>
+                            <DayContent>
+                              <DayTitle>매 주 월 ~ 금</DayTitle>
+                              <TimeTitle>{item.weekdayOpeningTime}</TimeTitle>
+                            </DayContent>
+                            <DayContent>
+                              <DayTitle>점심시간</DayTitle>
+                              <TimeTitle>{item.lunchHour}</TimeTitle>
+                            </DayContent>
+                            <DayContent>
+                              <DayTitle>매 주 토요일</DayTitle>
+                              <TimeTitle>{item.weekendOpeningTime}</TimeTitle>
+                            </DayContent>
+                            <DayContent>
+                              <DayTitle>공휴일 및 일요일</DayTitle>
+                              <TimeTitle>{item.holidayCheck}</TimeTitle>
+                            </DayContent>
+                          </DayTimeContent>
+                        </HospitalDayTime>
+                        <HospitalDiagonias>
+                          <DiagoniasTitle>진료과목</DiagoniasTitle>
+                          <DiagoniasItems>
+                            <DiagoniasItem>소아과</DiagoniasItem>
+                            <DiagoniasItem>내과</DiagoniasItem>
+                            <DiagoniasItem>안과</DiagoniasItem>
+                          </DiagoniasItems>
+                        </HospitalDiagonias>
+                        <HospitalDoctors>
+                          <DoctorsTitle>의사정보</DoctorsTitle>
+                          <DoctorInfos>
+                            {doctor.map((item) => (
+                              <DoctorInfo key={item.doctorId}>
+                                <DoctorImg />
+                                <DoctorName>{item.doctorName}의사</DoctorName>
+                                <DoctorItem>{item.departmentName}</DoctorItem>
+                              </DoctorInfo>
+                            ))}
+                          </DoctorInfos>
+                        </HospitalDoctors>
+                      </HospitalContent>
+                    )
+                  }
+                  return null
+                })}
+
+                <HospitalContent2>
+                  <HospitalMap />
+                  <ReservationModal
+                    hospitalSelectedHospitalId={hospitalSelectedHospitalId}
+                  />
+                </HospitalContent2>
+              </HospitalContents>
+            </HospitalModalContent>
+          </HospitalModalOverlay>
+        </HospitalModalWrap>
+      )}
     </MapSearchResults>
   )
 }
