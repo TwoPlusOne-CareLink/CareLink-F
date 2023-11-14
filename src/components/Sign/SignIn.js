@@ -1,18 +1,47 @@
-import React from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
 import User from "../../assets/images/User.png"
 import Lock from "../../assets/images/Lock.png"
 import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { __SignIn } from "../../redux/slice/AuthSlice"
 
 function SignIn() {
-  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [memberData, setMemberData] = useState({
+    id: "",
+    password: "",
+  })
 
-  const GotoLogIn = () => {
-    alert("로그인할게요")
-  }
+  const navigate = useNavigate()
 
   const GoToSignUp = () => {
     navigate("/signup")
+  }
+
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target
+    setMemberData({
+      ...memberData,
+      [name]: value,
+    })
+
+    console.log(memberData.id, memberData.password)
+  }
+
+  const onLogin = (e) => {
+    dispatch(
+      __SignIn({
+        id: memberData.id,
+        password: memberData.password,
+      })
+    )
+    if (localStorage.accessToken === null) {
+      // navigate("/")
+      console.log("토큰이없어")
+    } else {
+      console.log("토큰이 있어")
+    }
   }
 
   return (
@@ -23,7 +52,13 @@ function SignIn() {
           <SignInDiv>
             <SignInInputDiv>
               <SignInUserImg />
-              <SignInId type="text" id="id" name="id" placeholder="아이디" />
+              <SignInId
+                type="text"
+                id="id"
+                name="id"
+                placeholder="아이디"
+                onChange={onChangeHandler}
+              />
             </SignInInputDiv>
             <SignInInputDiv>
               <SignInPasswordImg />
@@ -32,11 +67,12 @@ function SignIn() {
                 id="password"
                 name="password"
                 placeholder="비밀번호"
+                onChange={onChangeHandler}
               />
             </SignInInputDiv>
           </SignInDiv>
           <SignBtns>
-            <SignInBtn onClick={GotoLogIn}>로그인</SignInBtn>
+            <SignInBtn onClick={onLogin}>로그인</SignInBtn>
             <SignUpBtn onClick={GoToSignUp}>회원가입</SignUpBtn>
           </SignBtns>
         </SignInBody>

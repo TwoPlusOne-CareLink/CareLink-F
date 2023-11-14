@@ -34,7 +34,7 @@ function Consulting() {
               <ConsultingName>이름</ConsultingName>
               <ConsultingNameInput
                 id="userName"
-                maxlength="4"
+                maxlength={"4"}
                 placeholder="이름을 입력해주세요"
               />
             </ConsultingNames>

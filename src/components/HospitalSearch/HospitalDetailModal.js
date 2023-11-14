@@ -3,173 +3,172 @@ import styled from "styled-components"
 import KaKaoMap from "../../assets/images/KaKaoMap.png"
 import DoctorProfileImg from "../../assets/images/DoctorProfileImg.jpg"
 import ReservationModal from "./ReservationModal"
+import HospitalMainModal from "./HospitalMainModal"
 
 function HospitalDetailModal() {
-  const [hospitalModal, setHospitalModal] = useState()
+  const [hospitalModal, setHospitalModal] = useState(false)
+  const [selectedHospitalId, setSelectedHospitalId] = useState(false)
 
-  const hospitalResultToggle = () => {
-    setHospitalModal(!hospitalModal)
+  const hospitalSelectedHospitalId = () => {
+    setSelectedHospitalId(!selectedHospitalId)
   }
+
+  function hospitalModalsToggle(hospitalId) {
+    setHospitalModal((prevModals) =>
+      prevModals === hospitalId ? !prevModals : hospitalId
+    )
+  }
+
+  const [hospital, setHospital] = useState([
+    {
+      hospitalId: 1,
+      name: "하늘하늘병원",
+      address: "서울특별시 강동구 강동로 하늘하늘병원 111",
+      weekdayOpeningTime: "09:00 ~ 19:00",
+      weekendOpeningTime: "09:00 ~ 14:00",
+      lunchHour: "13:00 ~ 14:00",
+      holidayCheck: "휴무",
+      lat: "33.450705",
+      lng: "126.570677",
+      tel: "02-4786-7835",
+    },
+    {
+      hospitalId: 2,
+      name: "나풀나풀나풀나풀병원",
+      address: "서울특별시 강동구 강동로 나풀나풀나풀나풀병원",
+      weekdayOpeningTime: "09:00 ~ 19:00",
+      weekendOpeningTime: "09:00 ~ 14:00",
+      lunchHour: "13:00 ~ 14:00",
+      holidayCheck: "휴무",
+      lat: "33.450936",
+      lng: "126.569477",
+      tel: "02-489-7898",
+    },
+    {
+      hospitalId: 3,
+      name: "하늘병원",
+      address: "서울특별시 강동구 강동로 하늘병원 111",
+      weekdayOpeningTime: "09:00 ~ 19:00",
+      weekendOpeningTime: "09:00 ~ 14:00",
+      lunchHour: "13:00 ~ 14:00",
+      holidayCheck: "휴무",
+      lat: "33.450879",
+      lng: "126.56994",
+      tel: "02-1234-7111",
+    },
+  ])
+
+  const [doctor, setDoctor] = useState([
+    {
+      doctorId: 1,
+      doctorImg: { DoctorProfileImg },
+      imgName: "의사사진",
+      departmentId: 1,
+      departmentName: "내과",
+      doctorName: "이승진",
+    },
+    {
+      doctorId: 2,
+      doctorImg: { DoctorProfileImg },
+      imgName: "의사사진",
+      departmentId: 1,
+      departmentName: "안과",
+      doctorName: "정성민",
+    },
+    {
+      doctorId: 3,
+      doctorImg: { DoctorProfileImg },
+      imgName: "의사사진",
+      departmentId: 1,
+      departmentName: "소아과",
+      doctorName: "윤시호",
+    },
+  ])
+
   return (
     <MapSearchResults>
-      <MapSearchResult onClick={hospitalResultToggle}>
-        <ResultNumber>1</ResultNumber>
-        <ResultName>하늘하늘병원</ResultName>
-        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
-        <ResultTel>02-4786-7835</ResultTel>
-      </MapSearchResult>
-      <MapSearchResult onClick={hospitalResultToggle}>
-        <ResultNumber>1</ResultNumber>
-        <ResultName>하늘하늘병원</ResultName>
-        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
-        <ResultTel>02-4786-7835</ResultTel>
-      </MapSearchResult>
-      <MapSearchResult onClick={hospitalResultToggle}>
-        <ResultNumber>1</ResultNumber>
-        <ResultName>하늘하늘병원</ResultName>
-        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
-        <ResultTel>02-4786-7835</ResultTel>
-      </MapSearchResult>
-      <MapSearchResult onClick={hospitalResultToggle}>
-        <ResultNumber>1</ResultNumber>
-        <ResultName>하늘하늘병원</ResultName>
-        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
-        <ResultTel>02-4786-7835</ResultTel>
-      </MapSearchResult>
-      <MapSearchResult onClick={hospitalResultToggle}>
-        <ResultNumber>1</ResultNumber>
-        <ResultName>하늘하늘병원</ResultName>
-        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
-        <ResultTel>02-4786-7835</ResultTel>
-      </MapSearchResult>
-      <MapSearchResult onClick={hospitalResultToggle}>
-        <ResultNumber>1</ResultNumber>
-        <ResultName>하늘하늘병원</ResultName>
-        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
-        <ResultTel>02-4786-7835</ResultTel>
-      </MapSearchResult>
-      <MapSearchResult onClick={hospitalResultToggle}>
-        <ResultNumber>1</ResultNumber>
-        <ResultName>하늘하늘병원</ResultName>
-        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
-        <ResultTel>02-4786-7835</ResultTel>
-      </MapSearchResult>
-      <MapSearchResult onClick={hospitalResultToggle}>
-        <ResultNumber>1</ResultNumber>
-        <ResultName>하늘하늘병원</ResultName>
-        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
-        <ResultTel>02-4786-7835</ResultTel>
-      </MapSearchResult>
-      <MapSearchResult onClick={hospitalResultToggle}>
-        <ResultNumber>1</ResultNumber>
-        <ResultName>하늘하늘병원</ResultName>
-        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
-        <ResultTel>02-4786-7835</ResultTel>
-      </MapSearchResult>
-      <MapSearchResult onClick={hospitalResultToggle}>
-        <ResultNumber>1</ResultNumber>
-        <ResultName>하늘하늘병원</ResultName>
-        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
-        <ResultTel>02-4786-7835</ResultTel>
-      </MapSearchResult>
-      <MapSearchResult onClick={hospitalResultToggle}>
-        <ResultNumber>1</ResultNumber>
-        <ResultName>하늘하늘병원</ResultName>
-        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
-        <ResultTel>02-4786-7835</ResultTel>
-      </MapSearchResult>
-      <MapSearchResult onClick={hospitalResultToggle}>
-        <ResultNumber>1</ResultNumber>
-        <ResultName>하늘하늘병원</ResultName>
-        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
-        <ResultTel>02-4786-7835</ResultTel>
-      </MapSearchResult>
-      <MapSearchResult onClick={hospitalResultToggle}>
-        <ResultNumber>1</ResultNumber>
-        <ResultName>하늘하늘병원</ResultName>
-        <ResultAddress>서울특별시 강동구 강동로 하늘하늘병원</ResultAddress>
-        <ResultTel>02-4786-7835</ResultTel>
-      </MapSearchResult>
-      {hospitalModal && (
+      {hospital.map((item) => (
+        <MapSearchResult
+          key={item.hospitalId}
+          onClick={() => setSelectedHospitalId(item.hospitalId)}
+        >
+          <ResultName>{item.name}</ResultName>
+          <ResultAddress>{item.address}</ResultAddress>
+          <ResultTel>{item.tel}</ResultTel>
+        </MapSearchResult>
+      ))}
+      {selectedHospitalId && (
         <HospitalModalWrap>
           <HospitalModalOverlay>
             <HospitalModalContent>
-              <HospitalContent>
-                <HospitalTitles>
-                  <HospitalTitle>하늘하늘병원</HospitalTitle>
-                  <HospitalLike>❤️100</HospitalLike>
-                </HospitalTitles>
-                <HospitalAddress>
-                  서울특별시 강동구 강동로 하늘하늘병원
-                </HospitalAddress>
-                <HospitalTels>
-                  <HospitalTelTitle>병원번호</HospitalTelTitle>
-                  <HospitalTel>02-4568-7865</HospitalTel>
-                </HospitalTels>
-                <HospitalDayTime>
-                  <DayTimeTitle>진료일 및 진료시간</DayTimeTitle>
-                  <DayTimeContent>
-                    <DayContent>
-                      <DayTitle>매 주 월 ~ 금</DayTitle>
-                      <TimeTitle>09:00 ~ 19:00</TimeTitle>
-                    </DayContent>
-                    <DayContent>
-                      <DayTitle>점심시간</DayTitle>
-                      <TimeTitle>18:00 ~ 23:00</TimeTitle>
-                    </DayContent>
-                    <DayContent>
-                      <DayTitle>매 주 토요일</DayTitle>
-                      <TimeTitle>18:00 ~ 23:00</TimeTitle>
-                    </DayContent>
-                    <DayContent>
-                      <DayTitle>공휴일 및 일요일</DayTitle>
-                      <TimeTitle>휴무</TimeTitle>
-                    </DayContent>
-                  </DayTimeContent>
-                </HospitalDayTime>
-                <HospitalDiagonias>
-                  <DiagoniasTitle>진료과목</DiagoniasTitle>
-                  <DiagoniasItems>
-                    <DiagoniasItem>소아과</DiagoniasItem>
-                    <DiagoniasItem>내과</DiagoniasItem>
-                    <DiagoniasItem>안과</DiagoniasItem>
-                  </DiagoniasItems>
-                </HospitalDiagonias>
-                <HospitalDoctors>
-                  <DoctorsTitle>의사정보</DoctorsTitle>
-                  <DoctorInfos>
-                    <DoctorInfo>
-                      <DoctorImg />
-                      <DoctorName>이코사 의사</DoctorName>
-                      <DoctorItem>내과</DoctorItem>
-                    </DoctorInfo>
-                    <DoctorInfo>
-                      <DoctorImg />
-                      <DoctorName>이코사 의사</DoctorName>
-                      <DoctorItem>내과</DoctorItem>
-                    </DoctorInfo>
-                    <DoctorInfo>
-                      <DoctorImg />
-                      <DoctorName>이코사 의사</DoctorName>
-                      <DoctorItem>내과</DoctorItem>
-                    </DoctorInfo>
-                    <DoctorInfo>
-                      <DoctorImg />
-                      <DoctorName>이코사 의사</DoctorName>
-                      <DoctorItem>내과</DoctorItem>
-                    </DoctorInfo>
-                    <DoctorInfo>
-                      <DoctorImg />
-                      <DoctorName>이코사 의사</DoctorName>
-                      <DoctorItem>내과</DoctorItem>
-                    </DoctorInfo>
-                  </DoctorInfos>
-                </HospitalDoctors>
-              </HospitalContent>
-              <HospitalContent2>
-                <HospitalMap />
-                <ReservationModal hospitalResultToggle={hospitalResultToggle} />
-              </HospitalContent2>
+              <HospitalContents>
+                {hospital.map((item) => {
+                  if (item.hospitalId === selectedHospitalId) {
+                    return (
+                      <HospitalContent key={item.hospitalId}>
+                        <HospitalTitles>
+                          <HospitalTitle>{item.name}</HospitalTitle>
+                          <HospitalLike>❤️100</HospitalLike>
+                        </HospitalTitles>
+                        <HospitalAddress>{item.address}</HospitalAddress>
+                        <HospitalTels>
+                          <HospitalTelTitle>병원번호</HospitalTelTitle>
+                          <HospitalTel>{item.tel}</HospitalTel>
+                        </HospitalTels>
+                        <HospitalDayTime>
+                          <DayTimeTitle>진료일 및 진료시간</DayTimeTitle>
+                          <DayTimeContent>
+                            <DayContent>
+                              <DayTitle>매 주 월 ~ 금</DayTitle>
+                              <TimeTitle>{item.weekdayOpeningTime}</TimeTitle>
+                            </DayContent>
+                            <DayContent>
+                              <DayTitle>점심시간</DayTitle>
+                              <TimeTitle>{item.lunchHour}</TimeTitle>
+                            </DayContent>
+                            <DayContent>
+                              <DayTitle>매 주 토요일</DayTitle>
+                              <TimeTitle>{item.weekendOpeningTime}</TimeTitle>
+                            </DayContent>
+                            <DayContent>
+                              <DayTitle>공휴일 및 일요일</DayTitle>
+                              <TimeTitle>{item.holidayCheck}</TimeTitle>
+                            </DayContent>
+                          </DayTimeContent>
+                        </HospitalDayTime>
+                        <HospitalDiagonias>
+                          <DiagoniasTitle>진료과목</DiagoniasTitle>
+                          <DiagoniasItems>
+                            <DiagoniasItem>소아과</DiagoniasItem>
+                            <DiagoniasItem>내과</DiagoniasItem>
+                            <DiagoniasItem>안과</DiagoniasItem>
+                          </DiagoniasItems>
+                        </HospitalDiagonias>
+                        <HospitalDoctors>
+                          <DoctorsTitle>의사정보</DoctorsTitle>
+                          <DoctorInfos>
+                            {doctor.map((item) => (
+                              <DoctorInfo key={item.doctorId}>
+                                <DoctorImg />
+                                <DoctorName>{item.doctorName}의사</DoctorName>
+                                <DoctorItem>{item.departmentName}</DoctorItem>
+                              </DoctorInfo>
+                            ))}
+                          </DoctorInfos>
+                        </HospitalDoctors>
+                      </HospitalContent>
+                    )
+                  }
+                  return null
+                })}
+
+                <HospitalContent2>
+                  <HospitalMap />
+                  <ReservationModal
+                    hospitalSelectedHospitalId={hospitalSelectedHospitalId}
+                  />
+                </HospitalContent2>
+              </HospitalContents>
             </HospitalModalContent>
           </HospitalModalOverlay>
         </HospitalModalWrap>
@@ -181,12 +180,13 @@ function HospitalDetailModal() {
 export default HospitalDetailModal
 
 const MapSearchResults = styled.div`
-  width: 620px;
+  width: 720px;
   height: 530px;
+  margin-right: 10px;
+  padding: 10px;
   border: transparent;
   border-radius: 12px;
   box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.12);
-  padding: 10px;
 
   overflow-y: auto;
   &::-webkit-scrollbar {
@@ -223,10 +223,24 @@ const MapSearchResult = styled.div`
   }
 `
 const ResultNumber = styled.div``
-const ResultName = styled.div``
+const ResultName = styled.div`
+  width: 176px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`
 
-const ResultAddress = styled.div``
-const ResultTel = styled.div``
+const ResultAddress = styled.div`
+  width: 320px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`
+const ResultTel = styled.div`
+  width: 140px;
+`
 
 const HospitalModalWrap = styled.div`
   width: 100vw;
@@ -262,7 +276,10 @@ const HospitalModalContent = styled.div`
   transform: translate(0, 0);
   position: absolute;
 `
-
+const HospitalContents = styled.div`
+  display: flex;
+  flex-direction: row;
+`
 const HospitalContent = styled.div`
   width: 480px;
   height: 550px;

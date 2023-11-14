@@ -4,7 +4,7 @@ import CalendarImg from "../../assets/images/CalenderExample.png"
 import "react-datepicker/dist/react-datepicker.module.css"
 import DatePicker from "./ReservationDatePicker"
 
-function ReservationModal({ hospitalResultToggle }) {
+function ReservationModal({ hospitalSelectedHospitalId }) {
   const [reservationModal, setReservationModal] = useState()
 
   const reservationToggle = () => {
@@ -14,7 +14,7 @@ function ReservationModal({ hospitalResultToggle }) {
   const reservationComplete = () => {
     alert("예약이 완료되었습니다.")
     setReservationModal(!reservationModal)
-    hospitalResultToggle()
+    hospitalSelectedHospitalId()
   }
 
   return (
@@ -87,7 +87,7 @@ function ReservationModal({ hospitalResultToggle }) {
           </ReservationOverlay>
         </ReservationWrap>
       )}
-      <BackBtn onClick={hospitalResultToggle}>뒤로가기</BackBtn>
+      <BackBtn onClick={hospitalSelectedHospitalId}>뒤로가기</BackBtn>
     </HospitalBtns>
   )
 }
