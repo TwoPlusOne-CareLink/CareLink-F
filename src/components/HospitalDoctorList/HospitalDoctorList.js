@@ -1,6 +1,6 @@
 import React from "react"
 import { styled } from "styled-components"
-import DoctorProfileImg from "../../assets/images/DoctorImg.png"
+import DoctorProfileImg from "../../assets/images/doctor2.jpg"
 
 function HospitalDoctorList() {
   return (

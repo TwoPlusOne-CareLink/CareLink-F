@@ -4,12 +4,15 @@ import styled from "styled-components"
 import ReadingGlasses from "../../assets/images/ReadingGlasses.png"
 import KaKaoMap from "../../assets/images/KaKaoMap.png"
 import HospitalDetailModal from "./HospitalDetailModal"
+import HospitalSearchMap from "./HospitalSearchMap"
 
 function HospitalSearch() {
   return (
     <Wrap>
       <HospitalWrapper>
-        <KaKaoMapWrapper></KaKaoMapWrapper>
+        <KaKaoMapWrapper>
+          <HospitalSearchMap />
+        </KaKaoMapWrapper>
         <MapSearch>
           <MapSearchInputs>
             <MapSearchInput placeholder="검색" />
@@ -28,28 +31,28 @@ export default HospitalSearch
 const Wrap = styled.div`
   width: 85vw;
   height: 100vh;
+  display: flex;
 `
 /*병원찾기 메인 */
 const HospitalWrapper = styled.div`
-  width: 1440px;
-  height: 910px;
+  width: 1380px;
+  height: 800px;
+  margin: auto;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `
 const KaKaoMapWrapper = styled.div`
   width: 600px;
   height: 600px;
   border-radius: 16px;
-  background-image: url(${KaKaoMap});
-  background-size: cover;
   user-select: none;
 `
 const MapSearch = styled.div`
-  width: 600px;
+  width: 720px;
   height: 600px;
-  margin-left: 50px;
+  /* margin-left: 50px; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;

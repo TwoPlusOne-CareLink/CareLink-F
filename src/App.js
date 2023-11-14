@@ -16,6 +16,7 @@ import DoctorConsultingPage from "./pages/DoctorConsultingPage"
 import DoctorConsultingHistoryPage from "./pages/DoctorConsultingHistoryPage"
 import HospitalReservationCheckPage from "./pages/HospitalReservationCheckPage"
 import HospitalDoctorListPage from "./pages/HospitalDoctorListPage"
+// import BasicMap from "./components/HospitalSearch/HospitalSearchMap"
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/signup" element={<SignUpPage />} />
+          {/* <Route path="/hospitalsearchmap" element={<BasicMap />} /> */}
           <Route path="/hospitalsearch" element={<HospitalSearchPage />} />
           <Route path="/consulting" element={<ConsultingPage />} />
           <Route
