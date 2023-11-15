@@ -1,22 +1,14 @@
 import React, { useState } from "react"
 import styled from "styled-components"
-import KaKaoMap from "../../assets/images/KaKaoMap.png"
 import DoctorProfileImg from "../../assets/images/DoctorProfileImg.jpg"
 import ReservationModal from "./ReservationModal"
-import HospitalMainModal from "./HospitalMainModal"
+import HospitalMap from "./HospitalMap"
 
 function HospitalDetailModal() {
-  const [hospitalModal, setHospitalModal] = useState(false)
   const [selectedHospitalId, setSelectedHospitalId] = useState(false)
 
   const hospitalSelectedHospitalId = () => {
     setSelectedHospitalId(!selectedHospitalId)
-  }
-
-  function hospitalModalsToggle(hospitalId) {
-    setHospitalModal((prevModals) =>
-      prevModals === hospitalId ? !prevModals : hospitalId
-    )
   }
 
   const [hospital, setHospital] = useState([
@@ -28,9 +20,9 @@ function HospitalDetailModal() {
       weekendOpeningTime: "09:00 ~ 14:00",
       lunchHour: "13:00 ~ 14:00",
       holidayCheck: "휴무",
-      lat: "33.450705",
-      lng: "126.570677",
+      latlng: { lat: "33.450705", lng: "126.570677" },
       tel: "02-4786-7835",
+      departmentName: ["소아과", "내과", "외과"],
     },
     {
       hospitalId: 2,
@@ -40,8 +32,8 @@ function HospitalDetailModal() {
       weekendOpeningTime: "09:00 ~ 14:00",
       lunchHour: "13:00 ~ 14:00",
       holidayCheck: "휴무",
-      lat: "33.450936",
-      lng: "126.569477",
+      latlng: { lat: "33.450936", lng: "126.569477" },
+      departmentName: ["소아과", "내과", "외과"],
       tel: "02-489-7898",
     },
     {
@@ -52,8 +44,8 @@ function HospitalDetailModal() {
       weekendOpeningTime: "09:00 ~ 14:00",
       lunchHour: "13:00 ~ 14:00",
       holidayCheck: "휴무",
-      lat: "33.450879",
-      lng: "126.56994",
+      latlng: { lat: "33.450879", lng: "126.56994" },
+      departmentName: ["소아과", "내과", "외과", "치과"],
       tel: "02-1234-7111",
     },
   ])
@@ -63,6 +55,7 @@ function HospitalDetailModal() {
       doctorId: 1,
       doctorImg: { DoctorProfileImg },
       imgName: "의사사진",
+      hospitalId: 1,
       departmentId: 1,
       departmentName: "내과",
       doctorName: "이승진",
@@ -71,7 +64,8 @@ function HospitalDetailModal() {
       doctorId: 2,
       doctorImg: { DoctorProfileImg },
       imgName: "의사사진",
-      departmentId: 1,
+      hospitalId: 2,
+      departmentId: 2,
       departmentName: "안과",
       doctorName: "정성민",
     },
@@ -79,7 +73,8 @@ function HospitalDetailModal() {
       doctorId: 3,
       doctorImg: { DoctorProfileImg },
       imgName: "의사사진",
-      departmentId: 1,
+      hospitalId: 3,
+      departmentId: 3,
       departmentName: "소아과",
       doctorName: "윤시호",
     },
@@ -102,7 +97,7 @@ function HospitalDetailModal() {
           <HospitalModalOverlay>
             <HospitalModalContent>
               <HospitalContents>
-                {hospital.map((item) => {
+                {hospital.map((item, index) => {
                   if (item.hospitalId === selectedHospitalId) {
                     return (
                       <HospitalContent key={item.hospitalId}>
@@ -139,21 +134,31 @@ function HospitalDetailModal() {
                         <HospitalDiagonias>
                           <DiagoniasTitle>진료과목</DiagoniasTitle>
                           <DiagoniasItems>
-                            <DiagoniasItem>소아과</DiagoniasItem>
-                            <DiagoniasItem>내과</DiagoniasItem>
-                            <DiagoniasItem>안과</DiagoniasItem>
+                            {/* departmentName이 배열로 받아오므로, 배열로부터 받아와서, 순서는 상관없으니 index값으로 하나하나씩 보여주게끔함, */}
+                            {Array.from(new Set(item.departmentName)).map(
+                              (department, index) => (
+                                <DiagoniasItem key={index}>
+                                  {department}
+                                </DiagoniasItem>
+                              )
+                            )}
                           </DiagoniasItems>
                         </HospitalDiagonias>
                         <HospitalDoctors>
                           <DoctorsTitle>의사정보</DoctorsTitle>
                           <DoctorInfos>
-                            {doctor.map((item) => (
-                              <DoctorInfo key={item.doctorId}>
-                                <DoctorImg />
-                                <DoctorName>{item.doctorName}의사</DoctorName>
-                                <DoctorItem>{item.departmentName}</DoctorItem>
-                              </DoctorInfo>
-                            ))}
+                            {/* 의사정보에 필터를 걸어서, 의사가 가지고 있는 병원 아이디와 정보를 보여주고 있는 병원의 아이디가 일치하는 의사들을 보여줌 */}
+                            {doctor
+                              .filter(
+                                (doc) => doc.hospitalId === selectedHospitalId
+                              )
+                              .map((item) => (
+                                <DoctorInfo key={item.doctorId}>
+                                  <DoctorImg />
+                                  <DoctorName>{item.doctorName}의사</DoctorName>
+                                  <DoctorItem>{item.departmentName}</DoctorItem>
+                                </DoctorInfo>
+                              ))}
                           </DoctorInfos>
                         </HospitalDoctors>
                       </HospitalContent>
@@ -163,8 +168,33 @@ function HospitalDetailModal() {
                 })}
 
                 <HospitalContent2>
-                  <HospitalMap />
+                  <HospitalMapWrap>
+                    <HospitalMap
+                      name={
+                        hospital.find(
+                          (item) => item.hospitalId === selectedHospitalId
+                        )?.name
+                      }
+                      tel={
+                        hospital.find(
+                          (item) => item.hospitalId === selectedHospitalId
+                        )?.tel
+                      }
+                      lat={
+                        hospital.find(
+                          (item) => item.hospitalId === selectedHospitalId
+                        )?.latlng.lat
+                      }
+                      lng={
+                        hospital.find(
+                          (item) => item.hospitalId === selectedHospitalId
+                        )?.latlng.lng
+                      }
+                    />
+                  </HospitalMapWrap>
                   <ReservationModal
+                    hospital={hospital}
+                    selectedHospitalId={selectedHospitalId}
                     hospitalSelectedHospitalId={hospitalSelectedHospitalId}
                   />
                 </HospitalContent2>
@@ -273,7 +303,7 @@ const HospitalModalContent = styled.div`
   align-items: center;
   top: 14%;
   left: 23%;
-  transform: translate(0, 0);
+  transform: translate(10%, 0);
   position: absolute;
 `
 const HospitalContents = styled.div`
@@ -319,12 +349,10 @@ const HospitalContent2 = styled.div`
   justify-content: space-between;
   align-items: center;
 `
-const HospitalMap = styled.div`
+const HospitalMapWrap = styled.div`
   width: 400px;
   height: 450px;
   border-radius: 12px;
-  background-image: url(${KaKaoMap});
-  background-size: cover;
 `
 
 const HospitalTels = styled.div`

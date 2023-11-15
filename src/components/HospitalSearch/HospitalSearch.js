@@ -1,12 +1,26 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 import styled from "styled-components"
 import ReadingGlasses from "../../assets/images/ReadingGlasses.png"
-import KaKaoMap from "../../assets/images/KaKaoMap.png"
 import HospitalDetailModal from "./HospitalDetailModal"
 import HospitalSearchMap from "./HospitalSearchMap"
+import { useDispatch } from "react-redux"
+import { __getHospitalInfo } from "../../redux/slice/HospitalSlice"
 
 function HospitalSearch() {
+  const dispatch = useDispatch()
+  const [searchResult, setSearchResult] = useState("")
+
+  useEffect(() => {
+    // dispatch(__getHospitalInfo)
+    console.log(searchResult)
+  }, [searchResult])
+
+  const onChangeSearch = (e) => {
+    const currentSearch = e.target.value
+    setSearchResult(currentSearch)
+  }
+
   return (
     <Wrap>
       <HospitalWrapper>
@@ -15,7 +29,7 @@ function HospitalSearch() {
         </KaKaoMapWrapper>
         <MapSearch>
           <MapSearchInputs>
-            <MapSearchInput placeholder="검색" />
+            <MapSearchInput onChange={onChangeSearch} placeholder="검색" />
             <MapSearchImg />
           </MapSearchInputs>
           <HospitalDetailModal />

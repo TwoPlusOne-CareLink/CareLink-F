@@ -72,9 +72,9 @@ function MainNav() {
                 헬스케어
               </NavMenuItemTitle>
             </NavMenuItem>
-            <NavMenuItem>
+            {/* <NavMenuItem>
               <NavMenuItemTitle>질병백과</NavMenuItemTitle>
-            </NavMenuItem>
+            </NavMenuItem> */}
             <NavMenuItem>
               <NavMenuItemTitle onClick={myPageHandler} ref={myPageRef}>
                 마이페이지
@@ -108,10 +108,11 @@ const Wrap = styled.div`
 `
 const NavWrapper = styled.div`
   width: 250px;
-  /* height: 910px; */
   height: 100%;
   background-color: #223359;
   color: white;
+  z-index: 1;
+  position: absolute;
 `
 
 const NavBarHeader = styled.div`
