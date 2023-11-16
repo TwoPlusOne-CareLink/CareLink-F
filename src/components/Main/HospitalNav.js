@@ -57,10 +57,11 @@ const Wrap = styled.div`
 `
 const NavWrapper = styled.div`
   width: 250px;
-  /* height: 910px; */
   height: 100%;
   background-color: #223359;
   color: white;
+  z-index: 1;
+  position: absolute;
 `
 
 const NavBarHeader = styled.div`

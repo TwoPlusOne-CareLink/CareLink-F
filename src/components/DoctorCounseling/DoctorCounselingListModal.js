@@ -2,31 +2,31 @@ import React, { useState } from "react"
 import { styled } from "styled-components"
 import HistoryImg from "../../assets/images/DoctorImg.png"
 import CloseBtn from "../../assets/images/XBtn.png"
-import DoctorConsultingModal from "./DoctorConsultingModal"
+import DoctorCounselingModal from "./DoctorCounselingModal"
 
-function DoctorConsultingListModal() {
-  const [ConsultingModal, setConsultingModal] = useState()
+function DoctorCounselingListModal() {
+  const [CounselingModal, setCounselingModal] = useState()
 
-  const ConsultingToggle = () => {
-    setConsultingModal(!ConsultingModal)
+  const CounselingToggle = () => {
+    setCounselingModal(!CounselingModal)
   }
 
   return (
-    <DConsultingListBody>
-      <DConsultingListContent onClick={ConsultingToggle}>
-        <DConsultingListImg />
-        <DConsultingListName>첫번째 상담</DConsultingListName>
-      </DConsultingListContent>
-      {ConsultingModal && (
-        <DConsultingModalWrap>
-          <DConsultingModalOverlay>
-            <DConsultingModalContent>
-              <DConsultingModalHeader>
-                <DConsultingModalTitle>상담 상세내역</DConsultingModalTitle>
-                <DConsultingCloseBtn onClick={ConsultingToggle} />
-              </DConsultingModalHeader>
-              <DConsultingModalBody>
-                <DConsultingModalContent1>
+    <DCounselingListBody>
+      <DCounselingListContent onClick={CounselingToggle}>
+        <DCounselingListImg />
+        <DCounselingListName>첫번째 상담</DCounselingListName>
+      </DCounselingListContent>
+      {CounselingModal && (
+        <DCounselingModalWrap>
+          <DCounselingModalOverlay>
+            <DCounselingModalContent>
+              <DCounselingModalHeader>
+                <DCounselingModalTitle>상담 상세내역</DCounselingModalTitle>
+                <DCounselingCloseBtn onClick={CounselingToggle} />
+              </DCounselingModalHeader>
+              <DCounselingModalBody>
+                <DCounselingModalContent1>
                   <ModalContent1Titles>
                     <ModalContent1Title>
                       안녕하세요 문의드립니다
@@ -43,45 +43,45 @@ function DoctorConsultingListModal() {
                   <ModalContent1Imgs>
                     <ModalContent1Img />
                   </ModalContent1Imgs>
-                </DConsultingModalContent1>
-                <DoctorConsultingModal />
-              </DConsultingModalBody>
-            </DConsultingModalContent>
-          </DConsultingModalOverlay>
-        </DConsultingModalWrap>
+                </DCounselingModalContent1>
+                <DoctorCounselingModal />
+              </DCounselingModalBody>
+            </DCounselingModalContent>
+          </DCounselingModalOverlay>
+        </DCounselingModalWrap>
       )}
 
-      {/* <DConsultingListContent>
-        <DConsultingListImg />
-        <DConsultingListName>첫번째 상담</DConsultingListName>
-      </DConsultingListContent>
-      <DConsultingListContent>
-        <DConsultingListImg />
-        <DConsultingListName>첫번째 상담</DConsultingListName>
-      </DConsultingListContent>
-      <DConsultingListContent>
-        <DConsultingListImg />
-        <DConsultingListName>첫번째 상담</DConsultingListName>
-      </DConsultingListContent> */}
-    </DConsultingListBody>
+      {/* <DCounselingListContent>
+        <DCounselingListImg />
+        <DCounselingListName>첫번째 상담</DCounselingListName>
+      </DCounselingListContent>
+      <DCounselingListContent>
+        <DCounselingListImg />
+        <DCounselingListName>첫번째 상담</DCounselingListName>
+      </DCounselingListContent>
+      <DCounselingListContent>
+        <DCounselingListImg />
+        <DCounselingListName>첫번째 상담</DCounselingListName>
+      </DCounselingListContent> */}
+    </DCounselingListBody>
   )
 }
 
-export default DoctorConsultingListModal
+export default DoctorCounselingListModal
 
-const DConsultingListBody = styled.div`
+const DCounselingListBody = styled.div`
   width: 1300px;
   height: 660px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(25%, auto));
 `
-const DConsultingListContent = styled.div`
+const DCounselingListContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `
-const DConsultingListImg = styled.div`
+const DCounselingListImg = styled.div`
   width: 305px;
   height: 280px;
   border: transparent;
@@ -89,11 +89,11 @@ const DConsultingListImg = styled.div`
   background-image: url(${HistoryImg});
   background-size: cover;
 `
-const DConsultingListName = styled.span`
+const DCounselingListName = styled.span`
   margin-top: 15px;
   font-weight: 600;
 `
-const DConsultingModalWrap = styled.div`
+const DCounselingModalWrap = styled.div`
   width: 100vw;
   height: 100vh;
   top: 0;
@@ -102,7 +102,7 @@ const DConsultingModalWrap = styled.div`
   bottom: 0;
   position: fixed;
 `
-const DConsultingModalOverlay = styled.div`
+const DCounselingModalOverlay = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: rgba(49, 49, 49, 0.8);
@@ -112,7 +112,7 @@ const DConsultingModalOverlay = styled.div`
   bottom: 0;
   position: fixed;
 `
-const DConsultingModalContent = styled.div`
+const DCounselingModalContent = styled.div`
   width: 900px;
   height: 700px;
   border-radius: 12px;
@@ -123,7 +123,7 @@ const DConsultingModalContent = styled.div`
   position: absolute;
 `
 
-const DConsultingModalHeader = styled.div`
+const DCounselingModalHeader = styled.div`
   width: 900px;
   height: 50px;
   border-bottom: 1px solid #dcdcdc;
@@ -133,14 +133,14 @@ const DConsultingModalHeader = styled.div`
   align-items: center;
 `
 
-const DConsultingModalTitle = styled.span`
+const DCounselingModalTitle = styled.span`
   width: 830px;
   margin-left: auto;
   font-size: 25px;
   font-family: "GmarketSansMedium";
   text-align: center;
 `
-const DConsultingCloseBtn = styled.div`
+const DCounselingCloseBtn = styled.div`
   width: 20px;
   height: 20px;
   margin-right: 10px;
@@ -149,7 +149,7 @@ const DConsultingCloseBtn = styled.div`
   user-select: none;
   cursor: pointer;
 `
-const DConsultingModalBody = styled.div`
+const DCounselingModalBody = styled.div`
   width: 900px;
   height: 650px;
   display: flex;
@@ -157,7 +157,7 @@ const DConsultingModalBody = styled.div`
   justify-content: center;
   align-items: center;
 `
-const DConsultingModalContent1 = styled.div`
+const DCounselingModalContent1 = styled.div`
   width: 450px;
   height: 610px;
   display: flex;

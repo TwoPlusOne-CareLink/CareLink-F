@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 function MainNav() {
   const navigate = useNavigate()
 
-  const [ConsultingIsOpen, ConsultingRef, ConsultingHandler] =
+  const [CounselingIsOpen, CounselingRef, CounselingHandler] =
     useDetectClose(false)
   const [myPageIsOpen, myPageRef, myPageHandler] = useDetectClose(false)
   const [healthIsOpen, healthRef, healthHandler] = useDetectClose(false)
@@ -23,12 +23,12 @@ function MainNav() {
     navigate("/hospitalsearch")
   }
 
-  const GoToConsulting = () => {
-    navigate("/consulting")
+  const GoToCounseling = () => {
+    navigate("/counseling")
   }
 
-  const GoToConsultingHistory = () => {
-    navigate("/consultinghistory")
+  const GoToCounselingHistory = () => {
+    navigate("/counselinghistory")
   }
 
   const GoToHealthCheck = () => {
@@ -53,16 +53,16 @@ function MainNav() {
               </NavMenuItemTitle>
             </NavMenuItem>
             <NavMenuItem>
-              <NavMenuItemTitle onClick={ConsultingHandler} ref={ConsultingRef}>
+              <NavMenuItemTitle onClick={CounselingHandler} ref={CounselingRef}>
                 비대면 상담
               </NavMenuItemTitle>
-              <NavMenuItemContents isDropped={ConsultingIsOpen}>
+              <NavMenuItemContents isDropped={CounselingIsOpen}>
                 <Ul>
                   <Li>
-                    <Link onClick={GoToConsulting}>비대면 상담</Link>
+                    <Link onClick={GoToCounseling}>비대면 상담</Link>
                   </Li>
                   <Li>
-                    <Link onClick={GoToConsultingHistory}>나의 상담내역</Link>
+                    <Link onClick={GoToCounselingHistory}>나의 상담내역</Link>
                   </Li>
                 </Ul>
               </NavMenuItemContents>
@@ -72,9 +72,9 @@ function MainNav() {
                 헬스케어
               </NavMenuItemTitle>
             </NavMenuItem>
-            <NavMenuItem>
+            {/* <NavMenuItem>
               <NavMenuItemTitle>질병백과</NavMenuItemTitle>
-            </NavMenuItem>
+            </NavMenuItem> */}
             <NavMenuItem>
               <NavMenuItemTitle onClick={myPageHandler} ref={myPageRef}>
                 마이페이지
@@ -108,10 +108,11 @@ const Wrap = styled.div`
 `
 const NavWrapper = styled.div`
   width: 250px;
-  /* height: 910px; */
   height: 100%;
   background-color: #223359;
   color: white;
+  z-index: 1;
+  position: absolute;
 `
 
 const NavBarHeader = styled.div`

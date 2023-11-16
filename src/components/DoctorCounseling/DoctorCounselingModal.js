@@ -4,22 +4,22 @@ import HistoryImg from "../../assets/images/DoctorImg.png"
 import Like from "../../assets/images/heart.png"
 import CloseBtn from "../../assets/images/XBtn.png"
 
-function DoctorConsultingModal() {
-  const [doctorConsultingModal, setDoctorConsultingModal] = useState()
+function DoctorCounselingModal() {
+  const [doctorCounselingModal, setDoctorCounselingModal] = useState()
 
-  const DconsultingModalToggle = () => {
-    setDoctorConsultingModal(!doctorConsultingModal)
+  const DCounselingModalToggle = () => {
+    setDoctorCounselingModal(!doctorCounselingModal)
   }
 
-  const consultingComplete = () => {
+  const CounselingComplete = () => {
     alert("답변이 완료되었습니다 !")
-    setDoctorConsultingModal(!doctorConsultingModal)
+    setDoctorCounselingModal(!doctorCounselingModal)
   }
 
   return (
     <>
-      <DConsultingModalContent2>
-        <ModalContent2StartBtn onClick={DconsultingModalToggle}>
+      <DCounselingModalContent2>
+        <ModalContent2StartBtn onClick={DCounselingModalToggle}>
           상담하기
         </ModalContent2StartBtn>
         {/* <ModalContent2DoctorInfos>
@@ -40,8 +40,8 @@ function DoctorConsultingModal() {
       경우 감기몸살로 판단되며 가급적 찬물대신 따뜻한 물 섭취 및
       옷차림에 유념해 주시면 좋을 것 같습니다.
     </ModalContent2DoctorText> */}
-      </DConsultingModalContent2>
-      {doctorConsultingModal && (
+      </DCounselingModalContent2>
+      {doctorCounselingModal && (
         <DConModalWrap>
           <DConModalOverlay>
             <DConModalContent>
@@ -56,10 +56,10 @@ function DoctorConsultingModal() {
                   />
                 </DConModalTexts>
                 <DConModalBtns>
-                  <DConModalCompleteBtn onClick={consultingComplete}>
+                  <DConModalCompleteBtn onClick={CounselingComplete}>
                     답변완료
                   </DConModalCompleteBtn>
-                  <DConModalCancelBtn onClick={DconsultingModalToggle}>
+                  <DConModalCancelBtn onClick={DCounselingModalToggle}>
                     답변취소
                   </DConModalCancelBtn>
                 </DConModalBtns>
@@ -72,7 +72,7 @@ function DoctorConsultingModal() {
   )
 }
 
-export default DoctorConsultingModal
+export default DoctorCounselingModal
 
 const ModalContent2StartBtn = styled.button`
   width: 200px;
@@ -90,7 +90,7 @@ const ModalContent2StartBtn = styled.button`
   }
 `
 
-const DConsultingModalContent2 = styled.div`
+const DCounselingModalContent2 = styled.div`
   width: 450px;
   height: 650px;
   display: flex;

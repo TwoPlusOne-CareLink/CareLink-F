@@ -13,12 +13,12 @@ function DoctorNav() {
     navigate("/doctor")
   }
 
-  const GoToDConsultingList = () => {
-    navigate("/doctorconsultinglist")
+  const GoToDCounselingList = () => {
+    navigate("/doctorcounselinglist")
   }
 
-  const GoToDConsultingHistory = () => {
-    navigate("/doctorconsultinghistory")
+  const GoToDCounselingHistory = () => {
+    navigate("/doctorcounselinghistory")
   }
 
   return (
@@ -30,12 +30,12 @@ function DoctorNav() {
         <NavBody>
           <NavMenu>
             <NavMenuItem>
-              <NavMenuItemTitle onClick={GoToDConsultingList}>
+              <NavMenuItemTitle onClick={GoToDCounselingList}>
                 비대면 상담목록
               </NavMenuItemTitle>
             </NavMenuItem>
             <NavMenuItem>
-              <NavMenuItemTitle onClick={GoToDConsultingHistory}>
+              <NavMenuItemTitle onClick={GoToDCounselingHistory}>
                 비대면 상담내역
               </NavMenuItemTitle>
             </NavMenuItem>
@@ -57,10 +57,11 @@ const Wrap = styled.div`
 `
 const NavWrapper = styled.div`
   width: 250px;
-  /* height: 910px; */
   height: 100%;
   background-color: #223359;
   color: white;
+  z-index: 1;
+  position: absolute;
 `
 
 const NavBarHeader = styled.div`

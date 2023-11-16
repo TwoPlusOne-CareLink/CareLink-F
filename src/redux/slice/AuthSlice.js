@@ -27,7 +27,7 @@ export const __SignIn = createAsyncThunk(
       const data = await axiosIns.post("/signin", payload)
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
-      return thunkAPI.rejectWithValue
+      return thunkAPI.rejectWithValue(error.code)
     }
   }
 )
@@ -39,7 +39,7 @@ export const __SignUp = createAsyncThunk(
       const data = await axiosIns.post("/signup", payload)
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
-      return thunkAPI.rejectWithValue(error)
+      return thunkAPI.rejectWithValue(error.code)
     }
   }
 )

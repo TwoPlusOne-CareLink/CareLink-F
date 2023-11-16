@@ -44,6 +44,10 @@ function SignIn() {
     }
   }
 
+  const BackHome = () => {
+    navigate(-1)
+  }
+
   return (
     <Wrap>
       <SignInWrap>

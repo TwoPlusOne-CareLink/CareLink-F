@@ -13,11 +13,11 @@ function DoctorMain() {
     navigate("/doctor")
   }
 
-  const DGoToConsultingList = () => {
-    navigate("/doctorconsultinglist")
+  const DGoToCounselingList = () => {
+    navigate("/doctorcounselinglist")
   }
-  const GoToDConsultingHistory = () => {
-    navigate("/doctorconsultinghistory")
+  const GoToDCounselingHistory = () => {
+    navigate("/doctorcounselinghistory")
   }
 
   return (
@@ -31,12 +31,12 @@ function DoctorMain() {
           </DMainHeaderContent>
         </DMainHeader>
         <DMainBody>
-          <DConsultingBtn onClick={DGoToConsultingList}>
+          <DCounselingBtn onClick={DGoToCounselingList}>
             비대면 상담목록
-          </DConsultingBtn>
-          <DConsultingListBtn onClick={GoToDConsultingHistory}>
+          </DCounselingBtn>
+          <DCounselingListBtn onClick={GoToDCounselingHistory}>
             비대면 상담내역
-          </DConsultingListBtn>
+          </DCounselingListBtn>
           {/* <DLogInBtn onClick={DGoToLogIn}>로그인</DLogInBtn> */}
           <DLogoutBtn onClick={DLogout}>로그아웃</DLogoutBtn>
         </DMainBody>
@@ -92,7 +92,7 @@ const DMainBody = styled.div`
   gap: 10px;
 `
 /*비대면 상담목록 버튼 */
-const DConsultingBtn = styled.button`
+const DCounselingBtn = styled.button`
   border: transparent;
   border-radius: 16px;
   background-color: #223359;
@@ -105,7 +105,7 @@ const DConsultingBtn = styled.button`
   }
 `
 /*비대면 상담내역 버튼 */
-const DConsultingListBtn = styled.button`
+const DCounselingListBtn = styled.button`
   border: transparent;
   border-radius: 16px;
   background-color: #4dc9c2;

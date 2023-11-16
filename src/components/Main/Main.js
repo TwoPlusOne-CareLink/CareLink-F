@@ -17,8 +17,8 @@ function Main() {
     navigate("/hospitalsearch")
   }
 
-  const GoToConsulting = () => {
-    navigate("/consulting")
+  const GoToCounseling = () => {
+    navigate("/counseling")
   }
 
   const GoToHealthCheck = () => {
@@ -36,12 +36,12 @@ function Main() {
           </MainHeaderContent>
         </MainHeader>
         <MainBody>
-          <ConsultingBtn onClick={GoToConsulting}>
-            <ConsultingBtnTitle>비대면 상담</ConsultingBtnTitle>
-            <ConsultingBtnContent>
+          <CounselingBtn onClick={GoToCounseling}>
+            <CounselingBtnTitle>비대면 상담</CounselingBtnTitle>
+            <CounselingBtnContent>
               전문 의료인의 상담을 받아보세요.
-            </ConsultingBtnContent>
-          </ConsultingBtn>
+            </CounselingBtnContent>
+          </CounselingBtn>
           <SearchBtn onClick={GoToHospitalSearch}>
             <SearchBtnContent>
               내 주변에 가까운 병원이 궁금하거나
@@ -118,7 +118,7 @@ const MainBody = styled.div`
   gap: 15px;
 `
 /*비대면 상담 버튼 */
-const ConsultingBtn = styled.button`
+const CounselingBtn = styled.button`
   height: 250px;
   border: 1px solid transparent;
   border-radius: 16px;
@@ -134,13 +134,13 @@ const ConsultingBtn = styled.button`
   }
 `
 /*비대면 상담 버튼 내부 비대면 상담  */
-const ConsultingBtnTitle = styled.span`
+const CounselingBtnTitle = styled.span`
   margin-top: 40px;
   font-family: "GmarketSansMedium";
   font-size: 90px;
 `
 /*비대면 상담 버튼 내부 안내글귀 */
-const ConsultingBtnContent = styled.span`
+const CounselingBtnContent = styled.span`
   margin-bottom: 20px;
   font-size: 25px;
 `

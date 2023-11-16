@@ -4,7 +4,7 @@ import HistoryImg from "../../assets/images/DoctorImg.png"
 import Like from "../../assets/images/heart.png"
 import XBtn from "../../assets/images/XBtn.png"
 
-function ConsultingHistoryModal() {
+function CounselingHistoryModal() {
   const [historyModal, setHistoryModal] = useState()
 
   const HistoryModalToggle = () => {
@@ -12,11 +12,11 @@ function ConsultingHistoryModal() {
   }
 
   return (
-    <ConsultingHistoryBody>
-      <ConsultingHistoryContent onClick={HistoryModalToggle}>
-        <ConsultingHistoryImg />
-        <ConsultingHistoryName>첫번째 상담</ConsultingHistoryName>
-      </ConsultingHistoryContent>
+    <CounselingHistoryBody>
+      <CounselingHistoryContent onClick={HistoryModalToggle}>
+        <CounselingHistoryImg />
+        <CounselingHistoryName>첫번째 상담</CounselingHistoryName>
+      </CounselingHistoryContent>
       {historyModal && (
         <HistoryModalWrap>
           <HistoryModalOverlay>
@@ -69,25 +69,25 @@ function ConsultingHistoryModal() {
           </HistoryModalOverlay>
         </HistoryModalWrap>
       )}
-    </ConsultingHistoryBody>
+    </CounselingHistoryBody>
   )
 }
 
-export default ConsultingHistoryModal
+export default CounselingHistoryModal
 
-const ConsultingHistoryBody = styled.div`
+const CounselingHistoryBody = styled.div`
   width: 1300px;
   height: 660px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(25%, auto));
   place-items: center;
 `
-const ConsultingHistoryContent = styled.div`
+const CounselingHistoryContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `
-const ConsultingHistoryImg = styled.div`
+const CounselingHistoryImg = styled.div`
   width: 305px;
   height: 280px;
   border: transparent;
@@ -95,7 +95,7 @@ const ConsultingHistoryImg = styled.div`
   background-image: url(${HistoryImg});
   background-size: cover;
 `
-const ConsultingHistoryName = styled.span`
+const CounselingHistoryName = styled.span`
   margin-top: 15px;
   font-weight: 600;
 `

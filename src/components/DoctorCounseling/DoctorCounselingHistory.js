@@ -2,7 +2,7 @@ import React from "react"
 import { styled } from "styled-components"
 import DoctorHistoryModal from "./DoctorHistoryModal"
 
-function DoctorConsultingHistory() {
+function DoctorCounselingHistory() {
   return (
     <Wrap>
       <DoctorHistoryWrap>
@@ -16,7 +16,7 @@ function DoctorConsultingHistory() {
   )
 }
 
-export default DoctorConsultingHistory
+export default DoctorCounselingHistory
 
 const Wrap = styled.div`
   width: 85vw;
