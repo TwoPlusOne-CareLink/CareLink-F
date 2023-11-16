@@ -49,6 +49,7 @@ const UpperDiv = styled.div`
   .fc-button {
     width: 53px;
     height: 30px;
+    font-size: 15px;
     display: flex;
     justify-content: center;
     align-items: center;

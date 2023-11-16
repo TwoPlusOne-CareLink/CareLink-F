@@ -12,6 +12,14 @@ function ReservationModal({
   selectedHospitalId,
   hospital,
 }) {
+  const [member, setMember] = useState([
+    {
+      memberId: "sound4519",
+      memberName: "이승진",
+      memberTel: "010-0000-0000",
+    },
+  ])
+
   const [index, setIndex] = useState("0")
   const [departmentName, setDepartmentName] = useState("")
   const [reservationName, setReservationName] = useState("")
@@ -150,10 +158,13 @@ function ReservationModal({
                 <ReservationForm>
                   <ReservationFormNames>
                     <ReservationName>예약자</ReservationName>
-                    <ReservationInput
-                      placeholder="예약자 성함 입력"
-                      onChange={onChangeReservationName}
-                    />
+                    {member.map((item) => (
+                      <ReservationInput
+                        placeholder="예약자 성함 입력"
+                        onChange={onChangeReservationName}
+                        value={item.memberName}
+                      />
+                    ))}
                   </ReservationFormNames>
                   <ReservationFormDate>
                     <ReservationDateName>예약날짜</ReservationDateName>
@@ -205,10 +216,13 @@ function ReservationModal({
                   </ReservationTimes>
                   <ReservationTels>
                     <ReservationTelName>연락처</ReservationTelName>
-                    <ReservationTel
-                      placeholder="전화번호 입력"
-                      onChange={onChangeReservationTel}
-                    />
+                    {member.map((item) => (
+                      <ReservationTel
+                        placeholder="전화번호 입력"
+                        onChange={onChangeReservationTel}
+                        value={item.memberTel}
+                      />
+                    ))}
                   </ReservationTels>
                   <ReservationContents>
                     <ReservationContentName>예약내용</ReservationContentName>

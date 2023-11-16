@@ -13,12 +13,12 @@ function DoctorNav() {
     navigate("/doctor")
   }
 
-  const GoToDConsultingList = () => {
-    navigate("/doctorconsultinglist")
+  const GoToDCounselingList = () => {
+    navigate("/doctorcounselinglist")
   }
 
-  const GoToDConsultingHistory = () => {
-    navigate("/doctorconsultinghistory")
+  const GoToDCounselingHistory = () => {
+    navigate("/doctorcounselinghistory")
   }
 
   return (
@@ -30,12 +30,12 @@ function DoctorNav() {
         <NavBody>
           <NavMenu>
             <NavMenuItem>
-              <NavMenuItemTitle onClick={GoToDConsultingList}>
+              <NavMenuItemTitle onClick={GoToDCounselingList}>
                 비대면 상담목록
               </NavMenuItemTitle>
             </NavMenuItem>
             <NavMenuItem>
-              <NavMenuItemTitle onClick={GoToDConsultingHistory}>
+              <NavMenuItemTitle onClick={GoToDCounselingHistory}>
                 비대면 상담내역
               </NavMenuItemTitle>
             </NavMenuItem>

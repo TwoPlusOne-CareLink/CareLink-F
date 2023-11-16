@@ -8,15 +8,14 @@ import { createGlobalStyle } from "styled-components"
 import DoctorMainPage from "./pages/DoctorMainPage"
 import HospitalMainPage from "./pages/HospitalMainPage"
 import HospitalSearchPage from "./pages/HospitalSearchPage"
-import ConsultingPage from "./pages/ConsultingPage"
-import ConsultingHistoryPage from "./pages/ConsultingHistoryPage"
+import CounselingPage from "./pages/CounselingPage"
+import CounselingHistoryPage from "./pages/CounselingHistoryPage"
 import HealthCheckPage from "./pages/HealthCheckPage"
 import UserInfoPage from "./pages/UserInfoPage"
-import DoctorConsultingPage from "./pages/DoctorConsultingPage"
-import DoctorConsultingHistoryPage from "./pages/DoctorConsultingHistoryPage"
+import DoctorCounselingPage from "./pages/DoctorCounselingPage"
+import DoctorCounselingHistoryPage from "./pages/DoctorCounselingHistoryPage"
 import HospitalReservationCheckPage from "./pages/HospitalReservationCheckPage"
 import HospitalDoctorListPage from "./pages/HospitalDoctorListPage"
-// import BasicMap from "./components/HospitalSearch/HospitalSearchMap"
 
 function App() {
   return (
@@ -27,12 +26,11 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/signup" element={<SignUpPage />} />
-          {/* <Route path="/hospitalsearchmap" element={<BasicMap />} /> */}
           <Route path="/hospitalsearch" element={<HospitalSearchPage />} />
-          <Route path="/consulting" element={<ConsultingPage />} />
+          <Route path="/counseling" element={<CounselingPage />} />
           <Route
-            path="/consultinghistory"
-            element={<ConsultingHistoryPage />}
+            path="/counselinghistory"
+            element={<CounselingHistoryPage />}
           />
           <Route path="/healthcheck" element={<HealthCheckPage />} />
           <Route path="/userinfoupdate" element={<UserInfoPage />} />
@@ -40,12 +38,12 @@ function App() {
         <Routes>
           <Route path="/doctor" element={<DoctorMainPage />} />
           <Route
-            path="/doctorconsultinglist"
-            element={<DoctorConsultingPage />}
+            path="/doctorcounselinglist"
+            element={<DoctorCounselingPage />}
           />
           <Route
-            path="/doctorconsultinghistory"
-            element={<DoctorConsultingHistoryPage />}
+            path="/doctorcounselinghistory"
+            element={<DoctorCounselingHistoryPage />}
           />
         </Routes>
         <Routes>

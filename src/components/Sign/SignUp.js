@@ -134,7 +134,7 @@ function SignUp(props) {
     const memberTelRegExp = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/
 
     if (!memberTelRegExp.test(currentMemberTel)) {
-      setMemberTelMessage("전화번호 형식이 일치하지 않습니다.")
+      setMemberTelMessage("- 기호를 넣어서 입력해주세요 (ex.010-0000-0000)")
       setIsMemberTel(false)
     } else {
       setMemberTelMessage("알맞은 전화번호입니다.")

@@ -32,7 +32,7 @@ const __getReservation = createAsyncThunk(
 )
 
 // 해당 병원 진료 예약 로직
-const __createReservation = createAsyncThunk(
+const __AddReservation = createAsyncThunk(
   "CREATE_RESERVATION",
   async (payload, thunkAPI) => {
     try {
@@ -60,14 +60,14 @@ const ReservationSlice = createSlice({
       state.isLoading = false
       state.error = action.payload
     },
-    [__createReservation.pending]: (state, action) => {
+    [__AddReservation.pending]: (state, action) => {
       state.isLoading = true
     },
-    [__createReservation.fulfilled]: (state, action) => {
+    [__AddReservation.fulfilled]: (state, action) => {
       state.isLoading = false
       state.reservation.push(action.payload)
     },
-    [__createReservation.rejected]: (state, action) => {
+    [__AddReservation.rejected]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
     },
