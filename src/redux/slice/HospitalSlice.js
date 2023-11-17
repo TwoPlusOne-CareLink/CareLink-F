@@ -49,11 +49,25 @@ export const __getHospitalSearch = createAsyncThunk(
   }
 )
 
-const HospitalSlice = createSlice({
+// 검색한 병원을 클릭했을때 선택한 병원에 대한 정보모달창이 뜨는데, 거기에 들어갈 정보를 요청하는 로직
+export const __getHospitalDetailInfo = createAsyncThunk(
+  "GET_HOSPITALDETAILINFO",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axiosIns.get("/user/hospitaldetailInfo", payload)
+      return thunkAPI.fulfillWithValue(data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.code)
+    }
+  }
+)
+
+export const hospitalSlice = createSlice({
   name: "hospital",
   initialState,
   reducers: {},
   extraReducers: {
+    // 등록된 전체 병원 데이터를 불러오는 로직
     [__getHospitalInfo.pending]: (state, action) => {
       state.isLoading = true
     },
@@ -65,6 +79,7 @@ const HospitalSlice = createSlice({
       state.isLoading = false
       state.error = action.payload
     },
+    // 전체 병원 중, 찾고자 하는 병원 검색할 때 사용하는 로직
     [__getHospitalSearch.pending]: (state, action) => {
       state.isLoading = true
     },
@@ -76,7 +91,19 @@ const HospitalSlice = createSlice({
       state.isLoading = false
       state.error = action.payload
     },
+    // 검색한 병원을 클릭했을떄, 선택한 병원의 아이디에 맞는 정보를 불러오는 로직
+    [__getHospitalDetailInfo.pending]: (state, action) => {
+      state.isLoading = true
+    },
+    [__getHospitalDetailInfo.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.hospital = action.payload
+    },
+    [__getHospitalDetailInfo.rejected]: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+    },
   },
 })
 
-export default HospitalSlice
+export default hospitalSlice.reducer

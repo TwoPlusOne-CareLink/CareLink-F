@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import styled from "styled-components"
 import DoctorProfileImg from "../../assets/images/DoctorProfileImg.jpg"
+import DefaultProfileImg from "../../assets/images/User.png"
 import ReservationModal from "./ReservationModal"
 import HospitalMap from "./HospitalMap"
 
@@ -22,7 +23,20 @@ function HospitalDetailModal() {
       holidayCheck: "휴무",
       latlng: { lat: "33.450705", lng: "126.570677" },
       tel: "02-4786-7835",
-      departmentName: ["소아과", "내과", "외과"],
+      departmentNames: [
+        {
+          departmentId: 1,
+          departmentName: "소아과",
+        },
+        {
+          departmentId: 1,
+          departmentName: "내과",
+        },
+        {
+          departmentId: 3,
+          departmentName: "외과",
+        },
+      ],
     },
     {
       hospitalId: 2,
@@ -33,7 +47,24 @@ function HospitalDetailModal() {
       lunchHour: "13:00 ~ 14:00",
       holidayCheck: "휴무",
       latlng: { lat: "33.450936", lng: "126.569477" },
-      departmentName: ["소아과", "내과", "외과"],
+      departmentNames: [
+        {
+          departmentId: 1,
+          departmentName: "소아과",
+        },
+        {
+          departmentId: 2,
+          departmentName: "내과",
+        },
+        {
+          departmentId: 3,
+          departmentName: "외과",
+        },
+        {
+          departmentId: 4,
+          departmentName: "이비인후과",
+        },
+      ],
       tel: "02-489-7898",
     },
     {
@@ -45,12 +76,25 @@ function HospitalDetailModal() {
       lunchHour: "13:00 ~ 14:00",
       holidayCheck: "휴무",
       latlng: { lat: "33.450879", lng: "126.56994" },
-      departmentName: ["소아과", "내과", "외과", "치과"],
+      departmentNames: [
+        {
+          departmentId: 1,
+          departmentName: "소아과",
+        },
+        {
+          departmentId: 2,
+          departmentName: "내과",
+        },
+        {
+          departmentId: 3,
+          departmentName: "외과",
+        },
+      ],
       tel: "02-1234-7111",
     },
   ])
 
-  const [doctor, setDoctor] = useState([
+  const [doctorInfo, setDoctorInfo] = useState([
     {
       doctorId: 1,
       doctorImg: { DoctorProfileImg },
@@ -62,7 +106,7 @@ function HospitalDetailModal() {
     },
     {
       doctorId: 2,
-      doctorImg: { DoctorProfileImg },
+      doctorImg: `${DoctorProfileImg}`,
       imgName: "의사사진",
       hospitalId: 2,
       departmentId: 2,
@@ -71,7 +115,7 @@ function HospitalDetailModal() {
     },
     {
       doctorId: 3,
-      doctorImg: { DoctorProfileImg },
+      doctorImg: "",
       imgName: "의사사진",
       hospitalId: 3,
       departmentId: 3,
@@ -135,10 +179,10 @@ function HospitalDetailModal() {
                           <DiagoniasTitle>진료과목</DiagoniasTitle>
                           <DiagoniasItems>
                             {/* departmentName이 배열로 받아오므로, 배열로부터 받아와서, 순서는 상관없으니 index값으로 하나하나씩 보여주게끔함, */}
-                            {Array.from(new Set(item.departmentName)).map(
+                            {Array.from(new Set(item.departmentNames)).map(
                               (department, index) => (
-                                <DiagoniasItem key={index}>
-                                  {department}
+                                <DiagoniasItem key={department.departmentId}>
+                                  {department.departmentName}
                                 </DiagoniasItem>
                               )
                             )}
@@ -148,13 +192,13 @@ function HospitalDetailModal() {
                           <DoctorsTitle>의사정보</DoctorsTitle>
                           <DoctorInfos>
                             {/* 의사정보에 필터를 걸어서, 의사가 가지고 있는 병원 아이디와 정보를 보여주고 있는 병원의 아이디가 일치하는 의사들을 보여줌 */}
-                            {doctor
+                            {doctorInfo
                               .filter(
                                 (doc) => doc.hospitalId === selectedHospitalId
                               )
                               .map((item) => (
                                 <DoctorInfo key={item.doctorId}>
-                                  <DoctorImg />
+                                  <DoctorImg img={item.doctorImg} />
                                   <DoctorName>{item.doctorName}의사</DoctorName>
                                   <DoctorItem>{item.departmentName}</DoctorItem>
                                 </DoctorInfo>
@@ -193,7 +237,6 @@ function HospitalDetailModal() {
                     />
                   </HospitalMapWrap>
                   <ReservationModal
-                    hospital={hospital}
                     selectedHospitalId={selectedHospitalId}
                     hospitalSelectedHospitalId={hospitalSelectedHospitalId}
                   />
@@ -451,9 +494,10 @@ const DoctorInfo = styled.div`
 const DoctorImg = styled.div`
   width: 55px;
   height: 55px;
-  border: 1px solid black;
+  border: 0.3px solid black;
   border-radius: 50%;
-  background-image: url(${DoctorProfileImg});
+  background-image: ${(props) =>
+    props.img ? `url(${props.img})` : `url(${DefaultProfileImg})`};
   background-size: cover;
 `
 const DoctorName = styled.span`

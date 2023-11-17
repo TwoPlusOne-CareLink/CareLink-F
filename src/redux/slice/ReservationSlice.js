@@ -19,7 +19,7 @@ const initialState = {
 }
 
 // 해당병원 전체 예약 정보를 불러오는 로직
-const __getReservation = createAsyncThunk(
+export const __getReservation = createAsyncThunk(
   "GET_RESERVATION",
   async (payload, thunkAPI) => {
     try {
@@ -32,7 +32,7 @@ const __getReservation = createAsyncThunk(
 )
 
 // 해당 병원 진료 예약 로직
-const __AddReservation = createAsyncThunk(
+export const __addReservation = createAsyncThunk(
   "CREATE_RESERVATION",
   async (payload, thunkAPI) => {
     try {
@@ -44,7 +44,7 @@ const __AddReservation = createAsyncThunk(
   }
 )
 
-const ReservationSlice = createSlice({
+export const reservationSlice = createSlice({
   name: "reservation",
   initialState,
   reducers: {},
@@ -60,18 +60,18 @@ const ReservationSlice = createSlice({
       state.isLoading = false
       state.error = action.payload
     },
-    [__AddReservation.pending]: (state, action) => {
+    [__addReservation.pending]: (state, action) => {
       state.isLoading = true
     },
-    [__AddReservation.fulfilled]: (state, action) => {
+    [__addReservation.fulfilled]: (state, action) => {
       state.isLoading = false
       state.reservation.push(action.payload)
     },
-    [__AddReservation.rejected]: (state, action) => {
+    [__addReservation.rejected]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
     },
   },
 })
 
-export default ReservationSlice
+export default reservationSlice.reducer

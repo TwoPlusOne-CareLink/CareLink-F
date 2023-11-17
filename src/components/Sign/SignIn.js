@@ -4,14 +4,12 @@ import User from "../../assets/images/User.png"
 import Lock from "../../assets/images/Lock.png"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { __SignIn } from "../../redux/slice/AuthSlice"
+import { __signIn } from "../../redux/slice/authSlice"
 
 function SignIn() {
   const dispatch = useDispatch()
-  const [memberData, setMemberData] = useState({
-    id: "",
-    password: "",
-  })
+  const [memberId, setMemberId] = useState()
+  const [password, setPassword] = useState()
 
   const navigate = useNavigate()
 
@@ -19,33 +17,39 @@ function SignIn() {
     navigate("/signup")
   }
 
-  const onChangeHandler = (e) => {
-    const { name, value } = e.target
-    setMemberData({
-      ...memberData,
-      [name]: value,
-    })
-
-    console.log(memberData.id, memberData.password)
+  const memberIdHandler = (event) => {
+    const currentId = event.target.value
+    setMemberId(currentId)
+    console.log(memberId, currentId)
   }
 
-  const onLogin = (e) => {
-    dispatch(
-      __SignIn({
-        id: memberData.id,
-        password: memberData.password,
+  const memberPasswordHandler = (event) => {
+    const currentPassword = event.target.value
+    setPassword(currentPassword)
+    console.log(password, currentPassword)
+  }
+
+  const onLogin = (event) => {
+    event.preventDefault()
+    const loginForm = new FormData()
+    loginForm.append("memberId", memberId)
+    loginForm.append("password", password)
+
+    dispatch(__signIn(loginForm))
+      .then((response) => {
+        if (response) {
+          if (localStorage.accessToken === null) {
+            alert("토큰이 없어")
+            console.log("토큰이없어")
+          } else {
+            alert("회원님, 환영합니다!")
+            console.log("토큰이 있어")
+          }
+        }
       })
-    )
-    if (localStorage.accessToken === null) {
-      // navigate("/")
-      console.log("토큰이없어")
-    } else {
-      console.log("토큰이 있어")
-    }
-  }
-
-  const BackHome = () => {
-    navigate(-1)
+      .catch((error) => {
+        alert("로그인 실패!" + error.code)
+      })
   }
 
   return (
@@ -61,7 +65,7 @@ function SignIn() {
                 id="id"
                 name="id"
                 placeholder="아이디"
-                onChange={onChangeHandler}
+                onChange={memberIdHandler}
               />
             </SignInInputDiv>
             <SignInInputDiv>
@@ -71,7 +75,7 @@ function SignIn() {
                 id="password"
                 name="password"
                 placeholder="비밀번호"
-                onChange={onChangeHandler}
+                onChange={memberPasswordHandler}
               />
             </SignInInputDiv>
           </SignInDiv>

@@ -10,10 +10,11 @@ import DaumPostcode from "react-daum-postcode"
 import Logo from "../../assets/images/Logo.jpg"
 import CloseBtn from "../../assets/images/XBtn.png"
 import { useDispatch } from "react-redux"
-import { __SignUp } from "../../redux/slice/AuthSlice"
+import { __signUp } from "../../redux/slice/authSlice"
 
 function SignUp(props) {
-  const [id, setId] = useState("")
+  const dispatch = useDispatch()
+  const [memberId, setMemberId] = useState("")
   const [password, setPassword] = useState("")
   const [passwordConfirm, setPasswordConfirm] = useState("")
   const [memberName, setMemberName] = useState("")
@@ -22,18 +23,7 @@ function SignUp(props) {
   const [age, setAge] = useState("")
   const [gender, setGender] = useState("")
   const [memberAddress, setMemberAddress] = useState("")
-  const [memberAddressD, setMemberAddressD] = useState("")
-  const [memberData, setMemberData] = useState({
-    id: "",
-    password: "",
-    memberName: "",
-    memberEmail: "",
-    memberTel: "",
-    memberAddress: "",
-    memberAddressD: "",
-    age: "",
-    gender: "",
-  })
+  const [memberAddressDetail, setMemberAddressDetail] = useState("")
 
   const [isId, setIsId] = useState(false)
   const [isPassword, setIsPassword] = useState(false)
@@ -42,8 +32,8 @@ function SignUp(props) {
   const [isMemberEmail, setIsMemberEmail] = useState(false)
   const [isMemberTel, setIsMemberTel] = useState(false)
   const [isAge, setIsAge] = useState(false)
-  const [isGender, setIsGender] = useState(false)
-  const [isSignUp, setIsSignUp] = useState(false)
+  // const [isGender, setIsGender] = useState(false)
+  // const [isSignUp, setIsSignUp] = useState(false)
 
   const [idMessage, setIdMessage] = useState("")
   const [passwordMessage, setPasswordMessage] = useState("")
@@ -55,15 +45,13 @@ function SignUp(props) {
 
   const [addressModal, setAddressModal] = useState(false)
 
-  const dispatch = useDispatch()
-
   const addressToggle = () => {
     setAddressModal(!addressModal)
   }
 
   const onChangeId = (event) => {
     const currentId = event.target.value
-    setId(currentId)
+    setMemberId(currentId)
     const idRegExp = /^[a-zA-Z0-9]{4,12}$/
 
     if (!idRegExp.test(currentId)) {
@@ -184,10 +172,10 @@ function SignUp(props) {
     setMemberAddress(currentAddress)
   }
 
-  const onChangeAddressD = (event) => {
+  const onChangeAddressDetail = (event) => {
     const currentAddressD = event.target.value
-    setMemberAddressD(currentAddressD)
-    console.log(memberAddressD)
+    setMemberAddressDetail(currentAddressD)
+    console.log(memberAddressDetail)
   }
 
   const handleComplete = (data) => {
@@ -229,36 +217,31 @@ function SignUp(props) {
     navigate("/signin")
   }
 
-  const onSignUpSubmit = () => {
-    dispatch(
-      __SignUp({
-        id: id,
-        password: password,
-        memberName: memberName,
-        memberEmail: memberEmail,
-        memberTel: memberTel,
-        memberAddress: memberAddress,
-        memberAddressD: memberAddressD,
-        age: age,
-        gender: gender,
-      }),
-      setIsSignUp(true)
-    )
+  const onSignUpSubmit = (event) => {
+    event.preventDefault()
+    const signUpForm = new FormData()
+    signUpForm.append("memberId", memberId)
+    signUpForm.append("password", password)
+    signUpForm.append("memberName", memberName)
+    signUpForm.append("memberEmail", memberEmail)
+    signUpForm.append("age", age)
+    signUpForm.append("gender", gender)
+    signUpForm.append("memberTel", memberTel)
+    signUpForm.append("memberAddress", memberAddress)
+    signUpForm.append("memberAddressDetail", memberAddressDetail)
 
-    // navigate("/signin")
-    alert("가입이 완료되었습니다! 로그인을 진행해주세요")
-    console.log(
-      id,
-      password,
-      memberName,
-      memberEmail,
-      memberTel,
-      memberAddress,
-      memberAddressD,
-      age,
-      gender
+    dispatch(
+      __signUp(signUpForm)
+        .then((response) => {
+          if (response) {
+            alert("회원가입이 완료되었습니다. ")
+            navigate("/signin")
+          }
+        })
+        .catch((error) => {
+          alert("회원가입에 실패했습니다. " + error.code)
+        })
     )
-    navigate("/signin")
   }
 
   return (
@@ -267,18 +250,15 @@ function SignUp(props) {
         <SignUpBody>
           <SignUpLogos>
             <SignUpLogoImg />
-            {/* <SignUpTitle>회원가입</SignUpTitle> */}
           </SignUpLogos>
           <SignUpForm>
-            {/* <SignUpInputDivSection1> */}
             <SignUpInputDiv>
               <SignUpInputs>
                 <SignUpUserImg />
                 <SignUpInput
                   type="text"
-                  id="id"
-                  name="id"
-                  value={id}
+                  id="memberId"
+                  name="memberId"
                   placeholder="아이디"
                   onChange={onChangeId}
                 />
@@ -359,8 +339,7 @@ function SignUp(props) {
                 {memberEmailMessage}
               </SignUpMessage>
             </SignUpMessages>
-            {/* </SignUpInputDivSection1> */}
-            {/* <SignUpInputDivSection2> */}
+
             <SignUpInputDiv>
               <SignUpInputs>
                 <SignUpUserImg />
@@ -378,7 +357,6 @@ function SignUp(props) {
                   name="gender"
                   maxLength="1"
                   placeholder="뒤"
-                  // value={onChangeGender}
                   onChange={onChangeGender}
                 />
                 <SignUpEncription>
@@ -393,10 +371,8 @@ function SignUp(props) {
               <SignUpInputs>
                 <SignUpPhoneImg />
                 <SignUpInput
-                  // type="tel"
                   id="memberTel"
                   name="memberTel"
-                  // value={memberTel}
                   placeholder="전화번호"
                   onChange={onAddHypen}
                 />
@@ -449,10 +425,10 @@ function SignUp(props) {
                   id="memberAddressD"
                   name="memberAddressD"
                   placeholder="상세 주소"
-                  onChange={onChangeAddressD}
+                  onChange={onChangeAddressDetail}
                 />
               </SignUpInputs>
-            </SignUpAddressInputDiv>{" "}
+            </SignUpAddressInputDiv>
             <SignUpBtns>
               <SignUpBtn type="submit" onClick={onSignUpSubmit}>
                 회원가입

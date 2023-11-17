@@ -10,7 +10,7 @@ const initialState = {
     memberEmail: "",
     memberTel: "",
     memberAddress: "",
-    memberAddressD: "",
+    memberAddressDetail: "",
     agree: "",
     age: "",
     gender: "",
@@ -19,9 +19,12 @@ const initialState = {
   isLogin: false,
   error: null,
 }
-
-export const __SignIn = createAsyncThunk(
-  "SignIn",
+// createAsyncThunk를 이용하여 작업에 대한 행동 액션을 생성 (extraReducer - pending, fulfiled, rejected)
+// Redux에서는 자체적으로 비동기 처리를 지원하지 않아서, extraReducers라는 것을 사용해 createAsyncThunk로 생성한 Thunk를 등록시켜주어야함
+// // extraReducers는 액션을 따로 정의한 함수에 대한 리듀서를 정의하는 역활을 담당
+// 유저 로그인에 관한 로직
+export const __signIn = createAsyncThunk(
+  "POST_SIGNIN",
   async (payload, thunkAPI) => {
     try {
       const data = await axiosIns.post("/signin", payload)
@@ -32,8 +35,9 @@ export const __SignIn = createAsyncThunk(
   }
 )
 
-export const __SignUp = createAsyncThunk(
-  "SignUp",
+// 유저 회원가입에 관한 로직
+export const __signUp = createAsyncThunk(
+  "POST_SIGNUP",
   async (payload, thunkAPI) => {
     try {
       const data = await axiosIns.post("/signup", payload)
@@ -44,34 +48,34 @@ export const __SignUp = createAsyncThunk(
   }
 )
 
-export const AuthSlice = createSlice({
+export const authSlice = createSlice({
   name: "member",
   initialState,
   reducers: {},
   extraReducers: {
-    [__SignIn.pending]: (state, action) => {
+    [__signIn.pending]: (state, action) => {
       state.isLoading = true
     },
-    [__SignIn.fulfilled]: (state, action) => {
+    [__signIn.fulfilled]: (state, action) => {
       state.isLoading = false
       state.isLogin = true
     },
-    [__SignIn.rejected]: (state, action) => {
+    [__signIn.rejected]: (state, action) => {
       state.isLoading = false
       state.message = "오류가 발생했습니다."
     },
-    [__SignUp.pending]: (state, action) => {
+    [__signUp.pending]: (state, action) => {
       state.isLoading = true
     },
-    [__SignUp.fulfilled]: (state, action) => {
+    [__signUp.fulfilled]: (state, action) => {
       state.isLoading = false
       alert("회원가입을 축하합니다 !")
     },
-    [__SignUp.rejected]: (state, action) => {
+    [__signUp.rejected]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
     },
   },
 })
 
-export default AuthSlice
+export default authSlice.reducer

@@ -1,13 +1,17 @@
 import React, { useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import defaultImg from "../../assets/images/default.png"
+import { useDispatch } from "react-redux"
+import { __addCounseling } from "../../redux/slice/counselingSlice"
 
 function Counseling() {
+  const dispatch = useDispatch()
   const [imageSrc, setImageSrc] = useState()
   const [counselingImage, setCounselingImage] = useState("")
   const [counselingTitle, setCounselingTitle] = useState("")
   const [memberId, setMemberId] = useState("")
   const [memberName, setMemberName] = useState()
+  const [departmentId, setDepartmentId] = useState()
   const [departmentName, setDepartmentName] = useState()
   const [counselingContent, setCounselingContent] = useState()
 
@@ -65,9 +69,14 @@ function Counseling() {
     setMemberName(currentMemberName)
   }
 
-  const onChangeDepartmentName = (event) => {
-    const currentDepartment = event.target.value
-    setDepartmentName(currentDepartment)
+  // const onChangeDepartmentName = (event) => {
+  //   const currentDepartment = event.target.value
+  //   setDepartmentName(currentDepartment)
+  // }
+  const onChangeDepartmentId = (event) => {
+    const currentDepartmentId = event.target.value
+    setDepartmentName(currentDepartmentId)
+    console.log(currentDepartmentId)
   }
 
   const onChangeCounselingContent = (event) => {
@@ -75,16 +84,27 @@ function Counseling() {
     setCounselingContent(currentContent)
   }
 
-  const counselingSubmit = () => {
-    alert("제출이 완료되었습니다! ")
-    console.log(
-      counselingImage,
-      counselingTitle,
-      memberId,
-      memberName,
-      departmentName,
-      counselingContent + "잘나옵니다"
-    )
+  const counselingSubmit = (event) => {
+    event.preventDefault()
+    const counselingForm = new FormData()
+    counselingForm.append("counselingImage", counselingImage)
+    counselingForm.append("counselingTitle", counselingTitle)
+    counselingForm.append("memberId", memberId)
+    counselingForm.append("memberName", memberName)
+    counselingForm.append("departmentId", departmentId)
+    counselingForm.append("counselingContent", counselingContent)
+
+    dispatch(__addCounseling(counselingForm))
+      .then((response) => {
+        if (response) {
+          alert("상담 접수가 완료되었습니다.")
+        } else {
+          alert("상담 접수에 실패했습니다.")
+        }
+      })
+      .catch((error) => {
+        alert("상담 접수간 오류가 발생했습니다. " + error.code)
+      })
   }
 
   return (
@@ -141,12 +161,22 @@ function Counseling() {
             </CounselingNames>
             <CounselingDiagnosis>
               <CounselingDiagnosisName>상담과목</CounselingDiagnosisName>
-              <CounselingDiagnosisSelect onChange={onChangeDepartmentName}>
-                <SelectDiagnosis value="1">내과</SelectDiagnosis>
-                <SelectDiagnosis value="2">소아과</SelectDiagnosis>
-                <SelectDiagnosis value="3">이비인후과</SelectDiagnosis>
-                <SelectDiagnosis value="4">외과</SelectDiagnosis>
-                <SelectDiagnosis value="5">치과</SelectDiagnosis>
+              <CounselingDiagnosisSelect onChange={onChangeDepartmentId}>
+                <SelectDiagnosis id="departmentId" value="1">
+                  내과
+                </SelectDiagnosis>
+                <SelectDiagnosis id="departmentId" value="2">
+                  소아과
+                </SelectDiagnosis>
+                <SelectDiagnosis id="departmentId" value="3">
+                  이비인후과
+                </SelectDiagnosis>
+                <SelectDiagnosis id="departmentId" value="4">
+                  외과
+                </SelectDiagnosis>
+                <SelectDiagnosis id="departmentId" value="5">
+                  치과
+                </SelectDiagnosis>
               </CounselingDiagnosisSelect>
             </CounselingDiagnosis>
             <CounselingTexts>
