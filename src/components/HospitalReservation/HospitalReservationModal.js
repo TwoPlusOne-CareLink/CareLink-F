@@ -1,74 +1,162 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { styled } from "styled-components"
 import CloseBtn from "../../assets/images/XBtn.png"
 
-function HospitalReservationModal() {
+function HospitalReservationModal({ dispatch }) {
+  const [selectedReservation, setSelectReservation] = useState()
   const [reservationModal, setReservationModal] = useState()
 
   const reservationModalToggle = () => {
     setReservationModal(!reservationModal)
   }
 
+  const [reservation, setReservation] = useState([
+    {
+      reservationId: 1,
+      memberId: "sound4519",
+      hospitalId: 1,
+      departmentId: 1,
+      departmentName: "내과",
+      reservationDate: "2023-11-09",
+      reservationTime: "12:00",
+      reservationMember: "이승진",
+      reservationTel: "010-9303-3020",
+      reservationContent: "안녕하십니까 반갑습니다",
+    },
+    {
+      reservationId: 2,
+      memberId: "sound4519",
+      hospitalId: 2,
+      departmentId: 2,
+      departmentName: "내과",
+      reservationDate: "2023-11-09",
+      reservationTime: "09:00",
+      reservationMember: "정성민",
+      reservationTel: "010-9303-3020",
+      reservationContent: "안녕하십니까 반갑습니다",
+    },
+    {
+      reservationId: 3,
+      memberId: "sound4519",
+      hospitalId: 3,
+      departmentId: 3,
+      departmentName: "소아과",
+      reservationDate: "2023-11-09",
+      reservationTime: "09:00",
+      reservationMember: "정성민",
+      reservationTel: "010-9303-3020",
+      reservationContent: "안녕하십니까 반갑습니다",
+    },
+    {
+      reservationId: 4,
+      memberId: "sound4519",
+      hospitalId: 4,
+      departmentId: 4,
+      departmentName: "소아과",
+      reservationDate: "2023-11-16",
+      reservationTime: "11:00",
+      reservationMember: "정성민",
+      reservationTel: "010-9303-3020",
+      reservationContent: "안녕하십니까 반갑습니다",
+    },
+    {
+      reservationId: 5,
+      memberId: "sound4519",
+      hospitalId: 5,
+      departmentId: 5,
+      departmentName: "소아과",
+      reservationDate: "2023-11-09",
+      reservationTime: "09:00",
+      reservationMember: "정성민",
+      reservationTel: "010-9303-3020",
+      reservationContent: "안녕하십니까 반갑습니다",
+    },
+  ])
+
+  // useEffect(() => {
+  //   dis
+  // })
+
   return (
     <HospitalCheckFormBody>
-      <HospitalReservationContent onClick={reservationModalToggle}>
-        <HospitalReservationNo>1</HospitalReservationNo>
-        <HospitalReservationName>이승진</HospitalReservationName>
-        <HospitalReservationDiagnosis>이비인후과</HospitalReservationDiagnosis>
-        <HospitalReservationText>
-          안녕하세요 반갑습니다 여러분 정말 아파요
-        </HospitalReservationText>
-        <HospitalReservationTime>23/09/09</HospitalReservationTime>
-      </HospitalReservationContent>
-      {reservationModal && (
-        <ReservationWrap>
-          <ReservationOverlay>
-            <ReservationContent>
-              <ReservationHeader>
-                <ReservationTitle>예약 상세내역</ReservationTitle>
-                <ReservationClose onClick={reservationModalToggle} />
-              </ReservationHeader>
-              <ReservationBody>
-                <ReservationNames>
-                  <ReservationNameTitle>예약자</ReservationNameTitle>
-                  <ReservationName>이진호</ReservationName>
-                </ReservationNames>
-                <ReservationDates>
-                  <ReservationDateTitle>예약날짜</ReservationDateTitle>
-                  <ReservationDate>23/09/08</ReservationDate>
-                </ReservationDates>
-                <ReservationTimes>
-                  <ReservationTimeTitle>예약시간</ReservationTimeTitle>
-                  <ReservationTime>09:00 ~ 10:00</ReservationTime>
-                </ReservationTimes>
-                <ReservationTels>
-                  <ReservationTelTitle>연락처</ReservationTelTitle>
-                  <ReservationTel>010-1111-1111</ReservationTel>
-                </ReservationTels>
-                <ReservationDiagnosises>
-                  <ReservationDiagnosisTitle>
-                    진료과목
-                  </ReservationDiagnosisTitle>
-                  <ReservationDiagnosis>내과</ReservationDiagnosis>
-                </ReservationDiagnosises>
-                <ReservationTexts>
-                  <ReservationTextTitle>예약내용</ReservationTextTitle>
-                  <ReservationText>
-                    안녕하세요 반갑습니다.안녕하세요 반갑습니다.안녕하세요
-                    반갑습니다.안녕하세요 반갑습니다.안녕하세요
-                    반갑습니다.안녕하세요 반갑습니다.안녕하세요
-                    반갑습니다.안녕하세요 반갑습니다.안녕하세요 \
-                    반갑습니다.안녕하세요 반갑습니다.안녕하세요
-                    반갑습니다.안녕하세요 반갑습니다.안녕하세요
-                    반갑습니다.안녕하세요 반갑습니다.안녕하세요
-                    반갑습니다.안녕하세요 반갑습니다.
-                  </ReservationText>
-                </ReservationTexts>
-              </ReservationBody>
-            </ReservationContent>
-          </ReservationOverlay>
-        </ReservationWrap>
-      )}
+      {reservation.map((item) => (
+        <HospitalReservationContent
+          onClick={() => setSelectReservation(item.reservationId)}
+        >
+          {/* <HospitalReservationNo>1</HospitalReservationNo> */}
+          <HospitalReservationName>
+            {item.reservationMember}
+          </HospitalReservationName>
+          <HospitalReservationDiagnosis>
+            {item.departmentName}
+          </HospitalReservationDiagnosis>
+          <HospitalReservationText>
+            {item.reservationContent}
+          </HospitalReservationText>
+          <HospitalReservationTime>
+            {item.reservationTime}
+          </HospitalReservationTime>
+        </HospitalReservationContent>
+      ))}
+      {selectedReservation &&
+        reservation.map((item) => {
+          if (item.reservationId === selectedReservation) {
+            return (
+              <ReservationWrap>
+                <ReservationOverlay>
+                  <ReservationContent key={item.reservationId}>
+                    <ReservationHeader>
+                      <ReservationTitle>예약 상세내역</ReservationTitle>
+                      <ReservationClose
+                        onClick={() =>
+                          setSelectReservation(!selectedReservation)
+                        }
+                      />
+                    </ReservationHeader>
+                    <ReservationBody>
+                      <ReservationNames>
+                        <ReservationNameTitle>예약자</ReservationNameTitle>
+                        <ReservationName>
+                          {item.reservationMember}
+                        </ReservationName>
+                      </ReservationNames>
+                      <ReservationDates>
+                        <ReservationDateTitle>예약날짜</ReservationDateTitle>
+                        <ReservationDate>
+                          {item.reservationDate}
+                        </ReservationDate>
+                      </ReservationDates>
+                      <ReservationTimes>
+                        <ReservationTimeTitle>예약시간</ReservationTimeTitle>
+                        <ReservationTime>
+                          {item.reservationTime}
+                        </ReservationTime>
+                      </ReservationTimes>
+                      <ReservationTels>
+                        <ReservationTelTitle>연락처</ReservationTelTitle>
+                        <ReservationTel>{item.reservationTel}</ReservationTel>
+                      </ReservationTels>
+                      <ReservationDiagnosises>
+                        <ReservationDiagnosisTitle>
+                          진료과목
+                        </ReservationDiagnosisTitle>
+                        <ReservationDiagnosis>
+                          {item.departmentName}
+                        </ReservationDiagnosis>
+                      </ReservationDiagnosises>
+                      <ReservationTexts>
+                        <ReservationTextTitle>예약내용</ReservationTextTitle>
+                        <ReservationText>
+                          {item.reservationContent}
+                        </ReservationText>
+                      </ReservationTexts>
+                    </ReservationBody>
+                  </ReservationContent>
+                </ReservationOverlay>
+              </ReservationWrap>
+            )
+          }
+        })}
     </HospitalCheckFormBody>
   )
 }
@@ -124,7 +212,7 @@ const HospitalReservationDiagnosis = styled.span`
   text-align: center;
 `
 const HospitalReservationText = styled.span`
-  width: 250px;
+  width: 290px;
   font-family: "GmarketSansMedium";
   text-align: center;
   overflow: hidden;
@@ -162,7 +250,7 @@ const ReservationContent = styled.div`
   background-color: white;
   top: 0;
   left: 20%;
-  transform: translate(50%, 13%);
+  transform: translate(75%, 13%);
   position: absolute;
 `
 const ReservationHeader = styled.div`

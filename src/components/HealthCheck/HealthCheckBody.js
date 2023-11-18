@@ -4,7 +4,7 @@ import { styled } from "styled-components"
 import {
   __addHealthCheck,
   __getHealthCheckMember,
-} from "../../redux/slice/healthCheckSlice"
+} from "../../redux/modules/healthCheckSlice"
 
 function HealthCheckBody() {
   const dispatch = useDispatch()

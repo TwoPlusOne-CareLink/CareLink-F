@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { styled } from "styled-components"
 import CounselingHistoryModal from "./CounselingHistoryModal"
 import { useDispatch } from "react-redux"
-import { __getMyCounselingList } from "../../redux/slice/counselingSlice"
+import { __getMyCounselingList } from "../../redux/modules/counselingSlice"
 
 function CounselingHistory() {
   const dispatch = useDispatch()

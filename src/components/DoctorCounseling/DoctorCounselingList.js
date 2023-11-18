@@ -1,15 +1,18 @@
 import React from "react"
 import { styled } from "styled-components"
 import DoctorCounselingListModal from "./DoctorCounselingListModal"
+import { useDispatch } from "react-redux"
 
 function DoctorCounselingList() {
+  const dispatch = useDispatch()
+
   return (
     <Wrap>
       <DCounselingListWrap>
         <DCounselingListHeader>
           <DCounselingListTitle>비대면 상담목록</DCounselingListTitle>
         </DCounselingListHeader>
-        <DoctorCounselingListModal />
+        <DoctorCounselingListModal dispatch={dispatch} />
         <DCounselingListFooter>이전 1 2 3 4 5 다음</DCounselingListFooter>
       </DCounselingListWrap>
     </Wrap>

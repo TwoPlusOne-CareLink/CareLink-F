@@ -10,7 +10,7 @@ import DaumPostcode from "react-daum-postcode"
 import Logo from "../../assets/images/Logo.jpg"
 import CloseBtn from "../../assets/images/XBtn.png"
 import { useDispatch } from "react-redux"
-import { __signUp } from "../../redux/slice/authSlice"
+import { __signUp } from "../../redux/modules/authSlice"
 
 function SignUp(props) {
   const dispatch = useDispatch()

@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.module.css"
 import DatePicker from "./ReservationDatePicker"
 import ReservationCalendar from "./ReservationCalendar"
 import { useDispatch } from "react-redux"
-import { __addReservation } from "../../redux/slice/reservationSlice"
+import { __addReservation } from "../../redux/modules/reservationSlice"
 
 function ReservationModal({ hospitalSelectedHospitalId, selectedHospitalId }) {
   const dispatch = useDispatch()

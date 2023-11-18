@@ -5,12 +5,12 @@ import ReadingGlasses from "../../assets/images/ReadingGlasses.png"
 import HospitalDetailModal from "./HospitalDetailModal"
 import HospitalSearchMap from "./HospitalSearchMap"
 import { useDispatch } from "react-redux"
-import { __getHospitalInfo } from "../../redux/slice/hospitalSlice"
+import { __getHospitalInfo } from "../../redux/modules/hospitalSlice"
 
 function HospitalSearch() {
   const dispatch = useDispatch()
   const [searchResult, setSearchResult] = useState("")
-  
+
   const [hospitalData, setHospitalData] = useState([])
 
   useEffect(() => {

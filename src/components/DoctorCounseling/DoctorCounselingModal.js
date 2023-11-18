@@ -3,17 +3,40 @@ import { styled } from "styled-components"
 import HistoryImg from "../../assets/images/DoctorImg.png"
 import Like from "../../assets/images/heart.png"
 import CloseBtn from "../../assets/images/XBtn.png"
+import { useDispatch } from "react-redux"
+import { __addDoctorCounseling } from "../../redux/modules/doctorCounselingSlice"
 
-function DoctorCounselingModal() {
+function DoctorCounselingModal({ counselingId }) {
+  const dispatch = useDispatch()
+  // const [counselingId, setCounselingId] = useState()
+  const [commentContent, setCommentContent] = useState()
   const [doctorCounselingModal, setDoctorCounselingModal] = useState()
 
   const DCounselingModalToggle = () => {
     setDoctorCounselingModal(!doctorCounselingModal)
   }
 
-  const CounselingComplete = () => {
-    alert("답변이 완료되었습니다 !")
-    setDoctorCounselingModal(!doctorCounselingModal)
+  const CounselingSubmit = (event) => {
+    event.preventDefault()
+    const doctorCounselingForm = new FormData()
+    doctorCounselingForm.append("counselingId", counselingId)
+    doctorCounselingForm.append("commentContent", commentContent)
+
+    dispatch(__addDoctorCounseling(doctorCounselingForm))
+      .then((response) => {
+        if (response) {
+          alert("답변이 완료되었습니다 !")
+          setDoctorCounselingModal(!doctorCounselingModal)
+        }
+      })
+      .catch((error) => {
+        alert("답변에 실패하였습니다. " + error.message)
+      })
+  }
+
+  const onChangeComment = (event) => {
+    const currentComment = event.target.value
+    setCommentContent(currentComment)
   }
 
   return (
@@ -51,12 +74,15 @@ function DoctorCounselingModal() {
               <DConModalBody>
                 <DConModalTexts>
                   <DConModalText
+                    id="commentContent"
+                    name="commentContent"
                     maxLength="2000"
                     placeholder="상담 내용을 작성해주세요"
+                    onChange={onChangeComment}
                   />
                 </DConModalTexts>
                 <DConModalBtns>
-                  <DConModalCompleteBtn onClick={CounselingComplete}>
+                  <DConModalCompleteBtn onClick={CounselingSubmit}>
                     답변완료
                   </DConModalCompleteBtn>
                   <DConModalCancelBtn onClick={DCounselingModalToggle}>

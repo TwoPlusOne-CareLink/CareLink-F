@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import defaultImg from "../../assets/images/default.png"
 import { useDispatch } from "react-redux"
-import { __addCounseling } from "../../redux/slice/counselingSlice"
+import { __addCounseling } from "../../redux/modules/counselingSlice"
 
 function Counseling() {
   const dispatch = useDispatch()

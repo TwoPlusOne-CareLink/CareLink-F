@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { styled } from "styled-components"
-import { __getSelectMyCounseling } from "../../redux/slice/counselingSlice"
+import { __getSelectMyCounseling } from "../../redux/modules/counselingSlice"
 import Like from "../../assets/images/heart.png"
 import XBtn from "../../assets/images/XBtn.png"
 import HistoryImg from "../../assets/images/DoctorImg.png"

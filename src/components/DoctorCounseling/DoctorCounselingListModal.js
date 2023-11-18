@@ -1,68 +1,130 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { styled } from "styled-components"
 import HistoryImg from "../../assets/images/DoctorImg.png"
 import CloseBtn from "../../assets/images/XBtn.png"
 import DoctorCounselingModal from "./DoctorCounselingModal"
+import DefaultCounselingImg from "../../assets/images/defaultCounseling.png"
+import { __getDoctorCounselingList } from "../../redux/modules/doctorCounselingSlice"
 
-function DoctorCounselingListModal() {
-  const [CounselingModal, setCounselingModal] = useState()
+function DoctorCounselingListModal({ dispatch }) {
+  const [selectedCounselingId, setSelectedCounselingId] = useState()
+  // const [CounselingModal, setCounselingModal] = useState()
+
+  const [counseling, setCounSeling] = useState([
+    {
+      counselingId: 1,
+      counselingTitle: "상담요청합니다",
+      memberId: "sound4519",
+      memberName: "이승진",
+      departmentId: 1,
+      departmentName: "내과",
+      counselingContent:
+        "안녕하세요 며칠전부터 내가 ㅂ몸이 너무 쓰리디 쓰려서 그러는데 걍 집에 가면안될까요?",
+      counselingImage: `${HistoryImg}`,
+      counselingImageName: "상담사진",
+    },
+    {
+      counselingId: 2,
+      counselingTitle: "하이루",
+      memberId: "sound4519",
+      memberName: "이승진",
+      departmentId: 2,
+      departmentName: "외과",
+      counselingContent: "안돼. 돌아가.",
+      counselingImage: `${HistoryImg}`,
+      counselingImageName: "상담사진",
+    },
+  ])
+
+  const [counselingReply, setCounselingReply] = useState([
+    {
+      replyId: 1,
+      counselingId: 1,
+      memberId: "doctor1",
+      doctorName: "이승진",
+      doctorImg: "",
+      commentContent: "안녕하세요 승진님, 반갑습니다 조아용",
+      commentDate: "2023-11-19",
+      departmentName: "내과",
+    },
+    // {
+    //   replyId: 2,
+    //   counselingId: 2,
+    //   memberId: "doctor2",
+    //   doctorName: "정성민",
+    //   doctorImg: `${HistoryImg}`,
+    //   commentContent: "하이!!",
+    //   commentDate: "2023-11-19",
+    //   departmentName: "외과",
+    // },
+  ])
 
   const CounselingToggle = () => {
-    setCounselingModal(!CounselingModal)
+    setSelectedCounselingId(!selectedCounselingId)
   }
+
+  // 의사 입장에서 상담댓글이 아직 안달린 비대면 상담에 대한 리스트를 불러오는 로직
+  useEffect(() => {
+    dispatch(__getDoctorCounselingList)
+  }, [])
+
+  // const replyIdExists = counselingReply.some(
+  //   (item) => item.counselingId === selectedCounselingId && item.replyId
+  // )
 
   return (
     <DCounselingListBody>
-      <DCounselingListContent onClick={CounselingToggle}>
-        <DCounselingListImg />
-        <DCounselingListName>첫번째 상담</DCounselingListName>
-      </DCounselingListContent>
-      {CounselingModal && (
+      {counseling.map((item) => (
+        <DCounselingListContent
+          key={item.counselingId}
+          onClick={() => setSelectedCounselingId(item.counselingId)}
+        >
+          <DCounselingListImg img={item.counselingImage} />
+          <DCounselingListName>{item.counselingTitle}</DCounselingListName>
+        </DCounselingListContent>
+      ))}
+      {selectedCounselingId && (
         <DCounselingModalWrap>
           <DCounselingModalOverlay>
             <DCounselingModalContent>
-              <DCounselingModalHeader>
-                <DCounselingModalTitle>상담 상세내역</DCounselingModalTitle>
-                <DCounselingCloseBtn onClick={CounselingToggle} />
-              </DCounselingModalHeader>
-              <DCounselingModalBody>
-                <DCounselingModalContent1>
-                  <ModalContent1Titles>
-                    <ModalContent1Title>
-                      안녕하세요 문의드립니다
-                    </ModalContent1Title>
-                  </ModalContent1Titles>
-                  <ModalContent1Texts>
-                    <ModalContent1Text>
-                      안녕하세요 반갑습니다. 제가 며칠전부터 몸이 너무
-                      안좋아서,, 아주 그냥 몸살감기가 걸려부러써요.. ㅠㅠ 근데
-                      이게 열도 좀 있는 것 같고 온몸이 으슬으슬 떨리네요 .. 이거
-                      감기몸살인가요?
-                    </ModalContent1Text>
-                  </ModalContent1Texts>
-                  <ModalContent1Imgs>
-                    <ModalContent1Img />
-                  </ModalContent1Imgs>
-                </DCounselingModalContent1>
-                <DoctorCounselingModal />
-              </DCounselingModalBody>
+              {counseling.map((item) => {
+                if (item.counselingId === selectedCounselingId) {
+                  return (
+                    <DCounselingModalContents>
+                      <DCounselingModalHeader>
+                        <DCounselingModalTitle>
+                          상담 상세내역
+                        </DCounselingModalTitle>
+                        <DCounselingCloseBtn onClick={CounselingToggle} />
+                      </DCounselingModalHeader>
+                      <DCounselingModalBody>
+                        <DCounselingModalContent1>
+                          <ModalContent1Titles>
+                            <ModalContent1Title>
+                              {item.counselingTitle}
+                            </ModalContent1Title>
+                          </ModalContent1Titles>
+                          <ModalContent1Texts>
+                            <ModalContent1Text>
+                              {item.counselingContent}
+                            </ModalContent1Text>
+                          </ModalContent1Texts>
+                          <ModalContent1Imgs>
+                            <ModalContent1Img />
+                          </ModalContent1Imgs>
+                        </DCounselingModalContent1>
+                        <DoctorCounselingModal
+                          counselingId={item.counselingId}
+                        />
+                      </DCounselingModalBody>
+                    </DCounselingModalContents>
+                  )
+                }
+              })}
             </DCounselingModalContent>
           </DCounselingModalOverlay>
         </DCounselingModalWrap>
       )}
-
-      {/* <DCounselingListContent>
-        <DCounselingListImg />
-        <DCounselingListName>첫번째 상담</DCounselingListName>
-      </DCounselingListContent>
-      <DCounselingListContent>
-        <DCounselingListImg />
-        <DCounselingListName>첫번째 상담</DCounselingListName>
-      </DCounselingListContent>
-      <DCounselingListContent>
-        <DCounselingListImg />
-        <DCounselingListName>첫번째 상담</DCounselingListName>
-      </DCounselingListContent> */}
     </DCounselingListBody>
   )
 }
@@ -86,7 +148,8 @@ const DCounselingListImg = styled.div`
   height: 280px;
   border: transparent;
   border-radius: 12px;
-  background-image: url(${HistoryImg});
+  background-image: ${(props) =>
+    props.img ? `url(${props.img})` : `url(${DefaultCounselingImg})`};
   background-size: cover;
 `
 const DCounselingListName = styled.span`
@@ -122,6 +185,8 @@ const DCounselingModalContent = styled.div`
   transform: translate(10%, 0);
   position: absolute;
 `
+
+const DCounselingModalContents = styled.div``
 
 const DCounselingModalHeader = styled.div`
   width: 900px;

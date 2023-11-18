@@ -3,20 +3,88 @@ import { styled } from "styled-components"
 import HistoryImg from "../../assets/images/DoctorImg.png"
 import CloseBtn from "../../assets/images/XBtn.png"
 import Like from "../../assets/images/heart.png"
+import { jwtDecode } from "jwt-decode"
 
 function DoctorHistoryModal() {
+  const Token = localStorage.getItem("Token")
+  const [doctorId, setDoctorId] = useState()
+
+  // 로컬스토리지에 담긴 토큰을 디코딩 하여 서버와 통신에 필요한 doctorId를 추출하기 위해 사용
+  if (Token && doctorId === undefined) {
+    try {
+      const decodedToken = jwtDecode(Token)
+      const doctorId = decodedToken.doctorId
+      setDoctorId(doctorId)
+    } catch (error) {
+      console.error("토큰 해석에 실패했습니다.", error)
+    }
+  } else if (!Token) {
+    console.log("토큰이 로컬스토리지에 존재하지 않습니다.")
+  }
+
   const [historyModal, setHistoryModal] = useState()
 
   const historyModalToggle = () => {
     setHistoryModal(!historyModal)
   }
 
+  const [counseling, setCounSeling] = useState([
+    {
+      counselingId: 1,
+      counselingTitle: "상담요청합니다",
+      memberId: "sound4519",
+      memberName: "이승진",
+      departmentId: 1,
+      departmentName: "내과",
+      counselingContent:
+        "안녕하세요 며칠전부터 내가 ㅂ몸이 너무 쓰리디 쓰려서 그러는데 걍 집에 가면안될까요?",
+      counselingImage: `${HistoryImg}`,
+      counselingImageName: "상담사진",
+    },
+    {
+      counselingId: 2,
+      counselingTitle: "하이루",
+      memberId: "sound4519",
+      memberName: "이승진",
+      departmentId: 2,
+      departmentName: "외과",
+      counselingContent: "안돼. 돌아가.",
+      counselingImage: `${HistoryImg}`,
+      counselingImageName: "상담사진",
+    },
+  ])
+
+  const [counselingReply, setCounselingReply] = useState([
+    {
+      replyId: 1,
+      counselingId: 1,
+      memberId: "doctor1",
+      doctorName: "이승진",
+      doctorImg: "",
+      commentContent: "안녕하세요 승진님, 반갑습니다 조아용",
+      commentDate: "2023-11-19",
+      departmentName: "내과",
+    },
+    // {
+    //   replyId: 2,
+    //   counselingId: 2,
+    //   memberId: "doctor2",
+    //   doctorName: "정성민",
+    //   doctorImg: `${HistoryImg}`,
+    //   commentContent: "하이!!",
+    //   commentDate: "2023-11-19",
+    //   departmentName: "외과",
+    // },
+  ])
+
   return (
     <DoctorHistoryBody>
-      <DoctorHistoryContent onClick={historyModalToggle}>
-        <DoctorHistoryImg />
-        <DoctorHistoryName>첫번쨰 상담</DoctorHistoryName>
-      </DoctorHistoryContent>
+      {counseling.map((item) => (
+        <DoctorHistoryContent onClick={historyModalToggle}>
+          <DoctorHistoryImg />
+          <DoctorHistoryName>첫번쨰 상담</DoctorHistoryName>
+        </DoctorHistoryContent>
+      ))}
       {historyModal && (
         <DoctorHistoryModalWrap>
           <DoctorHistoryModalOverlay>

@@ -16,6 +16,14 @@ const initialState = {
     departmentId: "",
     departmentName: [],
   },
+  doctorInfo: {
+    doctorId: "",
+    doctorName: "",
+    departmentId: "",
+    departmentName: "",
+    imgFile: "",
+    doctorImg: "",
+  },
   isLoading: false,
   error: null,
 }
@@ -26,7 +34,7 @@ export const __getHospitalInfo = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axiosIns.get(
-        "/user/hospitalsearch?hospitalName='all'",
+        "/user/hospitalList?hospitalName='all'",
         payload
       )
       return thunkAPI.fulfillWithValue(data)
@@ -41,7 +49,7 @@ export const __getHospitalSearch = createAsyncThunk(
   "GET_HOSPITALSEARCH",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosIns.get("/user/hospitalsearch", payload)
+      const data = await axiosIns.get("/user/hospitalList", payload)
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code)
@@ -54,13 +62,31 @@ export const __getHospitalDetailInfo = createAsyncThunk(
   "GET_HOSPITALDETAILINFO",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosIns.get("/user/hospitaldetailInfo", payload)
+      const data = await axiosIns.get(
+        "/user/hospitalInfo/{hospitalId}",
+        payload
+      )
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code)
     }
   }
 )
+
+// 병원 입장에서 의사목록을 불러오는 로직
+export const __getHospitalDoctorList = createAsyncThunk(
+  "GET_HOSPITALDOCTORLIST",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axiosIns.get("/hospitaldoctorlist", payload)
+      return thunkAPI.fulfillWithValue(data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.code)
+    }
+  }
+)
+
+// 병원 입장에서 특정 날짜를 클릭했을때, 예약된 정보를 불러와서 띄어주는 로직
 
 export const hospitalSlice = createSlice({
   name: "hospital",
@@ -100,6 +126,18 @@ export const hospitalSlice = createSlice({
       state.hospital = action.payload
     },
     [__getHospitalDetailInfo.rejected]: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+    },
+    // 병원 입장에서 의사목록을 불러오는 로직
+    [__getHospitalDoctorList.pending]: (state, action) => {
+      state.isLoading = true
+    },
+    [__getHospitalDoctorList.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.doctorInfo = action.payload
+    },
+    [__getHospitalDoctorList.rejected]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
     },

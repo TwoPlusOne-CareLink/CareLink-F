@@ -1,8 +1,108 @@
-import React from "react"
+import React, { useState } from "react"
 import { styled } from "styled-components"
 import DoctorProfileImg from "../../assets/images/doctor2.jpg"
+import DefaultProfileImg from "../../assets/images/User.png"
 
 function HospitalDoctorList() {
+  const [doctorInfo, setDoctorInfo] = useState([
+    {
+      doctorId: 1,
+      doctorName: "이승진",
+      departmentId: "1",
+      departmentName: "내과",
+      imgFile: "",
+      doctorImg: `${DoctorProfileImg}`,
+    },
+    {
+      doctorId: 2,
+      doctorName: "정성민",
+      departmentId: "2",
+      departmentName: "외과",
+      imgFile: "",
+      doctorImg: "",
+    },
+    {
+      doctorId: 3,
+      doctorName: "윤시호",
+      departmentId: "3",
+      departmentName: "소아과",
+      imgFile: "",
+      doctorImg: "",
+    },
+    {
+      doctorId: 1,
+      doctorName: "이승진",
+      departmentId: "1",
+      departmentName: "내과",
+      imgFile: "",
+      doctorImg: `${DoctorProfileImg}`,
+    },
+    {
+      doctorId: 2,
+      doctorName: "정성민",
+      departmentId: "2",
+      departmentName: "외과",
+      imgFile: "",
+      doctorImg: "",
+    },
+    {
+      doctorId: 3,
+      doctorName: "윤시호",
+      departmentId: "3",
+      departmentName: "소아과",
+      imgFile: "",
+      doctorImg: "",
+    },
+    {
+      doctorId: 1,
+      doctorName: "이승진",
+      departmentId: "1",
+      departmentName: "내과",
+      imgFile: "",
+      doctorImg: `${DoctorProfileImg}`,
+    },
+    {
+      doctorId: 2,
+      doctorName: "정성민",
+      departmentId: "2",
+      departmentName: "외과",
+      imgFile: "",
+      doctorImg: "",
+    },
+    {
+      doctorId: 3,
+      doctorName: "윤시호",
+      departmentId: "3",
+      departmentName: "소아과",
+      imgFile: "",
+      doctorImg: "",
+    },
+    {
+      doctorId: 1,
+      doctorName: "이승진",
+      departmentId: "1",
+      departmentName: "내과",
+      imgFile: "",
+      doctorImg: `${DoctorProfileImg}`,
+    },
+    {
+      doctorId: 2,
+      doctorName: "정성민",
+      departmentId: "2",
+      departmentName: "외과",
+      imgFile: "",
+      doctorImg: "",
+    },
+    {
+      doctorId: 3,
+      doctorName: "윤시호",
+      departmentId: "3",
+      departmentName: "소아과",
+      imgFile: "",
+      doctorImg: "",
+    },
+  ])
+
   return (
     <Wrap>
       <DoctorListWrap>
@@ -10,34 +110,15 @@ function HospitalDoctorList() {
           <DoctorListTitle>병원 의사 목록</DoctorListTitle>
         </DoctorListHeader>
         <DoctorListBody>
-          <DoctorListContent>
-            <DoctorImg />
-            <DoctorInfo>
-              <DoctorName>이코사 의사 </DoctorName>
-              <DoctorDiagnosis>내과</DoctorDiagnosis>
-            </DoctorInfo>
-          </DoctorListContent>
-          <DoctorListContent>
-            <DoctorImg />
-            <DoctorInfo>
-              <DoctorName>이코사 의사 </DoctorName>
-              <DoctorDiagnosis>내과</DoctorDiagnosis>
-            </DoctorInfo>
-          </DoctorListContent>
-          <DoctorListContent>
-            <DoctorImg />
-            <DoctorInfo>
-              <DoctorName>이코사 의사 </DoctorName>
-              <DoctorDiagnosis>내과</DoctorDiagnosis>
-            </DoctorInfo>
-          </DoctorListContent>
-          <DoctorListContent>
-            <DoctorImg />
-            <DoctorInfo>
-              <DoctorName>이코사 의사 </DoctorName>
-              <DoctorDiagnosis>내과</DoctorDiagnosis>
-            </DoctorInfo>
-          </DoctorListContent>
+          {doctorInfo.map((doctor) => (
+            <DoctorListContent key={doctor.doctorId}>
+              <DoctorImg img={doctor.doctorImg} />
+              <DoctorInfo>
+                <DoctorName>{doctor.doctorName}의사 </DoctorName>
+                <DoctorDiagnosis>{doctor.departmentName}</DoctorDiagnosis>
+              </DoctorInfo>
+            </DoctorListContent>
+          ))}
         </DoctorListBody>
       </DoctorListWrap>
     </Wrap>
@@ -89,7 +170,8 @@ const DoctorImg = styled.div`
   width: 250px;
   height: 250px;
   border-radius: 50%;
-  background-image: url(${DoctorProfileImg});
+  background-image: ${(props) =>
+    props.img ? `url(${props.img})` : `url(${DefaultProfileImg})`};
   background-size: cover;
 `
 const DoctorInfo = styled.div`

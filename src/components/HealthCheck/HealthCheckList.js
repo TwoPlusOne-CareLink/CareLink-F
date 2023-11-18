@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux"
 import {
   __getHealthCheckDetail,
   __getHealthCheckList,
-} from "../../redux/slice/healthCheckSlice"
+} from "../../redux/modules/healthCheckSlice"
 
 function HealthCheckList() {
   const dispatch = useDispatch()

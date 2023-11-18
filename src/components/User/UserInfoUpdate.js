@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { styled } from "styled-components"
 import CloseBtn from "../../assets/images/XBtn.png"
 import DaumPostcode from "react-daum-postcode"
-import { __updateUserInfo } from "../../redux/slice/userSlice"
+import { __updateUserInfo } from "../../redux/modules/userSlice"
 
 function UserInfoUpdate(props) {
   const [id, setId] = useState()

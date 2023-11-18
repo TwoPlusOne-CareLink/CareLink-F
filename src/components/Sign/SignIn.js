@@ -4,7 +4,7 @@ import User from "../../assets/images/User.png"
 import Lock from "../../assets/images/Lock.png"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { __signIn } from "../../redux/slice/authSlice"
+import { __signIn } from "../../redux/modules/authSlice"
 
 function SignIn() {
   const dispatch = useDispatch()

@@ -27,7 +27,7 @@ export const __signIn = createAsyncThunk(
   "POST_SIGNIN",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosIns.post("/signin", payload)
+      const data = await axiosIns.post("/login", payload)
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code)
@@ -59,6 +59,7 @@ export const authSlice = createSlice({
     [__signIn.fulfilled]: (state, action) => {
       state.isLoading = false
       state.isLogin = true
+      state.member = action.payload
     },
     [__signIn.rejected]: (state, action) => {
       state.isLoading = false
@@ -69,6 +70,7 @@ export const authSlice = createSlice({
     },
     [__signUp.fulfilled]: (state, action) => {
       state.isLoading = false
+      state.member = action.payload
       alert("회원가입을 축하합니다 !")
     },
     [__signUp.rejected]: (state, action) => {
