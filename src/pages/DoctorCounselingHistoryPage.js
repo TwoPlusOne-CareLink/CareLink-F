@@ -1,18 +1,18 @@
 import React from "react"
 import DoctorNav from "../components/Main/DoctorNav"
-import DoctorConsultingHistory from "../components/DoctorConsulting/DoctorConsultingHistory"
+import DoctorCounselingCompleteHistory from "../components/DoctorCounseling/DoctorCounselingCompleteHistory"
 import { styled } from "styled-components"
 
-function DoctorConsultingHistoryPage() {
+function DoctorCounselingCompleteHistoryPage() {
   return (
     <PageWrap>
       <DoctorNav />
-      <DoctorConsultingHistory />
+      <DoctorCounselingCompleteHistory />
     </PageWrap>
   )
 }
 
-export default DoctorConsultingHistoryPage
+export default DoctorCounselingCompleteHistoryPage
 
 const PageWrap = styled.div`
   display: flex;

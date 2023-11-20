@@ -1,12 +1,13 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import Logo from "../../assets/images/Logo.jpg"
 
 function HospitalMain() {
   const navigate = useNavigate()
 
   const HGoToLogIn = () => {
-    navigate("/signin")
+    navigate("/login")
   }
 
   const HLogout = () => {
@@ -14,33 +15,35 @@ function HospitalMain() {
   }
 
   const GoToHospitalDoctorList = () => {
-    navigate("/hospitalDoctorList")
+    navigate("/hospital/doctorList")
   }
 
   const GoToHospitalcheck = () => {
-    navigate("/hospitalcheck")
+    navigate("/hospital/check")
   }
 
   return (
     <Wrap>
       <HMainWrapper>
-        <HMainHeader>
-          <HMainHeaderTitle>CareLink</HMainHeaderTitle>
-          <HMainHeaderContent>
-            건강한 내일을 연결하다 <br />
-            아플 때, 더 가까워지는 케어링크
-          </HMainHeaderContent>
-        </HMainHeader>
-        <HMainBody>
-          <HDoctorListBtn onClick={GoToHospitalDoctorList}>
-            의사목록조회
-          </HDoctorListBtn>
-          <HReservationBtn onClick={GoToHospitalcheck}>
-            예약내역조회
-          </HReservationBtn>
-          <HLogInBtn onClick={HGoToLogIn}>로그인</HLogInBtn>
-          {/* <HLogoutBtn onClick={HLogout}>로그아웃</HLogoutBtn> */}
-        </HMainBody>
+        <HMainContents>
+          <HMainHeader>
+            <HMainTitleImg />
+            <HMainHeaderContent>
+              건강한 내일을 연결하다 <br />
+              아플 때, 더 가까워지는 케어링크
+            </HMainHeaderContent>
+          </HMainHeader>
+          <HMainBody>
+            <HDoctorListBtn onClick={GoToHospitalDoctorList}>
+              의사목록조회
+            </HDoctorListBtn>
+            <HReservationBtn onClick={GoToHospitalcheck}>
+              예약내역조회
+            </HReservationBtn>
+            <HLogInBtn onClick={HGoToLogIn}>로그인</HLogInBtn>
+            {/* <HLogoutBtn onClick={HLogout}>로그아웃</HLogoutBtn> */}
+          </HMainBody>
+        </HMainContents>
       </HMainWrapper>
     </Wrap>
   )
@@ -53,21 +56,47 @@ const Wrap = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
+  background-color: #223359;
 `
 /*병원 메인을 감싸는 div */
 const HMainWrapper = styled.div`
-  width: 1000px;
-  height: 700px;
+  width: 1275px;
+  height: 800px;
+  border: transparent;
+  border-radius: 20px;
+  box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.1);
   margin: auto;
+  display: flex;
+  background-color: white;
 `
+const HMainContents = styled.div`
+  width: 1000px;
+  height: 650px;
+  margin: auto;
+  /* border: 1px solid black; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
 /**병원메인 헤더 */
 const HMainHeader = styled.div`
   width: 100%;
-  height: 25%;
+  height: 30%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+`
+
+const HMainTitleImg = styled.div`
+  width: 500px;
+  height: 200px;
+  margin-right: 50px;
+  background-image: url(${Logo});
+  background-size: cover;
+  user-select: none;
 `
 
 /*병원헤더 CareLink 타이틀 */
@@ -89,8 +118,8 @@ const HMainHeaderContent = styled.span`
 /*병원메인을 감싸는 div */
 const HMainBody = styled.div`
   width: 100%;
-  height: 50%;
-  margin-top: 30px;
+  height: 45%;
+  margin-top: 50px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(30%, auto));
   gap: 10px;

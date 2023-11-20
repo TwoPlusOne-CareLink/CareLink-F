@@ -1,19 +1,18 @@
 import React from "react"
+import Counseling from "../components/Counseling/Counseling"
 import MainNav from "../components/Main/MainNav"
-import ConsultingHistory from "../components/Consulting/ConsultingHistory"
-import styled from "styled-components"
+import { styled } from "styled-components"
 
-function ConsultingHistoryPage() {
+function CounselingPage() {
   return (
     <PageWrap>
       <MainNav />
-      <ConsultingHistory />
+      <Counseling />
     </PageWrap>
   )
 }
 
-export default ConsultingHistoryPage
-
+export default CounselingPage
 const PageWrap = styled.div`
   display: flex;
   flex-direction: row;

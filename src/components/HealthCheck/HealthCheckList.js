@@ -1,13 +1,59 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { styled } from "styled-components"
 import XBtn from "../../assets/images/XBtn.png"
+import { useDispatch } from "react-redux"
+import {
+  __getHealthCheckDetail,
+  __getHealthCheckInfo,
+  // __getHealthCheckList,
+} from "../../redux/modules/healthCheckSlice"
 
 function HealthCheckList() {
+  const dispatch = useDispatch()
+  const [selectedHealthCheck, setSelectedHealthCheck] = useState()
   const [postModal, setPostModal] = useState()
 
   const postToggleModal = () => {
     setPostModal(!postModal)
   }
+
+  const [healthCheck, setHealthCheck] = useState([
+    {
+      checkId: 1,
+      memberId: "sound4519",
+      memberName: "윤시호",
+      genderName: "남자",
+      age: 22,
+      height: 175.5,
+      weight: 70.3,
+      systolicBloodPressure: 110,
+      relaxationBloodPressure: 70,
+      bloodSugar: 120,
+      heartRate: 75,
+      healthMemo: "오늘의 컨디션은 매우 피곤해요",
+      nowDate: "2023-11-08",
+    },
+    {
+      checkId: 2,
+      memberId: "sound5555",
+      memberName: "이승진",
+      genderName: "여자",
+      age: 25,
+      height: 165.5,
+      weight: 54.3,
+      systolicBloodPressure: 110,
+      relaxationBloodPressure: 70,
+      bloodSugar: 110,
+      heartRate: 70,
+      healthMemo: "오늘의 컨디션은 매우 상쾌해요!",
+      nowDate: "2023-11-08",
+    },
+  ])
+
+  useEffect(() => {
+    dispatch(__getHealthCheckInfo)
+    dispatch(__getHealthCheckDetail)
+  }, [])
 
   return (
     <HealthCheckFormList>
@@ -22,77 +68,111 @@ function HealthCheckList() {
           <HealthCheckPostTitleDate>작성날짜</HealthCheckPostTitleDate>
         </HealthCheckPostTitles>
         <HealthCheckPosts>
-          <HealthCheckPost onClick={postToggleModal}>
-            <PostNo>1</PostNo>
-            <PostName>이승진</PostName>
-            <PostText>
-              안녕하세요 제가 너무 너무 떨려요 지금 심장이 두근두근 대요 근데
-              어쩌라구요
-            </PostText>
-            <PostDate>23/09/23</PostDate>
-          </HealthCheckPost>
-          {postModal && (
-            <PostModalWrapper>
-              <PostModalOverlay>
-                <PostModalContent>
-                  <PostModalContentHeader>
-                    <PostModalContentTitle>
-                      체크리스트 작성상세내역
-                    </PostModalContentTitle>
-                    <PostModalContentCloseBtn onClick={postToggleModal} />
-                  </PostModalContentHeader>
-                  <PostModalContentBody>
-                    <PostModalBodyContents>
-                      <PostModalBodyContent>
-                        <PostModalContentName>이름</PostModalContentName>
-                        <PostModalContentResult>d</PostModalContentResult>
-                      </PostModalBodyContent>
-                      <PostModalBodyContent>
-                        <PostModalContentName>성별</PostModalContentName>
-                        <PostModalContentResult>d</PostModalContentResult>
-                      </PostModalBodyContent>
-                      <PostModalBodyContent>
-                        <PostModalContentName>나이</PostModalContentName>
-                        <PostModalContentResult>d</PostModalContentResult>
-                      </PostModalBodyContent>
-                      <PostModalBodyContent>
-                        <PostModalContentName>신장</PostModalContentName>
-                        <PostModalContentResult>cm</PostModalContentResult>
-                      </PostModalBodyContent>
-                      <PostModalBodyContent>
-                        <PostModalContentName>체중</PostModalContentName>
-                        <PostModalContentResult>kg</PostModalContentResult>
-                      </PostModalBodyContent>
-                      <PostModalBodyContent>
-                        <PostModalContentName>심박수</PostModalContentName>
-                        <PostModalContentResult>bpm</PostModalContentResult>
-                      </PostModalBodyContent>
-                      <PostModalBodyContent>
-                        <PostModalContentName>혈당</PostModalContentName>
-                        <PostModalContentResult>
-                          100mg/dL
-                        </PostModalContentResult>
-                      </PostModalBodyContent>
-                      <PostModalBodyContent>
-                        <PostModalContentName>수축혈압</PostModalContentName>
-                        <PostModalContentResult>mmHg</PostModalContentResult>
-                      </PostModalBodyContent>
-                      <PostModalBodyContent>
-                        <PostModalContentName>이완혈압</PostModalContentName>
-                        <PostModalContentResult>mmHg</PostModalContentResult>
-                      </PostModalBodyContent>
-                    </PostModalBodyContents>
-                    <PostModalContentTexts>
-                      <PostModalContentTextTitle>
-                        작성내용
-                      </PostModalContentTextTitle>
-                      <PostModalContentText>안녕하십니까</PostModalContentText>
-                    </PostModalContentTexts>
-                  </PostModalContentBody>
-                </PostModalContent>
-              </PostModalOverlay>
-            </PostModalWrapper>
-          )}
+          {healthCheck.map((check) => (
+            <HealthCheckPost
+              onClick={() => setSelectedHealthCheck(check.checkId)}
+            >
+              <PostNo>{check.checkId}</PostNo>
+              <PostName>{check.memberName}</PostName>
+              <PostText>{check.healthMemo}</PostText>
+              <PostDate>{check.nowDate}</PostDate>
+            </HealthCheckPost>
+          ))}
+          {selectedHealthCheck &&
+            healthCheck.map((item) => {
+              if (item.checkId === selectedHealthCheck) {
+                return (
+                  <PostModalWrapper>
+                    <PostModalOverlay>
+                      <PostModalContent>
+                        <PostModalContentHeader>
+                          <PostModalContentTitle>
+                            체크리스트 작성상세내역
+                          </PostModalContentTitle>
+                          <PostModalContentCloseBtn
+                            onClick={() =>
+                              setSelectedHealthCheck(!selectedHealthCheck)
+                            }
+                          />
+                        </PostModalContentHeader>
+                        <PostModalContentBody key={item.checkId}>
+                          <PostModalBodyContents>
+                            <PostModalBodyContent>
+                              <PostModalContentName>이름</PostModalContentName>
+                              <PostModalContentResult>
+                                {item.memberName}
+                              </PostModalContentResult>
+                            </PostModalBodyContent>
+                            <PostModalBodyContent>
+                              <PostModalContentName>성별</PostModalContentName>
+                              <PostModalContentResult>
+                                {item.genderName}
+                              </PostModalContentResult>
+                            </PostModalBodyContent>
+                            <PostModalBodyContent>
+                              <PostModalContentName>나이</PostModalContentName>
+                              <PostModalContentResult>
+                                {item.age}
+                              </PostModalContentResult>
+                            </PostModalBodyContent>
+                            <PostModalBodyContent>
+                              <PostModalContentName>신장</PostModalContentName>
+                              <PostModalContentResult>
+                                {item.height}cm
+                              </PostModalContentResult>
+                            </PostModalBodyContent>
+                            <PostModalBodyContent>
+                              <PostModalContentName>체중</PostModalContentName>
+                              <PostModalContentResult>
+                                {item.weight}kg
+                              </PostModalContentResult>
+                            </PostModalBodyContent>
+                            <PostModalBodyContent>
+                              <PostModalContentName>
+                                심박수
+                              </PostModalContentName>
+                              <PostModalContentResult>
+                                {item.heartRate}bpm
+                              </PostModalContentResult>
+                            </PostModalBodyContent>
+                            <PostModalBodyContent>
+                              <PostModalContentName>혈당</PostModalContentName>
+                              <PostModalContentResult>
+                                {item.bloodSugar}mg/dL
+                              </PostModalContentResult>
+                            </PostModalBodyContent>
+                            <PostModalBodyContent>
+                              <PostModalContentName>
+                                수축혈압
+                              </PostModalContentName>
+                              <PostModalContentResult>
+                                {item.systolicBloodPressure}mmHg
+                              </PostModalContentResult>
+                            </PostModalBodyContent>
+                            <PostModalBodyContent>
+                              <PostModalContentName>
+                                이완혈압
+                              </PostModalContentName>
+                              <PostModalContentResult>
+                                {item.relaxationBloodPressure}mmHg
+                              </PostModalContentResult>
+                            </PostModalBodyContent>
+                          </PostModalBodyContents>
+                          <PostModalContentTexts>
+                            <PostModalContentTextTitle>
+                              작성내용
+                            </PostModalContentTextTitle>
+                            <PostModalContentText>
+                              {item.healthMemo}
+                            </PostModalContentText>
+                          </PostModalContentTexts>
+                        </PostModalContentBody>
+                      </PostModalContent>
+                    </PostModalOverlay>
+                  </PostModalWrapper>
+                )
+              }
+            })}
         </HealthCheckPosts>
       </HealthCheckListBody>
     </HealthCheckFormList>
@@ -143,18 +223,22 @@ const HealthCheckPostTitles = styled.div`
 `
 const HealthCheckPostTitleNo = styled.span`
   width: 50px;
+  font-weight: 600;
   text-align: center;
 `
 const HealthCheckPostTitleName = styled.span`
   width: 90px;
+  font-weight: 600;
   text-align: center;
 `
 const HealthCheckPostTitleText = styled.span`
   width: 440px;
+  font-weight: 600;
   text-align: center;
 `
 const HealthCheckPostTitleDate = styled.span`
   width: 120px;
+  font-weight: 600;
   text-align: center;
 `
 const HealthCheckPosts = styled.div`

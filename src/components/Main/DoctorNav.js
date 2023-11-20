@@ -13,29 +13,33 @@ function DoctorNav() {
     navigate("/doctor")
   }
 
-  const GoToDConsultingList = () => {
-    navigate("/doctorconsultinglist")
+  const GoToDCounselingList = () => {
+    navigate("/doctor/counselinglist")
   }
 
-  const GoToDConsultingHistory = () => {
-    navigate("/doctorconsultinghistory")
+  const GoToDCounselingHistory = () => {
+    navigate("/doctor/counselinghistory")
   }
 
   return (
     <Wrap>
       <NavWrapper>
         <NavBarHeader>
-          <NavBarTitle onClick={GoToMain}>CareLink</NavBarTitle>
+          <NavBarTitle onClick={GoToMain}>
+            비대면 <br />
+            상담 플랫폼 <Hr /> CareLink
+          </NavBarTitle>
+          {/* <NavBarTitle onClick={GoToMain}>CareLink</NavBarTitle> */}
         </NavBarHeader>
         <NavBody>
           <NavMenu>
             <NavMenuItem>
-              <NavMenuItemTitle onClick={GoToDConsultingList}>
+              <NavMenuItemTitle onClick={GoToDCounselingList}>
                 비대면 상담목록
               </NavMenuItemTitle>
             </NavMenuItem>
             <NavMenuItem>
-              <NavMenuItemTitle onClick={GoToDConsultingHistory}>
+              <NavMenuItemTitle onClick={GoToDCounselingHistory}>
                 비대면 상담내역
               </NavMenuItemTitle>
             </NavMenuItem>
@@ -52,35 +56,41 @@ function DoctorNav() {
 export default DoctorNav
 
 const Wrap = styled.div`
-  width: 15vw;
+  width: 12vw;
   height: 100vh;
 `
 const NavWrapper = styled.div`
-  width: 250px;
-  /* height: 910px; */
+  width: 220px;
   height: 100%;
   background-color: #223359;
   color: white;
+  z-index: 1;
+  position: absolute;
 `
 
 const NavBarHeader = styled.div`
-  width: 250px;
+  width: 220px;
   /* height: 142px; */
-  height: 15%;
+  height: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
   user-select: none;
 `
 const NavBarTitle = styled.div`
-  font-size: 40px;
+  font-size: 28px;
+  font-weight: 600;
   cursor: pointer;
+`
+
+const Hr = styled.hr`
+  margin: 5px auto;
 `
 
 const NavBody = styled.div`
   width: 100%;
   /* height: 675px; */
-  height: 75%;
+  height: 70%;
 
   margin-bottom: auto;
 `
@@ -88,7 +98,7 @@ const NavBody = styled.div`
 const NavMenu = styled.div``
 
 const NavMenuItem = styled.div`
-  width: 220px;
+  width: 200px;
   height: 50px;
   padding: 14px;
   display: flex;
@@ -99,7 +109,7 @@ const NavMenuItem = styled.div`
 `
 
 const NavMenuItemTitle = styled.button`
-  font-size: 30px;
+  font-size: 25px;
   border: transparent;
   background-color: #223359;
   color: white;
@@ -110,7 +120,7 @@ const NavMenuItemTitle = styled.button`
 `
 
 const NavFooter = styled.div`
-  width: 250px;
+  width: 220px;
   /* height: 93px; */
   height: 10%;
   display: flex;

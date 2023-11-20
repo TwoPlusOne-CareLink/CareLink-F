@@ -1,12 +1,13 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import Logo from "../../assets/images/Logo.jpg"
 
 function Main() {
   const navigate = useNavigate()
 
   const GoToSignIn = () => {
-    navigate("/signin")
+    navigate("/login")
   }
 
   const GoToSignUp = () => {
@@ -14,54 +15,57 @@ function Main() {
   }
 
   const GoToHospitalSearch = () => {
-    navigate("/hospitalsearch")
+    navigate("/user/hospitalsearch")
   }
 
-  const GoToConsulting = () => {
-    navigate("/consulting")
+  const GoToCounseling = () => {
+    navigate("/user/counseling")
   }
 
   const GoToHealthCheck = () => {
-    navigate("/healthcheck")
+    navigate("/user/healthcheck")
   }
 
   return (
     <Wrap>
       <MainWrapper>
-        <MainHeader>
-          <MainHeaderTitle>CareLink</MainHeaderTitle>
-          <MainHeaderContent>
-            건강한 내일을 연결하다 <br />
-            아플 때, 더 가까워지는 케어링크
-          </MainHeaderContent>
-        </MainHeader>
-        <MainBody>
-          <ConsultingBtn onClick={GoToConsulting}>
-            <ConsultingBtnTitle>비대면 상담</ConsultingBtnTitle>
-            <ConsultingBtnContent>
-              전문 의료인의 상담을 받아보세요.
-            </ConsultingBtnContent>
-          </ConsultingBtn>
-          <SearchBtn onClick={GoToHospitalSearch}>
-            <SearchBtnContent>
-              내 주변에 가까운 병원이 궁금하거나
-              <br />
-              병원 예약을 하고자 한다면?
-            </SearchBtnContent>
-            <SearchBtnTitle>병원찾기</SearchBtnTitle>
-          </SearchBtn>
-          <MainBtn onClick={GoToHealthCheck}>
-            <MainBtnContent>헬스케어</MainBtnContent>
-          </MainBtn>
-          <MainBtn>
-            <MainBtnContent>질병백과</MainBtnContent>
-          </MainBtn>
-          <SignBtns>
-            <SignInBtn onClick={GoToSignIn}>로그인</SignInBtn>
-            <SignUpBtn onClick={GoToSignUp}>회원가입</SignUpBtn>
-            {/* <LogoutBtn>로그아웃</LogoutBtn> */}
-          </SignBtns>
-        </MainBody>
+        <MainContents>
+          <MainHeader>
+            <MainTitleImg />
+            {/* <MainHeaderTitle>CareLink</MainHeaderTitle> */}
+            <MainHeaderContent>
+              건강한 내일을 연결하다 <br />
+              아플 때, 더 가까워지는 케어링크
+            </MainHeaderContent>
+          </MainHeader>
+          <MainBody>
+            <CounselingBtn onClick={GoToCounseling}>
+              <CounselingBtnTitle>비대면 상담</CounselingBtnTitle>
+              <CounselingBtnContent>
+                전문 의료인의 상담을 받아보세요.
+              </CounselingBtnContent>
+            </CounselingBtn>
+            <SearchBtn onClick={GoToHospitalSearch}>
+              <SearchBtnContent>
+                내 주변에 가까운 병원이 궁금하거나
+                <br />
+                병원 예약을 하고자 한다면?
+              </SearchBtnContent>
+              <SearchBtnTitle>병원찾기</SearchBtnTitle>
+            </SearchBtn>
+            <MainBtn onClick={GoToHealthCheck}>
+              <MainBtnContent>헬스케어</MainBtnContent>
+            </MainBtn>
+            <MainBtn>
+              <MainBtnContent>질병백과</MainBtnContent>
+            </MainBtn>
+            <SignBtns>
+              <SignInBtn onClick={GoToSignIn}>로그인</SignInBtn>
+              <SignUpBtn onClick={GoToSignUp}>회원가입</SignUpBtn>
+              {/* <LogoutBtn>로그아웃</LogoutBtn> */}
+            </SignBtns>
+          </MainBody>
+        </MainContents>
       </MainWrapper>
     </Wrap>
   )
@@ -74,31 +78,43 @@ const Wrap = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
+  background-color: #223359;
 `
 
 /*메인 div*/
 const MainWrapper = styled.div`
+  width: 1275px;
+  height: 800px;
+  border: transparent;
+  border-radius: 20px;
+  box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.1);
+  margin: auto;
+  display: flex;
+  background-color: white;
+`
+
+const MainContents = styled.div`
   width: 1000px;
-  height: 700px;
+  height: 750px;
   margin: auto;
 `
 
 /**메인 헤더 */
 const MainHeader = styled.div`
   width: 100%;
-  height: 25%;
+  height: 30%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 `
 
-/*헤더 CareLink 타이틀 */
-const MainHeaderTitle = styled.span`
-  height: 100%;
-  margin-right: 15%;
-  font-size: 7rem;
-  font-family: "GmarketSansMeduim";
+const MainTitleImg = styled.div`
+  width: 500px;
+  height: 200px;
+  margin-right: 50px;
+  background-image: url(${Logo});
+  background-size: cover;
   user-select: none;
 `
 
@@ -112,13 +128,14 @@ const MainHeaderContent = styled.span`
 /**바디 버튼 부분 */
 const MainBody = styled.div`
   width: 100%;
-  height: 70%;
+  height: 65%;
+  margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(30%, auto));
-  gap: 15px;
+  gap: 20px;
 `
 /*비대면 상담 버튼 */
-const ConsultingBtn = styled.button`
+const CounselingBtn = styled.button`
   height: 250px;
   border: 1px solid transparent;
   border-radius: 16px;
@@ -134,13 +151,13 @@ const ConsultingBtn = styled.button`
   }
 `
 /*비대면 상담 버튼 내부 비대면 상담  */
-const ConsultingBtnTitle = styled.span`
+const CounselingBtnTitle = styled.span`
   margin-top: 40px;
   font-family: "GmarketSansMedium";
   font-size: 90px;
 `
 /*비대면 상담 버튼 내부 안내글귀 */
-const ConsultingBtnContent = styled.span`
+const CounselingBtnContent = styled.span`
   margin-bottom: 20px;
   font-size: 25px;
 `

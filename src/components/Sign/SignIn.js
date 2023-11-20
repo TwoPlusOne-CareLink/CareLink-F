@@ -1,18 +1,50 @@
-import React from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
 import User from "../../assets/images/User.png"
 import Lock from "../../assets/images/Lock.png"
 import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { __signIn } from "../../redux/modules/authSlice"
 
 function SignIn() {
-  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [memberId, setMemberId] = useState()
+  const [password, setPassword] = useState()
 
-  const GotoLogIn = () => {
-    alert("로그인할게요")
-  }
+  const navigate = useNavigate()
 
   const GoToSignUp = () => {
     navigate("/signup")
+  }
+
+  const memberIdHandler = (event) => {
+    const currentId = event.target.value
+    setMemberId(currentId)
+    console.log(memberId, currentId)
+  }
+
+  const memberPasswordHandler = (event) => {
+    const currentPassword = event.target.value
+    setPassword(currentPassword)
+    console.log(password, currentPassword)
+  }
+
+  const onLogin = (event) => {
+    event.preventDefault()
+    const loginForm = new FormData()
+    loginForm.append("memberId", memberId)
+    loginForm.append("password", password)
+
+    dispatch(__signIn(loginForm))
+      .then((response) => {
+        if (response) {
+          alert("회원님, 환영합니다!")
+          console.log("토큰이 있어")
+        }
+      })
+      .catch((error) => {
+        alert("로그인 실패!" + error.code)
+      })
   }
 
   return (
@@ -23,7 +55,13 @@ function SignIn() {
           <SignInDiv>
             <SignInInputDiv>
               <SignInUserImg />
-              <SignInId type="text" id="id" name="id" placeholder="아이디" />
+              <SignInId
+                type="text"
+                id="id"
+                name="id"
+                placeholder="아이디"
+                onChange={memberIdHandler}
+              />
             </SignInInputDiv>
             <SignInInputDiv>
               <SignInPasswordImg />
@@ -32,11 +70,12 @@ function SignIn() {
                 id="password"
                 name="password"
                 placeholder="비밀번호"
+                onChange={memberPasswordHandler}
               />
             </SignInInputDiv>
           </SignInDiv>
           <SignBtns>
-            <SignInBtn onClick={GotoLogIn}>로그인</SignInBtn>
+            <SignInBtn onClick={onLogin}>로그인</SignInBtn>
             <SignUpBtn onClick={GoToSignUp}>회원가입</SignUpBtn>
           </SignBtns>
         </SignInBody>
