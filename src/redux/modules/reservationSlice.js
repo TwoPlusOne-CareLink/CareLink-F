@@ -49,7 +49,7 @@ export const __getHospitalReservation = createAsyncThunk(
   "GET_HOSPITALRESERVATION",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosIns.get("/", payload)
+      const data = await axiosIns.get("/hospital/reservationList", payload)
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code)

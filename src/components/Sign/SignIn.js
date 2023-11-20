@@ -38,13 +38,8 @@ function SignIn() {
     dispatch(__signIn(loginForm))
       .then((response) => {
         if (response) {
-          if (localStorage.accessToken === null) {
-            alert("토큰이 없어")
-            console.log("토큰이없어")
-          } else {
-            alert("회원님, 환영합니다!")
-            console.log("토큰이 있어")
-          }
+          alert("회원님, 환영합니다!")
+          console.log("토큰이 있어")
         }
       })
       .catch((error) => {

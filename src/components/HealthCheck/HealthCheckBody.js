@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 import { styled } from "styled-components"
 import {
   __addHealthCheck,
-  __getHealthCheckMember,
+  __getHealthCheckInfo,
 } from "../../redux/modules/healthCheckSlice"
 
 function HealthCheckBody() {
@@ -38,7 +38,7 @@ function HealthCheckBody() {
 
   // 헬스케어 체크리스트 페이지 접속시, 유저의 정보를 불러오는 로직(이름, 성별, 나이)
   useEffect(() => {
-    dispatch(__getHealthCheckMember)
+    dispatch(__getHealthCheckInfo)
   }, [])
 
   // 체크리스트 작성자 이름 입력 감지 로직

@@ -4,7 +4,8 @@ import XBtn from "../../assets/images/XBtn.png"
 import { useDispatch } from "react-redux"
 import {
   __getHealthCheckDetail,
-  __getHealthCheckList,
+  __getHealthCheckInfo,
+  // __getHealthCheckList,
 } from "../../redux/modules/healthCheckSlice"
 
 function HealthCheckList() {
@@ -50,7 +51,7 @@ function HealthCheckList() {
   ])
 
   useEffect(() => {
-    dispatch(__getHealthCheckList)
+    dispatch(__getHealthCheckInfo)
     dispatch(__getHealthCheckDetail)
   }, [])
 
@@ -222,18 +223,22 @@ const HealthCheckPostTitles = styled.div`
 `
 const HealthCheckPostTitleNo = styled.span`
   width: 50px;
+  font-weight: 600;
   text-align: center;
 `
 const HealthCheckPostTitleName = styled.span`
   width: 90px;
+  font-weight: 600;
   text-align: center;
 `
 const HealthCheckPostTitleText = styled.span`
   width: 440px;
+  font-weight: 600;
   text-align: center;
 `
 const HealthCheckPostTitleDate = styled.span`
   width: 120px;
+  font-weight: 600;
   text-align: center;
 `
 const HealthCheckPosts = styled.div`

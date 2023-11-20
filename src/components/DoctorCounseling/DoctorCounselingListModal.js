@@ -34,6 +34,75 @@ function DoctorCounselingListModal({ dispatch }) {
       counselingImage: `${HistoryImg}`,
       counselingImageName: "상담사진",
     },
+    {
+      counselingId: 1,
+      counselingTitle: "상담요청합니다",
+      memberId: "sound4519",
+      memberName: "이승진",
+      departmentId: 1,
+      departmentName: "내과",
+      counselingContent:
+        "안녕하세요 며칠전부터 내가 ㅂ몸이 너무 쓰리디 쓰려서 그러는데 걍 집에 가면안될까요?",
+      counselingImage: `${HistoryImg}`,
+      counselingImageName: "상담사진",
+    },
+    {
+      counselingId: 2,
+      counselingTitle: "하이루",
+      memberId: "sound4519",
+      memberName: "이승진",
+      departmentId: 2,
+      departmentName: "외과",
+      counselingContent: "안돼. 돌아가.",
+      counselingImage: `${HistoryImg}`,
+      counselingImageName: "상담사진",
+    },
+    {
+      counselingId: 1,
+      counselingTitle: "상담요청합니다",
+      memberId: "sound4519",
+      memberName: "이승진",
+      departmentId: 1,
+      departmentName: "내과",
+      counselingContent:
+        "안녕하세요 며칠전부터 내가 ㅂ몸이 너무 쓰리디 쓰려서 그러는데 걍 집에 가면안될까요?",
+      counselingImage: `${HistoryImg}`,
+      counselingImageName: "상담사진",
+    },
+    {
+      counselingId: 2,
+      counselingTitle: "하이루",
+      memberId: "sound4519",
+      memberName: "이승진",
+      departmentId: 2,
+      departmentName: "외과",
+      counselingContent: "안돼. 돌아가.",
+      counselingImage: `${HistoryImg}`,
+      counselingImageName: "상담사진",
+    },
+    {
+      counselingId: 1,
+      counselingTitle: "상담요청합니다",
+      memberId: "sound4519",
+      memberName: "이승진",
+      departmentId: 1,
+      departmentName: "내과",
+      counselingContent:
+        "안녕하세요 며칠전부터 내가 ㅂ몸이 너무 쓰리디 쓰려서 그러는데 걍 집에 가면안될까요?",
+      counselingImage: `${HistoryImg}`,
+      counselingImageName: "상담사진",
+    },
+    {
+      counselingId: 2,
+      counselingTitle: "하이루",
+      memberId: "sound4519",
+      memberName: "이승진",
+      departmentId: 2,
+      departmentName: "외과",
+      counselingContent: "안돼. 돌아가.",
+      counselingImage: `${HistoryImg}`,
+      counselingImageName: "상담사진",
+    },
   ])
 
   const [counselingReply, setCounselingReply] = useState([
@@ -133,7 +202,8 @@ export default DoctorCounselingListModal
 
 const DCounselingListBody = styled.div`
   width: 1300px;
-  height: 660px;
+  height: 700px;
+  margin-top: 25px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(25%, auto));
 `
@@ -177,6 +247,7 @@ const DCounselingModalOverlay = styled.div`
 `
 const DCounselingModalContent = styled.div`
   width: 900px;
+  height: 700px;
   height: 700px;
   border-radius: 12px;
   background-color: white;

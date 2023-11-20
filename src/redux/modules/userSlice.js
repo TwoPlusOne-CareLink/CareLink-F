@@ -10,7 +10,6 @@ const initialState = {
     memberTel: "",
     memberAddress: "",
     memberAddressDetail: "",
-    agree: "",
     age: "",
     gender: "",
   },
@@ -24,7 +23,7 @@ export const __getUserInfo = createAsyncThunk(
   "GET_USERINFO",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosIns.get("/userInfo", payload)
+      const data = await axiosIns.get("/user/modifyMemberInfo", payload)
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code)
@@ -37,7 +36,7 @@ export const __updateUserInfo = createAsyncThunk(
   "PUT_USERINFO",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosIns.put("/userInfoUpdate", payload)
+      const data = await axiosIns.put("/user/modifyMemberInfo", payload)
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code)

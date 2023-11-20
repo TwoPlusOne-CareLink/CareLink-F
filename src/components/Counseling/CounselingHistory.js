@@ -13,12 +13,15 @@ function CounselingHistory() {
 
   return (
     <Wrap>
+      <CounselingTop>
+        <CounselingTopTitle>내가 작성한 상담내역</CounselingTopTitle>
+      </CounselingTop>
       <CounselingHistoryWrap>
-        <CounselingHistoryHeader>
+        {/* <CounselingHistoryHeader>
           <CounselingHistoryTitle>나의 상담내역</CounselingHistoryTitle>
-        </CounselingHistoryHeader>
+        </CounselingHistoryHeader> */}
         <CounselingHistoryModal dispatch={dispatch} />
-        <CounselingHistoryFooter>이전 1 2 3 4 5 다음 </CounselingHistoryFooter>
+        {/* <CounselingHistoryFooter>이전 1 2 3 4 5 다음 </CounselingHistoryFooter> */}
       </CounselingHistoryWrap>
     </Wrap>
   )
@@ -27,15 +30,36 @@ function CounselingHistory() {
 export default CounselingHistory
 
 const Wrap = styled.div`
-  width: 85vw;
+  width: 88vw;
   height: 100vh;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `
+const CounselingTop = styled.div`
+  width: 91%;
+  height: 100px;
+  border-bottom: 4px solid #223359;
+  display: flex;
+  justify-content: left;
+  align-items: end;
+  user-select: none;
+`
+
+const CounselingTopTitle = styled.div`
+  font-size: 30px;
+  font-weight: 600;
+  margin-left: 20px;
+  margin-bottom: 20px;
+`
+
 const CounselingHistoryWrap = styled.div`
   width: 1300px;
   height: 800px;
   margin: auto;
 `
+
 const CounselingHistoryHeader = styled.div`
   height: 70px;
   display: flex;

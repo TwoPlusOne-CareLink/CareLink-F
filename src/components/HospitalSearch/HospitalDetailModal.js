@@ -12,6 +12,7 @@ function HospitalDetailModal() {
     setSelectedHospitalId(!selectedHospitalId)
   }
 
+  const [list, setList] = useState()
   const [hospital, setHospital] = useState([
     {
       hospitalId: 1,
@@ -126,6 +127,11 @@ function HospitalDetailModal() {
 
   return (
     <MapSearchResults>
+      <MapSearchResultTitles>
+        <MapSearchResultNameTitle>병원이름</MapSearchResultNameTitle>
+        <MapSearchResultAddressTitle>병원주소</MapSearchResultAddressTitle>
+        <MapSearchResultTelTitle>병원전화번호</MapSearchResultTelTitle>
+      </MapSearchResultTitles>
       {hospital.map((item) => (
         <MapSearchResult
           key={item.hospitalId}
@@ -262,6 +268,10 @@ const MapSearchResults = styled.div`
   box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.12);
 
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  align-items: center;
   &::-webkit-scrollbar {
     width: 10px;
     border-radius: 6px;
@@ -276,7 +286,37 @@ const MapSearchResults = styled.div`
   }
 `
 
+const MapSearchResultTitles = styled.div`
+  width: 700px;
+  height: 20px;
+  padding: 10px;
+  border-bottom: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+`
+
+const MapSearchResultTelTitle = styled.span`
+  margin-right: 20px;
+  border-bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
+`
+
+const MapSearchResultNameTitle = styled.span`
+  margin: auto 35px;
+  font-size: 20px;
+  font-weight: bold;
+`
+const MapSearchResultAddressTitle = styled.span`
+  font-size: 20px;
+  font-weight: bold;
+`
+
 const MapSearchResult = styled.div`
+  width: 95%;
   margin: 7px auto;
   padding: 12px;
   border: transparent;

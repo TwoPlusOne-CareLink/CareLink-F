@@ -5,22 +5,22 @@ import CloseBtn from "../../assets/images/XBtn.png"
 import Like from "../../assets/images/heart.png"
 import { jwtDecode } from "jwt-decode"
 
-function DoctorHistoryModal() {
-  const Token = localStorage.getItem("Token")
+function DoctorCompleteHistoryModal() {
+  // const Token = localStorage.getItem("Token")
   const [doctorId, setDoctorId] = useState()
 
   // 로컬스토리지에 담긴 토큰을 디코딩 하여 서버와 통신에 필요한 doctorId를 추출하기 위해 사용
-  if (Token && doctorId === undefined) {
-    try {
-      const decodedToken = jwtDecode(Token)
-      const doctorId = decodedToken.doctorId
-      setDoctorId(doctorId)
-    } catch (error) {
-      console.error("토큰 해석에 실패했습니다.", error)
-    }
-  } else if (!Token) {
-    console.log("토큰이 로컬스토리지에 존재하지 않습니다.")
-  }
+  // if (Token && doctorId === undefined) {
+  //   try {
+  //     const decodedToken = jwtDecode(Token)
+  //     const doctorId = decodedToken.doctorId
+  //     setDoctorId(doctorId)
+  //   } catch (error) {
+  //     console.error("토큰 해석에 실패했습니다.", error)
+  //   }
+  // } else if (!Token) {
+  //   console.log("토큰이 로컬스토리지에 존재하지 않습니다.")
+  // }
 
   const [historyModal, setHistoryModal] = useState()
 
@@ -141,7 +141,7 @@ function DoctorHistoryModal() {
   )
 }
 
-export default DoctorHistoryModal
+export default DoctorCompleteHistoryModal
 
 const DoctorHistoryBody = styled.div`
   width: 1300px;

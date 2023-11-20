@@ -19,12 +19,12 @@ const initialState = {
   error: false,
 }
 
-// 헬스케어 체크리스트 페이지 접속시, 유저의 정보를 불러오는 로직(이름, 성별, 나이)
-export const __getHealthCheckMember = createAsyncThunk(
+// 헬스케어 체크리스트 페이지 접속시, 유저의 정보 및, 내가 작성한 헬스케어 체크리스트를 불러오는 로직 로직(이름, 성별, 나이)
+export const __getHealthCheckInfo = createAsyncThunk(
   "GET_HEALTHCHECKMEMBER",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosIns.get("/gethealthmember", payload)
+      const data = await axiosIns.get("/user/checkList", payload)
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code)
@@ -32,12 +32,12 @@ export const __getHealthCheckMember = createAsyncThunk(
   }
 )
 
-// 헬스케어 체크리스트를 작성하는 로직
+// 헬스케어 체크리스트 폼 제출하는 로직
 export const __addHealthCheck = createAsyncThunk(
   "ADD_HEALTHCHECK",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosIns.post("/healthcheck", payload)
+      const data = await axiosIns.post("/user/checkAdd", payload)
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code)
@@ -45,25 +45,25 @@ export const __addHealthCheck = createAsyncThunk(
   }
 )
 
-// 내가 작성한 헬스케어 체크리스트를 불러오는 로직
-export const __getHealthCheckList = createAsyncThunk(
-  "GET_HEALTHCHECKLIST",
-  async (payload, thunkAPI) => {
-    try {
-      const data = await axiosIns.get("/healthchecklist", payload)
-      return thunkAPI.fulfillWithValue(data)
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.code)
-    }
-  }
-)
+// // 내가 작성한 헬스케어 체크리스트를 불러오는 로직
+// export const __getHealthCheckList = createAsyncThunk(
+//   "GET_HEALTHCHECKLIST",
+//   async (payload, thunkAPI) => {
+//     try {
+//       const data = await axiosIns.get("/healthchecklist", payload)
+//       return thunkAPI.fulfillWithValue(data)
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error.code)
+//     }
+//   }
+// )
 
 // 내가 작성한 헬스케어 체크리스트 상세내역을 불러오는 로직
 export const __getHealthCheckDetail = createAsyncThunk(
   "GET_HEALTHCHECKDETAIL",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosIns.get("/healthcheckdetail", payload)
+      const data = await axiosIns.get("/user/checkListInfo", payload)
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code)
@@ -77,19 +77,19 @@ export const healthCheckSlice = createSlice({
   reducers: {},
   extraReducers: {
     // 헬스케어 체크리스트 페이지 접속시, 유저의 정보를 불러오는 로직(이름, 성별, 나이)
-    [__getHealthCheckMember.pending]: (state, action) => {
+    [__getHealthCheckInfo.pending]: (state, action) => {
       state.isLoading = true
     },
-    [__getHealthCheckMember.fulfilled]: (state, action) => {
+    [__getHealthCheckInfo.fulfilled]: (state, action) => {
       state.isLoading = false
       state.healthCheck = action.payload
     },
-    [__getHealthCheckMember.rejected]: (state, action) => {
+    [__getHealthCheckInfo.rejected]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
     },
 
-    // 헬스케어 체크리스트를 작성하는 로직
+    // 헬스케어 체크리스트 폼을 제출하는 로직
     [__addHealthCheck.pending]: (state, action) => {
       state.isLoading = true
     },
@@ -101,18 +101,18 @@ export const healthCheckSlice = createSlice({
       state.isLoading = false
       state.error = action.payload
     },
-    // 내가 작성한 헬스케어 체크리스트를 불러오는 로직
-    [__getHealthCheckList.pending]: (state, action) => {
-      state.isLoading = true
-    },
-    [__getHealthCheckList.fulfilled]: (state, action) => {
-      state.isLoading = false
-      state.healthCheck = action.payload
-    },
-    [__getHealthCheckList.rejected]: (state, action) => {
-      state.isLoading = false
-      state.error = action.payload
-    },
+    // // 내가 작성한 헬스케어 체크리스트를 불러오는 로직
+    // [__getHealthCheckList.pending]: (state, action) => {
+    //   state.isLoading = true
+    // },
+    // [__getHealthCheckList.fulfilled]: (state, action) => {
+    //   state.isLoading = false
+    //   state.healthCheck = action.payload
+    // },
+    // [__getHealthCheckList.rejected]: (state, action) => {
+    //   state.isLoading = false
+    //   state.error = action.payload
+    // },
     // 내가 작성한 헬스케어 체크리스트 상세내역을 불러오는 로직
     [__getHealthCheckDetail.pending]: (state, action) => {
       state.isLoading = true

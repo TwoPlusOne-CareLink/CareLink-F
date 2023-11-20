@@ -109,10 +109,10 @@ function Counseling() {
 
   return (
     <Wrap>
+      <HospitalTop>
+        <HospitalTopTitle>비대면 상담 제출하기</HospitalTopTitle>
+      </HospitalTop>
       <CounselingWrapper>
-        <CounselingHeader>
-          <CounselingHeaderTitle>비대면 상담 제출하기</CounselingHeaderTitle>
-        </CounselingHeader>
         <CounselingBody>
           <CounselingImgContent>
             <CounselingImg imagesrc={imageSrc} />
@@ -204,13 +204,33 @@ function Counseling() {
 export default Counseling
 
 const Wrap = styled.div`
-  width: 85vw;
+  width: 88vw;
   height: 100vh;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+const HospitalTop = styled.div`
+  width: 91%;
+  height: 100px;
+  border-bottom: 4px solid #223359;
+  display: flex;
+  justify-content: left;
+  align-items: end;
+  user-select: none;
+`
+
+const HospitalTopTitle = styled.div`
+  font-size: 30px;
+  font-weight: 600;
+  margin-left: 20px;
+  margin-bottom: 20px;
 `
 
 const CounselingWrapper = styled.div`
-  width: 1100px;
+  width: 1200px;
   height: 700px;
   border: transparent;
   border-radius: 16px;
@@ -219,7 +239,7 @@ const CounselingWrapper = styled.div`
 `
 
 const CounselingHeader = styled.div`
-  width: 1100px;
+  width: 1200px;
   height: 105px;
   display: flex;
   justify-content: center;
@@ -231,8 +251,9 @@ const CounselingHeaderTitle = styled.span`
   font-family: "GmarketSansMedium";
 `
 const CounselingBody = styled.div`
-  width: 1100px;
-  height: 550px;
+  width: 1200px;
+  height: 700px;
+  margin: auto;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -240,7 +261,7 @@ const CounselingBody = styled.div`
   user-select: none;
 `
 const CounselingImgContent = styled.div`
-  width: 500px;
+  width: 550px;
   height: 570px;
   display: flex;
   flex-direction: column;
@@ -252,7 +273,7 @@ const CounselingImg = styled.div`
   height: 450px;
   border: transparent;
   border-radius: 12px;
-  box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.15);
+  box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.1);
   background-image: ${({ imagesrc }) =>
     imagesrc ? `url(${imagesrc})` : `url(${defaultImg})`};
   background-size: cover;
@@ -278,8 +299,9 @@ const CounselingFileInput = styled.input`
 `
 
 const CounselingFormContent = styled.div`
-  width: 500px;
+  width: 550px;
   height: 570px;
+  /* margin-left: 30px; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;

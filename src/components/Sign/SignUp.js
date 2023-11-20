@@ -210,11 +210,11 @@ function SignUp(props) {
   const navigate = useNavigate()
 
   const BeforeLogin = () => {
-    navigate("/signin")
+    navigate("/login")
   }
 
   const GoToLogin = () => {
-    navigate("/signin")
+    navigate("/login")
   }
 
   const onSignUpSubmit = (event) => {
@@ -235,7 +235,7 @@ function SignUp(props) {
         .then((response) => {
           if (response) {
             alert("회원가입이 완료되었습니다. ")
-            navigate("/signin")
+            navigate("/login")
           }
         })
         .catch((error) => {

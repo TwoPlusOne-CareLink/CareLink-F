@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { styled } from "styled-components"
 import { __getSelectMyCounseling } from "../../redux/modules/counselingSlice"
 import Like from "../../assets/images/heart.png"
+import ClickedLike from "../../assets/images/Redheart.png"
 import XBtn from "../../assets/images/XBtn.png"
 import HistoryImg from "../../assets/images/DoctorImg.png"
 import DefaultCounselingImg from "../../assets/images/defaultCounseling.png"
@@ -9,6 +10,8 @@ import DefaultProfileImg from "../../assets/images/User.png"
 
 function CounselingHistoryModal({ dispatch }) {
   const [selectedCounselingId, setSelectedCounselingId] = useState()
+  const [isLiked, setIsLiked] = useState()
+  const [doctorId, setDoctorId] = useState()
   const [historyModal, setHistoryModal] = useState()
 
   const HistoryModalToggle = () => {
@@ -18,6 +21,75 @@ function CounselingHistoryModal({ dispatch }) {
   }
 
   const [counseling, setCounSeling] = useState([
+    {
+      counselingId: 1,
+      counselingTitle: "상담요청합니다",
+      memberId: "sound4519",
+      memberName: "이승진",
+      departmentId: 1,
+      departmentName: "내과",
+      counselingContent:
+        "안녕하세요 며칠전부터 내가 ㅂ몸이 너무 쓰리디 쓰려서 그러는데 걍 집에 가면안될까요?",
+      counselingImage: `${HistoryImg}`,
+      counselingImageName: "상담사진",
+    },
+    {
+      counselingId: 2,
+      counselingTitle: "하이루",
+      memberId: "sound4519",
+      memberName: "이승진",
+      departmentId: 2,
+      departmentName: "외과",
+      counselingContent: "안돼. 돌아가.",
+      counselingImage: `${HistoryImg}`,
+      counselingImageName: "상담사진",
+    },
+    {
+      counselingId: 1,
+      counselingTitle: "상담요청합니다",
+      memberId: "sound4519",
+      memberName: "이승진",
+      departmentId: 1,
+      departmentName: "내과",
+      counselingContent:
+        "안녕하세요 며칠전부터 내가 ㅂ몸이 너무 쓰리디 쓰려서 그러는데 걍 집에 가면안될까요?",
+      counselingImage: `${HistoryImg}`,
+      counselingImageName: "상담사진",
+    },
+    {
+      counselingId: 2,
+      counselingTitle: "하이루",
+      memberId: "sound4519",
+      memberName: "이승진",
+      departmentId: 2,
+      departmentName: "외과",
+      counselingContent: "안돼. 돌아가.",
+      counselingImage: `${HistoryImg}`,
+      counselingImageName: "상담사진",
+    },
+    {
+      counselingId: 1,
+      counselingTitle: "상담요청합니다",
+      memberId: "sound4519",
+      memberName: "이승진",
+      departmentId: 1,
+      departmentName: "내과",
+      counselingContent:
+        "안녕하세요 며칠전부터 내가 ㅂ몸이 너무 쓰리디 쓰려서 그러는데 걍 집에 가면안될까요?",
+      counselingImage: `${HistoryImg}`,
+      counselingImageName: "상담사진",
+    },
+    {
+      counselingId: 2,
+      counselingTitle: "하이루",
+      memberId: "sound4519",
+      memberName: "이승진",
+      departmentId: 2,
+      departmentName: "외과",
+      counselingContent: "안돼. 돌아가.",
+      counselingImage: `${HistoryImg}`,
+      counselingImageName: "상담사진",
+    },
     {
       counselingId: 1,
       counselingTitle: "상담요청합니다",
@@ -65,6 +137,12 @@ function CounselingHistoryModal({ dispatch }) {
     //   departmentName: "외과",
     // },
   ])
+
+  const LikeClick = () => {
+    console.log("클릭중!")
+    setIsLiked(!isLiked)
+    // dispatch(__)
+  }
 
   const replyIdExists = counselingReply.some(
     (item) => item.counselingId === selectedCounselingId && item.replyId
@@ -143,7 +221,10 @@ function CounselingHistoryModal({ dispatch }) {
                                             {item.departmentName}
                                           </HistoryDoctorDiagnosis>
                                         </HistoryDoctorInfo>
-                                        <HistoryDoctorLike />
+                                        <HistoryDoctorLike
+                                          onClick={LikeClick}
+                                          isLiked={isLiked}
+                                        />
                                       </HistoryDoctorInfos>
 
                                       <HistoryDoctorText>
@@ -184,7 +265,8 @@ export default CounselingHistoryModal
 
 const CounselingHistoryBody = styled.div`
   width: 1300px;
-  height: 660px;
+  height: 700px;
+  margin-top: 25px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(25%, auto));
   place-items: center;
@@ -367,7 +449,7 @@ const HistoryDoctorLike = styled.div`
   height: 20px;
   margin-left: auto;
   margin-right: 10px;
-  background-image: url(${Like});
+  background-image: url(${(props) => (props.isLiked ? ClickedLike : Like)});
   background-size: contain;
 `
 

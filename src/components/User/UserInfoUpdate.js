@@ -178,99 +178,165 @@ function UserInfoUpdate(props) {
 
   return (
     <Wrap>
+      <UserInfoTop>
+        <UserInfoTopTitle>회원정보수정</UserInfoTopTitle>
+      </UserInfoTop>
       <UserInfoWrap>
-        <UserInfoHeader>
-          <UserInfoTitle>회원정보수정</UserInfoTitle>
-        </UserInfoHeader>
         <UserInfoBody>
           {member.map((item) => (
             <UserInfoContents>
               <UserInfoContent>
-                <UserInfoContentUpTitles>
-                  <UserInfoContentTitle>아이디</UserInfoContentTitle>
-                </UserInfoContentUpTitles>
-                <UserInfoInputs>
-                  <UserInfoInput
-                    id="id"
-                    readOnly
-                    placeholder="예시아이디"
-                    value={item.memberId}
-                    onChange={onChangeId}
-                  />
-                </UserInfoInputs>
+                <UserInfoContent1>
+                  <UserInfoContentDetails1>
+                    <UserInfoContentTitles>
+                      <UserInfoContentTitle>아이디</UserInfoContentTitle>
+                    </UserInfoContentTitles>
+                    <UserInfoContentInput1
+                      id="id"
+                      name="id"
+                      type="text"
+                      value={item.memberId}
+                      onChange={onChangeId}
+                      readOnly
+                    />
+                  </UserInfoContentDetails1>
+                  <UserInfoMessages>
+                    <UserInfoMessage></UserInfoMessage>
+                  </UserInfoMessages>
+                  <UserInfoContentDetails1>
+                    <UserInfoContentTitles>
+                      <UserInfoContentTitle>비밀번호</UserInfoContentTitle>
+                    </UserInfoContentTitles>
+                    <UserInfoContentInput1
+                      id="password"
+                      name="password"
+                      type="password"
+                      onChange={onChangePassword}
+                    />
+                  </UserInfoContentDetails1>
+                  <UserInfoMessages>
+                    <UserInfoMessage condition={isPassword}>
+                      {passwordMessage}
+                    </UserInfoMessage>
+                  </UserInfoMessages>
+                  <UserInfoContentDetails1>
+                    <UserInfoContentTitles>
+                      <UserInfoContentTitle>비밀번호확인</UserInfoContentTitle>
+                    </UserInfoContentTitles>
+                    <UserInfoContentInput1
+                      id="passwordConfirm"
+                      name="passwordConfirm"
+                      type="password"
+                      onChange={onChangePasswordConfirm}
+                    />
+                  </UserInfoContentDetails1>
+                  <UserInfoMessages>
+                    <UserInfoMessage condition={isPasswordConfirm}>
+                      {passwordConfirmMessage}
+                    </UserInfoMessage>
+                  </UserInfoMessages>
+                  <UserInfoContentDetails1>
+                    <UserInfoContentTitles>
+                      <UserInfoContentTitle>이름</UserInfoContentTitle>
+                    </UserInfoContentTitles>
+                    <UserInfoContentInput1
+                      id="memberName"
+                      name="memberName"
+                      type="text"
+                      value={item.memberName}
+                      onChange={onChangeMemberName}
+                    />
+                  </UserInfoContentDetails1>
+                  <UserInfoMessages>
+                    <UserInfoMessage></UserInfoMessage>
+                  </UserInfoMessages>
+                </UserInfoContent1>
+                <UserInfoContent2>
+                  <UserInfoContentDetails2>
+                    <UserInfoContentTitles>
+                      <UserInfoContentTitle>이메일</UserInfoContentTitle>
+                    </UserInfoContentTitles>
+                    <UserInfoContentInput2
+                      id="memberEmail"
+                      name="memberEmail"
+                      type="email"
+                      onChange={onChangeMemberEmail}
+                    />
+                  </UserInfoContentDetails2>
+                  <UserInfoMessages>
+                    <UserInfoMessage condition={isMemberEmail}>
+                      {memberEmailMessage}
+                    </UserInfoMessage>
+                  </UserInfoMessages>
+                  <UserInfoContentDetails2>
+                    <UserInfoContentTitles>
+                      <UserInfoContentTitle>전화번호</UserInfoContentTitle>
+                    </UserInfoContentTitles>
+                    <UserInfoContentInput2
+                      id="memberTel"
+                      name="memberTel"
+                      type="text"
+                      onChange={onAddHypen}
+                    />
+                  </UserInfoContentDetails2>
+                  <UserInfoMessages>
+                    <UserInfoMessage condition={isMemberTel}>
+                      {memberTelMessage}
+                    </UserInfoMessage>
+                  </UserInfoMessages>
+                  <UserInfoContentDetails2>
+                    <UserInfoContentTitles>
+                      <UserInfoContentTitle>주소</UserInfoContentTitle>
+                    </UserInfoContentTitles>
+                    <UserInfoAddressInput
+                      id="memberAddress"
+                      name="memberAddress"
+                      type="text"
+                      value={memberAddress}
+                      onChange={onChangeAddress}
+                    />
+                    <UserAddressButton onClick={addressToggle}>
+                      주소검색
+                    </UserAddressButton>
+                    {addressModal && (
+                      <AddressWrap>
+                        <AddressOverlay>
+                          <AddressContent>
+                            <AddressTitles>
+                              <AddressTitle>주소 검색</AddressTitle>
+                              <AddressCancel onClick={addressToggle} />
+                            </AddressTitles>
+                            <DaumPostcode
+                              onComplete={handleComplete}
+                              onSearch={handleSearch}
+                              style={postCodeStyle}
+                              {...props}
+                            />
+                          </AddressContent>
+                        </AddressOverlay>
+                      </AddressWrap>
+                    )}
+                  </UserInfoContentDetails2>
+                  <UserInfoMessages>
+                    <UserInfoMessage></UserInfoMessage>
+                  </UserInfoMessages>
+                  <UserInfoContentDetails2>
+                    <UserInfoContentTitles>
+                      <UserInfoContentTitle>상세주소</UserInfoContentTitle>
+                    </UserInfoContentTitles>
+                    <UserInfoContentInput2
+                      id="memberAddressDetail"
+                      name="memberAddressDetail"
+                      type="text"
+                      onChange={memberAddressDetail}
+                    />
+                  </UserInfoContentDetails2>
+                  <UserInfoMessages>
+                    <UserInfoMessage></UserInfoMessage>
+                  </UserInfoMessages>
+                </UserInfoContent2>
               </UserInfoContent>
-              <UserInfoContent>
-                <UserInfoContentTitles>
-                  <UserInfoContentTitle>비밀번호</UserInfoContentTitle>
-                </UserInfoContentTitles>
-                <UserInfoInputs>
-                  <UserInfoInput
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="수정하실 비밀번호를 입력해주세요"
-                    onChange={onChangePassword}
-                  />
-                  {/* <UserInfoMessage>{passwordMessage}</UserInfoMessage> */}
-                </UserInfoInputs>
-              </UserInfoContent>
-              <UserInfoContent>
-                <UserInfoContentTitles>
-                  <UserInfoContentTitle>비밀번호 확인</UserInfoContentTitle>
-                </UserInfoContentTitles>
-                <UserInfoInputs>
-                  <UserInfoInput
-                    type="password"
-                    id="passwordConfirm"
-                    name="passwordConfirm"
-                    placeholder="수정하실 비밀번호를 다시 입력해주세요"
-                    onChange={onChangePasswordConfirm}
-                  />
-                </UserInfoInputs>
-              </UserInfoContent>
-              <UserInfoContent>
-                <UserInfoContentTitles>
-                  <UserInfoContentTitle>이름</UserInfoContentTitle>
-                </UserInfoContentTitles>
-                <UserInfoInputs>
-                  <UserInfoInput
-                    id="memberName"
-                    readOnly
-                    placeholder="예시이름"
-                    value={item.memberName}
-                    onChange={onChangeMemberName}
-                  />
-                </UserInfoInputs>
-              </UserInfoContent>
-              <UserInfoContent>
-                <UserInfoContentTitles>
-                  <UserInfoContentTitle>이메일</UserInfoContentTitle>
-                </UserInfoContentTitles>
-                <UserInfoInputs>
-                  <UserInfoInput
-                    type="email"
-                    id="memberEmail"
-                    name="memberEmail"
-                    maxlength="40"
-                    placeholder="수정하실 이메일을 입력해주세요"
-                    onChange={onChangeMemberEmail}
-                  />
-                </UserInfoInputs>
-              </UserInfoContent>
-              <UserInfoContent>
-                <UserInfoContentTitles>
-                  <UserInfoContentTitle>전화번호</UserInfoContentTitle>
-                </UserInfoContentTitles>
-                <UserInfoInputs>
-                  <UserInfoInput
-                    id="memberTel"
-                    name="memberTel"
-                    placeholder="수정하실 전화번호를 입력해주세요"
-                    onChange={onAddHypen}
-                  />
-                </UserInfoInputs>
-              </UserInfoContent>
-              <UserInfoContent>
+              {/* <UserInfoContent>
                 <UserInfoContentTitles>
                   <UserInfoContentTitle>주소</UserInfoContentTitle>
                 </UserInfoContentTitles>
@@ -287,26 +353,9 @@ function UserInfoUpdate(props) {
                     주소검색
                   </UserAddressButton>
                 </UserInfoInputs>
-                {addressModal && (
-                  <AddressWrap>
-                    <AddressOverlay>
-                      <AddressContent>
-                        <AddressTitles>
-                          <AddressTitle>주소 검색</AddressTitle>
-                          <AddressCancel onClick={addressToggle} />
-                        </AddressTitles>
-                        <DaumPostcode
-                          onComplete={handleComplete}
-                          onSearch={handleSearch}
-                          style={postCodeStyle}
-                          {...props}
-                        />
-                      </AddressContent>
-                    </AddressOverlay>
-                  </AddressWrap>
-                )}
-              </UserInfoContent>
-              <UserInfoContent>
+                
+              </UserInfoContent> */}
+              {/* <UserInfoContent>
                 <UserInfoContentDownTitles>
                   <UserInfoContentTitle>상세주소</UserInfoContentTitle>
                 </UserInfoContentDownTitles>
@@ -319,13 +368,13 @@ function UserInfoUpdate(props) {
                     onChange={onChangeAddressDetail}
                   />
                 </UserInfoLastInputs>
-              </UserInfoContent>
+              </UserInfoContent> */}
+              <UserInfoBtns>
+                <UserInfoBtn onClick={userInfoSubmit}>수정완료</UserInfoBtn>
+              </UserInfoBtns>
             </UserInfoContents>
           ))}
         </UserInfoBody>
-        <UserInfoBtns>
-          <UserInfoBtn onClick={userInfoSubmit}>수정완료</UserInfoBtn>
-        </UserInfoBtns>
       </UserInfoWrap>
     </Wrap>
   )
@@ -334,14 +383,35 @@ function UserInfoUpdate(props) {
 export default UserInfoUpdate
 
 const Wrap = styled.div`
-  width: 85vw;
+  width: 88vw;
   height: 100vh;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `
+const UserInfoTop = styled.div`
+  width: 91%;
+  height: 100px;
+  border-bottom: 4px solid #223359;
+  display: flex;
+  justify-content: left;
+  align-items: end;
+  user-select: none;
+`
+
+const UserInfoTopTitle = styled.div`
+  font-size: 30px;
+  font-weight: 600;
+  margin-left: 20px;
+  margin-bottom: 20px;
+`
+
 const UserInfoWrap = styled.div`
-  width: 1000px;
+  width: 1200px;
   height: 800px;
-  margin: auto;
+  /* margin: auto; */
+  display: flex;
 `
 const UserInfoHeader = styled.div`
   width: 1000px;
@@ -356,15 +426,16 @@ const UserInfoTitle = styled.span`
   user-select: none;
 `
 const UserInfoBody = styled.div`
-  width: 1000px;
-  height: 700px;
+  width: 1200px;
+  height: 800px;
   display: flex;
   justify-content: center;
   align-items: center;
 `
 const UserInfoContents = styled.div`
-  width: 620px;
-  height: 640px;
+  width: 1200px;
+  height: 700px;
+  margin: auto;
   border: transparent;
   border-radius: 12px;
   box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.1);
@@ -374,90 +445,116 @@ const UserInfoContents = styled.div`
   align-items: center;
   user-select: none;
 `
+
 const UserInfoContent = styled.div`
-  width: 620px;
-  height: 80px;
+  width: 1100px;
+  height: 550px;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const UserInfoContent1 = styled.div`
+  width: 520px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const UserInfoMessages = styled.div`
+  width: 100%;
+  height: 50px;
+  display: flex;
   justify-content: center;
   align-items: center;
 `
-const UserInfoContentUpTitles = styled.div`
-  width: 180px;
-  height: 80px;
-  border-top-left-radius: 12px;
-  background-color: #223359;
-  color: white;
+
+const UserInfoMessage = styled.p`
+  color: ${(props) => (props.condition ? "black" : "red")};
+  font-weight: 600;
+`
+
+const UserInfoContent2 = styled.div`
+  width: 550px;
+  height: 500px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const UserInfoContentDetails1 = styled.div`
+  width: 450px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const UserInfoContentDetails2 = styled.div`
+  width: 500px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
 `
 
 const UserInfoContentTitles = styled.div`
-  width: 180px;
-  height: 80px;
-  background-color: #223359;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-const UserInfoContentTitle = styled.span`
-  font-size: 20px;
-`
-
-const UserInfoContentDownTitles = styled.div`
-  width: 180px;
-  height: 80px;
-  border-bottom-left-radius: 12px;
-  background-color: #223359;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-const UserInfoInputs = styled.div`
-  width: 600px;
-  height: 80px;
-  border-bottom: 1px solid #dcdcdc;
-  display: flex;
-  /* flex-direction: column; */
-  justify-content: right;
-  align-items: center;
-`
-const UserInfoLastInputs = styled.div`
-  width: 600px;
-  height: 80px;
-  display: flex;
-  flex-direction: column;
-  justify-content: right;
-  align-items: center;
-  user-select: none;
-`
-
-const UserInfoInput = styled.input`
-  width: 430px;
-  margin-right: 10px;
+  width: 133px;
   padding: 10px;
-  border: transparent;
-  font-size: 20px;
-  text-align: right;
-`
-
-const UserInfoMessage = styled.div`
   border: 1px solid black;
+  border-radius: 12px;
+  background-color: #223359;
+  text-align: center;
 `
 
+const UserInfoContentTitle = styled.span`
+  font-size: 23px;
+  color: white;
+`
+
+const UserInfoContentInput1 = styled.input`
+  width: 250px;
+  height: 40px;
+  margin-left: 20px;
+  border: transparent;
+  border-bottom: 1px solid black;
+  font-size: 20px;
+  text-align: center;
+  outline: none;
+`
+const UserInfoContentInput2 = styled.input`
+  width: 300px;
+  height: 40px;
+  margin-left: 20px;
+  border: transparent;
+  border-bottom: 1px solid black;
+  font-size: 20px;
+  text-align: center;
+  outline: none;
+`
+
+const UserInfoAddressInput = styled.input`
+  width: 220px;
+  height: 40px;
+  border: transparent;
+  border-bottom: 1px solid black;
+  margin-left: 45px;
+  font-size: 20px;
+  outline: none;
+`
 const UserAddressButton = styled.button`
-  width: 16%;
-  height: 60%;
+  padding: 7px;
   border: transparent;
   background-color: white;
-  font-family: "GmarketSansMedium";
+  font-size: 16px;
+  cursor: pointer;
 
   &:hover {
     font-weight: 600;
-    /* font-family: "GmarketSansBold"; */
   }
 `
 

@@ -32,7 +32,7 @@ export const __getDoctorCounselingList = createAsyncThunk(
   "GET_DOCTORCOUNSELINGLIST",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosIns.get("/doctorcounselinglist", payload)
+      const data = await axiosIns.get("/doctor/counselingList", payload)
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code)
@@ -45,7 +45,7 @@ export const __getDoctorCounselingDetail = createAsyncThunk(
   "GET_DOCTORCOUNSELINGDETAIL",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosIns.get("/doctorcounselingdetail", payload)
+      const data = await axiosIns.get("/doctor/counselingDetail", payload)
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code)
@@ -58,10 +58,23 @@ export const __addDoctorCounseling = createAsyncThunk(
   "ADD_DOCTORCOUNSELING",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosIns.post("/doctorcounseling", payload)
+      const data = await axiosIns.post("/doctor/createReply", payload)
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code)
+    }
+  }
+)
+
+// 의사 상담내역을 불러오는 로직
+export const __getDoctorCompleteCounselingList = createAsyncThunk(
+  "GET_DOCOTRCOUNSELINGLIST",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axiosIns.get("/doctor/myCounselingList", payload)
+      return thunkAPI.fulfillWithValue(data)
+    } catch (error) {
+      // return thunkAPI
     }
   }
 )
@@ -104,6 +117,18 @@ export const doctorCounselingSlice = createSlice({
       state.counselingReply.push(action.payload)
     },
     [__addDoctorCounseling.rejected]: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+    },
+    // 의사 상담내역을 불러오는 로직
+    [__getDoctorCompleteCounselingList.pending]: (state, action) => {
+      state.isLoading = true
+    },
+    [__getDoctorCompleteCounselingList.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.counseling = action.payload
+    },
+    [__getDoctorCompleteCounselingList.rejected]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
     },

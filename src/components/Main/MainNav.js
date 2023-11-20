@@ -20,30 +20,33 @@ function MainNav() {
   }
 
   const GoToHospitalSearch = () => {
-    navigate("/hospitalsearch")
+    navigate("/user/hospitalsearch")
   }
 
   const GoToCounseling = () => {
-    navigate("/counseling")
+    navigate("/user/counseling")
   }
 
   const GoToCounselingHistory = () => {
-    navigate("/counselinghistory")
+    navigate("/user/counselinghistory")
   }
 
   const GoToHealthCheck = () => {
-    navigate("/healthcheck")
+    navigate("/user/healthcheck")
   }
 
   const GoToUserInfo = () => {
-    navigate("/userinfoupdate")
+    navigate("/user/infoupdate")
   }
 
   return (
     <Wrap>
       <NavWrapper>
         <NavBarHeader>
-          <NavBarTitle onClick={GoToMain}>CareLink</NavBarTitle>
+          <NavBarTitle onClick={GoToMain}>
+            비대면 <br />
+            상담 플랫폼 <Hr /> CareLink
+          </NavBarTitle>
         </NavBarHeader>
         <NavBody>
           <NavMenu>
@@ -56,7 +59,7 @@ function MainNav() {
               <NavMenuItemTitle onClick={CounselingHandler} ref={CounselingRef}>
                 비대면 상담
               </NavMenuItemTitle>
-              <NavMenuItemContents isDropped={CounselingIsOpen}>
+              <NavMenuItemContents isdropped={CounselingIsOpen}>
                 <Ul>
                   <Li>
                     <Link onClick={GoToCounseling}>비대면 상담</Link>
@@ -79,7 +82,7 @@ function MainNav() {
               <NavMenuItemTitle onClick={myPageHandler} ref={myPageRef}>
                 마이페이지
               </NavMenuItemTitle>
-              <NavMenuItemContents isDropped={myPageIsOpen}>
+              <NavMenuItemContents isdropped={myPageIsOpen}>
                 <Ul>
                   <Li>
                     <Link onClick={GoToUserInfo}>회원정보수정</Link>
@@ -103,11 +106,11 @@ function MainNav() {
 export default MainNav
 
 const Wrap = styled.div`
-  width: 15vw;
+  width: 12vw;
   height: 100vh;
 `
 const NavWrapper = styled.div`
-  width: 250px;
+  width: 220px;
   height: 100%;
   background-color: #223359;
   color: white;
@@ -116,23 +119,27 @@ const NavWrapper = styled.div`
 `
 
 const NavBarHeader = styled.div`
-  width: 250px;
+  width: 220px;
   /* height: 142px; */
-  height: 15%;
+  height: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
   user-select: none;
 `
 const NavBarTitle = styled.div`
-  font-size: 40px;
+  font-size: 28px;
+  font-weight: 600;
   cursor: pointer;
+`
+
+const Hr = styled.hr`
+  margin: 5px auto;
 `
 
 const NavBody = styled.div`
   width: 100%;
-  /* height: 675px; */
-  height: 75%;
+  height: 70%;
 
   margin-bottom: auto;
 `
@@ -140,7 +147,7 @@ const NavBody = styled.div`
 const NavMenu = styled.div``
 
 const NavMenuItem = styled.div`
-  width: 220px;
+  width: 200px;
   height: 50px;
   padding: 14px;
   display: flex;
@@ -151,7 +158,7 @@ const NavMenuItem = styled.div`
 `
 
 const NavMenuItemTitle = styled.button`
-  font-size: 30px;
+  font-size: 25px;
   border: transparent;
   background-color: #223359;
   color: white;
@@ -174,8 +181,8 @@ const NavMenuItemContents = styled.div`
   transition: opacity 0.4 ease, transform 0.4s ease, visibility 0.4s;
   z-index: 9;
 
-  ${({ isDropped }) =>
-    isDropped &&
+  ${({ isdropped }) =>
+    isdropped &&
     css`
       opacity: 1;
       visibility: visible;
@@ -217,7 +224,7 @@ const Link = styled.span`
 `
 
 const NavFooter = styled.div`
-  width: 250px;
+  width: 220px;
   /* height: 93px; */
   height: 10%;
   display: flex;
@@ -226,7 +233,7 @@ const NavFooter = styled.div`
   align-items: center;
 `
 const NavLogout = styled.span`
-  font-size: 30px;
+  font-size: 25px;
   user-select: none;
 
   &:hover {

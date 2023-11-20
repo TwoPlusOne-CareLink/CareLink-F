@@ -8,12 +8,12 @@ function DoctorCounselingList() {
 
   return (
     <Wrap>
+      <DoctorTop>
+        <DoctorTopTitle>비대면 상담목록</DoctorTopTitle>
+      </DoctorTop>
       <DCounselingListWrap>
-        <DCounselingListHeader>
-          <DCounselingListTitle>비대면 상담목록</DCounselingListTitle>
-        </DCounselingListHeader>
         <DoctorCounselingListModal dispatch={dispatch} />
-        <DCounselingListFooter>이전 1 2 3 4 5 다음</DCounselingListFooter>
+        {/* <DCounselingListFooter>이전 1 2 3 4 5 다음</DCounselingListFooter> */}
       </DCounselingListWrap>
     </Wrap>
   )
@@ -22,9 +22,29 @@ function DoctorCounselingList() {
 export default DoctorCounselingList
 
 const Wrap = styled.div`
-  width: 85vw;
+  width: 88vw;
   height: 100vh;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+const DoctorTop = styled.div`
+  width: 91%;
+  height: 100px;
+  border-bottom: 4px solid #223359;
+  display: flex;
+  justify-content: left;
+  align-items: end;
+  user-select: none;
+`
+
+const DoctorTopTitle = styled.div`
+  font-size: 30px;
+  font-weight: 600;
+  margin-left: 20px;
+  margin-bottom: 20px;
 `
 
 const DCounselingListWrap = styled.div`

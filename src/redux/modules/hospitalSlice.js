@@ -33,10 +33,7 @@ export const __getHospitalInfo = createAsyncThunk(
   "GET_HOSPITALINFO",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosIns.get(
-        "/user/hospitalList?hospitalName='all'",
-        payload
-      )
+      const data = await axiosIns.get("/user/hospitalList", payload)
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code)
@@ -63,7 +60,7 @@ export const __getHospitalDetailInfo = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axiosIns.get(
-        "/user/hospitalInfo/{hospitalId}",
+        `/user/hospitalInfo/{hospitalId}`,
         payload
       )
       return thunkAPI.fulfillWithValue(data)
@@ -78,15 +75,13 @@ export const __getHospitalDoctorList = createAsyncThunk(
   "GET_HOSPITALDOCTORLIST",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosIns.get("/hospitaldoctorlist", payload)
+      const data = await axiosIns.get("/hospital/doctorlist", payload)
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code)
     }
   }
 )
-
-// 병원 입장에서 특정 날짜를 클릭했을때, 예약된 정보를 불러와서 띄어주는 로직
 
 export const hospitalSlice = createSlice({
   name: "hospital",
