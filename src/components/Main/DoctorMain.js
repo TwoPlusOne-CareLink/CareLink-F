@@ -1,12 +1,13 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import Logo from "../../assets/images/Logo.jpg"
 
 function DoctorMain() {
   const navigate = useNavigate()
 
   const DGoToLogIn = () => {
-    navigate("/signin")
+    navigate("/login")
   }
 
   const DLogout = () => {
@@ -14,32 +15,34 @@ function DoctorMain() {
   }
 
   const DGoToCounselingList = () => {
-    navigate("/doctorcounselinglist")
+    navigate("/doctor/counselinglist")
   }
   const GoToDCounselingHistory = () => {
-    navigate("/doctorcounselinghistory")
+    navigate("/doctor/counselinghistory")
   }
 
   return (
     <Wrap>
       <DMainWrapper>
-        <DMainHeader>
-          <DMainHeaderTitle>CareLink</DMainHeaderTitle>
-          <DMainHeaderContent>
-            건강한 내일을 연결하다 <br />
-            아플 때, 더 가까워지는 케어링크
-          </DMainHeaderContent>
-        </DMainHeader>
-        <DMainBody>
-          <DCounselingBtn onClick={DGoToCounselingList}>
-            비대면 상담목록
-          </DCounselingBtn>
-          <DCounselingListBtn onClick={GoToDCounselingHistory}>
-            비대면 상담내역
-          </DCounselingListBtn>
-          {/* <DLogInBtn onClick={DGoToLogIn}>로그인</DLogInBtn> */}
-          <DLogoutBtn onClick={DLogout}>로그아웃</DLogoutBtn>
-        </DMainBody>
+        <DMainContents>
+          <DMainHeader>
+            <DMainTitleImg />
+            <DMainHeaderContent>
+              건강한 내일을 연결하다 <br />
+              아플 때, 더 가까워지는 케어링크
+            </DMainHeaderContent>
+          </DMainHeader>
+          <DMainBody>
+            <DCounselingBtn onClick={DGoToCounselingList}>
+              비대면 상담목록
+            </DCounselingBtn>
+            <DCounselingListBtn onClick={GoToDCounselingHistory}>
+              비대면 상담내역
+            </DCounselingListBtn>
+            <DLogInBtn onClick={DGoToLogIn}>로그인</DLogInBtn>
+            {/* <DLogoutBtn onClick={DLogout}>로그아웃</DLogoutBtn> */}
+          </DMainBody>
+        </DMainContents>
       </DMainWrapper>
     </Wrap>
   )
@@ -51,23 +54,49 @@ export default DoctorMain
 const Wrap = styled.div`
   width: 100vw;
   height: 100vh;
+  background-color: #223359;
   display: flex;
 `
 /*의사메인 div */
 const DMainWrapper = styled.div`
-  width: 1000px;
-  height: 700px;
+  width: 1275px;
+  height: 800px;
   margin: auto;
+  border: transparent;
+  border-radius: 20px;
+  box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  display: flex;
 `
+const DMainContents = styled.div`
+  width: 1000px;
+  height: 650px;
+  margin: auto;
+  /* border: 1px solid black; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
 /**의사메인 헤더 */
 const DMainHeader = styled.div`
   width: 100%;
-  height: 25%;
+  height: 30%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 `
+const DMainTitleImg = styled.div`
+  width: 500px;
+  height: 200px;
+  margin-right: 50px;
+  background-image: url(${Logo});
+  background-size: cover;
+  user-select: none;
+`
+
 /*의사헤더 CareLink 타이틀 */
 const DMainHeaderTitle = styled.span`
   height: 100%;
@@ -85,8 +114,8 @@ const DMainHeaderContent = styled.span`
 /*의사메인 버튼들을 감싸는 div */
 const DMainBody = styled.div`
   width: 100%;
-  height: 50%;
-  margin-top: 30px;
+  height: 45%;
+  margin-top: 50px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(30%, auto));
   gap: 10px;

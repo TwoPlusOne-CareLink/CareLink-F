@@ -1,17 +1,20 @@
-import { Map, MapMarker } from "react-kakao-maps-sdk"
+import {
+  Map,
+  MapMarker,
+  MapTypeControl,
+  ZoomControl,
+} from "react-kakao-maps-sdk"
 import useKakaoLoader from "./useKakaoLoader"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { styled } from "styled-components"
 import CloseBtn from "../../assets/images/XBtn.png"
+import { useDispatch } from "react-redux"
+import { __getHospitalInfo } from "../../redux/modules/hospitalSlice"
 
 export default function HospitalSearchMap() {
   useKakaoLoader()
+  const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false)
-
-  const isOpenToggle = (latlng) => {
-    setIsOpen(isOpen === latlng ? !isOpen : latlng)
-  }
-
   const [hospital, setHospital] = useState([
     {
       hospitalId: 1,
@@ -21,7 +24,7 @@ export default function HospitalSearchMap() {
       weekendOpeningTime: "09:00 ~ 14:00",
       lunchHour: "13:00 ~ 14:00",
       holidayCheck: "휴무",
-      latlng: { lat: "33.450705", lng: "126.570677" },
+      latlng: { lat: "37.480187", lng: "126.883065" },
       tel: "02-4786-7835",
     },
     {
@@ -47,13 +50,54 @@ export default function HospitalSearchMap() {
       tel: "02-1234-7111",
     },
   ])
+  const [state, setState] = useState({
+    center: {
+      lat: 37.480187,
+      lng: 126.883065,
+    },
+    errMsg: null,
+    isLoading: true,
+  })
+
+  const isOpenToggle = (latlng) => {
+    setIsOpen(isOpen === latlng ? !isOpen : latlng)
+  }
+
+  useEffect(() => {
+    dispatch(__getHospitalInfo)
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setState((prev) => ({
+            ...prev,
+            center: {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            },
+            isLoading: false,
+          }))
+        },
+        (err) => {
+          setState((prev) => ({
+            ...prev,
+            errMsg: err.message,
+            isLoading: false,
+          }))
+        }
+      )
+    } else {
+      setState((prev) => ({
+        ...prev,
+        errMsg: "geolocation을 사용할 수 없어요...",
+        isLoading: false,
+      }))
+    }
+  }, [])
 
   return (
     <Map
-      center={{
-        lat: 33.450701,
-        lng: 126.570667,
-      }}
+      center={state.center}
       style={{
         width: "600px",
         height: "600px",
@@ -62,6 +106,8 @@ export default function HospitalSearchMap() {
       }}
       level={3}
     >
+      <MapTypeControl position={"TOPRIGHT"} />
+      <ZoomControl position={"RIGHT"} />
       {hospital.map((item) => (
         <MapMarker
           key={`${item.name}-${item.latlng}`}

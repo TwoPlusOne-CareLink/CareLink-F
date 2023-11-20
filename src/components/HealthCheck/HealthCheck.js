@@ -6,6 +6,9 @@ import HealthCheckList from "./HealthCheckList"
 function HealthCheck() {
   return (
     <Wrap>
+      <HealthCheckTop>
+        <HealthCheckTopTitle>헬스케어</HealthCheckTopTitle>
+      </HealthCheckTop>
       <HealthCheckWrap>
         <HealthCheckForm>
           <HealthCheckFormHeader>
@@ -24,9 +27,30 @@ export default HealthCheck
 /**포스트는 14개까지, 이후에는 페이지네이션 */
 
 const Wrap = styled.div`
-  width: 85vw;
+  width: 88vw;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `
+const HealthCheckTop = styled.div`
+  width: 91%;
+  height: 100px;
+  border-bottom: 4px solid #223359;
+  display: flex;
+  justify-content: left;
+  align-items: end;
+  user-select: none;
+`
+
+const HealthCheckTopTitle = styled.div`
+  font-size: 30px;
+  font-weight: 600;
+  margin-left: 20px;
+  margin-bottom: 20px;
+`
+
 const HealthCheckWrap = styled.div`
   width: 1400px;
   height: 900px;

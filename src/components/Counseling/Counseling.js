@@ -1,13 +1,17 @@
 import React, { useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import defaultImg from "../../assets/images/default.png"
+import { useDispatch } from "react-redux"
+import { __addCounseling } from "../../redux/modules/counselingSlice"
 
 function Counseling() {
+  const dispatch = useDispatch()
   const [imageSrc, setImageSrc] = useState()
   const [counselingImage, setCounselingImage] = useState("")
   const [counselingTitle, setCounselingTitle] = useState("")
   const [memberId, setMemberId] = useState("")
   const [memberName, setMemberName] = useState()
+  const [departmentId, setDepartmentId] = useState()
   const [departmentName, setDepartmentName] = useState()
   const [counselingContent, setCounselingContent] = useState()
 
@@ -65,9 +69,14 @@ function Counseling() {
     setMemberName(currentMemberName)
   }
 
-  const onChangeDepartmentName = (event) => {
-    const currentDepartment = event.target.value
-    setDepartmentName(currentDepartment)
+  // const onChangeDepartmentName = (event) => {
+  //   const currentDepartment = event.target.value
+  //   setDepartmentName(currentDepartment)
+  // }
+  const onChangeDepartmentId = (event) => {
+    const currentDepartmentId = event.target.value
+    setDepartmentName(currentDepartmentId)
+    console.log(currentDepartmentId)
   }
 
   const onChangeCounselingContent = (event) => {
@@ -75,24 +84,35 @@ function Counseling() {
     setCounselingContent(currentContent)
   }
 
-  const counselingSubmit = () => {
-    alert("제출이 완료되었습니다! ")
-    console.log(
-      counselingImage,
-      counselingTitle,
-      memberId,
-      memberName,
-      departmentName,
-      counselingContent + "잘나옵니다"
-    )
+  const counselingSubmit = (event) => {
+    event.preventDefault()
+    const counselingForm = new FormData()
+    counselingForm.append("counselingImage", counselingImage)
+    counselingForm.append("counselingTitle", counselingTitle)
+    counselingForm.append("memberId", memberId)
+    counselingForm.append("memberName", memberName)
+    counselingForm.append("departmentId", departmentId)
+    counselingForm.append("counselingContent", counselingContent)
+
+    dispatch(__addCounseling(counselingForm))
+      .then((response) => {
+        if (response) {
+          alert("상담 접수가 완료되었습니다.")
+        } else {
+          alert("상담 접수에 실패했습니다.")
+        }
+      })
+      .catch((error) => {
+        alert("상담 접수간 오류가 발생했습니다. " + error.code)
+      })
   }
 
   return (
     <Wrap>
+      <HospitalTop>
+        <HospitalTopTitle>비대면 상담 제출하기</HospitalTopTitle>
+      </HospitalTop>
       <CounselingWrapper>
-        <CounselingHeader>
-          <CounselingHeaderTitle>비대면 상담 제출하기</CounselingHeaderTitle>
-        </CounselingHeader>
         <CounselingBody>
           <CounselingImgContent>
             <CounselingImg imagesrc={imageSrc} />
@@ -141,12 +161,22 @@ function Counseling() {
             </CounselingNames>
             <CounselingDiagnosis>
               <CounselingDiagnosisName>상담과목</CounselingDiagnosisName>
-              <CounselingDiagnosisSelect onChange={onChangeDepartmentName}>
-                <SelectDiagnosis value="1">내과</SelectDiagnosis>
-                <SelectDiagnosis value="2">소아과</SelectDiagnosis>
-                <SelectDiagnosis value="3">이비인후과</SelectDiagnosis>
-                <SelectDiagnosis value="4">외과</SelectDiagnosis>
-                <SelectDiagnosis value="5">치과</SelectDiagnosis>
+              <CounselingDiagnosisSelect onChange={onChangeDepartmentId}>
+                <SelectDiagnosis id="departmentId" value="1">
+                  내과
+                </SelectDiagnosis>
+                <SelectDiagnosis id="departmentId" value="2">
+                  소아과
+                </SelectDiagnosis>
+                <SelectDiagnosis id="departmentId" value="3">
+                  이비인후과
+                </SelectDiagnosis>
+                <SelectDiagnosis id="departmentId" value="4">
+                  외과
+                </SelectDiagnosis>
+                <SelectDiagnosis id="departmentId" value="5">
+                  치과
+                </SelectDiagnosis>
               </CounselingDiagnosisSelect>
             </CounselingDiagnosis>
             <CounselingTexts>
@@ -174,13 +204,33 @@ function Counseling() {
 export default Counseling
 
 const Wrap = styled.div`
-  width: 85vw;
+  width: 88vw;
   height: 100vh;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+const HospitalTop = styled.div`
+  width: 91%;
+  height: 100px;
+  border-bottom: 4px solid #223359;
+  display: flex;
+  justify-content: left;
+  align-items: end;
+  user-select: none;
+`
+
+const HospitalTopTitle = styled.div`
+  font-size: 30px;
+  font-weight: 600;
+  margin-left: 20px;
+  margin-bottom: 20px;
 `
 
 const CounselingWrapper = styled.div`
-  width: 1100px;
+  width: 1200px;
   height: 700px;
   border: transparent;
   border-radius: 16px;
@@ -189,7 +239,7 @@ const CounselingWrapper = styled.div`
 `
 
 const CounselingHeader = styled.div`
-  width: 1100px;
+  width: 1200px;
   height: 105px;
   display: flex;
   justify-content: center;
@@ -201,8 +251,9 @@ const CounselingHeaderTitle = styled.span`
   font-family: "GmarketSansMedium";
 `
 const CounselingBody = styled.div`
-  width: 1100px;
-  height: 550px;
+  width: 1200px;
+  height: 700px;
+  margin: auto;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -210,7 +261,7 @@ const CounselingBody = styled.div`
   user-select: none;
 `
 const CounselingImgContent = styled.div`
-  width: 500px;
+  width: 550px;
   height: 570px;
   display: flex;
   flex-direction: column;
@@ -222,7 +273,7 @@ const CounselingImg = styled.div`
   height: 450px;
   border: transparent;
   border-radius: 12px;
-  box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.15);
+  box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.1);
   background-image: ${({ imagesrc }) =>
     imagesrc ? `url(${imagesrc})` : `url(${defaultImg})`};
   background-size: cover;
@@ -248,8 +299,9 @@ const CounselingFileInput = styled.input`
 `
 
 const CounselingFormContent = styled.div`
-  width: 500px;
+  width: 550px;
   height: 570px;
+  /* margin-left: 30px; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;

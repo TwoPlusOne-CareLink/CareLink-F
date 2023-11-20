@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react"
 import styled from "styled-components"
-import CalendarImg from "../../assets/images/CalenderExample.png"
 import "react-datepicker/dist/react-datepicker.module.css"
 import DatePicker from "./ReservationDatePicker"
 import ReservationCalendar from "./ReservationCalendar"
 import { useDispatch } from "react-redux"
-import { current } from "@reduxjs/toolkit"
+import { __addReservation } from "../../redux/modules/reservationSlice"
 
-function ReservationModal({
-  hospitalSelectedHospitalId,
-  selectedHospitalId,
-  hospital,
-}) {
+function ReservationModal({ hospitalSelectedHospitalId, selectedHospitalId }) {
+  const dispatch = useDispatch()
   const [member, setMember] = useState([
     {
       memberId: "sound4519",
@@ -34,9 +30,25 @@ function ReservationModal({
     setReservationModal(!reservationModal)
   }
 
-  const reservationComplete = () => {
-    alert("예약이 완료되었습니다.")
-    console.log("")
+  const reservationComplete = (event) => {
+    event.preventDefault()
+    const newReservation = new FormData()
+    newReservation.append("memberId", member.memberId)
+    newReservation.append("reservationDate", reservationDate)
+    newReservation.append("departmentName", departmentName)
+    newReservation.append("reservationTime", reservationTime)
+    newReservation.append("reservationTel", member.memberTel)
+    newReservation.append("reservationContent", reservationContent)
+
+    dispatch(__addReservation(newReservation))
+      .then((response) => {
+        if (response) {
+          alert("예약이 완료되었습니다.")
+        }
+      })
+      .catch((error) => {
+        alert("예약에 실패했습니다" + error.message)
+      })
   }
 
   // 예약자 이름 감지
@@ -56,6 +68,7 @@ function ReservationModal({
   const onChangeDepartmentName = (e) => {
     const currentDepartment = e.target.value
     setDepartmentName(currentDepartment)
+    console.log(currentDepartment)
   }
 
   // 예약자 전화번호 감지
@@ -77,6 +90,83 @@ function ReservationModal({
   useEffect(() => {
     console.log(reservationTime, departmentName)
   }, [reservationTime, departmentName])
+  const [hospital, setHospital] = useState([
+    {
+      hospitalId: 1,
+      name: "하늘하늘병원",
+      address: "서울특별시 강동구 강동로 하늘하늘병원 111",
+      weekdayOpeningTime: "09:00 ~ 19:00",
+      weekendOpeningTime: "09:00 ~ 14:00",
+      lunchHour: "13:00 ~ 14:00",
+      holidayCheck: "휴무",
+      latlng: { lat: "33.450705", lng: "126.570677" },
+      tel: "02-4786-7835",
+      departmentNames: [
+        {
+          departmentId: 1,
+          departmentName: "소아과",
+        },
+        {
+          departmentId: 2,
+          departmentName: "내과",
+        },
+        {
+          departmentId: 3,
+          departmentName: "외과",
+        },
+      ],
+    },
+    {
+      hospitalId: 2,
+      name: "나풀나풀나풀나풀병원",
+      address: "서울특별시 강동구 강동로 나풀나풀나풀나풀병원",
+      weekdayOpeningTime: "09:00 ~ 19:00",
+      weekendOpeningTime: "09:00 ~ 14:00",
+      lunchHour: "13:00 ~ 14:00",
+      holidayCheck: "휴무",
+      latlng: { lat: "33.450936", lng: "126.569477" },
+      departmentNames: [
+        {
+          departmentId: 1,
+          departmentName: "소아과",
+        },
+        {
+          departmentId: 2,
+          departmentName: "내과",
+        },
+        {
+          departmentId: 3,
+          departmentName: "외과",
+        },
+      ],
+      tel: "02-489-7898",
+    },
+    {
+      hospitalId: 3,
+      name: "하늘병원",
+      address: "서울특별시 강동구 강동로 하늘병원 111",
+      weekdayOpeningTime: "09:00 ~ 19:00",
+      weekendOpeningTime: "09:00 ~ 14:00",
+      lunchHour: "13:00 ~ 14:00",
+      holidayCheck: "휴무",
+      latlng: { lat: "33.450879", lng: "126.56994" },
+      departmentNames: [
+        {
+          departmentId: 1,
+          departmentName: "소아과",
+        },
+        {
+          departmentId: 2,
+          departmentName: "내과",
+        },
+        {
+          departmentId: 3,
+          departmentName: "외과",
+        },
+      ],
+      tel: "02-1234-7111",
+    },
+  ])
 
   const [reservation, setReservation] = useState([
     {
@@ -183,10 +273,13 @@ function ReservationModal({
                     <ReservationDiagnosisList onChange={onChangeDepartmentName}>
                       {hospital.map((item) => {
                         if (item.hospitalId === selectedHospitalId) {
-                          return Array.from(new Set(item.departmentName)).map(
+                          return Array.from(new Set(item.departmentNames)).map(
                             (department, index) => (
-                              <SelectDiagnosis key={index}>
-                                {department}
+                              <SelectDiagnosis
+                                key={department.departmentId}
+                                value={department.departmentId}
+                              >
+                                {department.departmentName}
                               </SelectDiagnosis>
                             )
                           )

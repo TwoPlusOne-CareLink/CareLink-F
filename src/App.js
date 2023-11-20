@@ -24,36 +24,36 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/signin" element={<SignInPage />} />
+          <Route path="/login" element={<SignInPage />} />
           <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/hospitalsearch" element={<HospitalSearchPage />} />
-          <Route path="/counseling" element={<CounselingPage />} />
+          <Route path="/user/hospitalsearch" element={<HospitalSearchPage />} />
+          <Route path="/user/counseling" element={<CounselingPage />} />
           <Route
-            path="/counselinghistory"
+            path="/user/counselinghistory"
             element={<CounselingHistoryPage />}
           />
-          <Route path="/healthcheck" element={<HealthCheckPage />} />
-          <Route path="/userinfoupdate" element={<UserInfoPage />} />
+          <Route path="/user/healthcheck" element={<HealthCheckPage />} />
+          <Route path="/user/infoupdate" element={<UserInfoPage />} />
         </Routes>
         <Routes>
           <Route path="/doctor" element={<DoctorMainPage />} />
           <Route
-            path="/doctorcounselinglist"
+            path="/doctor/counselinglist"
             element={<DoctorCounselingPage />}
           />
           <Route
-            path="/doctorcounselinghistory"
+            path="/doctor/counselinghistory"
             element={<DoctorCounselingHistoryPage />}
           />
         </Routes>
         <Routes>
           <Route path="/hospital" element={<HospitalMainPage />} />
           <Route
-            path="/hospitalcheck"
+            path="/hospital/check"
             element={<HospitalReservationCheckPage />}
           />
           <Route
-            path="/hospitaldoctorlist"
+            path="/hospital/doctorlist"
             element={<HospitalDoctorListPage />}
           />
         </Routes>

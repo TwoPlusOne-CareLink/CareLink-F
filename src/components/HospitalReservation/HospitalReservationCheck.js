@@ -1,22 +1,97 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { styled } from "styled-components"
 import Calendar from "../../assets/images/CalenderExample.png"
 import HospitalReservationModal from "./HospitalReservationModal"
+import HospitalReservationCalendar from "./HospitalReservationCalendar"
+import { useDispatch } from "react-redux"
+import { __getHospitalReservation } from "../../redux/modules/reservationSlice"
 
 function HospitalReservationCheck() {
+  const dispatch = useDispatch()
+
+  const [reservation, setReservation] = useState([
+    {
+      reservationId: 1,
+      memberId: "sound4519",
+      hospitalId: 1,
+      departmentId: 1,
+      departmentName: "내과",
+      reservationDate: "2023-11-09",
+      reservationTime: "12:00",
+      reservationMember: "이승진",
+      reservationTel: "010-9303-3020",
+      reservationContent: "안녕하십니까 반갑습니다",
+    },
+    {
+      reservationId: 2,
+      memberId: "sound4519",
+      hospitalId: 2,
+      departmentId: 2,
+      departmentName: "내과",
+      reservationDate: "2023-11-09",
+      reservationTime: "09:00",
+      reservationMember: "정성민",
+      reservationTel: "010-9303-3020",
+      reservationContent: "안녕하십니까 반갑습니다",
+    },
+    {
+      reservationId: 2,
+      memberId: "sound4519",
+      hospitalId: 2,
+      departmentId: 2,
+      departmentName: "소아과",
+      reservationDate: "2023-11-09",
+      reservationTime: "09:00",
+      reservationMember: "정성민",
+      reservationTel: "010-9303-3020",
+      reservationContent: "안녕하십니까 반갑습니다",
+    },
+    {
+      reservationId: 3,
+      memberId: "sound4519",
+      hospitalId: 3,
+      departmentId: 3,
+      departmentName: "소아과",
+      reservationDate: "2023-11-16",
+      reservationTime: "09:00",
+      reservationMember: "정성민",
+      reservationTel: "010-9303-3020",
+      reservationContent: "안녕하십니까 반갑습니다",
+    },
+    {
+      reservationId: 3,
+      memberId: "sound4519",
+      hospitalId: 3,
+      departmentId: 3,
+      departmentName: "소아과",
+      reservationDate: "2023-11-09",
+      reservationTime: "09:00",
+      reservationMember: "정성민",
+      reservationTel: "010-9303-3020",
+      reservationContent: "안녕하십니까 반갑습니다",
+    },
+  ])
+
+  useEffect(() => {
+    dispatch(__getHospitalReservation)
+  })
+
   return (
     <Wrap>
       <HospitalCheckWrap>
-        <HospitalCheckCalendar>캘린더</HospitalCheckCalendar>
+        <HospitalReservationCalendar
+          dispatch={dispatch}
+          reservation={reservation}
+        />
         <HospitalCheckForm>
           <HospitalCheckFormHeader>
-            <CheckFormNo>번호</CheckFormNo>
+            {/* <CheckFormNo>번호</CheckFormNo> */}
             <CheckFormName>예약자</CheckFormName>
             <CheckFormDiagnosis>진료과목</CheckFormDiagnosis>
             <CheckFormText>진료내용</CheckFormText>
             <CheckFormTime>시간</CheckFormTime>
           </HospitalCheckFormHeader>
-          <HospitalReservationModal />
+          <HospitalReservationModal dispatch={dispatch} />
         </HospitalCheckForm>
       </HospitalCheckWrap>
     </Wrap>
@@ -78,7 +153,7 @@ const CheckFormDiagnosis = styled.span`
   text-align: center;
 `
 const CheckFormText = styled.span`
-  width: 250px;
+  width: 290px;
   font-family: "GmarketSansMedium";
   text-align: center;
 `
