@@ -4,6 +4,7 @@ import styled from "styled-components"
 import Logo from "../../assets/images/Logo.jpg"
 
 function Main() {
+  const token = localStorage.getItem("token")
   const navigate = useNavigate()
 
   const GoToSignIn = () => {
@@ -24,6 +25,12 @@ function Main() {
 
   const GoToHealthCheck = () => {
     navigate("/user/healthcheck")
+  }
+
+  const GoToLogout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("memberId")
+    navigate("/")
   }
 
   return (
@@ -60,9 +67,13 @@ function Main() {
               <MainBtnContent>질병백과</MainBtnContent>
             </MainBtn>
             <SignBtns>
-              <SignInBtn onClick={GoToSignIn}>로그인</SignInBtn>
+              {token !== null ? (
+                <LogoutBtn onClick={GoToLogout}>로그아웃</LogoutBtn>
+              ) : (
+                <SignInBtn onClick={GoToSignIn}>로그인</SignInBtn>
+              )}
+
               <SignUpBtn onClick={GoToSignUp}>회원가입</SignUpBtn>
-              {/* <LogoutBtn>로그아웃</LogoutBtn> */}
             </SignBtns>
           </MainBody>
         </MainContents>
@@ -251,12 +262,13 @@ const SignUpBtn = styled.button`
 /**로그아웃 버튼 */
 const LogoutBtn = styled.button`
   width: 100%;
-  height: 210px;
-  font-size: 40px;
+  height: 105px;
+  margin-bottom: 10px;
   border: transparent;
   border-radius: 16px;
   background-color: white;
   box-shadow: 8px 4px 62px 0px rgba(34, 51, 90, 0.08);
+  font-size: 40px;
   user-select: none;
 
   &:hover {

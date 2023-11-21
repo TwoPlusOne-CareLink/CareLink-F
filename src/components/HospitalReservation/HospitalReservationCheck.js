@@ -78,6 +78,9 @@ function HospitalReservationCheck() {
 
   return (
     <Wrap>
+      <HospitalTop>
+        <HospitalTopTitle>예약내역 조회</HospitalTopTitle>
+      </HospitalTop>
       <HospitalCheckWrap>
         <HospitalReservationCalendar
           dispatch={dispatch}
@@ -85,7 +88,6 @@ function HospitalReservationCheck() {
         />
         <HospitalCheckForm>
           <HospitalCheckFormHeader>
-            {/* <CheckFormNo>번호</CheckFormNo> */}
             <CheckFormName>예약자</CheckFormName>
             <CheckFormDiagnosis>진료과목</CheckFormDiagnosis>
             <CheckFormText>진료내용</CheckFormText>
@@ -101,9 +103,29 @@ function HospitalReservationCheck() {
 export default HospitalReservationCheck
 
 const Wrap = styled.div`
-  width: 85vw;
+  width: 88vw;
   height: 100vh;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+const HospitalTop = styled.div`
+  width: 91%;
+  height: 100px;
+  border-bottom: 4px solid #223359;
+  display: flex;
+  justify-content: left;
+  align-items: end;
+  user-select: none;
+`
+
+const HospitalTopTitle = styled.div`
+  font-size: 30px;
+  font-weight: 600;
+  margin-left: 20px;
+  margin-bottom: 20px;
 `
 const HospitalCheckWrap = styled.div`
   width: 1400px;

@@ -33,7 +33,11 @@ export const __getHospitalInfo = createAsyncThunk(
   "GET_HOSPITALINFO",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosIns.get("/user/hospitalList", payload)
+      const data = await axiosIns.get("/user/hospitalList", {
+        params: {
+          hospitalName: payload.hospitalName,
+        },
+      })
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code)
@@ -94,7 +98,22 @@ export const hospitalSlice = createSlice({
     },
     [__getHospitalInfo.fulfilled]: (state, action) => {
       state.isLoading = false
-      state.hospital = action.payload
+      state.hospital = {
+        hospitalId: action.payload.data.hospitalId,
+        hospitalName: action.payload.data.hospitalName,
+        address: action.payload.data.address,
+        weekdayOpeningtime: action.payload.data.weekdayOpeningtime,
+        weekendOpeningtime: action.payload.data.weekendOpeningtime,
+        latlng: {
+          lat: action.payload.data.latlng?.lat,
+          lng: action.payload.data.latlng?.lng,
+        },
+        tel: action.payload.data.tel,
+        holidayCheck: action.payload.data.holidayCheck,
+        lunchHour: action.payload.data.lunchHour,
+        departmentId: action.payload.data.departmentId,
+        departmentName: [action.payload.data.departmentName],
+      }
     },
     [__getHospitalInfo.rejected]: (state, action) => {
       state.isLoading = false

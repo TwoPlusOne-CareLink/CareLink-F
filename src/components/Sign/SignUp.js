@@ -219,29 +219,40 @@ function SignUp(props) {
 
   const onSignUpSubmit = (event) => {
     event.preventDefault()
-    const signUpForm = new FormData()
-    signUpForm.append("memberId", memberId)
-    signUpForm.append("password", password)
-    signUpForm.append("memberName", memberName)
-    signUpForm.append("memberEmail", memberEmail)
-    signUpForm.append("age", age)
-    signUpForm.append("gender", gender)
-    signUpForm.append("memberTel", memberTel)
-    signUpForm.append("memberAddress", memberAddress)
-    signUpForm.append("memberAddressDetail", memberAddressDetail)
 
-    dispatch(
-      __signUp(signUpForm)
-        .then((response) => {
-          if (response) {
-            alert("회원가입이 완료되었습니다. ")
-            navigate("/login")
-          }
-        })
-        .catch((error) => {
-          alert("회원가입에 실패했습니다. " + error.code)
-        })
-    )
+    const signUpForm = {
+      memberId: memberId,
+      password: password,
+      memberName: memberName,
+      memberEmail: memberEmail,
+      memberTel: memberTel,
+      memberAddress: memberAddress,
+      memberAddressDetail: memberAddressDetail,
+      age: age,
+      gender: gender,
+    }
+
+    // const signUpForm = new FormData()
+    // signUpForm.append("memberId", memberId)
+    // signUpForm.append("password", password)
+    // signUpForm.append("memberName", memberName)
+    // signUpForm.append("memberEmail", memberEmail)
+    // signUpForm.append("age", age)
+    // signUpForm.append("gender", gender)
+    // signUpForm.append("memberTel", memberTel)
+    // signUpForm.append("memberAddress", memberAddress)
+    // signUpForm.append("memberAddressDetail", memberAddressDetail)
+
+    dispatch(__signUp(signUpForm))
+      .then((response) => {
+        if (response) {
+          alert("회원가입이 완료되었습니다. ")
+          navigate("/login")
+        }
+      })
+      .catch((error) => {
+        alert("회원가입에 실패했습니다. " + error.code)
+      })
   }
 
   return (
@@ -346,7 +357,7 @@ function SignUp(props) {
                 <SignUpAgeInput
                   id="age"
                   name="age"
-                  maxlength="6"
+                  maxLength="6"
                   placeholder="주민번호앞"
                   value={age}
                   onChange={onChangeAge}
@@ -422,8 +433,8 @@ function SignUp(props) {
                 <SignUpAddressImg />
                 <SignUpInput
                   type="text"
-                  id="memberAddressD"
-                  name="memberAddressD"
+                  id="memberAddressDetail"
+                  name="memberAddressDetail"
                   placeholder="상세 주소"
                   onChange={onChangeAddressDetail}
                 />

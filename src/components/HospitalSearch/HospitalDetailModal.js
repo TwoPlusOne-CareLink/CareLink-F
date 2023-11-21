@@ -5,7 +5,7 @@ import DefaultProfileImg from "../../assets/images/User.png"
 import ReservationModal from "./ReservationModal"
 import HospitalMap from "./HospitalMap"
 
-function HospitalDetailModal() {
+function HospitalDetailModal({ hospital }) {
   const [selectedHospitalId, setSelectedHospitalId] = useState(false)
 
   const hospitalSelectedHospitalId = () => {
@@ -13,87 +13,87 @@ function HospitalDetailModal() {
   }
 
   const [list, setList] = useState()
-  const [hospital, setHospital] = useState([
-    {
-      hospitalId: 1,
-      name: "하늘하늘병원",
-      address: "서울특별시 강동구 강동로 하늘하늘병원 111",
-      weekdayOpeningTime: "09:00 ~ 19:00",
-      weekendOpeningTime: "09:00 ~ 14:00",
-      lunchHour: "13:00 ~ 14:00",
-      holidayCheck: "휴무",
-      latlng: { lat: "33.450705", lng: "126.570677" },
-      tel: "02-4786-7835",
-      departmentNames: [
-        {
-          departmentId: 1,
-          departmentName: "소아과",
-        },
-        {
-          departmentId: 1,
-          departmentName: "내과",
-        },
-        {
-          departmentId: 3,
-          departmentName: "외과",
-        },
-      ],
-    },
-    {
-      hospitalId: 2,
-      name: "나풀나풀나풀나풀병원",
-      address: "서울특별시 강동구 강동로 나풀나풀나풀나풀병원",
-      weekdayOpeningTime: "09:00 ~ 19:00",
-      weekendOpeningTime: "09:00 ~ 14:00",
-      lunchHour: "13:00 ~ 14:00",
-      holidayCheck: "휴무",
-      latlng: { lat: "33.450936", lng: "126.569477" },
-      departmentNames: [
-        {
-          departmentId: 1,
-          departmentName: "소아과",
-        },
-        {
-          departmentId: 2,
-          departmentName: "내과",
-        },
-        {
-          departmentId: 3,
-          departmentName: "외과",
-        },
-        {
-          departmentId: 4,
-          departmentName: "이비인후과",
-        },
-      ],
-      tel: "02-489-7898",
-    },
-    {
-      hospitalId: 3,
-      name: "하늘병원",
-      address: "서울특별시 강동구 강동로 하늘병원 111",
-      weekdayOpeningTime: "09:00 ~ 19:00",
-      weekendOpeningTime: "09:00 ~ 14:00",
-      lunchHour: "13:00 ~ 14:00",
-      holidayCheck: "휴무",
-      latlng: { lat: "33.450879", lng: "126.56994" },
-      departmentNames: [
-        {
-          departmentId: 1,
-          departmentName: "소아과",
-        },
-        {
-          departmentId: 2,
-          departmentName: "내과",
-        },
-        {
-          departmentId: 3,
-          departmentName: "외과",
-        },
-      ],
-      tel: "02-1234-7111",
-    },
-  ])
+  // const [hospital, setHospital] = useState([
+  //   {
+  //     hospitalId: 1,
+  //     name: "하늘하늘병원",
+  //     address: "서울특별시 강동구 강동로 하늘하늘병원 111",
+  //     weekdayOpeningTime: "09:00 ~ 19:00",
+  //     weekendOpeningTime: "09:00 ~ 14:00",
+  //     lunchHour: "13:00 ~ 14:00",
+  //     holidayCheck: "휴무",
+  //     latlng: { lat: "33.450705", lng: "126.570677" },
+  //     tel: "02-4786-7835",
+  //     departmentNames: [
+  //       {
+  //         departmentId: 1,
+  //         departmentName: "소아과",
+  //       },
+  //       {
+  //         departmentId: 1,
+  //         departmentName: "내과",
+  //       },
+  //       {
+  //         departmentId: 3,
+  //         departmentName: "외과",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     hospitalId: 2,
+  //     name: "나풀나풀나풀나풀병원",
+  //     address: "서울특별시 강동구 강동로 나풀나풀나풀나풀병원",
+  //     weekdayOpeningTime: "09:00 ~ 19:00",
+  //     weekendOpeningTime: "09:00 ~ 14:00",
+  //     lunchHour: "13:00 ~ 14:00",
+  //     holidayCheck: "휴무",
+  //     latlng: { lat: "33.450936", lng: "126.569477" },
+  //     departmentNames: [
+  //       {
+  //         departmentId: 1,
+  //         departmentName: "소아과",
+  //       },
+  //       {
+  //         departmentId: 2,
+  //         departmentName: "내과",
+  //       },
+  //       {
+  //         departmentId: 3,
+  //         departmentName: "외과",
+  //       },
+  //       {
+  //         departmentId: 4,
+  //         departmentName: "이비인후과",
+  //       },
+  //     ],
+  //     tel: "02-489-7898",
+  //   },
+  //   {
+  //     hospitalId: 3,
+  //     name: "하늘병원",
+  //     address: "서울특별시 강동구 강동로 하늘병원 111",
+  //     weekdayOpeningTime: "09:00 ~ 19:00",
+  //     weekendOpeningTime: "09:00 ~ 14:00",
+  //     lunchHour: "13:00 ~ 14:00",
+  //     holidayCheck: "휴무",
+  //     latlng: { lat: "33.450879", lng: "126.56994" },
+  //     departmentNames: [
+  //       {
+  //         departmentId: 1,
+  //         departmentName: "소아과",
+  //       },
+  //       {
+  //         departmentId: 2,
+  //         departmentName: "내과",
+  //       },
+  //       {
+  //         departmentId: 3,
+  //         departmentName: "외과",
+  //       },
+  //     ],
+  //     tel: "02-1234-7111",
+  //   },
+  // ])
 
   const [doctorInfo, setDoctorInfo] = useState([
     {
@@ -137,7 +137,7 @@ function HospitalDetailModal() {
           key={item.hospitalId}
           onClick={() => setSelectedHospitalId(item.hospitalId)}
         >
-          <ResultName>{item.name}</ResultName>
+          <ResultName>{item.hospitalName}</ResultName>
           <ResultAddress>{item.address}</ResultAddress>
           <ResultTel>{item.tel}</ResultTel>
         </MapSearchResult>
@@ -152,7 +152,7 @@ function HospitalDetailModal() {
                     return (
                       <HospitalContent key={item.hospitalId}>
                         <HospitalTitles>
-                          <HospitalTitle>{item.name}</HospitalTitle>
+                          <HospitalTitle>{item.hospitalName}</HospitalTitle>
                           <HospitalLike>❤️100</HospitalLike>
                         </HospitalTitles>
                         <HospitalAddress>{item.address}</HospitalAddress>
@@ -259,7 +259,7 @@ function HospitalDetailModal() {
 export default HospitalDetailModal
 
 const MapSearchResults = styled.div`
-  width: 720px;
+  width: 730px;
   height: 530px;
   margin-right: 10px;
   padding: 10px;

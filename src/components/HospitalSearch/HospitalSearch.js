@@ -5,22 +5,56 @@ import ReadingGlasses from "../../assets/images/ReadingGlasses.png"
 import HospitalDetailModal from "./HospitalDetailModal"
 import HospitalSearchMap from "./HospitalSearchMap"
 import { useDispatch } from "react-redux"
-import { __getHospitalInfo } from "../../redux/modules/hospitalSlice"
+import {
+  __getHospitalInfo,
+  __getHospitalSearch,
+} from "../../redux/modules/hospitalSlice"
 
 function HospitalSearch() {
   const dispatch = useDispatch()
   const [searchResult, setSearchResult] = useState("")
-
-  const [hospitalData, setHospitalData] = useState([])
+  const [hospitalData, setHospitalData] = useState([{}])
 
   useEffect(() => {
-    dispatch(__getHospitalInfo)
-    console.log(searchResult)
-  }, [searchResult])
+    let hospitalName = "all"
+
+    dispatch(__getHospitalInfo({ hospitalName }))
+      .then((response) => {
+        if (response) {
+          setHospitalData(response.payload.data)
+          console.log(response, "받아오냐?")
+          console.log(response.payload.data, "dd")
+        }
+      })
+      .catch((error) => {
+        console.log(error.message)
+      })
+
+    // console.log(searchResult)
+  }, [])
+
+  useEffect(() => {
+    console.log(hospitalData, "업뎃")
+  }, [hospitalData])
 
   const onChangeSearch = (e) => {
     const currentSearch = e.target.value
     setSearchResult(currentSearch)
+  }
+
+  const onClick = (event) => {
+    event.preventDefault()
+    let hospitalName = searchResult
+
+    dispatch(__getHospitalSearch({ hospitalName }))
+      .then((response) => {
+        if (response) {
+          console.log(response, "정답임")
+        }
+      })
+      .catch((error) => {
+        console.log(error, "에러임")
+      })
   }
 
   return (
@@ -30,7 +64,7 @@ function HospitalSearch() {
       </HospitalTop>
       <HospitalWrapper>
         <KaKaoMapWrapper>
-          <HospitalSearchMap />
+          <HospitalSearchMap hospital={hospitalData} />
         </KaKaoMapWrapper>
         <MapSearch>
           <MapSearchInputs>
@@ -38,9 +72,9 @@ function HospitalSearch() {
               onChange={onChangeSearch}
               placeholder="검색할 병원이름을 입력해주세요"
             />
-            <MapSearchImg />
+            <MapSearchImg onClick={onClick} />
           </MapSearchInputs>
-          <HospitalDetailModal />
+          <HospitalDetailModal hospital={hospitalData} />
         </MapSearch>
       </HospitalWrapper>
     </Wrap>

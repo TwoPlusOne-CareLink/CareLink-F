@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import User from "../../assets/images/User.png"
 import Lock from "../../assets/images/Lock.png"
@@ -20,7 +20,6 @@ function SignIn() {
   const memberIdHandler = (event) => {
     const currentId = event.target.value
     setMemberId(currentId)
-    console.log(memberId, currentId)
   }
 
   const memberPasswordHandler = (event) => {
@@ -29,17 +28,30 @@ function SignIn() {
     console.log(password, currentPassword)
   }
 
+  // useEffect(() => {
+  //   setPassword()
+  //   setMemberId()
+  // }, [setMemberId, setPassword])
+
   const onLogin = (event) => {
     event.preventDefault()
-    const loginForm = new FormData()
-    loginForm.append("memberId", memberId)
-    loginForm.append("password", password)
+
+    const loginForm = {
+      memberId: memberId,
+      password: password,
+    }
+
+    // const loginForm = new FormData()
+    // loginForm.append("memberId", memberId)
+    // loginForm.append("password", password)
 
     dispatch(__signIn(loginForm))
       .then((response) => {
         if (response) {
           alert("회원님, 환영합니다!")
-          console.log("토큰이 있어")
+
+          console.log("토큰이 있어", response)
+          navigate("/")
         }
       })
       .catch((error) => {
