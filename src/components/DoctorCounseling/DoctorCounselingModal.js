@@ -8,7 +8,6 @@ import { __addDoctorCounseling } from "../../redux/modules/doctorCounselingSlice
 
 function DoctorCounselingModal({ counselingId }) {
   const dispatch = useDispatch()
-  // const [counselingId, setCounselingId] = useState()
   const [commentContent, setCommentContent] = useState()
   const [doctorCounselingModal, setDoctorCounselingModal] = useState()
 
@@ -18,15 +17,18 @@ function DoctorCounselingModal({ counselingId }) {
 
   const CounselingSubmit = (event) => {
     event.preventDefault()
-    const doctorCounselingForm = new FormData()
-    doctorCounselingForm.append("counselingId", counselingId)
-    doctorCounselingForm.append("commentContent", commentContent)
+    const doctorCounselingForm = {
+      counselingId: counselingId,
+      commentContent: commentContent,
+    }
+    console.log(doctorCounselingForm)
 
     dispatch(__addDoctorCounseling(doctorCounselingForm))
       .then((response) => {
         if (response) {
           alert("답변이 완료되었습니다 !")
           setDoctorCounselingModal(!doctorCounselingModal)
+          console.log(response)
         }
       })
       .catch((error) => {

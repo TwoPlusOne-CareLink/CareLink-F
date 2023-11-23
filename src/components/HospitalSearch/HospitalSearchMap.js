@@ -11,45 +11,46 @@ import CloseBtn from "../../assets/images/XBtn.png"
 import { useDispatch } from "react-redux"
 import { __getHospitalInfo } from "../../redux/modules/hospitalSlice"
 
-export default function HospitalSearchMap() {
+export default function HospitalSearchMap({ hospital }) {
   useKakaoLoader()
   const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false)
-  const [hospital, setHospital] = useState([
-    {
-      hospitalId: 1,
-      name: "하늘하늘병원",
-      address: "서울특별시 강동구 강동로 하늘하늘병원 111",
-      weekdayOpeningTime: "09:00 ~ 19:00",
-      weekendOpeningTime: "09:00 ~ 14:00",
-      lunchHour: "13:00 ~ 14:00",
-      holidayCheck: "휴무",
-      latlng: { lat: "37.480187", lng: "126.883065" },
-      tel: "02-4786-7835",
-    },
-    {
-      hospitalId: 2,
-      name: "나풀나풀나풀나풀병원",
-      address: "서울특별시 강동구 강동로 나풀나풀나풀나풀병원",
-      weekdayOpeningTime: "09:00 ~ 19:00",
-      weekendOpeningTime: "09:00 ~ 14:00",
-      lunchHour: "13:00 ~ 14:00",
-      holidayCheck: "휴무",
-      latlng: { lat: "33.450936", lng: "126.569477" },
-      tel: "02-489-7898",
-    },
-    {
-      hospitalId: 3,
-      name: "하늘병원",
-      address: "서울특별시 강동구 강동로 하늘병원 111",
-      weekdayOpeningTime: "09:00 ~ 19:00",
-      weekendOpeningTime: "09:00 ~ 14:00",
-      lunchHour: "13:00 ~ 14:00",
-      holidayCheck: "휴무",
-      latlng: { lat: "33.450879", lng: "126.56994" },
-      tel: "02-1234-7111",
-    },
-  ])
+
+  // const [hospital, setHospital] = useState([
+  //   {
+  //     hospitalId: 1,
+  //     name: "하늘하늘병원",
+  //     address: "서울특별시 강동구 강동로 하늘하늘병원 111",
+  //     weekdayOpeningTime: "09:00 ~ 19:00",
+  //     weekendOpeningTime: "09:00 ~ 14:00",
+  //     lunchHour: "13:00 ~ 14:00",
+  //     holidayCheck: "휴무",
+  //     latlng: { lat: "37.480187", lng: "126.883065" },
+  //     tel: "02-4786-7835",
+  //   },
+  //   {
+  //     hospitalId: 2,
+  //     name: "나풀나풀나풀나풀병원",
+  //     address: "서울특별시 강동구 강동로 나풀나풀나풀나풀병원",
+  //     weekdayOpeningTime: "09:00 ~ 19:00",
+  //     weekendOpeningTime: "09:00 ~ 14:00",
+  //     lunchHour: "13:00 ~ 14:00",
+  //     holidayCheck: "휴무",
+  //     latlng: { lat: "33.450936", lng: "126.569477" },
+  //     tel: "02-489-7898",
+  //   },
+  //   {
+  //     hospitalId: 3,
+  //     name: "하늘병원",
+  //     address: "서울특별시 강동구 강동로 하늘병원 111",
+  //     weekdayOpeningTime: "09:00 ~ 19:00",
+  //     weekendOpeningTime: "09:00 ~ 14:00",
+  //     lunchHour: "13:00 ~ 14:00",
+  //     holidayCheck: "휴무",
+  //     latlng: { lat: "33.450879", lng: "126.56994" },
+  //     tel: "02-1234-7111",
+  //   },
+  // ])
   const [state, setState] = useState({
     center: {
       lat: 37.480187,
@@ -58,13 +59,20 @@ export default function HospitalSearchMap() {
     errMsg: null,
     isLoading: true,
   })
-
+  const [data, setData] = useState()
   const isOpenToggle = (latlng) => {
     setIsOpen(isOpen === latlng ? !isOpen : latlng)
   }
 
   useEffect(() => {
-    dispatch(__getHospitalInfo)
+    //   let hospitalName = "all"
+
+    //   dispatch(__getHospitalInfo({ hospitalName })).then((response) => {
+    //     if (response) {
+    //       setData(response)
+    //       console.log(data, "데이터얌")
+    //     }
+    //   })
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -104,27 +112,30 @@ export default function HospitalSearchMap() {
         borderRadius: "16px",
         zIndex: "0",
       }}
-      level={3}
+      level={6}
     >
       <MapTypeControl position={"TOPRIGHT"} />
       <ZoomControl position={"RIGHT"} />
-      {hospital.map((item) => (
-        <MapMarker
-          key={`${item.name}-${item.latlng}`}
-          position={item.latlng}
-          onClick={() => isOpenToggle(item.latlng)}
-        >
-          {isOpen === item.latlng && (
-            <MapInfo>
-              <MapTextTel>
-                <MapText>{item.name}</MapText>
-                <MapTel>{item.tel}</MapTel>
-              </MapTextTel>
-              <MapImg alt="close" onClick={isOpenToggle} />
-            </MapInfo>
-          )}
-        </MapMarker>
-      ))}
+      {hospital &&
+        hospital.map((item) =>
+          item && item.latlng ? (
+            <MapMarker
+              key={`${item.name}-${item.latlng.lat}-${item.latlng.lng}`}
+              position={item.latlng}
+              onClick={() => isOpenToggle(item.latlng)}
+            >
+              {isOpen === item.latlng && (
+                <MapInfo>
+                  <MapTextTel>
+                    <MapText>{item.hospitalName}</MapText>
+                    <MapTel>{item.tel}</MapTel>
+                  </MapTextTel>
+                  <MapImg alt="close" onClick={isOpenToggle} />
+                </MapInfo>
+              )}
+            </MapMarker>
+          ) : null
+        )}
     </Map>
   )
 }

@@ -1,11 +1,14 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { styled } from "styled-components"
 import CloseBtn from "../../assets/images/XBtn.png"
 import DaumPostcode from "react-daum-postcode"
-import { __updateUserInfo } from "../../redux/modules/userSlice"
+import { __getUserInfo, __updateUserInfo } from "../../redux/modules/userSlice"
+import { useDispatch } from "react-redux"
 
 function UserInfoUpdate(props) {
-  const [id, setId] = useState()
+  const dispatch = useDispatch()
+  const [member, setMember] = useState()
+  const [memberId, setMemberId] = useState()
   const [password, setPassword] = useState()
   const [passwordConfirm, setPasswordConfirm] = useState()
   const [memberName, setMemberName] = useState()
@@ -14,7 +17,7 @@ function UserInfoUpdate(props) {
   const [memberAddress, setMemberAddress] = useState()
   const [memberAddressDetail, setMemberAddressDetail] = useState()
 
-  const [isId, setIsId] = useState(false)
+  const [isMemberId, setIsMemberId] = useState(false)
   const [isPassword, setIsPassword] = useState(false)
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false)
   const [isMemberEmail, setIsMemberEmail] = useState(false)
@@ -26,13 +29,6 @@ function UserInfoUpdate(props) {
   const [memberTelMessage, setMemberTelMessage] = useState()
 
   const [addressModal, setAddressModal] = useState()
-
-  const [member, setMember] = useState([
-    {
-      memberId: "sound4519",
-      memberName: "이승진",
-    },
-  ])
 
   const addressToggle = () => {
     setAddressModal(!addressModal)
@@ -68,9 +64,9 @@ function UserInfoUpdate(props) {
   }
 
   // 아이디 감지 로직 ( 이부분은 멤버 정보 받아와서 불러올 예정 )
-  const onChangeId = (event) => {
+  const onChangeMemberId = (event) => {
     const currentId = event.target.value
-    setId(currentId)
+    setMemberId(currentId)
   }
 
   const onChangePassword = (event) => {
@@ -146,26 +142,48 @@ function UserInfoUpdate(props) {
   const onChangeAddress = (event) => {
     const currentAddress = event.target.value
     setMemberAddress(currentAddress)
+    console.log(currentAddress)
   }
 
   const onChangeAddressDetail = (event) => {
-    const currentAddressD = event.target.value
-    setMemberAddressDetail(currentAddressD)
+    const currentAddressDetail = event.target.value
+    setMemberAddressDetail(currentAddressDetail)
     console.log(memberAddressDetail)
   }
 
+  useEffect(() => {
+    dispatch(__getUserInfo())
+      .then((response) => {
+        if (response) {
+          console.log(response.payload.data, "문제있어?")
+          setMember([response.payload.data])
+          setMemberId(response.payload.data.memberId)
+          setMemberName(response.payload.data.memberName)
+          setMemberEmail(response.payload.data.memberEmail)
+          setMemberTel(response.payload.data.memberTel)
+          setMemberAddress(response.payload.data.memberAddress)
+          setMemberAddressDetail(response.payload.data.memberAddressDetail)
+        }
+      })
+      .catch((error) => {
+        console.log(error + "에러발생중!")
+      })
+  }, [])
+
   const userInfoSubmit = (event) => {
     event.preventDefault()
-    const userInfoForm = new FormData()
-    userInfoForm.append("id", id)
-    userInfoForm.append("password", password)
-    userInfoForm.append("memberName", memberName)
-    userInfoForm.append("memberEmail", memberEmail)
-    userInfoForm.append("memberTel", memberTel)
-    userInfoForm.append("memberAddress", memberAddress)
-    userInfoForm.append("memberAddressDetail", memberAddressDetail)
+    const userInfoForm = {
+      memberId: memberId,
+      password: password,
+      memberName: memberName,
+      memberEmail: memberEmail,
+      memberTel: memberTel,
+      memberAddress: memberAddress,
+      memberAddressDetail: memberAddressDetail,
+    }
+    console.log(userInfoForm)
 
-    dispatchEvent(__updateUserInfo(userInfoForm))
+    dispatch(__updateUserInfo(userInfoForm))
       .then((response) => {
         if (response) {
           alert("업데이트가 완료되었습니다.")
@@ -183,197 +201,170 @@ function UserInfoUpdate(props) {
       </UserInfoTop>
       <UserInfoWrap>
         <UserInfoBody>
-          {member.map((item) => (
-            <UserInfoContents>
-              <UserInfoContent>
-                <UserInfoContent1>
-                  <UserInfoContentDetails1>
-                    <UserInfoContentTitles>
-                      <UserInfoContentTitle>아이디</UserInfoContentTitle>
-                    </UserInfoContentTitles>
-                    <UserInfoContentInput1
-                      id="id"
-                      name="id"
-                      type="text"
-                      value={item.memberId}
-                      onChange={onChangeId}
-                      readOnly
-                    />
-                  </UserInfoContentDetails1>
-                  <UserInfoMessages>
-                    <UserInfoMessage></UserInfoMessage>
-                  </UserInfoMessages>
-                  <UserInfoContentDetails1>
-                    <UserInfoContentTitles>
-                      <UserInfoContentTitle>비밀번호</UserInfoContentTitle>
-                    </UserInfoContentTitles>
-                    <UserInfoContentInput1
-                      id="password"
-                      name="password"
-                      type="password"
-                      onChange={onChangePassword}
-                    />
-                  </UserInfoContentDetails1>
-                  <UserInfoMessages>
-                    <UserInfoMessage condition={isPassword}>
-                      {passwordMessage}
-                    </UserInfoMessage>
-                  </UserInfoMessages>
-                  <UserInfoContentDetails1>
-                    <UserInfoContentTitles>
-                      <UserInfoContentTitle>비밀번호확인</UserInfoContentTitle>
-                    </UserInfoContentTitles>
-                    <UserInfoContentInput1
-                      id="passwordConfirm"
-                      name="passwordConfirm"
-                      type="password"
-                      onChange={onChangePasswordConfirm}
-                    />
-                  </UserInfoContentDetails1>
-                  <UserInfoMessages>
-                    <UserInfoMessage condition={isPasswordConfirm}>
-                      {passwordConfirmMessage}
-                    </UserInfoMessage>
-                  </UserInfoMessages>
-                  <UserInfoContentDetails1>
-                    <UserInfoContentTitles>
-                      <UserInfoContentTitle>이름</UserInfoContentTitle>
-                    </UserInfoContentTitles>
-                    <UserInfoContentInput1
-                      id="memberName"
-                      name="memberName"
-                      type="text"
-                      value={item.memberName}
-                      onChange={onChangeMemberName}
-                    />
-                  </UserInfoContentDetails1>
-                  <UserInfoMessages>
-                    <UserInfoMessage></UserInfoMessage>
-                  </UserInfoMessages>
-                </UserInfoContent1>
-                <UserInfoContent2>
-                  <UserInfoContentDetails2>
-                    <UserInfoContentTitles>
-                      <UserInfoContentTitle>이메일</UserInfoContentTitle>
-                    </UserInfoContentTitles>
-                    <UserInfoContentInput2
-                      id="memberEmail"
-                      name="memberEmail"
-                      type="email"
-                      onChange={onChangeMemberEmail}
-                    />
-                  </UserInfoContentDetails2>
-                  <UserInfoMessages>
-                    <UserInfoMessage condition={isMemberEmail}>
-                      {memberEmailMessage}
-                    </UserInfoMessage>
-                  </UserInfoMessages>
-                  <UserInfoContentDetails2>
-                    <UserInfoContentTitles>
-                      <UserInfoContentTitle>전화번호</UserInfoContentTitle>
-                    </UserInfoContentTitles>
-                    <UserInfoContentInput2
-                      id="memberTel"
-                      name="memberTel"
-                      type="text"
-                      onChange={onAddHypen}
-                    />
-                  </UserInfoContentDetails2>
-                  <UserInfoMessages>
-                    <UserInfoMessage condition={isMemberTel}>
-                      {memberTelMessage}
-                    </UserInfoMessage>
-                  </UserInfoMessages>
-                  <UserInfoContentDetails2>
-                    <UserInfoContentTitles>
-                      <UserInfoContentTitle>주소</UserInfoContentTitle>
-                    </UserInfoContentTitles>
-                    <UserInfoAddressInput
-                      id="memberAddress"
-                      name="memberAddress"
-                      type="text"
-                      value={memberAddress}
-                      onChange={onChangeAddress}
-                    />
-                    <UserAddressButton onClick={addressToggle}>
-                      주소검색
-                    </UserAddressButton>
-                    {addressModal && (
-                      <AddressWrap>
-                        <AddressOverlay>
-                          <AddressContent>
-                            <AddressTitles>
-                              <AddressTitle>주소 검색</AddressTitle>
-                              <AddressCancel onClick={addressToggle} />
-                            </AddressTitles>
-                            <DaumPostcode
-                              onComplete={handleComplete}
-                              onSearch={handleSearch}
-                              style={postCodeStyle}
-                              {...props}
-                            />
-                          </AddressContent>
-                        </AddressOverlay>
-                      </AddressWrap>
-                    )}
-                  </UserInfoContentDetails2>
-                  <UserInfoMessages>
-                    <UserInfoMessage></UserInfoMessage>
-                  </UserInfoMessages>
-                  <UserInfoContentDetails2>
-                    <UserInfoContentTitles>
-                      <UserInfoContentTitle>상세주소</UserInfoContentTitle>
-                    </UserInfoContentTitles>
-                    <UserInfoContentInput2
-                      id="memberAddressDetail"
-                      name="memberAddressDetail"
-                      type="text"
-                      onChange={memberAddressDetail}
-                    />
-                  </UserInfoContentDetails2>
-                  <UserInfoMessages>
-                    <UserInfoMessage></UserInfoMessage>
-                  </UserInfoMessages>
-                </UserInfoContent2>
-              </UserInfoContent>
-              {/* <UserInfoContent>
-                <UserInfoContentTitles>
-                  <UserInfoContentTitle>주소</UserInfoContentTitle>
-                </UserInfoContentTitles>
-                <UserInfoInputs>
-                  <UserInfoInput
-                    type="text"
-                    id="memberAddress"
-                    name="memberAddress"
-                    placeholder="주소를 검색해주세요"
-                    onChange={onChangeAddress}
-                    value={memberAddress}
-                  />
-                  <UserAddressButton onClick={addressToggle}>
-                    주소검색
-                  </UserAddressButton>
-                </UserInfoInputs>
-                
-              </UserInfoContent> */}
-              {/* <UserInfoContent>
-                <UserInfoContentDownTitles>
-                  <UserInfoContentTitle>상세주소</UserInfoContentTitle>
-                </UserInfoContentDownTitles>
-                <UserInfoLastInputs>
-                  <UserInfoInput
-                    type="text"
-                    id="memberAddressDetail"
-                    name="memberAddressDetail"
-                    placeholder="상세주소를 입력해주세요"
-                    onChange={onChangeAddressDetail}
-                  />
-                </UserInfoLastInputs>
-              </UserInfoContent> */}
-              <UserInfoBtns>
-                <UserInfoBtn onClick={userInfoSubmit}>수정완료</UserInfoBtn>
-              </UserInfoBtns>
-            </UserInfoContents>
-          ))}
+          {member &&
+            member.map((item) => (
+              <UserInfoContents>
+                <UserInfoContent>
+                  <UserInfoContent1>
+                    <UserInfoContentDetails1>
+                      <UserInfoContentTitles>
+                        <UserInfoContentTitle>아이디</UserInfoContentTitle>
+                      </UserInfoContentTitles>
+                      <UserInfoContentInput1
+                        id="memberId"
+                        name="memberId"
+                        type="text"
+                        value={item.memberId}
+                        onChange={onChangeMemberId}
+                        readOnly
+                      />
+                    </UserInfoContentDetails1>
+                    <UserInfoMessages>
+                      <UserInfoMessage></UserInfoMessage>
+                    </UserInfoMessages>
+                    <UserInfoContentDetails1>
+                      <UserInfoContentTitles>
+                        <UserInfoContentTitle>비밀번호</UserInfoContentTitle>
+                      </UserInfoContentTitles>
+                      <UserInfoContentInput1
+                        id="password"
+                        name="password"
+                        type="password"
+                        onChange={onChangePassword}
+                      />
+                    </UserInfoContentDetails1>
+                    <UserInfoMessages>
+                      <UserInfoMessage condition={isPassword}>
+                        {passwordMessage}
+                      </UserInfoMessage>
+                    </UserInfoMessages>
+                    <UserInfoContentDetails1>
+                      <UserInfoContentTitles>
+                        <UserInfoContentTitle>
+                          비밀번호확인
+                        </UserInfoContentTitle>
+                      </UserInfoContentTitles>
+                      <UserInfoContentInput1
+                        id="passwordConfirm"
+                        name="passwordConfirm"
+                        type="password"
+                        onChange={onChangePasswordConfirm}
+                      />
+                    </UserInfoContentDetails1>
+                    <UserInfoMessages>
+                      <UserInfoMessage condition={isPasswordConfirm}>
+                        {passwordConfirmMessage}
+                      </UserInfoMessage>
+                    </UserInfoMessages>
+                    <UserInfoContentDetails1>
+                      <UserInfoContentTitles>
+                        <UserInfoContentTitle>이름</UserInfoContentTitle>
+                      </UserInfoContentTitles>
+                      <UserInfoContentInput1
+                        id="memberName"
+                        name="memberName"
+                        type="text"
+                        value={item.memberName}
+                        onChange={onChangeMemberName}
+                      />
+                    </UserInfoContentDetails1>
+                    <UserInfoMessages>
+                      <UserInfoMessage></UserInfoMessage>
+                    </UserInfoMessages>
+                  </UserInfoContent1>
+                  <UserInfoContent2>
+                    <UserInfoContentDetails2>
+                      <UserInfoContentTitles>
+                        <UserInfoContentTitle>이메일</UserInfoContentTitle>
+                      </UserInfoContentTitles>
+                      <UserInfoContentInput2
+                        id="memberEmail"
+                        name="memberEmail"
+                        type="email"
+                        defaultValue={item.memberEmail}
+                        onChange={onChangeMemberEmail}
+                      />
+                    </UserInfoContentDetails2>
+                    <UserInfoMessages>
+                      <UserInfoMessage condition={isMemberEmail}>
+                        {memberEmailMessage}
+                      </UserInfoMessage>
+                    </UserInfoMessages>
+                    <UserInfoContentDetails2>
+                      <UserInfoContentTitles>
+                        <UserInfoContentTitle>전화번호</UserInfoContentTitle>
+                      </UserInfoContentTitles>
+                      <UserInfoContentInput2
+                        id="memberTel"
+                        name="memberTel"
+                        type="text"
+                        defaultValue={item.memberTel}
+                        onChange={onAddHypen}
+                      />
+                    </UserInfoContentDetails2>
+                    <UserInfoMessages>
+                      <UserInfoMessage condition={isMemberTel}>
+                        {memberTelMessage}
+                      </UserInfoMessage>
+                    </UserInfoMessages>
+                    <UserInfoContentDetails2>
+                      <UserInfoContentTitles>
+                        <UserInfoContentTitle>주소</UserInfoContentTitle>
+                      </UserInfoContentTitles>
+                      <UserInfoAddressInput
+                        id="memberAddress"
+                        name="memberAddress"
+                        type="text"
+                        defaultValue={item.memberAddress}
+                        onChange={onChangeAddress}
+                      />
+                      <UserAddressButton onClick={addressToggle}>
+                        주소검색
+                      </UserAddressButton>
+                      {addressModal && (
+                        <AddressWrap>
+                          <AddressOverlay>
+                            <AddressContent>
+                              <AddressTitles>
+                                <AddressTitle>주소 검색</AddressTitle>
+                                <AddressCancel onClick={addressToggle} />
+                              </AddressTitles>
+                              <DaumPostcode
+                                onComplete={handleComplete}
+                                onSearch={handleSearch}
+                                style={postCodeStyle}
+                                {...props}
+                              />
+                            </AddressContent>
+                          </AddressOverlay>
+                        </AddressWrap>
+                      )}
+                    </UserInfoContentDetails2>
+                    <UserInfoMessages>
+                      <UserInfoMessage></UserInfoMessage>
+                    </UserInfoMessages>
+                    <UserInfoContentDetails2>
+                      <UserInfoContentTitles>
+                        <UserInfoContentTitle>상세주소</UserInfoContentTitle>
+                      </UserInfoContentTitles>
+                      <UserInfoContentInput2
+                        id="memberAddressDetail"
+                        name="memberAddressDetail"
+                        type="text"
+                        defaultValue={item.memberAddressDetail}
+                        onChange={onChangeAddressDetail}
+                      />
+                    </UserInfoContentDetails2>
+                    <UserInfoMessages>
+                      <UserInfoMessage></UserInfoMessage>
+                    </UserInfoMessages>
+                  </UserInfoContent2>
+                </UserInfoContent>
+                <UserInfoBtns>
+                  <UserInfoBtn onClick={userInfoSubmit}>수정완료</UserInfoBtn>
+                </UserInfoBtns>
+              </UserInfoContents>
+            ))}
         </UserInfoBody>
       </UserInfoWrap>
     </Wrap>

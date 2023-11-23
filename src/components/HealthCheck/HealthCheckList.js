@@ -5,55 +5,27 @@ import { useDispatch } from "react-redux"
 import {
   __getHealthCheckDetail,
   __getHealthCheckInfo,
-  // __getHealthCheckList,
 } from "../../redux/modules/healthCheckSlice"
 
-function HealthCheckList() {
+function HealthCheckList({ checkListInfoDtoList }) {
   const dispatch = useDispatch()
   const [selectedHealthCheck, setSelectedHealthCheck] = useState()
-  const [postModal, setPostModal] = useState()
 
-  const postToggleModal = () => {
-    setPostModal(!postModal)
+  const [healthCheck, setHealthCheck] = useState([])
+
+  const onHealthCheck = (checkId) => {
+    // setSelectedHealthCheck(checkId)
+    dispatch(__getHealthCheckDetail({ checkId }))
+      .then((response) => {
+        if (response) {
+          setHealthCheck(response.payload)
+          console.log(healthCheck, "나에요???")
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
-
-  const [healthCheck, setHealthCheck] = useState([
-    {
-      checkId: 1,
-      memberId: "sound4519",
-      memberName: "윤시호",
-      genderName: "남자",
-      age: 22,
-      height: 175.5,
-      weight: 70.3,
-      systolicBloodPressure: 110,
-      relaxationBloodPressure: 70,
-      bloodSugar: 120,
-      heartRate: 75,
-      healthMemo: "오늘의 컨디션은 매우 피곤해요",
-      nowDate: "2023-11-08",
-    },
-    {
-      checkId: 2,
-      memberId: "sound5555",
-      memberName: "이승진",
-      genderName: "여자",
-      age: 25,
-      height: 165.5,
-      weight: 54.3,
-      systolicBloodPressure: 110,
-      relaxationBloodPressure: 70,
-      bloodSugar: 110,
-      heartRate: 70,
-      healthMemo: "오늘의 컨디션은 매우 상쾌해요!",
-      nowDate: "2023-11-08",
-    },
-  ])
-
-  useEffect(() => {
-    dispatch(__getHealthCheckInfo)
-    dispatch(__getHealthCheckDetail)
-  }, [])
 
   return (
     <HealthCheckFormList>
@@ -68,23 +40,22 @@ function HealthCheckList() {
           <HealthCheckPostTitleDate>작성날짜</HealthCheckPostTitleDate>
         </HealthCheckPostTitles>
         <HealthCheckPosts>
-          {healthCheck.map((check) => (
-            <HealthCheckPost
-              onClick={() => setSelectedHealthCheck(check.checkId)}
-            >
-              <PostNo>{check.checkId}</PostNo>
-              <PostName>{check.memberName}</PostName>
-              <PostText>{check.healthMemo}</PostText>
-              <PostDate>{check.nowDate}</PostDate>
-            </HealthCheckPost>
-          ))}
+          {checkListInfoDtoList &&
+            checkListInfoDtoList.map((item) => (
+              <HealthCheckPost onClick={() => onHealthCheck(item.checkId)}>
+                <PostNo>{item.checkId}</PostNo>
+                <PostName>{item.memberName}</PostName>
+                <PostText>{item.healthMemo}</PostText>
+                <PostDate>{item.nowdate}</PostDate>
+              </HealthCheckPost>
+            ))}
           {selectedHealthCheck &&
             healthCheck.map((item) => {
               if (item.checkId === selectedHealthCheck) {
                 return (
                   <PostModalWrapper>
                     <PostModalOverlay>
-                      <PostModalContent>
+                      <PostModalContent key={item.checkId}>
                         <PostModalContentHeader>
                           <PostModalContentTitle>
                             체크리스트 작성상세내역
@@ -106,7 +77,7 @@ function HealthCheckList() {
                             <PostModalBodyContent>
                               <PostModalContentName>성별</PostModalContentName>
                               <PostModalContentResult>
-                                {item.genderName}
+                                {item.gender}
                               </PostModalContentResult>
                             </PostModalBodyContent>
                             <PostModalBodyContent>

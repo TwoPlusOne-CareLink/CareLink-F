@@ -1,143 +1,182 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { styled } from "styled-components"
 import HistoryImg from "../../assets/images/DoctorImg.png"
 import CloseBtn from "../../assets/images/XBtn.png"
 import Like from "../../assets/images/heart.png"
-import { jwtDecode } from "jwt-decode"
+import DefaultCounselingImg from "../../assets/images/defaultCounseling.png"
+import ReactPaginate from "react-paginate"
+import { useDispatch } from "react-redux"
+import {
+  __getDoctorCompleteCounselingList,
+  __getDoctorCounselingDetail,
+} from "../../redux/modules/doctorCounselingSlice"
 
 function DoctorCompleteHistoryModal() {
-  // const Token = localStorage.getItem("Token")
+  const dispatch = useDispatch()
+  const [selectedCounselingId, setSelectedCounselingId] = useState()
+  const [counseling, setCounseling] = useState([{}])
+  const [counselingReply, setCounselingReply] = useState([])
+  const [pageCount, setPageCount] = useState()
   const [doctorId, setDoctorId] = useState()
 
-  // 로컬스토리지에 담긴 토큰을 디코딩 하여 서버와 통신에 필요한 doctorId를 추출하기 위해 사용
-  // if (Token && doctorId === undefined) {
-  //   try {
-  //     const decodedToken = jwtDecode(Token)
-  //     const doctorId = decodedToken.doctorId
-  //     setDoctorId(doctorId)
-  //   } catch (error) {
-  //     console.error("토큰 해석에 실패했습니다.", error)
-  //   }
-  // } else if (!Token) {
-  //   console.log("토큰이 로컬스토리지에 존재하지 않습니다.")
-  // }
-
-  const [historyModal, setHistoryModal] = useState()
-
   const historyModalToggle = () => {
-    setHistoryModal(!historyModal)
+    setSelectedCounselingId(!selectedCounselingId)
   }
 
-  const [counseling, setCounSeling] = useState([
-    {
-      counselingId: 1,
-      counselingTitle: "상담요청합니다",
-      memberId: "sound4519",
-      memberName: "이승진",
-      departmentId: 1,
-      departmentName: "내과",
-      counselingContent:
-        "안녕하세요 며칠전부터 내가 ㅂ몸이 너무 쓰리디 쓰려서 그러는데 걍 집에 가면안될까요?",
-      counselingImage: `${HistoryImg}`,
-      counselingImageName: "상담사진",
-    },
-    {
-      counselingId: 2,
-      counselingTitle: "하이루",
-      memberId: "sound4519",
-      memberName: "이승진",
-      departmentId: 2,
-      departmentName: "외과",
-      counselingContent: "안돼. 돌아가.",
-      counselingImage: `${HistoryImg}`,
-      counselingImageName: "상담사진",
-    },
-  ])
+  const [currentPage, setCurrentPage] = useState(0)
+  const handlePageClick = (data) => {
+    setCurrentPage(data.selected)
+  }
 
-  const [counselingReply, setCounselingReply] = useState([
-    {
-      replyId: 1,
-      counselingId: 1,
-      memberId: "doctor1",
-      doctorName: "이승진",
-      doctorImg: "",
-      commentContent: "안녕하세요 승진님, 반갑습니다 조아용",
-      commentDate: "2023-11-19",
-      departmentName: "내과",
-    },
-    // {
-    //   replyId: 2,
-    //   counselingId: 2,
-    //   memberId: "doctor2",
-    //   doctorName: "정성민",
-    //   doctorImg: `${HistoryImg}`,
-    //   commentContent: "하이!!",
-    //   commentDate: "2023-11-19",
-    //   departmentName: "외과",
-    // },
-  ])
+  const itemsPerPage = 8
+  const offset = currentPage * itemsPerPage
+
+  useEffect(() => {
+    dispatch(__getDoctorCompleteCounselingList())
+      .then((response) => {
+        if (response) {
+          console.log(response.payload)
+          const counselingData = response.payload.data
+          setCounseling(counselingData)
+          const updatedPageCount = Math.ceil(
+            counselingData.length / itemsPerPage
+          )
+          setPageCount(updatedPageCount)
+          console.log(counselingData)
+          console.log(counseling, "카운셀링 나오냐?")
+        }
+      })
+      .catch((error) => {
+        console.log(error, "에러임")
+      })
+  }, [])
+
+  useEffect(() => {
+    if (selectedCounselingId) {
+      dispatch(
+        __getDoctorCounselingDetail({ counselingId: selectedCounselingId })
+      )
+        .then((response) => {
+          if (response) {
+            const responseData = response.payload.data
+            setCounselingReply(responseData)
+            console.log(responseData)
+          }
+        })
+        .catch((error) => {
+          console.log(error, "에러메시지")
+        })
+    }
+  }, [selectedCounselingId])
+
+  useEffect(() => {
+    console.log(counselingReply)
+  }, [counselingReply])
+
+  const selectCounselingDetail = (counselingId) => {
+    setSelectedCounselingId(counselingId)
+  }
 
   return (
-    <DoctorHistoryBody>
-      {counseling.map((item) => (
-        <DoctorHistoryContent onClick={historyModalToggle}>
-          <DoctorHistoryImg />
-          <DoctorHistoryName>첫번쨰 상담</DoctorHistoryName>
-        </DoctorHistoryContent>
-      ))}
-      {historyModal && (
-        <DoctorHistoryModalWrap>
-          <DoctorHistoryModalOverlay>
-            <DoctorHistoryModalContent>
-              <DoctorHistoryModalHeader>
-                <DoctorHistoryHeaderTitle>
-                  비대면 상담 상세내역
-                </DoctorHistoryHeaderTitle>
-                <DoctorHistoryModalCloseBtn onClick={historyModalToggle} />
-              </DoctorHistoryModalHeader>
-              <DHistoryModalContentBody>
-                <DHistoryContent1>
-                  <DHistoryContent1Detail>
-                    <DHistoryContent1Titles>
-                      <DHistoryContent1Title>
-                        안녕하세요 문의드립니다
-                      </DHistoryContent1Title>
-                    </DHistoryContent1Titles>
-                    <DHistoryContent1Texts>
-                      <DHistoryContent1Text>
-                        안녕하세요 반갑습니다. 제가 며칠전부터 몸이 너무
-                        안좋아서,, 아주 그냥 몸살감기가 걸려부러써요.. ㅠㅠ 근데
-                        이게 열도 좀 있는 것 같고 온몸이 으슬으슬 떨리네요 ..
-                        이거 감기몸살인가요?
-                      </DHistoryContent1Text>
-                    </DHistoryContent1Texts>
-                    <DHistoryContent1Imgs>
-                      <DHistoryContent1Img />
-                    </DHistoryContent1Imgs>
-                  </DHistoryContent1Detail>
-                </DHistoryContent1>
-                <DHistoryContent2>
-                  <DHistoryDoctorInfos>
-                    <DHistoryDoctorImg />
-                    <DHistoryDoctorInfo>
-                      <DHistoryDoctorName>이코사 의사</DHistoryDoctorName>
-                      <DHistoryDoctorDiagnosis>내과</DHistoryDoctorDiagnosis>
-                    </DHistoryDoctorInfo>
-                    <DHistoryDoctorLike />
-                  </DHistoryDoctorInfos>
+    <>
+      <DoctorHistoryBody>
+        {counseling &&
+          counseling.slice(offset, offset + itemsPerPage).map((item) => (
+            <DoctorHistoryContent
+              key={item.counselingId}
+              onClick={() => selectCounselingDetail(item.counselingId)}
+            >
+              <DoctorHistoryImg img={item.counselingImage} />
+              <DoctorHistoryName>{item.counselingTitle}</DoctorHistoryName>
+            </DoctorHistoryContent>
+          ))}
+        {selectedCounselingId && (
+          <DoctorHistoryModalWrap>
+            <DoctorHistoryModalOverlay>
+              <DoctorHistoryModalContent>
+                {counseling.map((item) => {
+                  if (item.counselingId === selectedCounselingId) {
+                    return (
+                      <DoctorHistoryModalContents>
+                        <DoctorHistoryModalHeader>
+                          <DoctorHistoryHeaderTitle>
+                            비대면 상담 상세내역
+                          </DoctorHistoryHeaderTitle>
+                          <DoctorHistoryModalCloseBtn
+                            onClick={historyModalToggle}
+                          />
+                        </DoctorHistoryModalHeader>
+                        <DHistoryModalContentBody>
+                          <DHistoryContent1>
+                            <DHistoryContent1Detail>
+                              <DHistoryContent1Titles>
+                                <DHistoryContent1Title>
+                                  {item.counselingTitle}
+                                </DHistoryContent1Title>
+                              </DHistoryContent1Titles>
+                              <DHistoryContent1Texts>
+                                <DHistoryContent1Text>
+                                  {item.counselingContent}
+                                </DHistoryContent1Text>
+                              </DHistoryContent1Texts>
+                              <DHistoryContent1Imgs>
+                                <DHistoryContent1Img />
+                              </DHistoryContent1Imgs>
+                            </DHistoryContent1Detail>
+                          </DHistoryContent1>
 
-                  <DHistoryDoctorText>
-                    안녕하세요 승진님. 내과 전문의 이코사입니다. 승진님의 증상의
-                    경우 감기몸살로 판단되며 가급적 찬물대신 따뜻한 물 섭취 및
-                    옷차림에 유념해 주시면 좋을 것 같습니다.
-                  </DHistoryDoctorText>
-                </DHistoryContent2>
-              </DHistoryModalContentBody>
-            </DoctorHistoryModalContent>
-          </DoctorHistoryModalOverlay>
-        </DoctorHistoryModalWrap>
+                          {counselingReply &&
+                            Array.isArray(counselingReply) &&
+                            counselingReply.map((item) => {
+                              if (item.counselingId === selectedCounselingId) {
+                                return (
+                                  <DHistoryContent2>
+                                    <DHistoryDoctorInfos>
+                                      <DHistoryDoctorImg />
+                                      <DHistoryDoctorInfo>
+                                        <DHistoryDoctorName>
+                                          {item.doctorName}
+                                        </DHistoryDoctorName>
+                                        <DHistoryDoctorDiagnosis>
+                                          {item.departmentName}
+                                        </DHistoryDoctorDiagnosis>
+                                      </DHistoryDoctorInfo>
+                                      <DHistoryDoctorLike />
+                                    </DHistoryDoctorInfos>
+
+                                    <DHistoryDoctorText>
+                                      {item.commentContent}
+                                    </DHistoryDoctorText>
+                                  </DHistoryContent2>
+                                )
+                              }
+                            })}
+                        </DHistoryModalContentBody>
+                      </DoctorHistoryModalContents>
+                    )
+                  }
+                })}
+              </DoctorHistoryModalContent>
+            </DoctorHistoryModalOverlay>
+          </DoctorHistoryModalWrap>
+        )}
+      </DoctorHistoryBody>
+      {pageCount > 1 && (
+        <DPaginationWrapper>
+          <ReactPaginate
+            previousLabel={"이전"}
+            nextLabel={"다음"}
+            breakLabel={"..."}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            activeClassName={"active"}
+          />
+        </DPaginationWrapper>
       )}
-    </DoctorHistoryBody>
+    </>
   )
 }
 
@@ -145,7 +184,8 @@ export default DoctorCompleteHistoryModal
 
 const DoctorHistoryBody = styled.div`
   width: 1300px;
-  height: 660px;
+  height: 700px;
+  margin-top: 25px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(25%, auto));
   place-items: center;
@@ -160,7 +200,10 @@ const DoctorHistoryImg = styled.div`
   height: 280px;
   border: transparent;
   border-radius: 12px;
-  background-image: url(${HistoryImg});
+  background-image: url(${(props) =>
+    props.img
+      ? "data:image/*;base64," + props.img
+      : `${DefaultCounselingImg}`});
   background-size: cover;
 `
 const DoctorHistoryName = styled.span`
@@ -198,6 +241,8 @@ const DoctorHistoryModalContent = styled.div`
   position: absolute;
   user-select: none;
 `
+const DoctorHistoryModalContents = styled.div``
+
 const DoctorHistoryModalHeader = styled.div`
   width: 900px;
   height: 50px;
@@ -342,4 +387,23 @@ const DHistoryDoctorText = styled.p`
   border: transparent;
   border-radius: 8px;
   box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.14);
+`
+const DPaginationWrapper = styled.div`
+  .pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+
+  .pagination li {
+    margin-right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .pagination li.active {
+    font-weight: bold;
+  }
 `

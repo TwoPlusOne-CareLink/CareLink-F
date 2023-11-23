@@ -1,27 +1,15 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { styled } from "styled-components"
 import CounselingHistoryModal from "./CounselingHistoryModal"
-import { useDispatch } from "react-redux"
-import { __getMyCounselingList } from "../../redux/modules/counselingSlice"
 
 function CounselingHistory() {
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(__getMyCounselingList)
-  }, [])
-
   return (
     <Wrap>
       <CounselingTop>
         <CounselingTopTitle>내가 작성한 상담내역</CounselingTopTitle>
       </CounselingTop>
       <CounselingHistoryWrap>
-        {/* <CounselingHistoryHeader>
-          <CounselingHistoryTitle>나의 상담내역</CounselingHistoryTitle>
-        </CounselingHistoryHeader> */}
-        <CounselingHistoryModal dispatch={dispatch} />
-        {/* <CounselingHistoryFooter>이전 1 2 3 4 5 다음 </CounselingHistoryFooter> */}
+        <CounselingHistoryModal />
       </CounselingHistoryWrap>
     </Wrap>
   )

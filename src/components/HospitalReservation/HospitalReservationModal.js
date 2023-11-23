@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { styled } from "styled-components"
 import CloseBtn from "../../assets/images/XBtn.png"
 
-function HospitalReservationModal({ dispatch }) {
+function HospitalReservationModal({ dispatch, reservationData }) {
   const [selectedReservation, setSelectReservation] = useState()
   const [reservationModal, setReservationModal] = useState()
 
@@ -10,96 +10,30 @@ function HospitalReservationModal({ dispatch }) {
     setReservationModal(!reservationModal)
   }
 
-  const [reservation, setReservation] = useState([
-    {
-      reservationId: 1,
-      memberId: "sound4519",
-      hospitalId: 1,
-      departmentId: 1,
-      departmentName: "내과",
-      reservationDate: "2023-11-09",
-      reservationTime: "12:00",
-      reservationMember: "이승진",
-      reservationTel: "010-9303-3020",
-      reservationContent: "안녕하십니까 반갑습니다",
-    },
-    {
-      reservationId: 2,
-      memberId: "sound4519",
-      hospitalId: 2,
-      departmentId: 2,
-      departmentName: "내과",
-      reservationDate: "2023-11-09",
-      reservationTime: "09:00",
-      reservationMember: "정성민",
-      reservationTel: "010-9303-3020",
-      reservationContent: "안녕하십니까 반갑습니다",
-    },
-    {
-      reservationId: 3,
-      memberId: "sound4519",
-      hospitalId: 3,
-      departmentId: 3,
-      departmentName: "소아과",
-      reservationDate: "2023-11-09",
-      reservationTime: "09:00",
-      reservationMember: "정성민",
-      reservationTel: "010-9303-3020",
-      reservationContent: "안녕하십니까 반갑습니다",
-    },
-    {
-      reservationId: 4,
-      memberId: "sound4519",
-      hospitalId: 4,
-      departmentId: 4,
-      departmentName: "소아과",
-      reservationDate: "2023-11-16",
-      reservationTime: "11:00",
-      reservationMember: "정성민",
-      reservationTel: "010-9303-3020",
-      reservationContent: "안녕하십니까 반갑습니다",
-    },
-    {
-      reservationId: 5,
-      memberId: "sound4519",
-      hospitalId: 5,
-      departmentId: 5,
-      departmentName: "소아과",
-      reservationDate: "2023-11-09",
-      reservationTime: "09:00",
-      reservationMember: "정성민",
-      reservationTel: "010-9303-3020",
-      reservationContent: "안녕하십니까 반갑습니다",
-    },
-  ])
-
-  // useEffect(() => {
-  //   dis
-  // })
-
   return (
     <HospitalCheckFormBody>
-      {reservation.map((item) => (
-        <HospitalReservationContent
-          onClick={() => setSelectReservation(item.reservationId)}
-        >
-          {/* <HospitalReservationNo>1</HospitalReservationNo> */}
-          <HospitalReservationName>
-            {item.reservationMember}
-          </HospitalReservationName>
-          <HospitalReservationDiagnosis>
-            {item.departmentName}
-          </HospitalReservationDiagnosis>
-          <HospitalReservationText>
-            {item.reservationContent}
-          </HospitalReservationText>
-          <HospitalReservationTime>
-            {item.reservationTime}
-          </HospitalReservationTime>
-        </HospitalReservationContent>
-      ))}
+      {reservationData &&
+        reservationData.map((item) => (
+          <HospitalReservationContent
+            onClick={() => setSelectReservation(item.reservationId)}
+          >
+            {/* <HospitalReservationNo>1</HospitalReservationNo> */}
+            <HospitalReservationName>
+              {item.reservationMember}
+            </HospitalReservationName>
+            <HospitalReservationDiagnosis>
+              {item.departmentName}
+            </HospitalReservationDiagnosis>
+            <HospitalReservationText>
+              {item.reservationContent}
+            </HospitalReservationText>
+            <HospitalReservationTime>
+              {item.reservationTime}
+            </HospitalReservationTime>
+          </HospitalReservationContent>
+        ))}
       {selectedReservation &&
-        reservation.map((item) => {
+        reservationData.map((item) => {
           if (item.reservationId === selectedReservation) {
             return (
               <ReservationWrap>

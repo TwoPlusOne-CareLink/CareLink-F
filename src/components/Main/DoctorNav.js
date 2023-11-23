@@ -129,7 +129,7 @@ const NavFooter = styled.div`
   align-items: center;
 `
 const NavLogout = styled.span`
-  font-size: 30px;
+  font-size: 25px;
   user-select: none;
 
   &:hover {

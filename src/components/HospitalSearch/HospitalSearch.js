@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 
 import styled from "styled-components"
-import ReadingGlasses from "../../assets/images/ReadingGlasses.png"
+
 import HospitalDetailModal from "./HospitalDetailModal"
 import HospitalSearchMap from "./HospitalSearchMap"
 import { useDispatch } from "react-redux"
@@ -9,19 +9,31 @@ import { __getHospitalInfo } from "../../redux/modules/hospitalSlice"
 
 function HospitalSearch() {
   const dispatch = useDispatch()
-  const [searchResult, setSearchResult] = useState("")
 
-  const [hospitalData, setHospitalData] = useState([])
+  const [hospitalData, setHospitalData] = useState([{}])
 
   useEffect(() => {
-    dispatch(__getHospitalInfo)
-    console.log(searchResult)
-  }, [searchResult])
+    let hospitalName = "all"
 
-  const onChangeSearch = (e) => {
-    const currentSearch = e.target.value
-    setSearchResult(currentSearch)
-  }
+    dispatch(__getHospitalInfo({ hospitalName }))
+      .then((response) => {
+        if (response) {
+          setHospitalData(response.payload.data)
+
+          console.log(response, "받아오냐?")
+          console.log(response.payload.data, "dd")
+        }
+      })
+      .catch((error) => {
+        console.log(error.message)
+      })
+
+    // console.log(searchResult)
+  }, [])
+
+  useEffect(() => {
+    console.log(hospitalData, "업뎃")
+  }, [hospitalData])
 
   return (
     <Wrap>
@@ -30,18 +42,10 @@ function HospitalSearch() {
       </HospitalTop>
       <HospitalWrapper>
         <KaKaoMapWrapper>
-          <HospitalSearchMap />
+          <HospitalSearchMap hospital={hospitalData} />
         </KaKaoMapWrapper>
-        <MapSearch>
-          <MapSearchInputs>
-            <MapSearchInput
-              onChange={onChangeSearch}
-              placeholder="검색할 병원이름을 입력해주세요"
-            />
-            <MapSearchImg />
-          </MapSearchInputs>
-          <HospitalDetailModal />
-        </MapSearch>
+
+        <HospitalDetailModal hospital={hospitalData} dispatch={dispatch} />
       </HospitalWrapper>
     </Wrap>
   )
@@ -92,37 +96,37 @@ const KaKaoMapWrapper = styled.div`
   border-radius: 16px;
   user-select: none;
 `
-const MapSearch = styled.div`
-  width: 720px;
-  height: 600px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-`
-const MapSearchInputs = styled.div`
-  border-radius: 8px;
-  padding: 12px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  user-select: none;
-`
-const MapSearchImg = styled.div`
-  width: 30px;
-  height: 30px;
-  margin-left: 15px;
-  background-image: url(${ReadingGlasses});
-  background-size: cover;
-  cursor: pointer;
-`
+// const MapSearch = styled.div`
+//   width: 720px;
+//   height: 600px;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+//   align-items: center;
+// `
+// const MapSearchInputs = styled.div`
+//   border-radius: 8px;
+//   padding: 12px;
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: center;
+//   align-items: center;
+//   user-select: none;
+// `
+// const MapSearchImg = styled.div`
+//   width: 30px;
+//   height: 30px;
+//   margin-left: 15px;
+//   background-image: url(${ReadingGlasses});
+//   background-size: cover;
+//   cursor: pointer;
+// `
 
-const MapSearchInput = styled.input`
-  width: 400px;
-  padding: 6px;
-  border: transparent;
-  border-bottom: 1px solid black;
-  font-size: 20px;
-  outline: none;
-`
+// const MapSearchInput = styled.input`
+//   width: 400px;
+//   padding: 6px;
+//   border: transparent;
+//   border-bottom: 1px solid black;
+//   font-size: 20px;
+//   outline: none;
+// `

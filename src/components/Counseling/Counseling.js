@@ -2,13 +2,16 @@ import React, { useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import defaultImg from "../../assets/images/default.png"
 import { useDispatch } from "react-redux"
-import { __addCounseling } from "../../redux/modules/counselingSlice"
+import {
+  __addCounseling,
+  __getCounselingUserInfo,
+} from "../../redux/modules/counselingSlice"
 
 function Counseling() {
   const dispatch = useDispatch()
   const [imageSrc, setImageSrc] = useState()
-  const [counselingImage, setCounselingImage] = useState("")
-  const [counselingTitle, setCounselingTitle] = useState("")
+  const [counselingImage, setCounselingImage] = useState()
+  const [counselingTitle, setCounselingTitle] = useState()
   const [memberId, setMemberId] = useState("")
   const [memberName, setMemberName] = useState()
   const [departmentId, setDepartmentId] = useState()
@@ -17,26 +20,7 @@ function Counseling() {
 
   const imgRef = useRef()
 
-  const [member, setMember] = useState([
-    {
-      memberId: "sound4519",
-      memberName: "이승진",
-    },
-  ])
-
-  const [conuseling, setCounSeling] = useState([
-    {
-      conuselingId: 1,
-      counselingTitle: "상담요청합니다",
-      memberId: "sound4519",
-      memberName: "이승진",
-      departmentId: 1,
-      departmentName: "내과",
-      counselingContent: "상담드립니다.",
-      counselingImage: "image.jpg",
-      counselingImageName: "상담사진",
-    },
-  ])
+  const [member, setMember] = useState({})
 
   // 이미지 선택해서 미리보기까지 연결된 로직 , ref을 사용하여 Dom에 직접 접근. 백에 데이터로 보낼 img와 미리보기를 별도 구분하여 미리보기 로직 구현.
   const saveImgFile = () => {
@@ -57,6 +41,7 @@ function Counseling() {
   const onChangeCounselingTitle = (event) => {
     const currentTitle = event.target.value
     setCounselingTitle(currentTitle)
+    console.log(counselingTitle)
   }
 
   const onChangeMemberId = (event) => {
@@ -67,45 +52,62 @@ function Counseling() {
   const onChangeMemberName = (event) => {
     const currentMemberName = event.target.value
     setMemberName(currentMemberName)
+    console.log(memberName)
   }
 
-  // const onChangeDepartmentName = (event) => {
-  //   const currentDepartment = event.target.value
-  //   setDepartmentName(currentDepartment)
-  // }
   const onChangeDepartmentId = (event) => {
     const currentDepartmentId = event.target.value
-    setDepartmentName(currentDepartmentId)
-    console.log(currentDepartmentId)
+    setDepartmentId(currentDepartmentId)
+    console.log(departmentId)
   }
 
   const onChangeCounselingContent = (event) => {
     const currentContent = event.target.value
     setCounselingContent(currentContent)
+    console.log(counselingContent)
   }
 
   const counselingSubmit = (event) => {
     event.preventDefault()
     const counselingForm = new FormData()
-    counselingForm.append("counselingImage", counselingImage)
+    if (counselingImage) {
+      counselingForm.append("counselingAttach", counselingImage)
+    }
+
     counselingForm.append("counselingTitle", counselingTitle)
-    counselingForm.append("memberId", memberId)
-    counselingForm.append("memberName", memberName)
     counselingForm.append("departmentId", departmentId)
     counselingForm.append("counselingContent", counselingContent)
+    console.log(
+      counselingImage,
+      counselingTitle,
+      departmentId,
+      counselingContent
+    )
 
     dispatch(__addCounseling(counselingForm))
       .then((response) => {
         if (response) {
+          console.log(response)
           alert("상담 접수가 완료되었습니다.")
-        } else {
-          alert("상담 접수에 실패했습니다.")
         }
       })
       .catch((error) => {
+        console.log(error, error.message, error.code)
         alert("상담 접수간 오류가 발생했습니다. " + error.code)
       })
   }
+
+  useEffect(() => {
+    dispatch(__getCounselingUserInfo())
+      .then((response) => {
+        if (response) {
+          setMember(response.payload.data)
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }, [])
 
   return (
     <Wrap>
@@ -162,21 +164,14 @@ function Counseling() {
             <CounselingDiagnosis>
               <CounselingDiagnosisName>상담과목</CounselingDiagnosisName>
               <CounselingDiagnosisSelect onChange={onChangeDepartmentId}>
-                <SelectDiagnosis id="departmentId" value="1">
-                  내과
+                <SelectDiagnosis value="0">
+                  === 상담과목을 선택해주세요 ==
                 </SelectDiagnosis>
-                <SelectDiagnosis id="departmentId" value="2">
-                  소아과
-                </SelectDiagnosis>
-                <SelectDiagnosis id="departmentId" value="3">
-                  이비인후과
-                </SelectDiagnosis>
-                <SelectDiagnosis id="departmentId" value="4">
-                  외과
-                </SelectDiagnosis>
-                <SelectDiagnosis id="departmentId" value="5">
-                  치과
-                </SelectDiagnosis>
+                <SelectDiagnosis value="1">내과</SelectDiagnosis>
+                <SelectDiagnosis value="2">소아과</SelectDiagnosis>
+                <SelectDiagnosis value="3">이비인후과</SelectDiagnosis>
+                <SelectDiagnosis value="4">외과</SelectDiagnosis>
+                <SelectDiagnosis value="5">치과</SelectDiagnosis>
               </CounselingDiagnosisSelect>
             </CounselingDiagnosis>
             <CounselingTexts>

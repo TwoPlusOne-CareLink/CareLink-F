@@ -13,14 +13,13 @@ import CounselingHistoryPage from "./pages/CounselingHistoryPage"
 import HealthCheckPage from "./pages/HealthCheckPage"
 import UserInfoPage from "./pages/UserInfoPage"
 import DoctorCounselingPage from "./pages/DoctorCounselingPage"
-import DoctorCounselingHistoryPage from "./pages/DoctorCounselingHistoryPage"
+import DoctorCounselingCompleteHistoryPage from "./pages/DoctorCounselingCompleteHistoryPage"
 import HospitalReservationCheckPage from "./pages/HospitalReservationCheckPage"
 import HospitalDoctorListPage from "./pages/HospitalDoctorListPage"
 
 function App() {
   return (
     <>
-      {/* <GlobalStyle /> */}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
@@ -34,8 +33,7 @@ function App() {
           />
           <Route path="/user/healthcheck" element={<HealthCheckPage />} />
           <Route path="/user/infoupdate" element={<UserInfoPage />} />
-        </Routes>
-        <Routes>
+
           <Route path="/doctor" element={<DoctorMainPage />} />
           <Route
             path="/doctor/counselinglist"
@@ -43,10 +41,9 @@ function App() {
           />
           <Route
             path="/doctor/counselinghistory"
-            element={<DoctorCounselingHistoryPage />}
+            element={<DoctorCounselingCompleteHistoryPage />}
           />
-        </Routes>
-        <Routes>
+
           <Route path="/hospital" element={<HospitalMainPage />} />
           <Route
             path="/hospital/check"

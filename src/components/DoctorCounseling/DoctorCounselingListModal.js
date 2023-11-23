@@ -4,197 +4,186 @@ import HistoryImg from "../../assets/images/DoctorImg.png"
 import CloseBtn from "../../assets/images/XBtn.png"
 import DoctorCounselingModal from "./DoctorCounselingModal"
 import DefaultCounselingImg from "../../assets/images/defaultCounseling.png"
-import { __getDoctorCounselingList } from "../../redux/modules/doctorCounselingSlice"
 
-function DoctorCounselingListModal({ dispatch }) {
+import ReactPaginate from "react-paginate"
+import { useDispatch } from "react-redux"
+import {
+  __getDoctorCounselingDetail,
+  __getDoctorCounselingList,
+} from "../../redux/modules/doctorCounselingSlice"
+
+function DoctorCounselingListModal() {
+  const dispatch = useDispatch()
   const [selectedCounselingId, setSelectedCounselingId] = useState()
-  // const [CounselingModal, setCounselingModal] = useState()
+  const [counseling, setCounseling] = useState()
+  const [counselingReply, setCounselingReply] = useState()
+  const [counselingId, setCounselingId] = useState()
+  const [pageCount, setPageCount] = useState()
 
-  const [counseling, setCounSeling] = useState([
-    {
-      counselingId: 1,
-      counselingTitle: "상담요청합니다",
-      memberId: "sound4519",
-      memberName: "이승진",
-      departmentId: 1,
-      departmentName: "내과",
-      counselingContent:
-        "안녕하세요 며칠전부터 내가 ㅂ몸이 너무 쓰리디 쓰려서 그러는데 걍 집에 가면안될까요?",
-      counselingImage: `${HistoryImg}`,
-      counselingImageName: "상담사진",
-    },
-    {
-      counselingId: 2,
-      counselingTitle: "하이루",
-      memberId: "sound4519",
-      memberName: "이승진",
-      departmentId: 2,
-      departmentName: "외과",
-      counselingContent: "안돼. 돌아가.",
-      counselingImage: `${HistoryImg}`,
-      counselingImageName: "상담사진",
-    },
-    {
-      counselingId: 1,
-      counselingTitle: "상담요청합니다",
-      memberId: "sound4519",
-      memberName: "이승진",
-      departmentId: 1,
-      departmentName: "내과",
-      counselingContent:
-        "안녕하세요 며칠전부터 내가 ㅂ몸이 너무 쓰리디 쓰려서 그러는데 걍 집에 가면안될까요?",
-      counselingImage: `${HistoryImg}`,
-      counselingImageName: "상담사진",
-    },
-    {
-      counselingId: 2,
-      counselingTitle: "하이루",
-      memberId: "sound4519",
-      memberName: "이승진",
-      departmentId: 2,
-      departmentName: "외과",
-      counselingContent: "안돼. 돌아가.",
-      counselingImage: `${HistoryImg}`,
-      counselingImageName: "상담사진",
-    },
-    {
-      counselingId: 1,
-      counselingTitle: "상담요청합니다",
-      memberId: "sound4519",
-      memberName: "이승진",
-      departmentId: 1,
-      departmentName: "내과",
-      counselingContent:
-        "안녕하세요 며칠전부터 내가 ㅂ몸이 너무 쓰리디 쓰려서 그러는데 걍 집에 가면안될까요?",
-      counselingImage: `${HistoryImg}`,
-      counselingImageName: "상담사진",
-    },
-    {
-      counselingId: 2,
-      counselingTitle: "하이루",
-      memberId: "sound4519",
-      memberName: "이승진",
-      departmentId: 2,
-      departmentName: "외과",
-      counselingContent: "안돼. 돌아가.",
-      counselingImage: `${HistoryImg}`,
-      counselingImageName: "상담사진",
-    },
-    {
-      counselingId: 1,
-      counselingTitle: "상담요청합니다",
-      memberId: "sound4519",
-      memberName: "이승진",
-      departmentId: 1,
-      departmentName: "내과",
-      counselingContent:
-        "안녕하세요 며칠전부터 내가 ㅂ몸이 너무 쓰리디 쓰려서 그러는데 걍 집에 가면안될까요?",
-      counselingImage: `${HistoryImg}`,
-      counselingImageName: "상담사진",
-    },
-    {
-      counselingId: 2,
-      counselingTitle: "하이루",
-      memberId: "sound4519",
-      memberName: "이승진",
-      departmentId: 2,
-      departmentName: "외과",
-      counselingContent: "안돼. 돌아가.",
-      counselingImage: `${HistoryImg}`,
-      counselingImageName: "상담사진",
-    },
-  ])
-
-  const [counselingReply, setCounselingReply] = useState([
-    {
-      replyId: 1,
-      counselingId: 1,
-      memberId: "doctor1",
-      doctorName: "이승진",
-      doctorImg: "",
-      commentContent: "안녕하세요 승진님, 반갑습니다 조아용",
-      commentDate: "2023-11-19",
-      departmentName: "내과",
-    },
-    // {
-    //   replyId: 2,
-    //   counselingId: 2,
-    //   memberId: "doctor2",
-    //   doctorName: "정성민",
-    //   doctorImg: `${HistoryImg}`,
-    //   commentContent: "하이!!",
-    //   commentDate: "2023-11-19",
-    //   departmentName: "외과",
-    // },
-  ])
+  //현재 페이지
+  const [currentPage, setCurrentPage] = useState(0)
+  const handlePageClick = (data) => {
+    setCurrentPage(data.selected)
+  }
+  const itemsPerPage = 8
+  const offset = currentPage * itemsPerPage
 
   const CounselingToggle = () => {
     setSelectedCounselingId(!selectedCounselingId)
   }
 
-  // 의사 입장에서 상담댓글이 아직 안달린 비대면 상담에 대한 리스트를 불러오는 로직
   useEffect(() => {
-    dispatch(__getDoctorCounselingList)
+    dispatch(__getDoctorCounselingList())
+      .then((response) => {
+        if (response) {
+          const counselingData = response.payload.data
+          setCounseling(counselingData)
+          const updatedPageCount = Math.ceil(
+            counselingData.length / itemsPerPage
+          )
+          setPageCount(updatedPageCount)
+          console.log(counselingData)
+          console.log(counseling, "카운셀링 나오냐?")
+          // setCounselingId(response.payload.data.counselingId)
+        }
+      })
+      .catch((error) => {
+        console.log(error, "에러에요")
+      })
   }, [])
+
+  // useEffect(() => {
+  //   if (selectedCounselingId) {
+  //     dispatch(
+  //       __getDoctorCounselingDetail({ counselingId: selectedCounselingId })
+  //     )
+  //       .then((response) => {
+  //         if (response) {
+  //           const responseData = response.payload.data
+  //           setCounselingReply(responseData)
+  //           console.log(responseData)
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.log(error, "에러메시지")
+  //       })
+  //   }
+  // }, [selectedCounselingId])
+
+  // useEffect(() => {
+  //   console.log(counselingReply)
+  // }, [counselingReply])
+
+  const selectCounselingDetail = (counselingId) => {
+    setSelectedCounselingId(counselingId)
+  }
+
+  // const [counselingReply, setCounselingReply] = useState([
+  //   {
+  //     replyId: 1,
+  //     counselingId: 1,
+  //     memberId: "doctor1",
+  //     doctorName: "이승진",
+  //     doctorImg: "",
+  //     commentContent: "안녕하세요 승진님, 반갑습니다 조아용",
+  //     commentDate: "2023-11-19",
+  //     departmentName: "내과",
+  //   },
+  //   // {
+  //   //   replyId: 2,
+  //   //   counselingId: 2,
+  //   //   memberId: "doctor2",
+  //   //   doctorName: "정성민",
+  //   //   doctorImg: `${HistoryImg}`,
+  //   //   commentContent: "하이!!",
+  //   //   commentDate: "2023-11-19",
+  //   //   departmentName: "외과",
+  //   // },
+  // ])
+
+  // 의사 입장에서 상담댓글이 아직 안달린 비대면 상담에 대한 리스트를 불러오는 로직
+  // useEffect(() => {
+  //   dispatch(__getDoctorCounselingList)
+  // }, [])
 
   // const replyIdExists = counselingReply.some(
   //   (item) => item.counselingId === selectedCounselingId && item.replyId
   // )
 
   return (
-    <DCounselingListBody>
-      {counseling.map((item) => (
-        <DCounselingListContent
-          key={item.counselingId}
-          onClick={() => setSelectedCounselingId(item.counselingId)}
-        >
-          <DCounselingListImg img={item.counselingImage} />
-          <DCounselingListName>{item.counselingTitle}</DCounselingListName>
-        </DCounselingListContent>
-      ))}
-      {selectedCounselingId && (
-        <DCounselingModalWrap>
-          <DCounselingModalOverlay>
-            <DCounselingModalContent>
-              {counseling.map((item) => {
-                if (item.counselingId === selectedCounselingId) {
-                  return (
-                    <DCounselingModalContents>
-                      <DCounselingModalHeader>
-                        <DCounselingModalTitle>
-                          상담 상세내역
-                        </DCounselingModalTitle>
-                        <DCounselingCloseBtn onClick={CounselingToggle} />
-                      </DCounselingModalHeader>
-                      <DCounselingModalBody>
-                        <DCounselingModalContent1>
-                          <ModalContent1Titles>
-                            <ModalContent1Title>
-                              {item.counselingTitle}
-                            </ModalContent1Title>
-                          </ModalContent1Titles>
-                          <ModalContent1Texts>
-                            <ModalContent1Text>
-                              {item.counselingContent}
-                            </ModalContent1Text>
-                          </ModalContent1Texts>
-                          <ModalContent1Imgs>
-                            <ModalContent1Img />
-                          </ModalContent1Imgs>
-                        </DCounselingModalContent1>
-                        <DoctorCounselingModal
-                          counselingId={item.counselingId}
-                        />
-                      </DCounselingModalBody>
-                    </DCounselingModalContents>
-                  )
-                }
-              })}
-            </DCounselingModalContent>
-          </DCounselingModalOverlay>
-        </DCounselingModalWrap>
+    <>
+      <DCounselingListBody>
+        {counseling &&
+          counseling.slice(offset, offset + itemsPerPage).map((item) => (
+            <DCounselingListContent
+              key={item.counselingId}
+              onClick={() => selectCounselingDetail(item.counselingId)}
+            >
+              <DCounselingListImg img={item.counselingImage} />
+              <DCounselingListName>{item.counselingTitle}</DCounselingListName>
+            </DCounselingListContent>
+          ))}
+        {selectedCounselingId && (
+          <DCounselingModalWrap>
+            <DCounselingModalOverlay>
+              <DCounselingModalContent>
+                {counseling.map((item) => {
+                  if (item.counselingId === selectedCounselingId) {
+                    return (
+                      <DCounselingModalContents key={item.counselingId}>
+                        <DCounselingModalHeader>
+                          <DCounselingModalTitle>
+                            상담 상세내역
+                          </DCounselingModalTitle>
+                          <DCounselingCloseBtn onClick={CounselingToggle} />
+                        </DCounselingModalHeader>
+                        <DCounselingModalBody>
+                          <DCounselingModalContent1>
+                            <ModalContent1Titles>
+                              <ModalContent1Title>
+                                {item.counselingTitle}
+                              </ModalContent1Title>
+                            </ModalContent1Titles>
+                            <ModalContent1Texts>
+                              <ModalContent1Text>
+                                {item.counselingContent}
+                              </ModalContent1Text>
+                            </ModalContent1Texts>
+                            <ModalContent1Imgs>
+                              <ModalContent1Img />
+                            </ModalContent1Imgs>
+                          </DCounselingModalContent1>
+                          <DoctorCounselingModal
+                            counselingId={item.counselingId}
+                          />
+                        </DCounselingModalBody>
+                      </DCounselingModalContents>
+                    )
+                  }
+                  return null
+                })}
+              </DCounselingModalContent>
+            </DCounselingModalOverlay>
+          </DCounselingModalWrap>
+        )}
+      </DCounselingListBody>
+      {pageCount > 1 && (
+        <DPaginationWrapper>
+          <ReactPaginate
+            previousLabel={"이전"}
+            nextLabel={"다음"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            activeClassName={"active"}
+          />
+        </DPaginationWrapper>
       )}
-    </DCounselingListBody>
+    </>
   )
 }
 
@@ -206,6 +195,7 @@ const DCounselingListBody = styled.div`
   margin-top: 25px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(25%, auto));
+  place-items: center;
 `
 const DCounselingListContent = styled.div`
   display: flex;
@@ -218,8 +208,10 @@ const DCounselingListImg = styled.div`
   height: 280px;
   border: transparent;
   border-radius: 12px;
-  background-image: ${(props) =>
-    props.img ? `url(${props.img})` : `url(${DefaultCounselingImg})`};
+  background-image: url(${(props) =>
+    props.img
+      ? "data:image/*;base64," + props.img
+      : `${DefaultCounselingImg}`});
   background-size: cover;
 `
 const DCounselingListName = styled.span`
@@ -339,4 +331,24 @@ const ModalContent1Img = styled.div`
   border-radius: 12px;
   background-image: url(${HistoryImg});
   background-size: cover;
+`
+
+const DPaginationWrapper = styled.div`
+  .pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+
+  .pagination li {
+    margin-right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .pagination li.active {
+    font-weight: bold;
+  }
 `

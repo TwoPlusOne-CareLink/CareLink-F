@@ -4,6 +4,8 @@ import styled from "styled-components"
 import Logo from "../../assets/images/Logo.jpg"
 
 function HospitalMain() {
+  const token = localStorage.getItem("token")
+  const role = localStorage.getItem("role")
   const navigate = useNavigate()
 
   const HGoToLogIn = () => {
@@ -11,7 +13,11 @@ function HospitalMain() {
   }
 
   const HLogout = () => {
+    alert("로그아웃이 완료되었습니다.")
     navigate("/hospital")
+    localStorage.removeItem("token")
+    localStorage.removeItem("memberId")
+    localStorage.removeItem("role")
   }
 
   const GoToHospitalDoctorList = () => {
@@ -40,8 +46,11 @@ function HospitalMain() {
             <HReservationBtn onClick={GoToHospitalcheck}>
               예약내역조회
             </HReservationBtn>
-            <HLogInBtn onClick={HGoToLogIn}>로그인</HLogInBtn>
-            {/* <HLogoutBtn onClick={HLogout}>로그아웃</HLogoutBtn> */}
+            {token !== null && role === "ROLE_ADMIN" ? (
+              <HLogoutBtn onClick={HLogout}>로그아웃</HLogoutBtn>
+            ) : (
+              <HLogInBtn onClick={HGoToLogIn}>로그인</HLogInBtn>
+            )}
           </HMainBody>
         </HMainContents>
       </HMainWrapper>
