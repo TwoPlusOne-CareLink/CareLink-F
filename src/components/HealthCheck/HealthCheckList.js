@@ -9,17 +9,17 @@ import {
 
 function HealthCheckList({ checkListInfoDtoList }) {
   const dispatch = useDispatch()
-  const [selectedHealthCheck, setSelectedHealthCheck] = useState()
+  const [selectedHealthCheckId, setSelectedHealthCheckId] = useState()
 
   const [healthCheck, setHealthCheck] = useState([])
 
   const onHealthCheck = (checkId) => {
-    // setSelectedHealthCheck(checkId)
+    setSelectedHealthCheckId(checkId)
     dispatch(__getHealthCheckDetail({ checkId }))
       .then((response) => {
         if (response) {
-          setHealthCheck(response.payload)
-          console.log(healthCheck, "나에요???")
+          setHealthCheck([response.payload.data])
+          console.log(response.payload.data, "나에요???")
         }
       })
       .catch((error) => {
@@ -49,9 +49,10 @@ function HealthCheckList({ checkListInfoDtoList }) {
                 <PostDate>{item.nowdate}</PostDate>
               </HealthCheckPost>
             ))}
-          {selectedHealthCheck &&
+          {selectedHealthCheckId &&
+            healthCheck &&
             healthCheck.map((item) => {
-              if (item.checkId === selectedHealthCheck) {
+              if (item.checkId === selectedHealthCheckId) {
                 return (
                   <PostModalWrapper>
                     <PostModalOverlay>
@@ -62,7 +63,7 @@ function HealthCheckList({ checkListInfoDtoList }) {
                           </PostModalContentTitle>
                           <PostModalContentCloseBtn
                             onClick={() =>
-                              setSelectedHealthCheck(!selectedHealthCheck)
+                              setSelectedHealthCheckId(!selectedHealthCheckId)
                             }
                           />
                         </PostModalContentHeader>
