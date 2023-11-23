@@ -4,14 +4,13 @@ import { axiosIns } from "../../api/api"
 
 const initialState = {
   member: {
-    id: "",
+    memberId: "",
     password: "",
     memberName: "",
     memberEmail: "",
     memberTel: "",
     memberAddress: "",
     memberAddressDetail: "",
-    agree: "",
     age: "",
     gender: "",
   },
@@ -30,7 +29,7 @@ export const __signIn = createAsyncThunk(
       const data = await axiosIns.post("/login", payload)
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.code)
+      return thunkAPI.rejectWithValue(error)
     }
   }
 )
@@ -59,7 +58,16 @@ export const authSlice = createSlice({
     [__signIn.fulfilled]: (state, action) => {
       state.isLoading = false
       state.isLogin = true
-      state.member = action.payload
+      state.member = {
+        memberId: action.payload.memberId,
+        password: action.payload.password,
+      }
+      const token = action.payload.data.token
+      const memberId = action.payload.data.memberId
+      const role = action.payload.data.role
+      localStorage.setItem("token", token)
+      localStorage.setItem("memberId", memberId)
+      localStorage.setItem("role", role)
     },
     [__signIn.rejected]: (state, action) => {
       state.isLoading = false
@@ -70,12 +78,22 @@ export const authSlice = createSlice({
     },
     [__signUp.fulfilled]: (state, action) => {
       state.isLoading = false
-      state.member = action.payload
+      state.member = {
+        memberId: action.payload.memberId,
+        password: action.payload.password,
+        memberName: action.payload.memberName,
+        memberEmail: action.payload.memberEmail,
+        memberTel: action.payload.memberTel,
+        memberAddress: action.payload.memberAddress,
+        memberAddressDetail: action.payload.memberAddressDetail,
+        age: action.payload.age,
+        gender: action.payload.gender,
+      }
       alert("회원가입을 축하합니다 !")
     },
     [__signUp.rejected]: (state, action) => {
       state.isLoading = false
-      state.error = action.payload
+      // state.error = action.payload
     },
   },
 })

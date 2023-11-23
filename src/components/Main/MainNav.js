@@ -16,6 +16,9 @@ function MainNav() {
   }
 
   const GoToLogout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("memberId")
+    alert("로그아웃 되었습니다. ")
     navigate("/")
   }
 

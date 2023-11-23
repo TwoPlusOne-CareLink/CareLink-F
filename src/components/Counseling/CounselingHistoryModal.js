@@ -1,263 +1,233 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { styled } from "styled-components"
-import { __getSelectMyCounseling } from "../../redux/modules/counselingSlice"
+import {
+  __getMyCounselingList,
+  __getSelectMyCounseling,
+  __updateLikedCount,
+} from "../../redux/modules/counselingSlice"
 import Like from "../../assets/images/heart.png"
 import ClickedLike from "../../assets/images/Redheart.png"
 import XBtn from "../../assets/images/XBtn.png"
 import HistoryImg from "../../assets/images/DoctorImg.png"
 import DefaultCounselingImg from "../../assets/images/defaultCounseling.png"
 import DefaultProfileImg from "../../assets/images/User.png"
+import ReactPaginate from "react-paginate"
+import { useDispatch } from "react-redux"
+import LazyLoad from "react-lazy-load"
 
-function CounselingHistoryModal({ dispatch }) {
+function CounselingHistoryModal() {
+  const dispatch = useDispatch()
   const [selectedCounselingId, setSelectedCounselingId] = useState()
   const [isLiked, setIsLiked] = useState()
-  const [doctorId, setDoctorId] = useState()
-  const [historyModal, setHistoryModal] = useState()
+  const [counseling, setCounseling] = useState()
+  const [counselingReply, setCounselingReply] = useState([])
+  const [pageCount, setPageCount] = useState()
+
+  // 여기서부터 페이지네이션 관련 로직
+  const [currentPage, setCurrentPage] = useState(0)
+  const handlePageClick = (data) => {
+    setCurrentPage(data.selected)
+  }
+  const itemsPerPage = 8
+
+  const offset = currentPage * itemsPerPage
 
   const HistoryModalToggle = () => {
     setSelectedCounselingId(!selectedCounselingId)
-
-    // dispatch(__getSelectMyCounseling(counselingId))
   }
+  useEffect(() => {
+    dispatch(__getMyCounselingList())
+      .then((response) => {
+        if (response) {
+          const counselingData = response.payload.data
+          setCounseling(counselingData)
+          const updatedPageCount = Math.ceil(
+            counselingData.length / itemsPerPage
+          )
+          setPageCount(updatedPageCount)
+          console.log(counselingData)
+        }
+      })
+      .catch((error) => {
+        console.log(error, "에러")
+      })
+  }, [])
 
-  const [counseling, setCounSeling] = useState([
-    {
-      counselingId: 1,
-      counselingTitle: "상담요청합니다",
-      memberId: "sound4519",
-      memberName: "이승진",
-      departmentId: 1,
-      departmentName: "내과",
-      counselingContent:
-        "안녕하세요 며칠전부터 내가 ㅂ몸이 너무 쓰리디 쓰려서 그러는데 걍 집에 가면안될까요?",
-      counselingImage: `${HistoryImg}`,
-      counselingImageName: "상담사진",
-    },
-    {
-      counselingId: 2,
-      counselingTitle: "하이루",
-      memberId: "sound4519",
-      memberName: "이승진",
-      departmentId: 2,
-      departmentName: "외과",
-      counselingContent: "안돼. 돌아가.",
-      counselingImage: `${HistoryImg}`,
-      counselingImageName: "상담사진",
-    },
-    {
-      counselingId: 1,
-      counselingTitle: "상담요청합니다",
-      memberId: "sound4519",
-      memberName: "이승진",
-      departmentId: 1,
-      departmentName: "내과",
-      counselingContent:
-        "안녕하세요 며칠전부터 내가 ㅂ몸이 너무 쓰리디 쓰려서 그러는데 걍 집에 가면안될까요?",
-      counselingImage: `${HistoryImg}`,
-      counselingImageName: "상담사진",
-    },
-    {
-      counselingId: 2,
-      counselingTitle: "하이루",
-      memberId: "sound4519",
-      memberName: "이승진",
-      departmentId: 2,
-      departmentName: "외과",
-      counselingContent: "안돼. 돌아가.",
-      counselingImage: `${HistoryImg}`,
-      counselingImageName: "상담사진",
-    },
-    {
-      counselingId: 1,
-      counselingTitle: "상담요청합니다",
-      memberId: "sound4519",
-      memberName: "이승진",
-      departmentId: 1,
-      departmentName: "내과",
-      counselingContent:
-        "안녕하세요 며칠전부터 내가 ㅂ몸이 너무 쓰리디 쓰려서 그러는데 걍 집에 가면안될까요?",
-      counselingImage: `${HistoryImg}`,
-      counselingImageName: "상담사진",
-    },
-    {
-      counselingId: 2,
-      counselingTitle: "하이루",
-      memberId: "sound4519",
-      memberName: "이승진",
-      departmentId: 2,
-      departmentName: "외과",
-      counselingContent: "안돼. 돌아가.",
-      counselingImage: `${HistoryImg}`,
-      counselingImageName: "상담사진",
-    },
-    {
-      counselingId: 1,
-      counselingTitle: "상담요청합니다",
-      memberId: "sound4519",
-      memberName: "이승진",
-      departmentId: 1,
-      departmentName: "내과",
-      counselingContent:
-        "안녕하세요 며칠전부터 내가 ㅂ몸이 너무 쓰리디 쓰려서 그러는데 걍 집에 가면안될까요?",
-      counselingImage: `${HistoryImg}`,
-      counselingImageName: "상담사진",
-    },
-    {
-      counselingId: 2,
-      counselingTitle: "하이루",
-      memberId: "sound4519",
-      memberName: "이승진",
-      departmentId: 2,
-      departmentName: "외과",
-      counselingContent: "안돼. 돌아가.",
-      counselingImage: `${HistoryImg}`,
-      counselingImageName: "상담사진",
-    },
-  ])
+  useEffect(() => {
+    if (selectedCounselingId) {
+      dispatch(__getSelectMyCounseling({ counselingId: selectedCounselingId }))
+        .then((response) => {
+          if (response) {
+            const responseData = response.payload.data
+            setCounselingReply([responseData])
 
-  const [counselingReply, setCounselingReply] = useState([
-    {
-      replyId: 1,
-      counselingId: 1,
-      memberId: "doctor1",
-      doctorName: "이승진",
-      doctorImg: "",
-      commentContent: "안녕하세요 승진님, 반갑습니다 조아용",
-      commentDate: "2023-11-19",
-      departmentName: "내과",
-    },
-    // {
-    //   replyId: 2,
-    //   counselingId: 2,
-    //   memberId: "doctor2",
-    //   doctorName: "정성민",
-    //   doctorImg: `${HistoryImg}`,
-    //   commentContent: "하이!!",
-    //   commentDate: "2023-11-19",
-    //   departmentName: "외과",
-    // },
-  ])
+            // setCounselingReply(response.payload.data)
+            console.log(responseData, "데이타222")
+            console.log(selectedCounselingId, "아이디")
+          }
+          console.log(counselingReply, "레플라이")
+        })
+        .catch((error) => {
+          console.log(error, "에러")
+        })
+    }
+  }, [selectedCounselingId])
 
-  const LikeClick = () => {
+  useEffect(() => {
+    console.log(counselingReply)
+  }, [counselingReply])
+
+  const selectCounselingDetail = (counselingId) => {
+    setSelectedCounselingId(counselingId)
+  }
+  const likeClick = (doctorId) => {
     console.log("클릭중!")
     setIsLiked(!isLiked)
-    // dispatch(__)
+    dispatch(__updateLikedCount({ doctorId }))
+      .then((response) => {
+        if (response) {
+          console.log(response)
+          // alert("업데이트 됨!")
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+        alert("에러발생!!")
+      })
   }
 
-  const replyIdExists = counselingReply.some(
-    (item) => item.counselingId === selectedCounselingId && item.replyId
-  )
+  // const replyIdExists = counselingReply.find(
+  //   (item) => item.counselingId === selectedCounselingId && item.replyId
+  // )
 
-  // replyId가 존재할때와 존재하지 않을때 ModalContent의 위치를 조정해주기위한 스타일
-  // const additionalTransformStyles = replyIdExists
-  //   ? { transform: "translate(25%, 0)" }
-  //   : { left: "20%", transform: "translate(90%, 0)" }
-
-  // replyId가 존재할때와 존재하지 않을때 Header title 부분(상담상세내역) 부분을 조절하기위한 스타일
-  // const additionalTitleStyles = replyIdExists
-  //   ? { width: "90%", marginLeft: "45px" }
-  //   : { width: "90%", marginLeft: "70px" }
-
-  // const additionalTextStyles = replyIdExists ? {} : { marginTop: "30px" }
   return (
-    <CounselingHistoryBody>
-      {counseling.map((item) => (
-        <CounselingHistoryContent
-          key={item.counselingId}
-          onClick={() => setSelectedCounselingId(item.counselingId)}
-        >
-          <CounselingHistoryImg img={item.counselingImage} />
-          <CounselingHistoryName>{item.counselingTitle}</CounselingHistoryName>
-        </CounselingHistoryContent>
-      ))}
-      {selectedCounselingId && (
-        <HistoryModalWrap>
-          <HistoryModalOverlay>
-            <HistoryModalContent>
-              {counseling.map((item) => {
-                if (item.counselingId === selectedCounselingId) {
-                  return (
-                    <HistoryModalContents key={item.counselingId}>
-                      <HistoryModalContentHeader>
-                        <HistoryModalContentTitle>
-                          상담 상세내역
-                        </HistoryModalContentTitle>
-                        <HistoryXBtn onClick={HistoryModalToggle} />
-                      </HistoryModalContentHeader>
-                      <HistoryModalContentBody>
-                        <HistoryContent1>
-                          <HistoryContent1Detail>
-                            <HistoryContent1Titles>
-                              <HistoryContent1Title>
-                                {item.counselingTitle}
-                              </HistoryContent1Title>
-                            </HistoryContent1Titles>
-                            <HistoryContent1Texts>
-                              <HistoryContent1Text>
-                                {item.counselingContent}
-                              </HistoryContent1Text>
-                            </HistoryContent1Texts>
-                            <HistoryContent1Imgs>
-                              <HistoryContent1Img />
-                            </HistoryContent1Imgs>
-                          </HistoryContent1Detail>
-                        </HistoryContent1>
-                        {replyIdExists ? (
-                          <React.Fragment>
-                            {counselingReply.map((item) => {
-                              if (item.counselingId === selectedCounselingId) {
-                                return (
-                                  <HistoryContent2 key={item.replyId}>
-                                    <HistoryContent2Detail>
-                                      <HistoryDoctorInfos key={item.memberId}>
-                                        <HistoryDoctorImg
-                                          img={item.doctorImg}
-                                        />
-                                        <HistoryDoctorInfo>
-                                          <HistoryDoctorName>
-                                            {item.doctorName}
-                                          </HistoryDoctorName>
-                                          <HistoryDoctorDiagnosis>
-                                            {item.departmentName}
-                                          </HistoryDoctorDiagnosis>
-                                        </HistoryDoctorInfo>
-                                        <HistoryDoctorLike
-                                          onClick={LikeClick}
-                                          isLiked={isLiked}
-                                        />
-                                      </HistoryDoctorInfos>
+    <>
+      <CounselingHistoryBody>
+        {counseling &&
+          counseling.slice(offset, offset + itemsPerPage).map((item) => (
+            <CounselingHistoryContent
+              key={item.counselingId}
+              onClick={() => selectCounselingDetail(item.counselingId)}
+            >
+              <CounselingHistoryImg img={item.counselingImage} />
 
-                                      <HistoryDoctorText>
-                                        {item.commentContent}
-                                      </HistoryDoctorText>
-                                    </HistoryContent2Detail>
-                                  </HistoryContent2>
-                                )
-                              }
-                              return null
-                            })}
-                          </React.Fragment>
-                        ) : (
-                          <HistoryContent2>
-                            <HistoryContent2Detail>
-                              <HistoryDoctorInfos />
-                              <HistoryDoctorText>
-                                답변을 기다리는 중입니다..
-                              </HistoryDoctorText>
-                            </HistoryContent2Detail>
-                          </HistoryContent2>
-                        )}
-                      </HistoryModalContentBody>
-                    </HistoryModalContents>
-                  )
-                }
-                return null
-              })}
-            </HistoryModalContent>
-          </HistoryModalOverlay>
-        </HistoryModalWrap>
+              <CounselingHistoryName>
+                {item.counselingTitle}
+              </CounselingHistoryName>
+            </CounselingHistoryContent>
+          ))}
+        {selectedCounselingId && (
+          <HistoryModalWrap>
+            <HistoryModalOverlay>
+              <HistoryModalContent>
+                {counseling.map((item) => {
+                  if (item.counselingId === selectedCounselingId) {
+                    return (
+                      <HistoryModalContents key={item.counselingId}>
+                        <HistoryModalContentHeader>
+                          <HistoryModalContentTitle>
+                            상담 상세내역
+                          </HistoryModalContentTitle>
+                          <HistoryXBtn onClick={HistoryModalToggle} />
+                        </HistoryModalContentHeader>
+                        <HistoryModalContentBody>
+                          <HistoryContent1>
+                            <HistoryContent1Detail>
+                              <HistoryContent1Titles>
+                                <HistoryContent1Title>
+                                  {item.counselingTitle}
+                                </HistoryContent1Title>
+                              </HistoryContent1Titles>
+                              <HistoryContent1Texts>
+                                <HistoryContent1Text>
+                                  {item.counselingContent}
+                                </HistoryContent1Text>
+                              </HistoryContent1Texts>
+                              <HistoryContent1Imgs>
+                                <HistoryContent1Img />
+                              </HistoryContent1Imgs>
+                            </HistoryContent1Detail>
+                          </HistoryContent1>
+                          {Array.isArray(counselingReply) &&
+                          counselingReply > 0 ? (
+                            <React.Fragment>
+                              {console.log(counselingReply, "레플라이")}
+                              {counselingReply.map((item) => {
+                                console.log(item, "아이템떴다!")
+                                if (
+                                  item.counselingId === selectedCounselingId
+                                ) {
+                                  return (
+                                    <HistoryContent2 key={item.replyId}>
+                                      <HistoryContent2Detail>
+                                        <HistoryDoctorInfos key={item.doctorId}>
+                                          <HistoryDoctorImg
+                                            img={item.doctorImg}
+                                          />
+                                          <HistoryDoctorInfo>
+                                            <HistoryDoctorName>
+                                              {item.doctorName}
+                                            </HistoryDoctorName>
+                                            <HistoryDoctorDiagnosis>
+                                              {item.departmentName}
+                                            </HistoryDoctorDiagnosis>
+                                          </HistoryDoctorInfo>
+                                          <HistoryDoctorLike
+                                            onClick={() =>
+                                              likeClick(item.doctorId)
+                                            }
+                                            isLiked={isLiked}
+                                          />
+                                        </HistoryDoctorInfos>
+
+                                        <HistoryDoctorText>
+                                          {item.commentContent}
+                                        </HistoryDoctorText>
+                                      </HistoryContent2Detail>
+                                    </HistoryContent2>
+                                  )
+                                }
+                                return null
+                              })}
+                            </React.Fragment>
+                          ) : (
+                            <HistoryContent2>
+                              <HistoryContent2Detail>
+                                <HistoryDoctorInfos />
+                                <HistoryDoctorText>
+                                  답변을 기다리는 중입니다..
+                                </HistoryDoctorText>
+                              </HistoryContent2Detail>
+                            </HistoryContent2>
+                          )}
+                        </HistoryModalContentBody>
+                      </HistoryModalContents>
+                    )
+                  }
+                  return null
+                })}
+              </HistoryModalContent>
+            </HistoryModalOverlay>
+          </HistoryModalWrap>
+        )}
+      </CounselingHistoryBody>
+      {pageCount !== null && pageCount > 1 && (
+        <PaginationWrapper>
+          <ReactPaginate
+            previousLabel={"이전"}
+            nextLabel={"다음"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            activeClassName={"active"}
+          />
+        </PaginationWrapper>
       )}
-    </CounselingHistoryBody>
+    </>
   )
 }
 
@@ -279,14 +249,21 @@ const CounselingHistoryContent = styled.div`
 const CounselingHistoryImg = styled.div`
   width: 305px;
   height: 280px;
-  border: transparent;
+  /* border: 1px solid black; */
+  box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-  background-image: ${(props) =>
-    props.img ? `url(${props.img})` : `url(${DefaultCounselingImg})`};
+  /* background-image: ${(props) =>
+    props.img ? `url(${props.img})` : `url(${DefaultProfileImg})`}; */
+
+  background-image: url(${(props) =>
+    props.img
+      ? "data:image/*;base64," + props.img
+      : `${DefaultCounselingImg}`});
   background-size: cover;
 `
 const CounselingHistoryName = styled.span`
-  margin-top: 15px;
+  /* margin-top: 15px; */
+  margin: 15px 0;
   font-weight: 600;
 `
 
@@ -460,6 +437,7 @@ const HistoryDoctorImg = styled.img`
   border-radius: 50%;
   background-image: ${(props) =>
     props.img ? `url(${props.img})` : `url(${DefaultProfileImg})`};
+
   background-size: cover;
 `
 const HistoryDoctorName = styled.span`
@@ -477,4 +455,24 @@ const HistoryDoctorText = styled.p`
   border: transparent;
   border-radius: 8px;
   box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.14);
+`
+
+const PaginationWrapper = styled.div`
+  .pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+
+  .pagination li {
+    margin-right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .pagination li.active {
+    font-weight: bold;
+  }
 `

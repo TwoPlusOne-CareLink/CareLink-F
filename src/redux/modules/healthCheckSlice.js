@@ -5,7 +5,7 @@ const initialState = {
   healthCheck: {
     checkId: "",
     memberId: "",
-    genderName: "",
+    gender: "",
     age: "",
     height: "",
     weight: "",
@@ -14,6 +14,21 @@ const initialState = {
     bloodSugar: "",
     heartRate: "",
     healthMemo: "",
+  },
+  checkListInfo: {
+    memberId: "",
+    memberName: "",
+    age: "",
+    gender: "",
+    checkListInfoDtoList: [
+      {
+        checkId: "",
+        memberId: "",
+        memberName: "",
+        healthMemo: "",
+        nowdate: "",
+      },
+    ],
   },
   isLoading: false,
   error: false,
@@ -63,7 +78,11 @@ export const __getHealthCheckDetail = createAsyncThunk(
   "GET_HEALTHCHECKDETAIL",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosIns.get("/user/checkListInfo", payload)
+      const data = await axiosIns.get("/user/checkListInfo", {
+        params: {
+          checkId: payload.checkId,
+        },
+      })
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code)
@@ -82,11 +101,25 @@ export const healthCheckSlice = createSlice({
     },
     [__getHealthCheckInfo.fulfilled]: (state, action) => {
       state.isLoading = false
-      state.healthCheck = action.payload
+      state.checkListInfo = {
+        memberId: action.payload.data.memberId,
+        memberName: action.payload.data.memberName,
+        age: action.payload.data.age,
+        gender: action.payload.data.gender,
+        checkListInfoDtoList: [
+          {
+            checkId: action.payload.data.checkListInfoDtoList.checkId,
+            memberId: action.payload.data.checkListInfoDtoList.memberId,
+            memberName: action.payload.data.checkListInfoDtoList.memberName,
+            healthMemo: action.payload.data.checkListInfoDtoList.healthMemo,
+            nowdate: action.payload.data.checkListInfoDtoList.nowdate,
+          },
+        ],
+      }
     },
     [__getHealthCheckInfo.rejected]: (state, action) => {
       state.isLoading = false
-      state.error = action.payload
+      state.error = action.error
     },
 
     // 헬스케어 체크리스트 폼을 제출하는 로직
@@ -119,7 +152,24 @@ export const healthCheckSlice = createSlice({
     },
     [__getHealthCheckDetail.fulfilled]: (state, action) => {
       state.isLoading = false
-      state.healthCheck = action.payload
+      state.healthCheck = {
+        checkId: action.payload.data.checkId,
+        memberId: action.payload.data.memberId,
+        memberName: action.payload.data.memberName,
+        gender: action.payload.data.gender,
+        age: action.payload.data.age,
+        height: action.payload.data.height,
+        weight: action.payload.data.weight,
+        heartRate: action.payload.data.heartRate,
+        bloodSugar: action.payload.data.bloodSugar,
+        systolicBloodPressure: action.payload.data.systolicBloodPressure,
+        relaxationBloodPressure: action.payload.data.relaxationBloodPressure,
+        healthMemo: action.payload.data.healthMemo,
+        bpResult: action.payload.data.bpResult,
+        bsResult: action.payload.data.bsResult,
+        hrResult: action.payload.data.hrResult,
+        bmi: action.payload.data.bmi,
+      }
     },
     [__getHealthCheckDetail.rejected]: (state, action) => {
       state.isLoading = false

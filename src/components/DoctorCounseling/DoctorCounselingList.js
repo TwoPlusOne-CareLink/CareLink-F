@@ -13,7 +13,7 @@ function DoctorCounselingList() {
       </DoctorTop>
       <DCounselingListWrap>
         <DoctorCounselingListModal dispatch={dispatch} />
-        {/* <DCounselingListFooter>이전 1 2 3 4 5 다음</DCounselingListFooter> */}
+
       </DCounselingListWrap>
     </Wrap>
   )

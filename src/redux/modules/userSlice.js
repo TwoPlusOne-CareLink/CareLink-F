@@ -3,16 +3,15 @@ import { axiosIns } from "../../api/api"
 
 const initialState = {
   member: {
-    id: "",
+    memberId: "",
     password: "",
     memberName: "",
     memberEmail: "",
     memberTel: "",
     memberAddress: "",
     memberAddressDetail: "",
-    age: "",
-    gender: "",
   },
+  // member: [],
   isLoading: false,
   isLogin: false,
   error: null,
@@ -55,11 +54,18 @@ export const userSlice = createSlice({
     },
     [__getUserInfo.fulfilled]: (state, action) => {
       state.isLoading = false
-      state.member = action.payload
+      state.member = {
+        memberId: action.payload.data.memberId,
+        memberName: action.payload.data.memberName,
+        memberEmail: action.payload.data.memberEmail,
+        memberTel: action.payload.data.memberTel,
+        memberAddress: action.payload.data.memberAddress,
+        memberAddressDetail: action.payload.data.memberAddressDetail,
+      }
     },
     [__getUserInfo.rejected]: (state, action) => {
       state.isLoading = false
-      state.error = action.payload
+      state.error = action.error
     },
     // 현재 유저 정보를 업데이트 하는 로직
     [__updateUserInfo.pending]: (state, action) => {
@@ -69,17 +75,18 @@ export const userSlice = createSlice({
       state.isLoading = false
       state.member = {
         ...state.member,
-        id: action.payload.id,
+        memberId: action.payload.memberId,
         password: action.payload.password,
         memberName: action.payload.memberName,
         memberEmail: action.payload.memberEmail,
         memberTel: action.payload.memberTel,
         memberAddress: action.payload.memberAddress,
+        memberAddressDetail: action.payload.memberAddressDetail,
       }
     },
     [__updateUserInfo.rejected]: (state, action) => {
       state.isLoading = false
-      state.error = action.payload
+      state.error = action.error
     },
   },
 })
