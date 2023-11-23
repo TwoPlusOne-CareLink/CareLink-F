@@ -47,11 +47,16 @@ function SignIn() {
 
     dispatch(__signIn(loginForm))
       .then((response) => {
-        if (response) {
+        if (response.payload.data.role === "ROLE_USER") {
           alert("회원님, 환영합니다!")
-
           console.log("토큰이 있어", response)
           navigate("/")
+        } else if (response.payload.data.role === "ROLE_DOCTOR") {
+          alert("의사회원님, 환영합니다 !")
+          navigate("/doctor")
+        } else if (response.payload.data.role === "ROLE_ADMIN") {
+          alert("병원관계자님, 환영합니다 !")
+          navigate("/hospital")
         }
       })
       .catch((error) => {

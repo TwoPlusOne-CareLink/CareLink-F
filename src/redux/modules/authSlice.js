@@ -64,8 +64,10 @@ export const authSlice = createSlice({
       }
       const token = action.payload.data.token
       const memberId = action.payload.data.memberId
+      const role = action.payload.data.role
       localStorage.setItem("token", token)
       localStorage.setItem("memberId", memberId)
+      localStorage.setItem("role", role)
     },
     [__signIn.rejected]: (state, action) => {
       state.isLoading = false

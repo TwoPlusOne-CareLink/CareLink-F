@@ -62,7 +62,11 @@ export const __getHospitalDayReservationList = createAsyncThunk(
   "GET_HOSPITALDAYRESERVATIONLIST",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosIns.get("/hospital/reservationDateList", payload)
+      const data = await axiosIns.get("/hospital/reservationDateList", {
+        params: {
+          reservationDate: payload.reservationDate,
+        },
+      })
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code)
@@ -118,7 +122,18 @@ export const reservationSlice = createSlice({
     },
     [__getHospitalReservation.fulfilled]: (state, action) => {
       state.isLoading = false
-      state.reservation = action.payload
+      state.reservation = {
+        reservationId: action.payload.reservationId,
+        memberId: action.payload.memberId,
+        hospitalId: action.payload.hospitalId,
+        departmentId: action.payload.departmentId,
+        departmentName: action.payload.departmentName,
+        reservationDate: action.payload.reservationDate,
+        reservationTime: action.payload.reservationTime,
+        reservationMember: action.payload.reservationMember,
+        reservationTel: action.payload.reservationTel,
+        reservationContent: action.payload.reservationContent,
+      }
     },
     [__getHospitalReservation.rejected]: (state, action) => {
       state.isLoading = false
@@ -129,7 +144,20 @@ export const reservationSlice = createSlice({
     },
     [__getHospitalDayReservationList.fulfilled]: (state, action) => {
       state.isLoading = false
-      state.reservation = action.payload
+      state.reservation = [
+        {
+          reservationId: action.payload.reservationId,
+          memberId: action.payload.memberId,
+          hospitalId: action.payload.hospitalId,
+          departmentId: action.payload.departmentId,
+          reservationDate: action.payload.reservationDate,
+          reservationTime: action.payload.reservationTime,
+          reservationMember: action.payload.reservationMember,
+          reservationTel: action.payload.reservationTel,
+          reservationContent: action.payload.reservationContent,
+          departmentName: action.payload.departmentName,
+        },
+      ]
     },
     [__getHospitalDayReservationList.rejected]: (state, action) => {
       state.isLoading = false

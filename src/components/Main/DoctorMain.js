@@ -4,6 +4,9 @@ import styled from "styled-components"
 import Logo from "../../assets/images/Logo.jpg"
 
 function DoctorMain() {
+  const token = localStorage.getItem("token")
+  const role = localStorage.getItem("role")
+
   const navigate = useNavigate()
 
   const DGoToLogIn = () => {
@@ -12,6 +15,10 @@ function DoctorMain() {
 
   const DLogout = () => {
     navigate("/doctor")
+    alert("로그아웃 되었습니다 !")
+    localStorage.removeItem("token")
+    localStorage.removeItem("memberId")
+    localStorage.removeItem("role")
   }
 
   const DGoToCounselingList = () => {
@@ -39,8 +46,11 @@ function DoctorMain() {
             <DCounselingListBtn onClick={GoToDCounselingHistory}>
               비대면 상담내역
             </DCounselingListBtn>
-            <DLogInBtn onClick={DGoToLogIn}>로그인</DLogInBtn>
-            {/* <DLogoutBtn onClick={DLogout}>로그아웃</DLogoutBtn> */}
+            {token !== null && role === "ROLE_DOCTOR" ? (
+              <DLogoutBtn onClick={DLogout}>로그아웃</DLogoutBtn>
+            ) : (
+              <DLogInBtn onClick={DGoToLogIn}>로그인</DLogInBtn>
+            )}
           </DMainBody>
         </DMainContents>
       </DMainWrapper>

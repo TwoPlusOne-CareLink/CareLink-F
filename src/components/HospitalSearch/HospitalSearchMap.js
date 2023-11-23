@@ -15,6 +15,7 @@ export default function HospitalSearchMap({ hospital }) {
   useKakaoLoader()
   const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false)
+
   // const [hospital, setHospital] = useState([
   //   {
   //     hospitalId: 1,
@@ -64,14 +65,14 @@ export default function HospitalSearchMap({ hospital }) {
   }
 
   useEffect(() => {
-    let hospitalName = "all"
+    //   let hospitalName = "all"
 
-    dispatch(__getHospitalInfo({ hospitalName })).then((response) => {
-      if (response) {
-        setData(response)
-        console.log(data, "데이터얌")
-      }
-    })
+    //   dispatch(__getHospitalInfo({ hospitalName })).then((response) => {
+    //     if (response) {
+    //       setData(response)
+    //       console.log(data, "데이터얌")
+    //     }
+    //   })
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -111,7 +112,7 @@ export default function HospitalSearchMap({ hospital }) {
         borderRadius: "16px",
         zIndex: "0",
       }}
-      level={3}
+      level={6}
     >
       <MapTypeControl position={"TOPRIGHT"} />
       <ZoomControl position={"RIGHT"} />

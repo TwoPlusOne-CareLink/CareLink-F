@@ -10,7 +10,6 @@ function DoctorCounselingCompleteHistory() {
       </DoctorTop>
       <DoctorHistoryWrap>
         <DoctorCompleteHistoryModal />
-        {/* <DoctorHistoryFooter>이전 1 2 3 4 5 다음</DoctorHistoryFooter> */}
       </DoctorHistoryWrap>
     </Wrap>
   )

@@ -5,6 +5,7 @@ import Logo from "../../assets/images/Logo.jpg"
 
 function Main() {
   const token = localStorage.getItem("token")
+  const memberId = localStorage.getItem("memberId")
   const navigate = useNavigate()
 
   const GoToSignIn = () => {
@@ -67,7 +68,7 @@ function Main() {
               <MainBtnContent>질병백과</MainBtnContent>
             </MainBtn>
             <SignBtns>
-              {token !== null ? (
+              {token !== null && memberId ? (
                 <LogoutBtn onClick={GoToLogout}>로그아웃</LogoutBtn>
               ) : (
                 <SignInBtn onClick={GoToSignIn}>로그인</SignInBtn>

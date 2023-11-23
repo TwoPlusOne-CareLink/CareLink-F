@@ -1,127 +1,50 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { styled } from "styled-components"
-import DoctorProfileImg from "../../assets/images/doctor2.jpg"
+import DoctorListDefault from "../../assets/images/doctorListDefalut.png"
 import DefaultProfileImg from "../../assets/images/User.png"
+import { useDispatch } from "react-redux"
+import {
+  __getHospitalDoctorInfo,
+  __getHospitalDoctorList,
+} from "../../redux/modules/hospitalSlice"
 
 function HospitalDoctorList() {
+  const dispatch = useDispatch()
   const [selectedDoctorId, setSelectedDoctorId] = useState()
+  const [doctorList, setDoctorList] = useState([])
+  const [doctorDetail, setDoctorDetail] = useState([])
 
-  const [doctorInfo, setDoctorInfo] = useState([
-    {
-      doctorId: "doctor1",
-      doctorName: "이승진",
-      departmentId: "1",
-      departmentName: "내과",
-      doctorTel: "010-2222-2222",
+  useEffect(() => {
+    dispatch(__getHospitalDoctorList())
+      .then((response) => {
+        if (response) {
+          setDoctorList(response.payload.data)
+          console.log(response.payload.data, "데이터")
+        }
+      })
+      .catch((error) => {
+        console.log(error, "소속의사목록 에러")
+      })
+  }, [])
 
-      imgFile: "",
-      doctorImg: `${DoctorProfileImg}`,
-    },
-    {
-      doctorId: "doctor1",
-      doctorName: "정성민",
-      departmentId: "2",
-      departmentName: "외과",
-      imgFile: "",
-      doctorImg: "",
-    },
-    {
-      doctorId: "doctor1",
-      doctorName: "윤시호",
-      departmentId: "3",
-      departmentName: "소아과",
-      imgFile: "",
-      doctorImg: "",
-    },
-    {
-      doctorId: "doctor1",
-      doctorName: "이승진",
-      departmentId: "1",
-      departmentName: "내과",
-      imgFile: "",
-      doctorImg: `${DoctorProfileImg}`,
-    },
-    {
-      doctorId: "doctor1",
-      doctorName: "정성민",
-      departmentId: "2",
-      departmentName: "외과",
-      imgFile: "",
-      doctorImg: "",
-    },
-    {
-      doctorId: "doctor1",
-      doctorName: "윤시호",
-      departmentId: "3",
-      departmentName: "소아과",
-      imgFile: "",
-      doctorImg: "",
-    },
-    {
-      doctorId: "doctor1",
-      doctorName: "이승진",
-      departmentId: "1",
-      departmentName: "내과",
-      imgFile: "",
-      doctorImg: `${DoctorProfileImg}`,
-    },
-    {
-      doctorId: "doctor1",
-      doctorName: "정성민",
-      departmentId: "2",
-      departmentName: "외과",
-      imgFile: "",
-      doctorImg: "",
-    },
-    {
-      doctorId: "doctor1",
-      doctorName: "정성민",
-      departmentId: "2",
-      departmentName: "외과",
-      imgFile: "",
-      doctorImg: "",
-    },
-    {
-      doctorId: "doctor1",
-      doctorName: "정성민",
-      departmentId: "2",
-      departmentName: "외과",
-      imgFile: "",
-      doctorImg: "",
-    },
-    {
-      doctorId: "doctor1",
-      doctorName: "정성민",
-      departmentId: "2",
-      departmentName: "외과",
-      imgFile: "",
-      doctorImg: "",
-    },
-    {
-      doctorId: "doctor1",
-      doctorName: "정성민",
-      departmentId: "2",
-      departmentName: "외과",
-      imgFile: "",
-      doctorImg: "",
-    },
-    {
-      doctorId: "doctor111",
-      doctorName: "정성민",
-      departmentId: "2",
-      departmentName: "외과",
-      imgFile: "",
-      doctorImg: "",
-    },
-    {
-      doctorId: "doctor1",
-      doctorName: "정성민",
-      departmentId: "2",
-      departmentName: "외과",
-      imgFile: "",
-      doctorImg: "",
-    },
-  ])
+  const selectDoctorDetail = (doctorId) => {
+    setSelectedDoctorId(doctorId)
+  }
+
+  useEffect(() => {
+    if (selectedDoctorId) {
+      dispatch(__getHospitalDoctorInfo({ doctorId: selectedDoctorId }))
+        .then((response) => {
+          if (response) {
+            setDoctorDetail([response.payload.data])
+            console.log(response.payload.data, "뜨나요")
+          }
+        })
+        .catch((error) => {
+          console.log(error, "에러메시지")
+        })
+    }
+  }, [selectedDoctorId])
 
   return (
     <Wrap>
@@ -135,76 +58,85 @@ function HospitalDoctorList() {
               <DoctorListTitle>아이디</DoctorListTitle>
               <DoctorListTitle>진료과목</DoctorListTitle>
               <DoctorListNameTitle>이름</DoctorListNameTitle>
+              <DoctorLike>관심도</DoctorLike>
             </DoctorListTitles>
             <DoctorListResults>
-              {doctorInfo.map((item) => (
+              {doctorList.map((item) => (
                 <DoctorListResult
                   key={item.doctorId}
-                  onClci={() => setSelectedDoctorId(item.doctorId)}
+                  onClick={() => selectDoctorDetail(item.doctorId)}
                 >
                   <DoctorListId>{item.doctorId}</DoctorListId>
                   <DoctorListDiagnosis>
                     {item.departmentName}
                   </DoctorListDiagnosis>
                   <DoctorListName>{item.doctorName}</DoctorListName>
+                  <DoctorListLike>❤️ {item.likeCount}</DoctorListLike>
                 </DoctorListResult>
               ))}
             </DoctorListResults>
           </DoctorListContents>
           <DoctorDetailContents>
-            {selectedDoctorId && (
-              <DoctorDetailContent>
-                {doctorInfo.map((item) => {
-                  if (item.doctorId === selectedDoctorId) {
-                    return (
-                      <DoctorDetailInfos>
-                        <DoctorDetailImg />
-                        <DoctorDetailInfo>
-                          <DoctorDetailIds>
-                            <DoctorDetailIdTitle>아이디</DoctorDetailIdTitle>
-                            <DoctorDetailId>doctor1</DoctorDetailId>
-                          </DoctorDetailIds>
-                          <DoctorDetailNames>
-                            <DoctorDetailNameTitle>이름</DoctorDetailNameTitle>
-                            <DoctorDetailName>이승진</DoctorDetailName>
-                          </DoctorDetailNames>
-                          <DoctorDetailDiagnosiss>
-                            <DoctorDetailDiagnosisTitle>
-                              진료과목
-                            </DoctorDetailDiagnosisTitle>
-                            <DoctorDetailDiagnosis>내과</DoctorDetailDiagnosis>
-                          </DoctorDetailDiagnosiss>
-                          <DoctorDetailTels>
-                            <DoctorDetailTelTitle>
-                              전화번호
-                            </DoctorDetailTelTitle>
-                            <DoctorDetailTel>010-0000-0000</DoctorDetailTel>
-                          </DoctorDetailTels>
-                          <DoctorDetailHospitals>
-                            <DoctorDetailHospitalTitle>
-                              소속병원
-                            </DoctorDetailHospitalTitle>
-                            <DoctorDetailHospital>
-                              삼성서울병원
-                            </DoctorDetailHospital>
-                          </DoctorDetailHospitals>
-                        </DoctorDetailInfo>
-                      </DoctorDetailInfos>
-                    )
-                  }
-                })}
-              </DoctorDetailContent>
+            {selectedDoctorId ? (
+              <DoctorDetailWrapper>
+                {doctorDetail &&
+                  doctorDetail?.map((item) => {
+                    if (item.doctorId === selectedDoctorId) {
+                      return (
+                        <DoctorDetailContent>
+                          {/* <DoctorDetailTitle>의사 상세정보</DoctorDetailTitle> */}
+                          <DoctorDetailInfos key={item.doctorId}>
+                            <DoctorDetailImg img={item.doctorImg} />
+                            <DoctorDetailInfo>
+                              <DoctorDetailIds>
+                                <DoctorDetailIdTitle>
+                                  아이디
+                                </DoctorDetailIdTitle>
+                                <DoctorDetailId>{item.doctorId}</DoctorDetailId>
+                              </DoctorDetailIds>
+                              <DoctorDetailNames>
+                                <DoctorDetailNameTitle>
+                                  이름
+                                </DoctorDetailNameTitle>
+                                <DoctorDetailName>
+                                  {item.doctorName}
+                                </DoctorDetailName>
+                              </DoctorDetailNames>
+                              <DoctorDetailDiagnosiss>
+                                <DoctorDetailDiagnosisTitle>
+                                  진료과목
+                                </DoctorDetailDiagnosisTitle>
+                                <DoctorDetailDiagnosis>
+                                  {item.departmentName}
+                                </DoctorDetailDiagnosis>
+                              </DoctorDetailDiagnosiss>
+                              <DoctorDetailTels>
+                                <DoctorDetailTelTitle>
+                                  전화번호
+                                </DoctorDetailTelTitle>
+                                <DoctorDetailTel>
+                                  {item.doctorTel}
+                                </DoctorDetailTel>
+                              </DoctorDetailTels>
+                              <DoctorDetailHospitals>
+                                <DoctorDetailHospitalTitle>
+                                  소속병원
+                                </DoctorDetailHospitalTitle>
+                                <DoctorDetailHospital>
+                                  {item.hospitalName}
+                                </DoctorDetailHospital>
+                              </DoctorDetailHospitals>
+                            </DoctorDetailInfo>
+                          </DoctorDetailInfos>
+                        </DoctorDetailContent>
+                      )
+                    }
+                  })}
+              </DoctorDetailWrapper>
+            ) : (
+              <DoctorListDefaultImg />
             )}
           </DoctorDetailContents>
-          {/* {doctorInfo.map((doctor) => (
-            <DoctorListContent key={doctor.doctorId}>
-              <DoctorImg img={doctor.doctorImg} />
-              <DoctorInfo>
-                <DoctorName>{doctor.doctorName}의사 </DoctorName>
-                <DoctorDiagnosis>{doctor.departmentName}</DoctorDiagnosis>
-              </DoctorInfo>
-            </DoctorListContent>
-          ))} */}
         </DoctorListBody>
       </DoctorListWrap>
     </Wrap>
@@ -255,32 +187,18 @@ const DoctorListHeader = styled.div`
 `
 
 const DoctorListBody = styled.div`
-  width: 1300px;
+  width: 1200px;
   height: 740px;
-  margin-top: 20px;
-  border: 1px solid black;
-  /* display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(25%, auto));
-  place-items: center; */
+  margin: 20px auto auto auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `
 
-// const DoctorListBody = styled.div`
-//   width: 1300px;
-//   height: 740px;
-//   margin-top: 20px;
-//   border: 1px solid black;
-//   display: grid;
-//   grid-template-columns: repeat(auto-fill, minmax(25%, auto));
-//   place-items: center;
-// `
-
 const DoctorListContents = styled.div`
   width: 620px;
-  height: 90%;
+  height: 670px;
   border: transparent;
   border-radius: 16px;
   box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.1);
@@ -289,46 +207,195 @@ const DoctorListContents = styled.div`
   align-items: center;
 `
 const DoctorDetailContents = styled.div`
-  width: 620px;
-  height: 90%;
+  width: 500px;
+  height: 670px;
   border: transparent;
   border-radius: 16px;
   box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.1);
 `
 
-// 여기서부터 의사 상세정보 탭
-
-const DoctorDetailContent = styled.div`
-  border: 1px solid black;
-  width: 620px;
-  height: 90%;
-`
-const DoctorDetailInfos = styled.div`
-  border: 1px solid black;
-`
-const DoctorDetailImg = styled.div`
-  width: 100px;
-  height: 100px;
-  /* background-image: ${(props) => `url(${props.img})`}; */
-  background-image: url(${DoctorProfileImg});
+const DoctorListDefaultImg = styled.div`
+  width: 500px;
+  height: 670px;
+  background-image: url(${DoctorListDefault});
   background-size: cover;
 `
-const DoctorDetailInfo = styled.div``
-const DoctorDetailIds = styled.div``
-const DoctorDetailIdTitle = styled.div``
-const DoctorDetailId = styled.div``
-const DoctorDetailNames = styled.div``
-const DoctorDetailNameTitle = styled.div``
-const DoctorDetailName = styled.div``
-const DoctorDetailTels = styled.div``
-const DoctorDetailTelTitle = styled.div``
-const DoctorDetailTel = styled.div``
-const DoctorDetailDiagnosiss = styled.div``
-const DoctorDetailDiagnosisTitle = styled.div``
-const DoctorDetailDiagnosis = styled.div``
-const DoctorDetailHospitals = styled.div``
-const DoctorDetailHospitalTitle = styled.div``
-const DoctorDetailHospital = styled.div``
+
+// 여기서부터 의사 상세정보 탭
+
+const DoctorDetailWrapper = styled.div``
+
+const DoctorDetailContent = styled.div`
+  width: 500px;
+  height: 650px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+const DoctorDetailTitle = styled.div`
+  margin: 10px 0;
+  font-size: 30px;
+  font-weight: 600;
+  text-align: center;
+`
+const DoctorDetailInfos = styled.div`
+  width: 500px;
+  height: 670px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+const DoctorDetailImg = styled.div`
+  width: 400px;
+  height: 350px;
+  margin: 20px auto 10px auto;
+  border-radius: 12px;
+  background-image: url(${(props) =>
+    props.img ? "data:image/*;base64," + props.img : `${DefaultProfileImg}`});
+  background-size: cover;
+`
+const DoctorDetailInfo = styled.div`
+  width: 400px;
+  height: 280px;
+  /* margin-left: 15px; */
+
+  border: 1px solid #dcdcdc;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`
+const DoctorDetailIds = styled.div`
+  width: 400px;
+  border-bottom: 1px solid #dcdcdc;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`
+const DoctorDetailIdTitle = styled.div`
+  width: 100px;
+  height: 45px;
+  padding: 5px;
+  border-top-left-radius: 12px;
+  background-color: #223359;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  font-weight: 600px;
+  text-align: center;
+  color: white;
+`
+const DoctorDetailId = styled.div`
+  font-size: 20px;
+  margin-right: 20px;
+`
+const DoctorDetailNames = styled.div`
+  width: 400px;
+  border-bottom: 1px solid #dcdcdc;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`
+const DoctorDetailNameTitle = styled.div`
+  width: 100px;
+  height: 45px;
+  padding: 5px;
+  background-color: #223359;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  font-weight: 600px;
+  text-align: center;
+  color: white;
+`
+const DoctorDetailName = styled.div`
+  font-size: 20px;
+  margin-right: 20px;
+`
+const DoctorDetailTels = styled.div`
+  width: 400px;
+  border-bottom: 1px solid #dcdcdc;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`
+const DoctorDetailTelTitle = styled.div`
+  width: 100px;
+  height: 45px;
+  padding: 5px;
+  background-color: #223359;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  font-weight: 600px;
+  text-align: center;
+  color: white;
+`
+const DoctorDetailTel = styled.div`
+  font-size: 20px;
+  margin-right: 20px;
+`
+const DoctorDetailDiagnosiss = styled.div`
+  width: 400px;
+  border-bottom: 1px solid #dcdcdc;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`
+const DoctorDetailDiagnosisTitle = styled.div`
+  width: 100px;
+  height: 45px;
+  padding: 5px;
+  background-color: #223359;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  font-weight: 600px;
+  text-align: center;
+  color: white;
+`
+const DoctorDetailDiagnosis = styled.div`
+  font-size: 20px;
+  margin-right: 20px;
+`
+const DoctorDetailHospitals = styled.div`
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`
+const DoctorDetailHospitalTitle = styled.div`
+  width: 100px;
+  height: 45px;
+  padding: 5px;
+  border-bottom-left-radius: 12px;
+  background-color: #223359;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  font-weight: 600px;
+  text-align: center;
+  color: white;
+`
+const DoctorDetailHospital = styled.div`
+  font-size: 20px;
+  margin-right: 20px;
+`
 
 // 여기까지 의사 상세 정보 탭//
 const DoctorListTitles = styled.div`
@@ -346,7 +413,11 @@ const DoctorListTitle = styled.span`
 `
 
 const DoctorListNameTitle = styled.span`
-  margin-right: 22px;
+  font-size: 25px;
+  font-family: "GmarketSansMedium";
+`
+
+const DoctorLike = styled.span`
   font-size: 25px;
   font-family: "GmarketSansMedium";
 `
@@ -387,16 +458,24 @@ const DoctorListResult = styled.div`
   }
 `
 const DoctorListId = styled.span`
-  width: 100px;
+  width: 120px;
   font-size: 20px;
 `
 const DoctorListName = styled.span`
-  width: 100px;
+  width: 120px;
   text-align: center;
   font-size: 20px;
 `
 const DoctorListDiagnosis = styled.span`
+  width: 140px;
   font-size: 20px;
+  text-align: center;
+`
+
+const DoctorListLike = styled.span`
+  width: 100px;
+  font-size: 20px;
+  text-align: center;
 `
 
 const DoctorListContent = styled.div`

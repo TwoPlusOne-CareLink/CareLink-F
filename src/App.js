@@ -18,12 +18,8 @@ import HospitalReservationCheckPage from "./pages/HospitalReservationCheckPage"
 import HospitalDoctorListPage from "./pages/HospitalDoctorListPage"
 
 function App() {
-
-  
-
   return (
     <>
-      {/* <GlobalStyle /> */}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
