@@ -68,17 +68,6 @@ function ReservationModal({
       reservationTime: reservationTime,
     }
 
-    // if (
-    //   !departmentId ||
-    //   !reservationContent ||
-    //   !reservationDate ||
-    //   !reservationMember ||
-    //   !reservationTel ||
-    //   !reservationTime
-    // ) {
-    //   alert("예약 정보를 모두 입력해주세요.")
-    // }
-
     dispatch(__addReservation(newReservation))
       .then((response) => {
         if (response) {
@@ -91,6 +80,8 @@ function ReservationModal({
         alert("예약에 실패했습니다" + error.message)
       })
   }
+
+
 
   // 예약자 이름 감지
   const onChangeReservationName = (e) => {
@@ -159,14 +150,13 @@ function ReservationModal({
               </ReservationHeader>
 
               <ReservationBody>
-                <ReservationCalendarWrap>
-                  <ReservationCalendar reservations={reservations} />
-                </ReservationCalendarWrap>
-                <ReservationForm>
-                  {hospitalReservation &&
-                    hospitalReservation.length > 0 &&
-                    hospitalReservation.map((item) => (
-                      <>
+                {hospitalReservation && hospitalReservation.length > 0 ? (
+                  hospitalReservation.map((item) => (
+                    <>
+                      <ReservationCalendarWrap>
+                        <ReservationCalendar reservations={reservations} />
+                      </ReservationCalendarWrap>
+                      <ReservationForm>
                         <ReservationFormNames>
                           <ReservationName>예약자</ReservationName>
 
@@ -253,9 +243,12 @@ function ReservationModal({
                             예약취소
                           </ReservationCancel>
                         </ReservationBtns>
-                      </>
-                    ))}
-                </ReservationForm>
+                      </ReservationForm>
+                    </>
+                  ))
+                ) : (
+                  <ReservationLoad>로딩중입니다 ...</ReservationLoad>
+                )}
               </ReservationBody>
             </ReservationContent>
           </ReservationOverlay>
@@ -339,13 +332,14 @@ const ReservationContent = styled.div`
 const ReservationHeader = styled.div`
   width: 1300px;
   height: 70px;
-  border-bottom: 1px solid #dcdcdc;
+  background-color: #223359;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  color: white;
 `
 const ReservationTitle = styled.span`
   font-size: 25px;
@@ -553,4 +547,10 @@ const ReservationCancel = styled.button`
     background-color: #192849;
     cursor: pointer;
   }
+`
+const ReservationLoad = styled.div`
+  width: 500px;
+  margin: auto;
+  font-size: 30px;
+  text-align: center;
 `

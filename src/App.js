@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes } from "react-router-dom"
+import { BrowserRouter, Routes, useNavigate } from "react-router-dom"
 import "./App.css"
 import MainPage from "./pages/MainPage"
 import { Route } from "react-router-dom"
@@ -16,6 +16,7 @@ import DoctorCounselingPage from "./pages/DoctorCounselingPage"
 import DoctorCounselingCompleteHistoryPage from "./pages/DoctorCounselingCompleteHistoryPage"
 import HospitalReservationCheckPage from "./pages/HospitalReservationCheckPage"
 import HospitalDoctorListPage from "./pages/HospitalDoctorListPage"
+import UserReservationPage from "./pages/UserReservationPage"
 
 function App() {
   return (
@@ -33,7 +34,10 @@ function App() {
           />
           <Route path="/user/healthcheck" element={<HealthCheckPage />} />
           <Route path="/user/infoupdate" element={<UserInfoPage />} />
-
+          <Route
+            path="/user/userReservation"
+            element={<UserReservationPage />}
+          />
           <Route path="/doctor" element={<DoctorMainPage />} />
           <Route
             path="/doctor/counselinglist"

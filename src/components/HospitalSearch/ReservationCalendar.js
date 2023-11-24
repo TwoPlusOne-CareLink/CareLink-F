@@ -19,7 +19,7 @@ function ReservationCalendar({ reservations }) {
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         dayMaxEvents={true}
-        height={"645px"}
+        height={"600px"}
         buttonText={{ today: "오늘" }}
         headerToolbar={{
           start: "prev",

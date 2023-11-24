@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { styled } from "styled-components"
 import XBtn from "../../assets/images/closewhite.png"
 import Exam from "../../assets/images/exam.png"
+import Bs from "../../assets/images/bs.png"
 import Bmi from "../../assets/images/bmi.png"
 import HeartRate from "../../assets/images/heartRate.png"
 import BloodPressure from "../../assets/images/bloodPressure.png"
@@ -44,7 +45,7 @@ function HealthCheckList({ checkListInfoDtoList }) {
           <HealthCheckPostTitleDate>작성날짜</HealthCheckPostTitleDate>
         </HealthCheckPostTitles>
         <HealthCheckPosts>
-          {checkListInfoDtoList &&
+          {checkListInfoDtoList && checkListInfoDtoList.length > 0 ? (
             checkListInfoDtoList.map((item) => (
               <HealthCheckPost onClick={() => onHealthCheck(item.checkId)}>
                 <PostNo>{item.checkId}</PostNo>
@@ -52,7 +53,12 @@ function HealthCheckList({ checkListInfoDtoList }) {
                 <PostText>{item.healthMemo}</PostText>
                 <PostDate>{item.nowdate}</PostDate>
               </HealthCheckPost>
-            ))}
+            ))
+          ) : (
+            <HealthCheckLoad>
+              <LoadText> 로드중..</LoadText>
+            </HealthCheckLoad>
+          )}
           {selectedHealthCheckId &&
             healthCheck &&
             healthCheck.map((item) => {
@@ -210,17 +216,19 @@ function HealthCheckList({ checkListInfoDtoList }) {
                               <StandardContent>
                                 <HrStandardImg />
                                 <StandardText>
-                                  심박수 또는 심박은 단위시간당 심장박동의 수로{" "}
+                                  심박수 또는 심박은 단위시간당 심장박동의 수로
                                   <br />
                                   일반적으로 분당 맥의 수로 표현되는 숫자
                                 </StandardText>
                               </StandardContent>
                             </StandardContents>
                             <StandardContents>
-                              <StandardTitle>BMI</StandardTitle>
+                              <StandardTitle></StandardTitle>
                               <StandardContent>
-                                <BmiStandardImg></BmiStandardImg>
-                                <StandardText>dd</StandardText>
+                                <BsStandardImg />
+                                <StandardText>
+                                  혈당 수치는 8시간 이상 공복혈당 기준
+                                </StandardText>
                               </StandardContent>
                             </StandardContents>
                           </PostModalContentStandard>
@@ -259,6 +267,7 @@ const HealthCheckListTitles = styled.div`
 const HealthCheckListTitle = styled.div`
   font-size: 25px;
   font-family: "GmarketSansMedium";
+  user-select: none;
 `
 const HealthCheckListBody = styled.div`
   width: 700px;
@@ -460,14 +469,16 @@ const PostStandardResult = styled.div`
   align-items: center;
 `
 const PostStandardTitle = styled.span`
-  border: 1px solid black;
+  width: 50px;
   background-color: #223359;
   color: white;
-  width: 55px;
+  text-align: center;
   padding: 6px;
 `
 const PostStandardText = styled.span`
   margin-right: 10px;
+  font-weight: 600;
+  color: red;
 `
 
 const PostModalBodyContent = styled.div`
@@ -497,7 +508,7 @@ const PostModalContentTexts = styled.div`
   /* align-items: center; */
 `
 const PostModalContentTextTitle = styled.span`
-  /* width: 560px; */
+  width: 560px;
   height: 20px;
   margin: 17px 0 17px 3px;
   font-family: "GmarketSansMedium";
@@ -505,6 +516,7 @@ const PostModalContentTextTitle = styled.span`
   user-select: none;
 `
 const ContentTitle = styled.span`
+  font-weight: 600;
   border-bottom: 1.5px solid black;
 `
 
@@ -556,7 +568,7 @@ const BmiStandardImg = styled.div`
 const BsStandardImg = styled.div`
   width: 500px;
   height: 325px;
-  background-image: url(${Exam});
+  background-image: url(${Bs});
   background-size: cover;
 `
 const BpStandardImg = styled.div`
@@ -577,4 +589,14 @@ const StandardText = styled.div`
   font-weight: 600;
   color: red;
   line-height: 1.5;
+`
+const HealthCheckLoad = styled.div`
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const LoadText = styled.span`
+  font-size: 30px;
 `

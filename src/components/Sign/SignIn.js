@@ -22,6 +22,12 @@ function SignIn() {
     setMemberId(currentId)
   }
 
+  const handleLoginOnKeyPress = (e) => {
+    if (e.key === "Enter") {
+      onLogin()
+    }
+  }
+
   const memberPasswordHandler = (event) => {
     const currentPassword = event.target.value
     setPassword(currentPassword)
@@ -33,9 +39,7 @@ function SignIn() {
   //   setMemberId()
   // }, [setMemberId, setPassword])
 
-  const onLogin = (event) => {
-    event.preventDefault()
-
+  const onLogin = () => {
     const loginForm = {
       memberId: memberId,
       password: password,
@@ -88,6 +92,7 @@ function SignIn() {
                 name="password"
                 placeholder="비밀번호"
                 onChange={memberPasswordHandler}
+                onKeyPress={handleLoginOnKeyPress}
               />
             </SignInInputDiv>
           </SignInDiv>

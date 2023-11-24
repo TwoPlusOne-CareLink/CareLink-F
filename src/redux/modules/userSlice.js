@@ -11,7 +11,19 @@ const initialState = {
     memberAddress: "",
     memberAddressDetail: "",
   },
-  // member: [],
+  reservation: {
+    reservationId: "",
+    memberId: "",
+    hospitalId: "",
+    hospitalName: "",
+    departmentName: "",
+    reservationDate: "",
+    reservationTime: "",
+    nowdate: "",
+    reservationMember: "",
+    reservationTel: "",
+    reservationContent: "",
+  },
   isLoading: false,
   isLogin: false,
   error: null,
@@ -39,6 +51,54 @@ export const __updateUserInfo = createAsyncThunk(
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code)
+    }
+  }
+)
+
+// 현재 유저가 예약한 병원예약 정보 전체를 불러오는 로직
+
+export const __getUserReservation = createAsyncThunk(
+  "GET_USERRESERVATION",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axiosIns.get("/user/getMyReservation", payload)
+      return thunkAPI.fulfillWithValue(data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
+// 현재 유저가 예약한 날짜에 대한 예약정보를 불러오는 로직
+export const __getUserReservationDetail = createAsyncThunk(
+  "GET_USERRESERVATIONDETAIL",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axiosIns.get("/user/getMyReservationDetail", {
+        params: {
+          reservationDate: payload.reservationDate,
+        },
+      })
+      return thunkAPI.fulfillWithValue(data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue
+    }
+  }
+)
+
+// 현재 유저가 예약한 날짜에 대한 예약정보를 삭제하는 로직
+export const __deleteUserReservation = createAsyncThunk(
+  "DELETE_USERRESERVATION",
+  async (payload, thunkAPI) => {
+    try {
+      const reservationId = payload.reservationId
+      const data = await axiosIns.delete(
+        `/user/hospitalReservationDelete/${reservationId}`,
+        payload
+      )
+      return thunkAPI.fulfillWithValue(data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
     }
   }
 )
@@ -85,6 +145,69 @@ export const userSlice = createSlice({
       }
     },
     [__updateUserInfo.rejected]: (state, action) => {
+      state.isLoading = false
+      state.error = action.error
+    },
+    // 현재 유저가 예약한 캘린더에 들어갈 병원예약 정보 전체를 불러오는 로직
+    [__getUserReservation.pending]: (state, action) => {
+      state.isLoading = true
+    },
+    [__getUserReservation.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.reservation = {
+        reservationId: action.payload.reservationId,
+        memberId: action.payload.memberId,
+        hospitalId: action.payload.hospitalId,
+        hospitalName: action.payload.hospitalName,
+        departmentName: action.payload.departmentName,
+        reservationDate: action.payload.reservationDate,
+        reservationTime: action.payload.reservationTime,
+        nowdate: action.payload.nowdate,
+        reservationMember: action.payload.reservationMember,
+        reservationTel: action.payload.reservationTel,
+        reservationContent: action.payload.reservationContent,
+      }
+    },
+    [__getUserReservation.rejected]: (state, action) => {
+      state.isLoading = false
+      state.error = action.error
+    },
+    // 현재 유저가 예약한 날짜에 대한 예약정보를 불러오는 로직
+    [__getUserReservationDetail.pending]: (state, action) => {
+      state.isLoading = true
+    },
+    [__getUserReservationDetail.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.reservation = {
+        reservationId: action.payload.reservationId,
+        memberId: action.payload.memberId,
+        hospitalId: action.payload.hospitalId,
+        hospitalName: action.payload.hospitalName,
+        departmentName: action.payload.departmentName,
+        reservationDate: action.payload.reservationDate,
+        reservationTime: action.payload.reservationTime,
+        nowdate: action.payload.nowdate,
+        reservationMember: action.payload.reservationMember,
+        reservationTel: action.payload.reservationTel,
+        reservationContent: action.payload.reservationContent,
+      }
+      // state.reservation = {
+      //   reservationDate: action.payload.reservationDate,
+      // }
+    },
+    [__getUserReservationDetail.rejected]: (state, action) => {
+      state.isLoading = false
+      state.error = action.error
+    },
+    // 현재 유저가 예약한 날짜에 대한 예약정보를 삭제하는 로직
+    [__deleteUserReservation.pending]: (state, action) => {
+      state.isLoading = true
+    },
+    [__deleteUserReservation.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.reservation = action.payload
+    },
+    [__deleteUserReservation.rejected]: (state, action) => {
       state.isLoading = false
       state.error = action.error
     },

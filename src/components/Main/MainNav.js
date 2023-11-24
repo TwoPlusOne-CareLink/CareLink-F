@@ -43,6 +43,10 @@ function MainNav() {
     navigate("/user/infoupdate")
   }
 
+  const GoToUserReservation = () => {
+    navigate("/user/userReservation")
+  }
+
   return (
     <Wrap>
       <NavWrapper>
@@ -89,11 +93,14 @@ function MainNav() {
               <NavMenuItemContents isdropped={myPageIsOpen}>
                 <Ul>
                   <Li>
-                    <Link onClick={GoToUserInfo}>회원정보수정</Link>
+                    <Link onClick={GoToUserReservation}>나의 예약내역</Link>
                   </Li>
                   <Li>
-                    <Link>회원탈퇴</Link>
+                    <Link onClick={GoToUserInfo}>회원정보수정</Link>
                   </Li>
+                  {/* <Li>
+                    <Link>회원탈퇴</Link>
+                  </Li> */}
                 </Ul>
               </NavMenuItemContents>
             </NavMenuItem>
