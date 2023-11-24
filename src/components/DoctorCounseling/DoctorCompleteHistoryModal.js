@@ -14,7 +14,7 @@ import {
 function DoctorCompleteHistoryModal() {
   const dispatch = useDispatch()
   const [selectedCounselingId, setSelectedCounselingId] = useState()
-  const [counseling, setCounseling] = useState([{}])
+  const [counseling, setCounseling] = useState()
   const [counselingReply, setCounselingReply] = useState([])
   const [pageCount, setPageCount] = useState()
   const [doctorId, setDoctorId] = useState()
@@ -59,7 +59,7 @@ function DoctorCompleteHistoryModal() {
         .then((response) => {
           if (response) {
             const responseData = response.payload.data
-            setCounselingReply(responseData)
+            setCounselingReply([responseData])
             console.log(responseData)
           }
         })
@@ -126,9 +126,12 @@ function DoctorCompleteHistoryModal() {
                           </DHistoryContent1>
 
                           {counselingReply &&
-                            Array.isArray(counselingReply) &&
+                            counselingReply.length > 0 &&
                             counselingReply.map((item) => {
-                              if (item.counselingId === selectedCounselingId) {
+                              if (
+                                item.counselingId === selectedCounselingId &&
+                                item.replyId !== 0
+                              ) {
                                 return (
                                   <DHistoryContent2>
                                     <DHistoryDoctorInfos>

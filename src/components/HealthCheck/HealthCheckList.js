@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { styled } from "styled-components"
-import XBtn from "../../assets/images/XBtn.png"
+import XBtn from "../../assets/images/closewhite.png"
+import Exam from "../../assets/images/exam.png"
+import Bmi from "../../assets/images/bmi.png"
+import HeartRate from "../../assets/images/heartRate.png"
+import BloodPressure from "../../assets/images/bloodPressure.png"
 import { useDispatch } from "react-redux"
 import {
   __getHealthCheckDetail,
@@ -67,78 +71,160 @@ function HealthCheckList({ checkListInfoDtoList }) {
                             }
                           />
                         </PostModalContentHeader>
-                        <PostModalContentBody key={item.checkId}>
-                          <PostModalBodyContents>
-                            <PostModalBodyContent>
-                              <PostModalContentName>이름</PostModalContentName>
-                              <PostModalContentResult>
-                                {item.memberName}
-                              </PostModalContentResult>
-                            </PostModalBodyContent>
-                            <PostModalBodyContent>
-                              <PostModalContentName>성별</PostModalContentName>
-                              <PostModalContentResult>
-                                {item.gender}
-                              </PostModalContentResult>
-                            </PostModalBodyContent>
-                            <PostModalBodyContent>
-                              <PostModalContentName>나이</PostModalContentName>
-                              <PostModalContentResult>
-                                {item.age}
-                              </PostModalContentResult>
-                            </PostModalBodyContent>
-                            <PostModalBodyContent>
-                              <PostModalContentName>신장</PostModalContentName>
-                              <PostModalContentResult>
-                                {item.height}cm
-                              </PostModalContentResult>
-                            </PostModalBodyContent>
-                            <PostModalBodyContent>
-                              <PostModalContentName>체중</PostModalContentName>
-                              <PostModalContentResult>
-                                {item.weight}kg
-                              </PostModalContentResult>
-                            </PostModalBodyContent>
-                            <PostModalBodyContent>
-                              <PostModalContentName>
-                                심박수
-                              </PostModalContentName>
-                              <PostModalContentResult>
-                                {item.heartRate}bpm
-                              </PostModalContentResult>
-                            </PostModalBodyContent>
-                            <PostModalBodyContent>
-                              <PostModalContentName>혈당</PostModalContentName>
-                              <PostModalContentResult>
-                                {item.bloodSugar}mg/dL
-                              </PostModalContentResult>
-                            </PostModalBodyContent>
-                            <PostModalBodyContent>
-                              <PostModalContentName>
-                                수축혈압
-                              </PostModalContentName>
-                              <PostModalContentResult>
-                                {item.systolicBloodPressure}mmHg
-                              </PostModalContentResult>
-                            </PostModalBodyContent>
-                            <PostModalBodyContent>
-                              <PostModalContentName>
-                                이완혈압
-                              </PostModalContentName>
-                              <PostModalContentResult>
-                                {item.relaxationBloodPressure}mmHg
-                              </PostModalContentResult>
-                            </PostModalBodyContent>
-                          </PostModalBodyContents>
-                          <PostModalContentTexts>
-                            <PostModalContentTextTitle>
-                              작성내용
-                            </PostModalContentTextTitle>
-                            <PostModalContentText>
-                              {item.healthMemo}
-                            </PostModalContentText>
-                          </PostModalContentTexts>
-                        </PostModalContentBody>
+                        <PostModalContents>
+                          <PostModalContentBody key={item.checkId}>
+                            <PostModalBodyContents>
+                              <PostModalBodyContent>
+                                <PostModalContentName>
+                                  이름
+                                </PostModalContentName>
+                                <PostModalContentResult>
+                                  {item.memberName}
+                                </PostModalContentResult>
+                              </PostModalBodyContent>
+                              <PostModalBodyContent>
+                                <PostModalContentName>
+                                  성별
+                                </PostModalContentName>
+                                <PostModalContentResult>
+                                  {item.gender}
+                                </PostModalContentResult>
+                              </PostModalBodyContent>
+                              <PostModalBodyContent>
+                                <PostModalContentName>
+                                  나이
+                                </PostModalContentName>
+                                <PostModalContentResult>
+                                  {item.age}
+                                </PostModalContentResult>
+                              </PostModalBodyContent>
+                              <PostModalBodyContent>
+                                <PostModalContentName>
+                                  신장
+                                </PostModalContentName>
+                                <PostModalContentResult>
+                                  {item.height}cm
+                                </PostModalContentResult>
+                              </PostModalBodyContent>
+                              <PostModalBodyContent>
+                                <PostModalContentName>
+                                  체중
+                                </PostModalContentName>
+                                <PostModalContentResult>
+                                  {item.weight}kg
+                                </PostModalContentResult>
+                              </PostModalBodyContent>
+                              <PostModalBodyContent>
+                                <PostModalContentName>
+                                  심박수
+                                </PostModalContentName>
+                                <PostModalContentResult>
+                                  {item.heartRate}bpm
+                                </PostModalContentResult>
+                              </PostModalBodyContent>
+                              <PostModalBodyContent>
+                                <PostModalContentName>
+                                  혈당
+                                </PostModalContentName>
+                                <PostModalContentResult>
+                                  {item.bloodSugar}mg/dL
+                                </PostModalContentResult>
+                              </PostModalBodyContent>
+                              <PostModalBodyContent>
+                                <PostModalContentName>
+                                  수축혈압
+                                </PostModalContentName>
+                                <PostModalContentResult>
+                                  {item.systolicBloodPressure}mmHg
+                                </PostModalContentResult>
+                              </PostModalBodyContent>
+                              <PostModalBodyContent>
+                                <PostModalContentName>
+                                  이완혈압
+                                </PostModalContentName>
+                                <PostModalContentResult>
+                                  {item.relaxationBloodPressure}mmHg
+                                </PostModalContentResult>
+                              </PostModalBodyContent>
+                            </PostModalBodyContents>
+                            <PostTestResultTitle>
+                              <TestResultTitle>검사결과</TestResultTitle>
+                            </PostTestResultTitle>
+                            <PostStandardResults>
+                              <PostStandardResult>
+                                <PostStandardTitle>bmi</PostStandardTitle>
+                                <PostStandardText>{item.bmi}</PostStandardText>
+                              </PostStandardResult>
+                              <PostStandardResult>
+                                <PostStandardTitle>심박수</PostStandardTitle>
+                                <PostStandardText>
+                                  {item.hrResult}
+                                </PostStandardText>
+                              </PostStandardResult>
+                              <PostStandardResult>
+                                <PostStandardTitle>혈당</PostStandardTitle>
+                                <PostStandardText>
+                                  {item.bsResult}
+                                </PostStandardText>
+                              </PostStandardResult>
+                              <PostStandardResult>
+                                <PostStandardTitle>혈압</PostStandardTitle>
+                                <PostStandardText>
+                                  {item.bpResult}
+                                </PostStandardText>
+                              </PostStandardResult>
+                            </PostStandardResults>
+                            <PostModalContentTexts>
+                              <PostModalContentTextTitle>
+                                <ContentTitle>작성내용</ContentTitle>
+                              </PostModalContentTextTitle>
+                              <PostModalContentText>
+                                {item.healthMemo}
+                              </PostModalContentText>
+                            </PostModalContentTexts>
+                          </PostModalContentBody>
+                          <PostModalContentStandard>
+                            <StandardContents>
+                              <StandardTitle>BMI</StandardTitle>
+                              <StandardContent>
+                                <BmiStandardImg></BmiStandardImg>
+                                <StandardText>
+                                  * 계산법 : 체중(kg) / (키(m) * 키(m))
+                                </StandardText>
+                              </StandardContent>
+                            </StandardContents>
+                            <StandardContents>
+                              <StandardTitle>혈압</StandardTitle>
+                              <StandardContent>
+                                <BpStandardImg />
+                                <StandardText>
+                                  * 수축혈압 : 심장이 수축하여 혈액을 심장 밖
+                                  혈관으로 밀어낼 때의 압력 <br />* 이완혈압 :
+                                  심장이 확장할 때 혈관에서 유지되는 압력
+                                </StandardText>
+                              </StandardContent>
+                            </StandardContents>
+
+                            <StandardContents>
+                              <StandardTitle>심박수</StandardTitle>
+                              <StandardContent>
+                                <HrStandardImg />
+                                <StandardText>
+                                  심박수 또는 심박은 단위시간당 심장박동의 수로{" "}
+                                  <br />
+                                  일반적으로 분당 맥의 수로 표현되는 숫자
+                                </StandardText>
+                              </StandardContent>
+                            </StandardContents>
+                            <StandardContents>
+                              <StandardTitle>BMI</StandardTitle>
+                              <StandardContent>
+                                <BmiStandardImg></BmiStandardImg>
+                                <StandardText>dd</StandardText>
+                              </StandardContent>
+                            </StandardContents>
+                          </PostModalContentStandard>
+                        </PostModalContents>
                       </PostModalContent>
                     </PostModalOverlay>
                   </PostModalWrapper>
@@ -286,52 +372,104 @@ const PostModalOverlay = styled.div`
   position: fixed;
 `
 const PostModalContent = styled.div`
-  width: 800px;
-  height: 700px;
+  width: 1150px;
+  height: 720px;
   border-radius: 12px;
   background-color: white;
   top: 10%;
   left: 10%;
-  transform: translate(35%, 0);
+  transform: translate(18%, 0);
   position: absolute;
 `
 
 const PostModalContentHeader = styled.div`
-  width: 800px;
+  width: 1150px;
   height: 50px;
-  border-bottom: 1px solid #dcdcdc;
+  /* border-bottom: 1px solid black; */
+  border: 1px solid #223359;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+  background-color: #223359;
+  color: white;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `
+
+const PostModalContents = styled.div`
+  display: flex;
+`
+
 const PostModalContentTitle = styled.span`
-  width: 750px;
+  width: 1160px;
   margin-left: 20px;
   font-size: 22px;
   font-family: "GmarketSansMedium";
   text-align: center;
 `
 const PostModalContentCloseBtn = styled.div`
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
+  width: 40px;
+  height: 40px;
   background-image: url(${XBtn});
   background-size: cover;
   user-select: none;
   cursor: pointer;
 `
 const PostModalContentBody = styled.div`
-  width: 790px;
-  height: 630px;
+  width: 590px;
+  height: 645px;
   margin: auto;
   padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `
 const PostModalBodyContents = styled.div`
+  width: 560px;
+  margin: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(28%, auto));
+  grid-template-columns: repeat(auto-fill, minmax(25%, auto));
   gap: 12px;
 `
+
+const PostTestResultTitle = styled.div`
+  margin: 15px;
+  font-weight: 600;
+  text-align: center;
+`
+
+const TestResultTitle = styled.span`
+  border-bottom: 1.5px solid black;
+`
+
+const PostStandardResults = styled.div`
+  width: 560px;
+  margin: auto;
+  border: 1px solid #efefef;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(48%, auto));
+  gap: 5px;
+`
+
+const PostStandardResult = styled.div`
+  height: 30px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+const PostStandardTitle = styled.span`
+  border: 1px solid black;
+  background-color: #223359;
+  color: white;
+  width: 55px;
+  padding: 6px;
+`
+const PostStandardText = styled.span`
+  margin-right: 10px;
+`
+
 const PostModalBodyContent = styled.div`
   height: 50px;
   display: flex;
@@ -350,24 +488,93 @@ const PostModalContentResult = styled.span`
   caret-color: transparent;
 `
 const PostModalContentTexts = styled.div`
-  height: 460px;
+  width: 560px;
+  height: 340px;
+  margin: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* align-items: center; */
 `
 const PostModalContentTextTitle = styled.span`
-  width: 788px;
+  /* width: 560px; */
   height: 20px;
   margin: 17px 0 17px 3px;
   font-family: "GmarketSansMedium";
   text-align: center;
   user-select: none;
 `
-const PostModalContentText = styled.p`
-  width: 768px;
-  height: 400px;
+const ContentTitle = styled.span`
+  border-bottom: 1.5px solid black;
+`
+
+const PostModalContentText = styled.span`
+  height: 340px;
   padding: 10px;
-  border: 1px solid #dcdcdc;
-  border-radius: 12px;
+  border: 1px solid black;
+  border-radius: 6px;
   user-select: none;
+`
+const PostModalContentStandard = styled.div`
+  width: 540px;
+  height: 660px;
+  border-left: 1px solid #efefef;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: white;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #223359;
+    /* border-radius: 4px; */
+  }
+`
+const StandardContents = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+const StandardContent = styled.div``
+const StandardTitle = styled.span`
+  margin: 17px auto;
+  border-bottom: 1.5px solid black;
+  font-size: 25px;
+  font-weight: bold;
+`
+const BmiStandardImg = styled.div`
+  width: 500px;
+  height: 325px;
+  background-image: url(${Bmi});
+  background-size: cover;
+`
+const BsStandardImg = styled.div`
+  width: 500px;
+  height: 325px;
+  background-image: url(${Exam});
+  background-size: cover;
+`
+const BpStandardImg = styled.div`
+  width: 500px;
+  height: 325px;
+  background-image: url(${BloodPressure});
+  background-size: cover;
+`
+const HrStandardImg = styled.div`
+  width: 500px;
+  height: 328px;
+  background-image: url(${HeartRate});
+  background-size: cover;
+`
+const StandardText = styled.div`
+  margin: 17px auto;
+  text-align: center;
+  font-weight: 600;
+  color: red;
+  line-height: 1.5;
 `

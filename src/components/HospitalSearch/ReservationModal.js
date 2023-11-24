@@ -4,46 +4,87 @@ import "react-datepicker/dist/react-datepicker.module.css"
 import DatePicker from "./ReservationDatePicker"
 import ReservationCalendar from "./ReservationCalendar"
 import { useDispatch } from "react-redux"
-import { __addReservation } from "../../redux/modules/reservationSlice"
+import {
+  __addReservation,
+  __getReservation,
+} from "../../redux/modules/reservationSlice"
 
-function ReservationModal({ hospitalSelectedHospitalId, selectedHospitalId }) {
+function ReservationModal({
+  hospitalSelectedHospitalId,
+  selectedHospitalId,
+  hospitalId,
+  hospitalDetail,
+}) {
   const dispatch = useDispatch()
-  const [member, setMember] = useState([
-    {
-      memberId: "sound4519",
-      memberName: "이승진",
-      memberTel: "010-0000-0000",
-    },
-  ])
 
-  const [index, setIndex] = useState("0")
+  const [departments, setDepartments] = useState()
+  const [departmentId, setDepartmentId] = useState()
   const [departmentName, setDepartmentName] = useState("")
-  const [reservationName, setReservationName] = useState("")
-  const [reservationDate, setReservationDate] = useState("")
+  const [reservations, setReservations] = useState()
+  const [reservationMember, setReservationMember] = useState("")
+  const [reservationDate, setReservationDate] = useState()
   const [reservationTime, setReservationTime] = useState("")
   const [reservationTel, setReservationTel] = useState("")
   const [reservationContent, setreservationContent] = useState("")
-
   const [reservationModal, setReservationModal] = useState()
+  const [hospitalReservation, setHospitalReservation] = useState([])
 
-  const reservationToggle = () => {
+  const reservationToggle = (hospitalId) => {
     setReservationModal(!reservationModal)
+
+    dispatch(__getReservation({ hospitalId }))
+      .then((response) => {
+        if (response) {
+          setHospitalReservation([response.payload.data])
+          setDepartments(response.payload.data.departments)
+          setReservations(response.payload.data.reservations)
+          setReservationMember(response.payload.data.memberName)
+          setReservationTel(response.payload.data.memberTel)
+          console.log(
+            [
+              response.payload.data.departments.map(
+                (department) => department.departmentId
+              ),
+            ],
+            "아니"
+          )
+        }
+      })
+      .catch((error) => {
+        console.log(error, "에러발생!")
+      })
   }
 
   const reservationComplete = (event) => {
     event.preventDefault()
-    const newReservation = new FormData()
-    newReservation.append("memberId", member.memberId)
-    newReservation.append("reservationDate", reservationDate)
-    newReservation.append("departmentName", departmentName)
-    newReservation.append("reservationTime", reservationTime)
-    newReservation.append("reservationTel", member.memberTel)
-    newReservation.append("reservationContent", reservationContent)
+
+    const newReservation = {
+      departmentId: departmentId,
+      hospitalId: hospitalId,
+      reservationContent: reservationContent,
+      reservationDate: reservationDate,
+      reservationMember: reservationMember,
+      reservationTel: reservationTel,
+      reservationTime: reservationTime,
+    }
+
+    // if (
+    //   !departmentId ||
+    //   !reservationContent ||
+    //   !reservationDate ||
+    //   !reservationMember ||
+    //   !reservationTel ||
+    //   !reservationTime
+    // ) {
+    //   alert("예약 정보를 모두 입력해주세요.")
+    // }
 
     dispatch(__addReservation(newReservation))
       .then((response) => {
         if (response) {
           alert("예약이 완료되었습니다.")
+          setReservationModal(!reservationModal)
+          hospitalSelectedHospitalId()
         }
       })
       .catch((error) => {
@@ -54,8 +95,9 @@ function ReservationModal({ hospitalSelectedHospitalId, selectedHospitalId }) {
   // 예약자 이름 감지
   const onChangeReservationName = (e) => {
     const currentName = e.target.value
-    setReservationName(currentName)
-    console.log(reservationName)
+    // setMemberName
+    // setReservationMember(currentName)
+    console.log(reservationMember)
   }
 
   // 예약 시간 감지
@@ -65,9 +107,10 @@ function ReservationModal({ hospitalSelectedHospitalId, selectedHospitalId }) {
   }
 
   // 진료과목 감지
-  const onChangeDepartmentName = (e) => {
+  const onChangeDepartment = (e) => {
     const currentDepartment = e.target.value
     setDepartmentName(currentDepartment)
+    setDepartmentId(currentDepartment)
     console.log(currentDepartment)
   }
 
@@ -88,152 +131,25 @@ function ReservationModal({ hospitalSelectedHospitalId, selectedHospitalId }) {
   // 비동기기때문에 바로 되지않으므로 함수값이 즉시 업데이트 되지않아
   // 아래와 같이 작성항 reservationTime이 변하면 업데이트 되게끔 작성
   useEffect(() => {
-    console.log(reservationTime, departmentName)
-  }, [reservationTime, departmentName])
-  const [hospital, setHospital] = useState([
-    {
-      hospitalId: 1,
-      name: "하늘하늘병원",
-      address: "서울특별시 강동구 강동로 하늘하늘병원 111",
-      weekdayOpeningTime: "09:00 ~ 19:00",
-      weekendOpeningTime: "09:00 ~ 14:00",
-      lunchHour: "13:00 ~ 14:00",
-      holidayCheck: "휴무",
-      latlng: { lat: "33.450705", lng: "126.570677" },
-      tel: "02-4786-7835",
-      departmentNames: [
-        {
-          departmentId: 1,
-          departmentName: "소아과",
-        },
-        {
-          departmentId: 2,
-          departmentName: "내과",
-        },
-        {
-          departmentId: 3,
-          departmentName: "외과",
-        },
-      ],
-    },
-    {
-      hospitalId: 2,
-      name: "나풀나풀나풀나풀병원",
-      address: "서울특별시 강동구 강동로 나풀나풀나풀나풀병원",
-      weekdayOpeningTime: "09:00 ~ 19:00",
-      weekendOpeningTime: "09:00 ~ 14:00",
-      lunchHour: "13:00 ~ 14:00",
-      holidayCheck: "휴무",
-      latlng: { lat: "33.450936", lng: "126.569477" },
-      departmentNames: [
-        {
-          departmentId: 1,
-          departmentName: "소아과",
-        },
-        {
-          departmentId: 2,
-          departmentName: "내과",
-        },
-        {
-          departmentId: 3,
-          departmentName: "외과",
-        },
-      ],
-      tel: "02-489-7898",
-    },
-    {
-      hospitalId: 3,
-      name: "하늘병원",
-      address: "서울특별시 강동구 강동로 하늘병원 111",
-      weekdayOpeningTime: "09:00 ~ 19:00",
-      weekendOpeningTime: "09:00 ~ 14:00",
-      lunchHour: "13:00 ~ 14:00",
-      holidayCheck: "휴무",
-      latlng: { lat: "33.450879", lng: "126.56994" },
-      departmentNames: [
-        {
-          departmentId: 1,
-          departmentName: "소아과",
-        },
-        {
-          departmentId: 2,
-          departmentName: "내과",
-        },
-        {
-          departmentId: 3,
-          departmentName: "외과",
-        },
-      ],
-      tel: "02-1234-7111",
-    },
-  ])
-
-  const [reservation, setReservation] = useState([
-    {
-      reservationId: 1,
-      memberId: "sound4519",
-      hospitalId: 1,
-      departmentId: 1,
-      departmentName: "내과",
-      reservationDate: "2023-11-09",
-      reservationTime: "12:00",
-      reservationMember: "이승진",
-      reservationTel: "010-9303-3020",
-      reservationContent: "안녕하십니까 반갑습니다",
-    },
-    {
-      reservationId: 2,
-      memberId: "sound4519",
-      hospitalId: 2,
-      departmentId: 2,
-      departmentName: "내과",
-      reservationDate: "2023-11-09",
-      reservationTime: "09:00",
-      reservationMember: "정성민",
-      reservationTel: "010-9303-3020",
-      reservationContent: "안녕하십니까 반갑습니다",
-    },
-    {
-      reservationId: 2,
-      memberId: "sound4519",
-      hospitalId: 2,
-      departmentId: 2,
-      departmentName: "소아과",
-      reservationDate: "2023-11-09",
-      reservationTime: "09:00",
-      reservationMember: "정성민",
-      reservationTel: "010-9303-3020",
-      reservationContent: "안녕하십니까 반갑습니다",
-    },
-    {
-      reservationId: 3,
-      memberId: "sound4519",
-      hospitalId: 3,
-      departmentId: 3,
-      departmentName: "소아과",
-      reservationDate: "2023-11-16",
-      reservationTime: "09:00",
-      reservationMember: "정성민",
-      reservationTel: "010-9303-3020",
-      reservationContent: "안녕하십니까 반갑습니다",
-    },
-    {
-      reservationId: 3,
-      memberId: "sound4519",
-      hospitalId: 3,
-      departmentId: 3,
-      departmentName: "소아과",
-      reservationDate: "2023-11-09",
-      reservationTime: "09:00",
-      reservationMember: "정성민",
-      reservationTel: "010-9303-3020",
-      reservationContent: "안녕하십니까 반갑습니다",
-    },
+    console.log(hospitalReservation, "ddd", departments, "디파트먼츠")
+  }, [
+    reservationTime,
+    departmentName,
+    hospitalReservation,
+    departments,
+    departmentId,
+    reservations,
+    reservationMember,
+    reservationTel,
   ])
 
   return (
     <HospitalBtns>
-      <ReservationBtn onClick={reservationToggle}>예약하기</ReservationBtn>
+      {hospitalDetail.map((item) => (
+        <ReservationBtn onClick={() => reservationToggle(item.hospitalId)}>
+          예약하기
+        </ReservationBtn>
+      ))}
       {reservationModal && (
         <ReservationWrap>
           <ReservationOverlay>
@@ -241,97 +157,104 @@ function ReservationModal({ hospitalSelectedHospitalId, selectedHospitalId }) {
               <ReservationHeader>
                 <ReservationTitle>예약하기</ReservationTitle>
               </ReservationHeader>
+
               <ReservationBody>
                 <ReservationCalendarWrap>
-                  <ReservationCalendar reservation={reservation} />
+                  <ReservationCalendar reservations={reservations} />
                 </ReservationCalendarWrap>
                 <ReservationForm>
-                  <ReservationFormNames>
-                    <ReservationName>예약자</ReservationName>
-                    {member.map((item) => (
-                      <ReservationInput
-                        placeholder="예약자 성함 입력"
-                        onChange={onChangeReservationName}
-                        value={item.memberName}
-                      />
-                    ))}
-                  </ReservationFormNames>
-                  <ReservationFormDate>
-                    <ReservationDateName>예약날짜</ReservationDateName>
-                    <ReservationDate>
-                      <DatePicker
-                        reservationDate={reservationDate}
-                        setReservationDate={setReservationDate}
-                      />
-                    </ReservationDate>
-                  </ReservationFormDate>
-                  <ReservationDiagnosis>
-                    <ReservationDiagnosisName>
-                      진료과목
-                    </ReservationDiagnosisName>
+                  {hospitalReservation &&
+                    hospitalReservation.length > 0 &&
+                    hospitalReservation.map((item) => (
+                      <>
+                        <ReservationFormNames>
+                          <ReservationName>예약자</ReservationName>
 
-                    <ReservationDiagnosisList onChange={onChangeDepartmentName}>
-                      {hospital.map((item) => {
-                        if (item.hospitalId === selectedHospitalId) {
-                          return Array.from(new Set(item.departmentNames)).map(
-                            (department, index) => (
-                              <SelectDiagnosis
-                                key={department.departmentId}
-                                value={department.departmentId}
-                              >
-                                {department.departmentName}
-                              </SelectDiagnosis>
-                            )
-                          )
-                        }
-                      })}
-                    </ReservationDiagnosisList>
-                  </ReservationDiagnosis>
-                  <ReservationTimes>
-                    <ReservationTimeName>예약시간</ReservationTimeName>
-                    <ReservationTime onChange={onChangeReservationTime}>
-                      <SelectTime>09:00</SelectTime>
-                      <SelectTime>10:00</SelectTime>
-                      <SelectTime>11:00</SelectTime>
-                      <SelectTime>12:00</SelectTime>
-                      <SelectTime>14:00</SelectTime>
-                      <SelectTime>15:00</SelectTime>
-                      <SelectTime>16:00</SelectTime>
-                      <SelectTime>17:00</SelectTime>
-                      <SelectTime>18:00</SelectTime>
-                    </ReservationTime>
-                    <ReservationTimeTexts>
-                      <ReservationTimeText>
-                        한시간단위 예약가능
-                      </ReservationTimeText>
-                      <ReservationTimeText>주말 예약 불가</ReservationTimeText>
-                    </ReservationTimeTexts>
-                  </ReservationTimes>
-                  <ReservationTels>
-                    <ReservationTelName>연락처</ReservationTelName>
-                    {member.map((item) => (
-                      <ReservationTel
-                        placeholder="전화번호 입력"
-                        onChange={onChangeReservationTel}
-                        value={item.memberTel}
-                      />
+                          <ReservationInput
+                            placeholder="예약자 성함 입력"
+                            onChange={onChangeReservationName}
+                            value={item.memberName}
+                          />
+                        </ReservationFormNames>
+                        <ReservationFormDate>
+                          <ReservationDateName>예약날짜</ReservationDateName>
+                          <ReservationDate>
+                            <DatePicker
+                              reservationDate={reservationDate}
+                              setReservationDate={setReservationDate}
+                            />
+                          </ReservationDate>
+                        </ReservationFormDate>
+                        <ReservationDiagnosis>
+                          <ReservationDiagnosisName>
+                            진료과목
+                          </ReservationDiagnosisName>
+
+                          <ReservationDiagnosisList
+                            onChange={onChangeDepartment}
+                          >
+                            {departments &&
+                              departments.map((department) => (
+                                <SelectDiagnosis
+                                  key={department.departmentId}
+                                  value={department.departmentId}
+                                >
+                                  {department.departmentName}
+                                </SelectDiagnosis>
+                              ))}
+                          </ReservationDiagnosisList>
+                        </ReservationDiagnosis>
+                        <ReservationTimes>
+                          <ReservationTimeName>예약시간</ReservationTimeName>
+                          <ReservationTime onChange={onChangeReservationTime}>
+                            <SelectTime>시간 선택</SelectTime>
+                            <SelectTime>09:00</SelectTime>
+                            <SelectTime>10:00</SelectTime>
+                            <SelectTime>11:00</SelectTime>
+                            <SelectTime>12:00</SelectTime>
+                            <SelectTime>14:00</SelectTime>
+                            <SelectTime>15:00</SelectTime>
+                            <SelectTime>16:00</SelectTime>
+                            <SelectTime>17:00</SelectTime>
+                            <SelectTime>18:00</SelectTime>
+                          </ReservationTime>
+                          <ReservationTimeTexts>
+                            <ReservationTimeText>
+                              한시간단위 예약가능
+                            </ReservationTimeText>
+                            <ReservationTimeText>
+                              주말 예약 불가
+                            </ReservationTimeText>
+                          </ReservationTimeTexts>
+                        </ReservationTimes>
+                        <ReservationTels>
+                          <ReservationTelName>연락처</ReservationTelName>
+
+                          <ReservationTel
+                            placeholder="전화번호 입력"
+                            onChange={onChangeReservationTel}
+                            value={item.memberTel}
+                          />
+                        </ReservationTels>
+                        <ReservationContents>
+                          <ReservationContentName>
+                            예약내용
+                          </ReservationContentName>
+                          <ReservationContentText
+                            onChange={onChangeReservationContent}
+                            placeholder="진료받고자 하는 내용을 입력해주세요."
+                          ></ReservationContentText>
+                        </ReservationContents>
+                        <ReservationBtns>
+                          <ReservationComplete onClick={reservationComplete}>
+                            예약하기
+                          </ReservationComplete>
+                          <ReservationCancel onClick={reservationToggle}>
+                            예약취소
+                          </ReservationCancel>
+                        </ReservationBtns>
+                      </>
                     ))}
-                  </ReservationTels>
-                  <ReservationContents>
-                    <ReservationContentName>예약내용</ReservationContentName>
-                    <ReservationContentText
-                      onChange={onChangeReservationContent}
-                      placeholder="진료받고자 하는 내용을 입력해주세요."
-                    ></ReservationContentText>
-                  </ReservationContents>
-                  <ReservationBtns>
-                    <ReservationComplete onClick={reservationComplete}>
-                      예약하기
-                    </ReservationComplete>
-                    <ReservationCancel onClick={reservationToggle}>
-                      예약취소
-                    </ReservationCancel>
-                  </ReservationBtns>
                 </ReservationForm>
               </ReservationBody>
             </ReservationContent>
@@ -410,7 +333,7 @@ const ReservationContent = styled.div`
   background-color: white;
   top: 0;
   left: 0;
-  transform: translate(18%, 10%);
+  transform: translate(19%, 10%);
 `
 
 const ReservationHeader = styled.div`

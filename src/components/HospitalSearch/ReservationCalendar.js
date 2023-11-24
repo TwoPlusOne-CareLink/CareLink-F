@@ -4,12 +4,14 @@ import interactionPlugin from "@fullcalendar/interaction"
 import { styled } from "styled-components"
 import { useEffect, useState } from "react"
 
-function ReservationCalendar({ reservation }) {
-  const events = reservation.map((item) => ({
-    start: `${item.reservationDate}T${item.reservationTime}`,
-    title: `${item.departmentName}예약진료`,
-    rendering: "backgroundColor",
-  }))
+function ReservationCalendar({ reservations }) {
+  const events =
+    reservations &&
+    reservations.map((item) => ({
+      start: `${item.reservationDate}T${item.reservationTime}`,
+      title: `${item.departmentName}예약진료`,
+      rendering: "backgroundColor",
+    }))
 
   return (
     <UpperDiv>

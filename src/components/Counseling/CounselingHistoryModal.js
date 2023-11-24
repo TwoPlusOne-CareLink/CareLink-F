@@ -21,6 +21,7 @@ function CounselingHistoryModal() {
   const [isLiked, setIsLiked] = useState()
   const [counseling, setCounseling] = useState()
   const [counselingReply, setCounselingReply] = useState([])
+  const [likeCount, setLikeCount] = useState()
   const [pageCount, setPageCount] = useState()
 
   // 여기서부터 페이지네이션 관련 로직
@@ -60,12 +61,8 @@ function CounselingHistoryModal() {
           if (response) {
             const responseData = response.payload.data
             setCounselingReply([responseData])
-
-            // setCounselingReply(response.payload.data)
-            console.log(responseData, "데이타222")
-            console.log(selectedCounselingId, "아이디")
+            console.log(responseData, "리스폰스 데이터")
           }
-          console.log(counselingReply, "레플라이")
         })
         .catch((error) => {
           console.log(error, "에러")
@@ -81,12 +78,15 @@ function CounselingHistoryModal() {
     setSelectedCounselingId(counselingId)
   }
   const likeClick = (doctorId) => {
-    console.log("클릭중!")
+    console.log("클릭중!", doctorId)
     setIsLiked(!isLiked)
     dispatch(__updateLikedCount({ doctorId }))
       .then((response) => {
         if (response) {
+          setLikeCount(response.payload.data)
+          console.log(response.payload.data)
           console.log(response)
+
           // alert("업데이트 됨!")
         }
       })
@@ -148,63 +148,60 @@ function CounselingHistoryModal() {
                               </HistoryContent1Imgs>
                             </HistoryContent1Detail>
                           </HistoryContent1>
-                          {Array.isArray(counselingReply) &&
-                          counselingReply > 0 ? (
-                            <React.Fragment>
-                              {console.log(counselingReply, "레플라이")}
-                              {counselingReply.map((item) => {
-                                console.log(item, "아이템떴다!")
-                                if (
-                                  item.counselingId === selectedCounselingId
-                                ) {
-                                  return (
-                                    <HistoryContent2 key={item.replyId}>
-                                      <HistoryContent2Detail>
-                                        <HistoryDoctorInfos key={item.doctorId}>
-                                          <HistoryDoctorImg
-                                            img={item.doctorImg}
-                                          />
-                                          <HistoryDoctorInfo>
-                                            <HistoryDoctorName>
-                                              {item.doctorName}
-                                            </HistoryDoctorName>
-                                            <HistoryDoctorDiagnosis>
-                                              {item.departmentName}
-                                            </HistoryDoctorDiagnosis>
-                                          </HistoryDoctorInfo>
-                                          <HistoryDoctorLike
-                                            onClick={() =>
-                                              likeClick(item.doctorId)
-                                            }
-                                            isLiked={isLiked}
-                                          />
-                                        </HistoryDoctorInfos>
+                          {counselingReply &&
+                            counselingReply.length > 0 &&
+                            counselingReply.map((item) => {
+                              console.log(counselingReply)
+                              if (
+                                item.counselingId === selectedCounselingId &&
+                                item.replyId !== 0
+                              ) {
+                                return (
+                                  <HistoryContent2 key={item.replyId}>
+                                    <HistoryContent2Detail>
+                                      <HistoryDoctorInfos key={item.doctorId}>
+                                        <HistoryDoctorImg
+                                          img={item.doctorImage}
+                                        />
+                                        <HistoryDoctorInfo>
+                                          <HistoryDoctorName>
+                                            {item.doctorName}
+                                          </HistoryDoctorName>
+                                          <HistoryDoctorDiagnosis>
+                                            {item.departmentName}
+                                          </HistoryDoctorDiagnosis>
+                                        </HistoryDoctorInfo>
+                                        <HistoryDoctorLike
+                                          onClick={() =>
+                                            likeClick(item.doctorId)
+                                          }
+                                          isLiked={isLiked}
+                                        />
+                                      </HistoryDoctorInfos>
 
-                                        <HistoryDoctorText>
-                                          {item.commentContent}
-                                        </HistoryDoctorText>
-                                      </HistoryContent2Detail>
-                                    </HistoryContent2>
-                                  )
-                                }
-                                return null
-                              })}
-                            </React.Fragment>
-                          ) : (
-                            <HistoryContent2>
-                              <HistoryContent2Detail>
-                                <HistoryDoctorInfos />
-                                <HistoryDoctorText>
-                                  답변을 기다리는 중입니다..
-                                </HistoryDoctorText>
-                              </HistoryContent2Detail>
-                            </HistoryContent2>
-                          )}
+                                      <HistoryDoctorText>
+                                        {item.commentContent}
+                                      </HistoryDoctorText>
+                                    </HistoryContent2Detail>
+                                  </HistoryContent2>
+                                )
+                              } else {
+                                return (
+                                  <HistoryContent2>
+                                    <HistoryContent2Detail>
+                                      <HistoryDoctorInfos />
+                                      <HistoryDoctorText>
+                                        답변을 기다리는 중입니다..
+                                      </HistoryDoctorText>
+                                    </HistoryContent2Detail>
+                                  </HistoryContent2>
+                                )
+                              }
+                            })}
                         </HistoryModalContentBody>
                       </HistoryModalContents>
                     )
                   }
-                  return null
                 })}
               </HistoryModalContent>
             </HistoryModalOverlay>
@@ -435,8 +432,10 @@ const HistoryDoctorImg = styled.img`
   height: 50px;
   margin: 0 10px;
   border-radius: 50%;
-  background-image: ${(props) =>
-    props.img ? `url(${props.img})` : `url(${DefaultProfileImg})`};
+  background-image: url(${(props) =>
+    props.img
+      ? "data:image/*;base64," + props.img
+      : `${DefaultCounselingImg}`});
 
   background-size: cover;
 `

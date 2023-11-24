@@ -128,7 +128,7 @@ export const healthCheckSlice = createSlice({
     },
     [__addHealthCheck.fulfilled]: (state, action) => {
       state.isLoading = false
-      state.healthCheck.push(action.payload)
+      state.healthCheck = action.payload
     },
     [__addHealthCheck.rejected]: (state, action) => {
       state.isLoading = false

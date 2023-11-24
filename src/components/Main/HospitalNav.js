@@ -10,6 +10,9 @@ function DoctorNav() {
   }
 
   const HGoToLogout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("memberId")
+    localStorage.removeItem("token")
     navigate("/hospital")
   }
 
