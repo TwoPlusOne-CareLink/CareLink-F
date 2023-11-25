@@ -45,6 +45,24 @@ function HospitalDoctorList() {
         })
     }
   }, [selectedDoctorId])
+  // const selectDoctorDetail = (doctorId) => {
+  //   setSelectedDoctorId(doctorId)
+  // }
+
+  // useEffect(() => {
+  //   if (selectedDoctorId) {
+  //     dispatch(__getHospitalDoctorInfo({ doctorId: selectedDoctorId }))
+  //       .then((response) => {
+  //         if (response) {
+  //           setDoctorDetail([response.payload.data])
+  //           console.log(response.payload.data, "뜨나요")
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.log(error, "에러메시지")
+  //       })
+  //   }
+  // }, [selectedDoctorId])
 
   return (
     <Wrap>
@@ -61,19 +79,21 @@ function HospitalDoctorList() {
               <DoctorLike>관심도</DoctorLike>
             </DoctorListTitles>
             <DoctorListResults>
-              {doctorList.map((item) => (
-                <DoctorListResult
-                  key={item.doctorId}
-                  onClick={() => selectDoctorDetail(item.doctorId)}
-                >
-                  <DoctorListId>{item.doctorId}</DoctorListId>
-                  <DoctorListDiagnosis>
-                    {item.departmentName}
-                  </DoctorListDiagnosis>
-                  <DoctorListName>{item.doctorName}</DoctorListName>
-                  <DoctorListLike>❤️ {item.likeCount}</DoctorListLike>
-                </DoctorListResult>
-              ))}
+              {doctorList &&
+                doctorList.length > 0 &&
+                doctorList.map((item) => (
+                  <DoctorListResult
+                    key={item.doctorId}
+                    onClick={() => selectDoctorDetail(item.doctorId)}
+                  >
+                    <DoctorListId>{item.doctorId}</DoctorListId>
+                    <DoctorListDiagnosis>
+                      {item.departmentName}
+                    </DoctorListDiagnosis>
+                    <DoctorListName>{item.doctorName}</DoctorListName>
+                    <DoctorListLike>❤️ {item.likeCount}</DoctorListLike>
+                  </DoctorListResult>
+                ))}
             </DoctorListResults>
           </DoctorListContents>
           <DoctorDetailContents>

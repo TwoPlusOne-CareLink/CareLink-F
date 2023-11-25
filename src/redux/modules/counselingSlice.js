@@ -35,7 +35,10 @@ const initialState = {
   },
   doctorLike: {
     doctorId: "",
+    likedByPatient: "",
   },
+  doctorId: "",
+
   isLoading: false,
   error: false,
 }
@@ -98,16 +101,12 @@ export const __getSelectMyCounseling = createAsyncThunk(
 
 // 내가 남긴 상담내역 중 상담 답변이 달린거 확인 후 해당 의사에 대한 하트(좋아요)버튼을 클릭했을때, 카운트를 해주는 로직
 export const __updateLikedCount = createAsyncThunk(
-  "UPDATE_LIKEDCOUNT",
+  "POST_LIKEDCOUNT",
   async (payload, thunkAPI) => {
     try {
       const data = await axiosIns.post(
         "/user/counselingDetail/counselingLike",
-        {
-          params: {
-            doctorId: payload.doctorId,
-          },
-        }
+        payload
       )
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
@@ -192,7 +191,7 @@ export const counselingSlice = createSlice({
         likedByPatient: action.payload.data.likedByPatient,
       }
     },
-    [__getSelectMyCounseling.fulfilled]: (state, action) => {
+    [__getSelectMyCounseling.rejected]: (state, action) => {
       state.isLoading = false
       state.error = action.error
     },
@@ -202,7 +201,11 @@ export const counselingSlice = createSlice({
     },
     [__updateLikedCount.fulfilled]: (state, action) => {
       state.isLoading = false
-      state.doctorLike = action.payload
+      // state.doctorLike = {
+      //   doctorId: action.payload.data.doctorId,
+      //   likedByPatient: action.payload.data.likedByPatient,
+      // }
+      state.doctorId = action.payload.doctorId
     },
     [__updateLikedCount.rejected]: (state, action) => {
       state.isLoading = false
