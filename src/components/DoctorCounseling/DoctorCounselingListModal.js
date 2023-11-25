@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { styled } from "styled-components"
 import HistoryImg from "../../assets/images/DoctorImg.png"
-import CloseBtn from "../../assets/images/XBtn.png"
+import CloseBtn from "../../assets/images/closewhite.png"
 import DoctorCounselingModal from "./DoctorCounselingModal"
 import DefaultCounselingImg from "../../assets/images/defaultCounseling.png"
 
@@ -52,68 +52,14 @@ function DoctorCounselingListModal() {
       })
   }, [])
 
-  // useEffect(() => {
-  //   if (selectedCounselingId) {
-  //     dispatch(
-  //       __getDoctorCounselingDetail({ counselingId: selectedCounselingId })
-  //     )
-  //       .then((response) => {
-  //         if (response) {
-  //           const responseData = response.payload.data
-  //           setCounselingReply(responseData)
-  //           console.log(responseData)
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.log(error, "에러메시지")
-  //       })
-  //   }
-  // }, [selectedCounselingId])
-
-  // useEffect(() => {
-  //   console.log(counselingReply)
-  // }, [counselingReply])
-
   const selectCounselingDetail = (counselingId) => {
     setSelectedCounselingId(counselingId)
   }
 
-  // const [counselingReply, setCounselingReply] = useState([
-  //   {
-  //     replyId: 1,
-  //     counselingId: 1,
-  //     memberId: "doctor1",
-  //     doctorName: "이승진",
-  //     doctorImg: "",
-  //     commentContent: "안녕하세요 승진님, 반갑습니다 조아용",
-  //     commentDate: "2023-11-19",
-  //     departmentName: "내과",
-  //   },
-  //   // {
-  //   //   replyId: 2,
-  //   //   counselingId: 2,
-  //   //   memberId: "doctor2",
-  //   //   doctorName: "정성민",
-  //   //   doctorImg: `${HistoryImg}`,
-  //   //   commentContent: "하이!!",
-  //   //   commentDate: "2023-11-19",
-  //   //   departmentName: "외과",
-  //   // },
-  // ])
-
-  // 의사 입장에서 상담댓글이 아직 안달린 비대면 상담에 대한 리스트를 불러오는 로직
-  // useEffect(() => {
-  //   dispatch(__getDoctorCounselingList)
-  // }, [])
-
-  // const replyIdExists = counselingReply.some(
-  //   (item) => item.counselingId === selectedCounselingId && item.replyId
-  // )
-
   return (
     <>
       <DCounselingListBody>
-        {counseling &&
+        {counseling && counseling.length > 0 ? (
           counseling.slice(offset, offset + itemsPerPage).map((item) => (
             <DCounselingListContent
               key={item.counselingId}
@@ -122,7 +68,10 @@ function DoctorCounselingListModal() {
               <DCounselingListImg img={item.counselingImage} />
               <DCounselingListName>{item.counselingTitle}</DCounselingListName>
             </DCounselingListContent>
-          ))}
+          ))
+        ) : (
+          <CounselingLoad>로딩중입니다 ...</CounselingLoad>
+        )}
         {selectedCounselingId && (
           <DCounselingModalWrap>
             <DCounselingModalOverlay>
@@ -196,6 +145,7 @@ const DCounselingListBody = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(25%, auto));
   place-items: center;
+  user-select: none;
 `
 const DCounselingListContent = styled.div`
   display: flex;
@@ -245,7 +195,7 @@ const DCounselingModalContent = styled.div`
   background-color: white;
   top: 11%;
   left: 19%;
-  transform: translate(10%, 0);
+  transform: translate(20%, 0);
   position: absolute;
 `
 
@@ -254,23 +204,29 @@ const DCounselingModalContents = styled.div``
 const DCounselingModalHeader = styled.div`
   width: 900px;
   height: 50px;
+
   border-bottom: 1px solid #dcdcdc;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  background-color: #223359;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  color: white;
 `
 
 const DCounselingModalTitle = styled.span`
   width: 830px;
   margin-left: auto;
+
   font-size: 25px;
   font-family: "GmarketSansMedium";
   text-align: center;
 `
 const DCounselingCloseBtn = styled.div`
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   margin-right: 10px;
   background-image: url(${CloseBtn});
   background-size: cover;
@@ -351,4 +307,12 @@ const DPaginationWrapper = styled.div`
   .pagination li.active {
     font-weight: bold;
   }
+`
+
+const CounselingLoad = styled.div`
+  width: 1300px;
+  margin: auto;
+  font-size: 30px;
+  text-align: center;
+  user-select: none;
 `

@@ -13,6 +13,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.1",
+    "framer-motion": "^10.16.5",
     "jwt-decode": "^4.0.0",
     "lazyload": "^2.0.0-rc.2",
     "npm": "^10.2.2",
@@ -27,6 +28,7 @@
     "react-router-dom": "^6.18.0",
     "react-scripts": "5.0.1",
     "styled-components": "^6.1.0",
+    "sweetalert2": "^11.10.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

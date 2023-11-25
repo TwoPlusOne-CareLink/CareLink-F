@@ -13,7 +13,7 @@ const initialState = {
     holidayCheck: "",
     lunchHour: "",
     departmentId: "",
-    departmentName: [],
+    departmentNames: [],
     doctorInfo: [
       {
         doctorId: "",
@@ -89,7 +89,6 @@ export const __getHospitalDetailInfo = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const hospitalId = payload.hospitalId
-      console.log(hospitalId)
       const data = await axiosIns.get(
         `/user/hospitalInfo/${hospitalId}`,
         payload
@@ -217,7 +216,7 @@ export const hospitalSlice = createSlice({
             departmentId: action.payload.data.doctorInfo.departmentId,
             doctorImg: action.payload.data.doctorInfo.doctorImg,
             fileName: action.payload.data.doctorInfo.fileName,
-            likeCount: action.payload.data.doctorInfo.likeCount,
+            departmentName: action.payload.data.doctorInfo.departmentName,
           },
         ],
       }

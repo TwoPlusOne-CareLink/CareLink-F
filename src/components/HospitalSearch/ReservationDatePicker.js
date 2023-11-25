@@ -18,17 +18,16 @@ function ReservationDatePicker({ reservationDate, setReservationDate }) {
     // 시간에 대한 모든 구성요소를 0으로 선언하여 출력되지 않도록 함
     dateWithoutTime.setHours(0, 0, 0, 0)
 
-    setReservationDate(dateWithoutTime)
-
     // 시간 출력에 대한 포맷 형식을 정해줌
     // Intl.DateTimeFormat접근 방식은 날짜 형식에 대한 더 많은 제어를 제공하고 브라우저나 시스템 설정에 관계없이 일관된 출력을 보장
+    setReservationDate(dateWithoutTime)
     const formattedDate = new Intl.DateTimeFormat("ko-KR", {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
     }).format(dateWithoutTime)
 
-    console.log(formattedDate)
+    // console.log(formattedDate)
   }
 
   return (

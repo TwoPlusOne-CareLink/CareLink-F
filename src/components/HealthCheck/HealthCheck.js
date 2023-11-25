@@ -125,6 +125,7 @@ function HealthCheck() {
         if (response) {
           alert("체크리스트 작성이 완료되었습니다.")
           console.log(checkListForm)
+          window.location.reload()
         }
       })
       .catch((error) => {

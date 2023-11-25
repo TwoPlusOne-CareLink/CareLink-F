@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { styled } from "styled-components"
 import HistoryImg from "../../assets/images/DoctorImg.png"
-import CloseBtn from "../../assets/images/XBtn.png"
+import CloseBtn from "../../assets/images/closewhite.png"
 import Like from "../../assets/images/heart.png"
 import DefaultCounselingImg from "../../assets/images/defaultCounseling.png"
 import ReactPaginate from "react-paginate"
@@ -14,7 +14,7 @@ import {
 function DoctorCompleteHistoryModal() {
   const dispatch = useDispatch()
   const [selectedCounselingId, setSelectedCounselingId] = useState()
-  const [counseling, setCounseling] = useState([{}])
+  const [counseling, setCounseling] = useState()
   const [counselingReply, setCounselingReply] = useState([])
   const [pageCount, setPageCount] = useState()
   const [doctorId, setDoctorId] = useState()
@@ -59,7 +59,7 @@ function DoctorCompleteHistoryModal() {
         .then((response) => {
           if (response) {
             const responseData = response.payload.data
-            setCounselingReply(responseData)
+            setCounselingReply([responseData])
             console.log(responseData)
           }
         })
@@ -80,7 +80,7 @@ function DoctorCompleteHistoryModal() {
   return (
     <>
       <DoctorHistoryBody>
-        {counseling &&
+        {counseling && counseling.length > 0 ? (
           counseling.slice(offset, offset + itemsPerPage).map((item) => (
             <DoctorHistoryContent
               key={item.counselingId}
@@ -89,7 +89,10 @@ function DoctorCompleteHistoryModal() {
               <DoctorHistoryImg img={item.counselingImage} />
               <DoctorHistoryName>{item.counselingTitle}</DoctorHistoryName>
             </DoctorHistoryContent>
-          ))}
+          ))
+        ) : (
+          <DCounselingLoad>로딩중입니다 ...</DCounselingLoad>
+        )}
         {selectedCounselingId && (
           <DoctorHistoryModalWrap>
             <DoctorHistoryModalOverlay>
@@ -126,9 +129,12 @@ function DoctorCompleteHistoryModal() {
                           </DHistoryContent1>
 
                           {counselingReply &&
-                            Array.isArray(counselingReply) &&
+                            counselingReply.length > 0 &&
                             counselingReply.map((item) => {
-                              if (item.counselingId === selectedCounselingId) {
+                              if (
+                                item.counselingId === selectedCounselingId &&
+                                item.replyId !== 0
+                              ) {
                                 return (
                                   <DHistoryContent2>
                                     <DHistoryDoctorInfos>
@@ -147,6 +153,18 @@ function DoctorCompleteHistoryModal() {
                                     <DHistoryDoctorText>
                                       {item.commentContent}
                                     </DHistoryDoctorText>
+                                  </DHistoryContent2>
+                                )
+                              } else {
+                                return (
+                                  <DHistoryContent2>
+                                    <DHistoryDoctorInfos />
+
+                                    <DHistoryDoctorTexts>
+                                      <DHistoryText>
+                                        로딩중입니다 ...
+                                      </DHistoryText>
+                                    </DHistoryDoctorTexts>
                                   </DHistoryContent2>
                                 )
                               }
@@ -189,6 +207,7 @@ const DoctorHistoryBody = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(25%, auto));
   place-items: center;
+  user-select: none;
 `
 const DoctorHistoryContent = styled.div`
   display: flex;
@@ -237,7 +256,7 @@ const DoctorHistoryModalContent = styled.div`
   background-color: white;
   top: 11%;
   left: 19%;
-  transform: translate(10%, 0);
+  transform: translate(20%, 0);
   position: absolute;
   user-select: none;
 `
@@ -246,10 +265,13 @@ const DoctorHistoryModalContents = styled.div``
 const DoctorHistoryModalHeader = styled.div`
   width: 900px;
   height: 50px;
-  border-bottom: 1px solid #dcdcdc;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  background-color: #223359;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
 `
 const DoctorHistoryHeaderTitle = styled.span`
   width: 830px;
@@ -259,9 +281,8 @@ const DoctorHistoryHeaderTitle = styled.span`
   font-family: "GmarketSansMedium";
 `
 const DoctorHistoryModalCloseBtn = styled.div`
-  width: 20px;
-  height: 20px;
-  margin-right: 15px;
+  width: 40px;
+  height: 40px;
   background-image: url(${CloseBtn});
   background-size: cover;
   user-select: none;
@@ -388,6 +409,22 @@ const DHistoryDoctorText = styled.p`
   border-radius: 8px;
   box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.14);
 `
+
+const DHistoryDoctorTexts = styled.div`
+  width: 400px;
+  height: 540px;
+  padding: 10px;
+  border: transparent;
+  border-radius: 8px;
+  box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.14);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const DHistoryText = styled.span`
+  font-size: 30px;
+`
 const DPaginationWrapper = styled.div`
   .pagination {
     display: flex;
@@ -406,4 +443,11 @@ const DPaginationWrapper = styled.div`
   .pagination li.active {
     font-weight: bold;
   }
+`
+const DCounselingLoad = styled.div`
+  width: 1300px;
+  margin: auto;
+  font-size: 30px;
+  text-align: center;
+  user-select: none;
 `

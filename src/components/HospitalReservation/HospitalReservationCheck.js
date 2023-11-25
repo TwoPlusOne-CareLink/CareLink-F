@@ -49,9 +49,6 @@ function HospitalReservationCheck() {
         if (response) {
           console.log(response.payload.data)
           setReservation(response.payload.data)
-          // setReservationDate(response.payload.data.reservationDate)
-          // console.log(reservationDate)
-          // console.log([response.payload.data.reservationDate], "날짜")
         }
       })
       .catch((error) => {

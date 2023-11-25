@@ -47,24 +47,6 @@ function DoctorCounselingModal({ counselingId }) {
         <ModalContent2StartBtn onClick={DCounselingModalToggle}>
           상담하기
         </ModalContent2StartBtn>
-        {/* <ModalContent2DoctorInfos>
-      <ModalContent2Img />
-      <ModalContent2DoctorInfo>
-        <ModalContent2DoctorName>
-          이코사 의사
-        </ModalContent2DoctorName>
-        <ModalContent2DoctorDiagnosis>
-          내과
-        </ModalContent2DoctorDiagnosis>
-      </ModalContent2DoctorInfo>
-      <ModalContent2Like />
-    </ModalContent2DoctorInfos>
-
-    <ModalContent2DoctorText>
-      안녕하세요 승진님. 내과 전문의 이코사입니다. 승진님의 증상의
-      경우 감기몸살로 판단되며 가급적 찬물대신 따뜻한 물 섭취 및
-      옷차림에 유념해 주시면 좋을 것 같습니다.
-    </ModalContent2DoctorText> */}
       </DCounselingModalContent2>
       {doctorCounselingModal && (
         <DConModalWrap>
