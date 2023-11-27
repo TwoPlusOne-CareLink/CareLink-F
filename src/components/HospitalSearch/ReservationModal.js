@@ -74,14 +74,13 @@ function ReservationModal({
           alert("예약이 완료되었습니다.")
           setReservationModal(!reservationModal)
           hospitalSelectedHospitalId()
+          window.location.reload()
         }
       })
       .catch((error) => {
         alert("예약에 실패했습니다" + error.message)
       })
   }
-
-
 
   // 예약자 이름 감지
   const onChangeReservationName = (e) => {

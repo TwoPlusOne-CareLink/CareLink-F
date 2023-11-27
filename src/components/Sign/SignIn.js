@@ -5,6 +5,7 @@ import Lock from "../../assets/images/Lock.png"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { __signIn } from "../../redux/modules/authSlice"
+import Logo from "../../assets/images/Logo2.jpg"
 
 function SignIn() {
   const dispatch = useDispatch()
@@ -34,20 +35,11 @@ function SignIn() {
     console.log(password, currentPassword)
   }
 
-  // useEffect(() => {
-  //   setPassword()
-  //   setMemberId()
-  // }, [setMemberId, setPassword])
-
   const onLogin = () => {
     const loginForm = {
       memberId: memberId,
       password: password,
     }
-
-    // const loginForm = new FormData()
-    // loginForm.append("memberId", memberId)
-    // loginForm.append("password", password)
 
     dispatch(__signIn(loginForm))
       .then((response) => {
@@ -71,7 +63,8 @@ function SignIn() {
   return (
     <Wrap>
       <SignInWrap>
-        <SignInTitle>CareLink</SignInTitle>
+        <SignInTitle />
+
         <SignInBody>
           <SignInDiv>
             <SignInInputDiv>
@@ -125,8 +118,14 @@ const SignInWrap = styled.div`
   align-items: center;
 `
 /*로그인 타이틀 */
-const SignInTitle = styled.span`
-  font-size: 80px;
+const SignInTitle = styled.div`
+  /* font-size: 80px;
+  user-select: none; */
+  width: 400px;
+  height: 100px;
+  margin-bottom: 10px;
+  background-image: url(${Logo});
+  background-size: cover;
   user-select: none;
 `
 const SignInBody = styled.div`

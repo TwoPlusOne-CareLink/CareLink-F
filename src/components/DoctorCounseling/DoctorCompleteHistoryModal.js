@@ -377,8 +377,8 @@ const DHistoryDoctorInfo = styled.div`
   align-items: center;
 `
 const DHistoryDoctorLike = styled.div`
-  width: 20px;
-  height: 20px;
+  /* width: 20px; */
+  /* height: 20px; */
   margin-left: auto;
   margin-right: 10px;
   background-image: url(${Like});

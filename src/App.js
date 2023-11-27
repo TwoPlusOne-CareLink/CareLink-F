@@ -17,6 +17,7 @@ import DoctorCounselingCompleteHistoryPage from "./pages/DoctorCounselingComplet
 import HospitalReservationCheckPage from "./pages/HospitalReservationCheckPage"
 import HospitalDoctorListPage from "./pages/HospitalDoctorListPage"
 import UserReservationPage from "./pages/UserReservationPage"
+import DiseasePage from "./pages/DiseasePage"
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             element={<CounselingHistoryPage />}
           />
           <Route path="/user/healthcheck" element={<HealthCheckPage />} />
+          <Route path="/user/disease" element={<DiseasePage />} />
           <Route path="/user/infoupdate" element={<UserInfoPage />} />
           <Route
             path="/user/userReservation"

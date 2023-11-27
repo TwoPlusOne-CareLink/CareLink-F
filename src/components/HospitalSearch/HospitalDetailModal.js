@@ -10,7 +10,7 @@ import {
   __getHospitalDetailInfo,
 } from "../../redux/modules/hospitalSlice"
 
-function HospitalDetailModal({ dispatch }) {
+function HospitalDetailModal({ dispatch, hospitals }) {
   const [selectedHospitalId, setSelectedHospitalId] = useState(false)
 
   const hospitalSelectedHospitalId = () => {
@@ -22,18 +22,24 @@ function HospitalDetailModal({ dispatch }) {
   const [hospital, setHospital] = useState()
   const [hospitalDetail, setHospitalDetail] = useState([])
   const [hospitalId, setHospitalId] = useState()
-  const [hospitalName, setHospitalName] = useState()
+  const [hospitalName, setHospitalName] = useState("")
   const [departmentNames, setDepartmentNames] = useState([])
 
   const onChangeSearch = (e) => {
     const currentSearch = e.target.value
-    setSearchResult(currentSearch)
+    // setSearchResult(currentSearch)
     setHospitalName(currentSearch)
   }
 
-  const onClick = (event, index) => {
-    // setHospitalName(searchResult)
+  const filtered =
+    hospitals &&
+    hospitals.filter((itemList) => {
+      return itemList.hospitalName
+        .toUpperCase()
+        .includes(hospitalName.toUpperCase())
+    })
 
+  const onClick = (event, index) => {
     dispatch(__getHospitalSearch({ hospitalName }))
       .then((response) => {
         if (response) {
@@ -72,11 +78,12 @@ function HospitalDetailModal({ dispatch }) {
   }
 
   useEffect(() => {
+    console.log(hospital, "하스피럴")
     console.log(hospitalDetail, "나와주세요")
     console.log(doctorInfo, "닥터나와!")
     console.log(selectedHospitalId)
     console.log(departmentNames, "디파트먼트")
-  }, [hospitalDetail, doctorInfo, selectedHospitalId])
+  }, [hospitalDetail, doctorInfo, selectedHospitalId, hospitalName])
 
   return (
     <MapSearch>
@@ -94,7 +101,18 @@ function HospitalDetailModal({ dispatch }) {
           <MapSearchResultAddressTitle>병원주소</MapSearchResultAddressTitle>
           <MapSearchResultTelTitle>병원전화번호</MapSearchResultTelTitle>
         </MapSearchResultTitles>
-        {hospital?.map((item) => (
+        {/* {hospital &&
+          hospital.map((item) => (
+            <MapSearchResult
+              key={item.hospitalId}
+              onClick={() => onClickHospitalDetail(item.hospitalId)}
+            >
+              <ResultName>{item.hospitalName}</ResultName>
+              <ResultAddress>{item.address}</ResultAddress>
+              <ResultTel>{item.tel}</ResultTel>
+            </MapSearchResult>
+          ))} */}
+        {/* {hospital?.map((item) => (
           <MapSearchResult
             key={item.hospitalId}
             onClick={() => onClickHospitalDetail(item.hospitalId)}
@@ -103,7 +121,18 @@ function HospitalDetailModal({ dispatch }) {
             <ResultAddress>{item.address}</ResultAddress>
             <ResultTel>{item.tel}</ResultTel>
           </MapSearchResult>
-        ))}
+        ))} */}
+        {filtered &&
+          filtered.map((item) => (
+            <MapSearchResult
+              key={item.hospitalId}
+              onClick={() => onClickHospitalDetail(item.hospitalId)}
+            >
+              <ResultName>{item.hospitalName}</ResultName>
+              <ResultAddress>{item.address}</ResultAddress>
+              <ResultTel>{item.tel}</ResultTel>
+            </MapSearchResult>
+          ))}
         {selectedHospitalId && (
           <HospitalModalWrap>
             <HospitalModalOverlay>
@@ -183,25 +212,25 @@ function HospitalDetailModal({ dispatch }) {
                             <HospitalMapWrap>
                               <HospitalMap
                                 name={
-                                  hospital.find(
+                                  hospitals.find(
                                     (item) =>
                                       item.hospitalId === selectedHospitalId
                                   )?.hospitalName
                                 }
                                 tel={
-                                  hospital.find(
+                                  hospitals.find(
                                     (item) =>
                                       item.hospitalId === selectedHospitalId
                                   )?.tel
                                 }
                                 lat={
-                                  hospital.find(
+                                  hospitals.find(
                                     (item) =>
                                       item.hospitalId === selectedHospitalId
                                   )?.latlng.lat
                                 }
                                 lng={
-                                  hospital.find(
+                                  hospitals.find(
                                     (item) =>
                                       item.hospitalId === selectedHospitalId
                                   )?.latlng.lng

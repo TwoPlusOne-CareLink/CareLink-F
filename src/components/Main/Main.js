@@ -28,10 +28,20 @@ function Main() {
     navigate("/user/healthcheck")
   }
 
+  const GoToDisease = () => {
+    navigate("/user/disease")
+  }
+
+  const GoToMyPage = () => {
+    navigate("/user/userReservation")
+  }
+
   const GoToLogout = () => {
+    navigate("/")
+    alert("로그아웃이 완료되었습니다.")
     localStorage.removeItem("token")
     localStorage.removeItem("memberId")
-    navigate("/")
+    localStorage.removeItem("role")
   }
 
   return (
@@ -64,7 +74,7 @@ function Main() {
             <MainBtn onClick={GoToHealthCheck}>
               <MainBtnContent>헬스케어</MainBtnContent>
             </MainBtn>
-            <MainBtn>
+            <MainBtn onClick={GoToDisease}>
               <MainBtnContent>질병백과</MainBtnContent>
             </MainBtn>
             <SignBtns>
@@ -73,8 +83,11 @@ function Main() {
               ) : (
                 <SignInBtn onClick={GoToSignIn}>로그인</SignInBtn>
               )}
-
-              <SignUpBtn onClick={GoToSignUp}>회원가입</SignUpBtn>
+              {token !== null && memberId ? (
+                <LogoutBtn onClick={GoToMyPage}>마이페이지</LogoutBtn>
+              ) : (
+                <SignUpBtn onClick={GoToSignUp}>회원가입</SignUpBtn>
+              )}
             </SignBtns>
           </MainBody>
         </MainContents>

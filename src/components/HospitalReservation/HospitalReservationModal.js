@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { styled } from "styled-components"
-import CloseBtn from "../../assets/images/XBtn.png"
+import CloseBtn from "../../assets/images/closewhite.png"
 
 function HospitalReservationModal({ dispatch, reservationData }) {
   const [selectedReservation, setSelectReservation] = useState()
@@ -190,13 +190,17 @@ const ReservationContent = styled.div`
 const ReservationHeader = styled.div`
   width: 500px;
   height: 50px;
+  background-color: #223359;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
   user-select: none;
 `
 const ReservationTitle = styled.span`
-  width: 430px;
+  width: 400px;
   margin-left: auto;
   font-size: 25px;
   font-family: "GmarketSansMedium";
@@ -204,8 +208,8 @@ const ReservationTitle = styled.span`
 `
 
 const ReservationClose = styled.div`
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   margin-right: 10px;
   background-image: url(${CloseBtn});
   background-size: cover;
