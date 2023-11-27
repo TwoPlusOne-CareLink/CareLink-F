@@ -32,8 +32,6 @@ function SignUp(props) {
   const [isMemberEmail, setIsMemberEmail] = useState(false)
   const [isMemberTel, setIsMemberTel] = useState(false)
   const [isAge, setIsAge] = useState(false)
-  // const [isGender, setIsGender] = useState(false)
-  // const [isSignUp, setIsSignUp] = useState(false)
 
   const [idMessage, setIdMessage] = useState("")
   const [passwordMessage, setPasswordMessage] = useState("")
@@ -181,7 +179,6 @@ function SignUp(props) {
   const handleComplete = (data) => {
     let fullAddress = data.address
     let extraAddress = ""
-    // console.log(data);
     if (data.addressType === "R") {
       if (data.bname !== "") {
         extraAddress += data.bname
@@ -231,17 +228,6 @@ function SignUp(props) {
       age: age,
       gender: gender,
     }
-
-    // const signUpForm = new FormData()
-    // signUpForm.append("memberId", memberId)
-    // signUpForm.append("password", password)
-    // signUpForm.append("memberName", memberName)
-    // signUpForm.append("memberEmail", memberEmail)
-    // signUpForm.append("age", age)
-    // signUpForm.append("gender", gender)
-    // signUpForm.append("memberTel", memberTel)
-    // signUpForm.append("memberAddress", memberAddress)
-    // signUpForm.append("memberAddressDetail", memberAddressDetail)
 
     dispatch(__signUp(signUpForm))
       .then((response) => {

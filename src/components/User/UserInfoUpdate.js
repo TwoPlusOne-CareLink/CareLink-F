@@ -187,6 +187,7 @@ function UserInfoUpdate(props) {
       .then((response) => {
         if (response) {
           alert("업데이트가 완료되었습니다.")
+          window.location.reload()
         }
       })
       .catch((error) => {

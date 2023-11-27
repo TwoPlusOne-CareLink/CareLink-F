@@ -179,6 +179,7 @@ const HospitalCheckForm = styled.div`
   padding: 12px;
   border-radius: 12px;
   box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.2);
+  user-select: none;
 `
 const HospitalCheckFormHeader = styled.div`
   width: 550px;

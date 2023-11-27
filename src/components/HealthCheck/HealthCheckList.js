@@ -591,6 +591,7 @@ const StandardText = styled.div`
   line-height: 1.5;
 `
 const HealthCheckLoad = styled.div`
+  
   margin: auto;
   display: flex;
   justify-content: center;
