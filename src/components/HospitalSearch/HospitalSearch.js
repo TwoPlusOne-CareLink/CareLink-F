@@ -10,7 +10,7 @@ import { __getHospitalInfo } from "../../redux/modules/hospitalSlice"
 function HospitalSearch() {
   const dispatch = useDispatch()
 
-  const [hospitalData, setHospitalData] = useState([{}])
+  const [hospitalData, setHospitalData] = useState()
 
   useEffect(() => {
     let hospitalName = "all"
@@ -45,7 +45,7 @@ function HospitalSearch() {
           <HospitalSearchMap hospital={hospitalData} />
         </KaKaoMapWrapper>
 
-        <HospitalDetailModal hospital={hospitalData} dispatch={dispatch} />
+        <HospitalDetailModal hospitals={hospitalData} dispatch={dispatch} />
       </HospitalWrapper>
     </Wrap>
   )

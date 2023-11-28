@@ -28,7 +28,8 @@ function DoctorCounselingModal({ counselingId }) {
         if (response) {
           alert("답변이 완료되었습니다 !")
           setDoctorCounselingModal(!doctorCounselingModal)
-          console.log(response)
+          DCounselingModalToggle()
+          window.location.reload()
         }
       })
       .catch((error) => {
