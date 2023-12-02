@@ -45,24 +45,6 @@ function HospitalDoctorList() {
         })
     }
   }, [selectedDoctorId])
-  // const selectDoctorDetail = (doctorId) => {
-  //   setSelectedDoctorId(doctorId)
-  // }
-
-  // useEffect(() => {
-  //   if (selectedDoctorId) {
-  //     dispatch(__getHospitalDoctorInfo({ doctorId: selectedDoctorId }))
-  //       .then((response) => {
-  //         if (response) {
-  //           setDoctorDetail([response.payload.data])
-  //           console.log(response.payload.data, "뜨나요")
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.log(error, "에러메시지")
-  //       })
-  //   }
-  // }, [selectedDoctorId])
 
   return (
     <Wrap>

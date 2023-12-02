@@ -22,7 +22,7 @@ export const __getDiseaseList = createAsyncThunk(
   "GET_DISEASELIST",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosIns.get("/user/diseaseList", payload)
+      const data = await axiosIns.get("/diseaseList", payload)
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -35,7 +35,7 @@ export const __getDiseaseDetail = createAsyncThunk(
   "GET_DISEASEDETAIL",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosIns.get("/user/diseaseDetail", {
+      const data = await axiosIns.get("/diseaseDetail", {
         params: {
           diseaseId: payload.diseaseId,
         },

@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { styled } from "styled-components"
-import HistoryImg from "../../assets/images/DoctorImg.png"
 import Like from "../../assets/images/heart.png"
 import CloseBtn from "../../assets/images/XBtn.png"
 import { useDispatch } from "react-redux"
@@ -110,14 +109,14 @@ const DCounselingModalContent2 = styled.div`
 `
 
 const ModalContent2Titles = styled.div``
-const ModalContent2Img = styled.div`
-  width: 50px;
-  height: 50px;
-  margin: 0 10px;
-  border-radius: 50%;
-  background-image: url(${HistoryImg});
-  background-size: contain;
-`
+// const ModalContent2Img = styled.div`
+//   width: 50px;
+//   height: 50px;
+//   margin: 0 10px;
+//   border-radius: 50%;
+//   background-image: url(${HistoryImg});
+//   background-size: contain;
+// `
 const ModalContent2DoctorInfos = styled.div`
   width: 420px;
   height: 70px;
@@ -196,8 +195,12 @@ const DConModalContent = styled.div`
 const DConModalHeader = styled.div`
   width: 700px;
   height: 50px;
+  background-color: #223359;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
   border-bottom: 1px solid #dcdcdc;
   margin-bottom: 10px;
+  color: white;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

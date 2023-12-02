@@ -17,7 +17,6 @@ function HospitalReservationModal({ dispatch, reservationData }) {
           <HospitalReservationContent
             onClick={() => setSelectReservation(item.reservationId)}
           >
-            {/* <HospitalReservationNo>1</HospitalReservationNo> */}
             <HospitalReservationName>
               {item.reservationMember}
             </HospitalReservationName>

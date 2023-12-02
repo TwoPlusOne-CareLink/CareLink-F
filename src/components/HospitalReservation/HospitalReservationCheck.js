@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { styled } from "styled-components"
-import Calendar from "../../assets/images/CalenderExample.png"
 import HospitalReservationModal from "./HospitalReservationModal"
-// import HospitalReservationCalendar from "./HospitalReservationCalendar"
 import { useDispatch } from "react-redux"
 import { __getHospitalReservation } from "../../redux/modules/reservationSlice"
 import FullCalendar from "@fullcalendar/react"

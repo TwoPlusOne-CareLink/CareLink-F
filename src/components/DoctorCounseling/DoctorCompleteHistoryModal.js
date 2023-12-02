@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import { styled } from "styled-components"
-import HistoryImg from "../../assets/images/DoctorImg.png"
 import CloseBtn from "../../assets/images/closewhite.png"
 import Like from "../../assets/images/heart.png"
 import DefaultCounselingImg from "../../assets/images/defaultCounseling.png"
@@ -91,7 +90,7 @@ function DoctorCompleteHistoryModal() {
             </DoctorHistoryContent>
           ))
         ) : (
-          <DCounselingLoad>로딩중입니다 ...</DCounselingLoad>
+          <DCounselingLoad>로딩중 ...</DCounselingLoad>
         )}
         {selectedCounselingId && (
           <DoctorHistoryModalWrap>
@@ -123,7 +122,9 @@ function DoctorCompleteHistoryModal() {
                                 </DHistoryContent1Text>
                               </DHistoryContent1Texts>
                               <DHistoryContent1Imgs>
-                                <DHistoryContent1Img />
+                                <DHistoryContent1Img
+                                  img={item.counselingImage}
+                                />
                               </DHistoryContent1Imgs>
                             </DHistoryContent1Detail>
                           </DHistoryContent1>
@@ -138,7 +139,9 @@ function DoctorCompleteHistoryModal() {
                                 return (
                                   <DHistoryContent2>
                                     <DHistoryDoctorInfos>
-                                      <DHistoryDoctorImg />
+                                      <DHistoryDoctorImg
+                                        img={item.doctorImage}
+                                      />
                                       <DHistoryDoctorInfo>
                                         <DHistoryDoctorName>
                                           {item.doctorName}
@@ -350,8 +353,11 @@ const DHistoryContent1Img = styled.div`
   height: 230px;
   border: transparent;
   border-radius: 12px;
-  background-image: url(${HistoryImg});
-  background-size: cover;
+  background-image: url(${(props) =>
+    props.img
+      ? "data:image/*;base64," + props.img
+      : `${DefaultCounselingImg}`});
+  background-size: 100% 100%;
 `
 
 const DHistoryContent2 = styled.div`
@@ -390,7 +396,10 @@ const DHistoryDoctorImg = styled.div`
   height: 50px;
   margin: 0 10px;
   border-radius: 50%;
-  background-image: url(${HistoryImg});
+  background-image: url(${(props) =>
+    props.img
+      ? "data:image/*;base64," + props.img
+      : `${DefaultCounselingImg}`});
   background-size: contain;
 `
 const DHistoryDoctorName = styled.span`

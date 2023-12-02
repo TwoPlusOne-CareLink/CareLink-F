@@ -43,7 +43,7 @@ function DoctorNav() {
             </NavMenuItem>
             <NavMenuItem>
               <NavMenuItemTitle onClick={GoToDCounselingHistory}>
-                비대면 상담내역
+                나의 상담내역
               </NavMenuItemTitle>
             </NavMenuItem>
           </NavMenu>

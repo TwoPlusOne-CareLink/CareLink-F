@@ -44,7 +44,7 @@ function DoctorMain() {
               비대면 상담목록
             </DCounselingBtn>
             <DCounselingListBtn onClick={GoToDCounselingHistory}>
-              비대면 상담내역
+              나의 상담내역
             </DCounselingListBtn>
             {token !== null && role === "ROLE_DOCTOR" ? (
               <DLogoutBtn onClick={DLogout}>로그아웃</DLogoutBtn>

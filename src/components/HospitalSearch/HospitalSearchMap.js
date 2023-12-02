@@ -16,41 +16,6 @@ export default function HospitalSearchMap({ hospital }) {
   const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false)
 
-  // const [hospital, setHospital] = useState([
-  //   {
-  //     hospitalId: 1,
-  //     name: "하늘하늘병원",
-  //     address: "서울특별시 강동구 강동로 하늘하늘병원 111",
-  //     weekdayOpeningTime: "09:00 ~ 19:00",
-  //     weekendOpeningTime: "09:00 ~ 14:00",
-  //     lunchHour: "13:00 ~ 14:00",
-  //     holidayCheck: "휴무",
-  //     latlng: { lat: "37.480187", lng: "126.883065" },
-  //     tel: "02-4786-7835",
-  //   },
-  //   {
-  //     hospitalId: 2,
-  //     name: "나풀나풀나풀나풀병원",
-  //     address: "서울특별시 강동구 강동로 나풀나풀나풀나풀병원",
-  //     weekdayOpeningTime: "09:00 ~ 19:00",
-  //     weekendOpeningTime: "09:00 ~ 14:00",
-  //     lunchHour: "13:00 ~ 14:00",
-  //     holidayCheck: "휴무",
-  //     latlng: { lat: "33.450936", lng: "126.569477" },
-  //     tel: "02-489-7898",
-  //   },
-  //   {
-  //     hospitalId: 3,
-  //     name: "하늘병원",
-  //     address: "서울특별시 강동구 강동로 하늘병원 111",
-  //     weekdayOpeningTime: "09:00 ~ 19:00",
-  //     weekendOpeningTime: "09:00 ~ 14:00",
-  //     lunchHour: "13:00 ~ 14:00",
-  //     holidayCheck: "휴무",
-  //     latlng: { lat: "33.450879", lng: "126.56994" },
-  //     tel: "02-1234-7111",
-  //   },
-  // ])
   const [state, setState] = useState({
     center: {
       lat: 37.480187,
