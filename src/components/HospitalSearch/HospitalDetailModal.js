@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react"
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 import ReadingGlasses from "../../assets/images/ReadingGlasses.png"
-import DoctorProfileImg from "../../assets/images/DoctorProfileImg.jpg"
-import DefaultProfileImg from "../../assets/images/User.png"
+import DoctorProfileImg from "../../assets/images/User.png"
 import ReservationModal from "./ReservationModal"
 import HospitalMap from "./HospitalMap"
 import {
   __getHospitalSearch,
   __getHospitalDetailInfo,
 } from "../../redux/modules/hospitalSlice"
+import { AnimatePresence, motion } from "framer-motion"
 
 function HospitalDetailModal({ dispatch, hospitals }) {
   const [selectedHospitalId, setSelectedHospitalId] = useState(false)
@@ -101,27 +101,7 @@ function HospitalDetailModal({ dispatch, hospitals }) {
           <MapSearchResultAddressTitle>병원주소</MapSearchResultAddressTitle>
           <MapSearchResultTelTitle>병원전화번호</MapSearchResultTelTitle>
         </MapSearchResultTitles>
-        {/* {hospital &&
-          hospital.map((item) => (
-            <MapSearchResult
-              key={item.hospitalId}
-              onClick={() => onClickHospitalDetail(item.hospitalId)}
-            >
-              <ResultName>{item.hospitalName}</ResultName>
-              <ResultAddress>{item.address}</ResultAddress>
-              <ResultTel>{item.tel}</ResultTel>
-            </MapSearchResult>
-          ))} */}
-        {/* {hospital?.map((item) => (
-          <MapSearchResult
-            key={item.hospitalId}
-            onClick={() => onClickHospitalDetail(item.hospitalId)}
-          >
-            <ResultName>{item.hospitalName}</ResultName>
-            <ResultAddress>{item.address}</ResultAddress>
-            <ResultTel>{item.tel}</ResultTel>
-          </MapSearchResult>
-        ))} */}
+
         {filtered &&
           filtered.map((item) => (
             <MapSearchResult
@@ -133,131 +113,141 @@ function HospitalDetailModal({ dispatch, hospitals }) {
               <ResultTel>{item.tel}</ResultTel>
             </MapSearchResult>
           ))}
-        {selectedHospitalId && (
-          <HospitalModalWrap>
-            <HospitalModalOverlay>
-              <HospitalModalContent>
-                {hospitalDetail && hospitalDetail.length > 0 ? (
-                  hospitalDetail.map((item, index) => {
-                    if (item.hospitalId === selectedHospitalId) {
-                      return (
-                        <HospitalContents key={item.hospitalId}>
-                          <HospitalContent key={item.hospitalId}>
-                            <HospitalTitles>
-                              <HospitalTitle>{item.hospitalName}</HospitalTitle>
-                              <HospitalLike>❤️{item.totalLike}</HospitalLike>
-                            </HospitalTitles>
-                            <HospitalAddress>{item.address}</HospitalAddress>
-                            <HospitalTels>
-                              <HospitalTelTitle>병원번호</HospitalTelTitle>
-                              <HospitalTel>{item.tel}</HospitalTel>
-                            </HospitalTels>
-                            <HospitalDayTime>
-                              <DayTimeTitle>진료일 및 진료시간</DayTimeTitle>
-                              <DayTimeContent>
-                                <DayContent>
-                                  <DayTitle>매 주 월 ~ 금</DayTitle>
-                                  <TimeTitle>
-                                    {item.weekdayOpeningtime}
-                                  </TimeTitle>
-                                </DayContent>
-                                <DayContent>
-                                  <DayTitle>점심시간</DayTitle>
-                                  <TimeTitle>{item.lunchHour}</TimeTitle>
-                                </DayContent>
-                                <DayContent>
-                                  <DayTitle>매 주 토요일</DayTitle>
-                                  <TimeTitle>
-                                    {item.weekendOpeningtime}
-                                  </TimeTitle>
-                                </DayContent>
-                                <DayContent>
-                                  <DayTitle>공휴일 및 일요일</DayTitle>
-                                  <TimeTitle>{item.holidayCheck}</TimeTitle>
-                                </DayContent>
-                              </DayTimeContent>
-                            </HospitalDayTime>
-                            <HospitalDiagonias>
-                              <DiagoniasTitle>진료과목</DiagoniasTitle>
-                              <DiagoniasItems>
-                                {departmentNames &&
-                                  departmentNames.length > 0 &&
-                                  departmentNames[0].map(
-                                    (department, index) => (
-                                      <DiagoniasItem key={index}>
-                                        {department}
-                                      </DiagoniasItem>
-                                    )
-                                  )}
-                              </DiagoniasItems>
-                            </HospitalDiagonias>
-                            <HospitalDoctors>
-                              <DoctorsTitle>의사정보</DoctorsTitle>
-                              <DoctorInfos>
-                                {doctorInfo &&
-                                  doctorInfo.length > 0 &&
-                                  doctorInfo.map((item) => (
-                                    <DoctorInfo key={item.memberId}>
-                                      <DoctorImg img={item.doctorImg} />
-                                      <DoctorName>{item.memberName}</DoctorName>
-                                      <DoctorItem>
-                                        {item.departmentName}
-                                      </DoctorItem>
-                                    </DoctorInfo>
-                                  ))}
-                              </DoctorInfos>
-                            </HospitalDoctors>
-                          </HospitalContent>
-                          <HospitalContent2>
-                            <HospitalMapWrap>
-                              <HospitalMap
-                                name={
-                                  hospitals.find(
-                                    (item) =>
-                                      item.hospitalId === selectedHospitalId
-                                  )?.hospitalName
-                                }
-                                tel={
-                                  hospitals.find(
-                                    (item) =>
-                                      item.hospitalId === selectedHospitalId
-                                  )?.tel
-                                }
-                                lat={
-                                  hospitals.find(
-                                    (item) =>
-                                      item.hospitalId === selectedHospitalId
-                                  )?.latlng.lat
-                                }
-                                lng={
-                                  hospitals.find(
-                                    (item) =>
-                                      item.hospitalId === selectedHospitalId
-                                  )?.latlng.lng
+        <AnimatePresence>
+          {selectedHospitalId && (
+            <HospitalModalWrap>
+              <HospitalModalOverlay>
+                <HospitalModalContent
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1.5 }}
+                  exit={{ opacity: 0 }}
+                >
+                  {hospitalDetail && hospitalDetail.length > 0 ? (
+                    hospitalDetail.map((item, index) => {
+                      if (item.hospitalId === selectedHospitalId) {
+                        return (
+                          <HospitalContents key={item.hospitalId}>
+                            <HospitalContent key={item.hospitalId}>
+                              <HospitalTitles>
+                                <HospitalTitle>
+                                  {item.hospitalName}
+                                </HospitalTitle>
+                                <HospitalLike>❤️{item.totalLike}</HospitalLike>
+                              </HospitalTitles>
+                              <HospitalAddress>{item.address}</HospitalAddress>
+                              <HospitalTels>
+                                <HospitalTelTitle>병원번호</HospitalTelTitle>
+                                <HospitalTel>{item.tel}</HospitalTel>
+                              </HospitalTels>
+                              <HospitalDayTime>
+                                <DayTimeTitle>진료일 및 진료시간</DayTimeTitle>
+                                <DayTimeContent>
+                                  <DayContent>
+                                    <DayTitle>매 주 월 ~ 금</DayTitle>
+                                    <TimeTitle>
+                                      {item.weekdayOpeningtime}
+                                    </TimeTitle>
+                                  </DayContent>
+                                  <DayContent>
+                                    <DayTitle>점심시간</DayTitle>
+                                    <TimeTitle>{item.lunchHour}</TimeTitle>
+                                  </DayContent>
+                                  <DayContent>
+                                    <DayTitle>매 주 토요일</DayTitle>
+                                    <TimeTitle>
+                                      {item.weekendOpeningtime}
+                                    </TimeTitle>
+                                  </DayContent>
+                                  <DayContent>
+                                    <DayTitle>공휴일 및 일요일</DayTitle>
+                                    <TimeTitle>{item.holidayCheck}</TimeTitle>
+                                  </DayContent>
+                                </DayTimeContent>
+                              </HospitalDayTime>
+                              <HospitalDiagonias>
+                                <DiagoniasTitle>진료과목</DiagoniasTitle>
+                                <DiagoniasItems>
+                                  {departmentNames &&
+                                    departmentNames.length > 0 &&
+                                    departmentNames[0].map(
+                                      (department, index) => (
+                                        <DiagoniasItem key={index}>
+                                          {department}
+                                        </DiagoniasItem>
+                                      )
+                                    )}
+                                </DiagoniasItems>
+                              </HospitalDiagonias>
+                              <HospitalDoctors>
+                                <DoctorsTitle>의사정보</DoctorsTitle>
+                                <DoctorInfos>
+                                  {doctorInfo &&
+                                    doctorInfo.length > 0 &&
+                                    doctorInfo.map((item) => (
+                                      <DoctorInfo key={item.memberId}>
+                                        <DoctorImg img={item.doctorImg} />
+                                        <DoctorName>
+                                          {item.memberName}
+                                        </DoctorName>
+                                        <DoctorItem>
+                                          {item.departmentName}
+                                        </DoctorItem>
+                                      </DoctorInfo>
+                                    ))}
+                                </DoctorInfos>
+                              </HospitalDoctors>
+                            </HospitalContent>
+                            <HospitalContent2>
+                              <HospitalMapWrap>
+                                <HospitalMap
+                                  name={
+                                    hospitals.find(
+                                      (item) =>
+                                        item.hospitalId === selectedHospitalId
+                                    )?.hospitalName
+                                  }
+                                  tel={
+                                    hospitals.find(
+                                      (item) =>
+                                        item.hospitalId === selectedHospitalId
+                                    )?.tel
+                                  }
+                                  lat={
+                                    hospitals.find(
+                                      (item) =>
+                                        item.hospitalId === selectedHospitalId
+                                    )?.latlng.lat
+                                  }
+                                  lng={
+                                    hospitals.find(
+                                      (item) =>
+                                        item.hospitalId === selectedHospitalId
+                                    )?.latlng.lng
+                                  }
+                                />
+                              </HospitalMapWrap>
+                              <ReservationModal
+                                hospitalDetail={hospitalDetail}
+                                hospitalId={hospitalId}
+                                selectedHospitalId={selectedHospitalId}
+                                hospitalSelectedHospitalId={
+                                  hospitalSelectedHospitalId
                                 }
                               />
-                            </HospitalMapWrap>
-                            <ReservationModal
-                              hospitalDetail={hospitalDetail}
-                              hospitalId={hospitalId}
-                              selectedHospitalId={selectedHospitalId}
-                              hospitalSelectedHospitalId={
-                                hospitalSelectedHospitalId
-                              }
-                            />
-                          </HospitalContent2>
-                        </HospitalContents>
-                      )
-                    }
-                    return null
-                  })
-                ) : (
-                  <HospitalLoad>로딩중입니다 ... </HospitalLoad>
-                )}
-              </HospitalModalContent>
-            </HospitalModalOverlay>
-          </HospitalModalWrap>
-        )}
+                            </HospitalContent2>
+                          </HospitalContents>
+                        )
+                      }
+                      return null
+                    })
+                  ) : (
+                    <HospitalLoad>로딩중 ...</HospitalLoad>
+                  )}
+                </HospitalModalContent>
+              </HospitalModalOverlay>
+            </HospitalModalWrap>
+          )}
+        </AnimatePresence>
       </MapSearchResults>
     </MapSearch>
   )
@@ -416,7 +406,7 @@ const HospitalModalOverlay = styled.div`
   background-color: rgba(49, 49, 49, 0.8);
   position: fixed;
 `
-const HospitalModalContent = styled.div`
+const HospitalModalContent = styled(motion.div)`
   width: 1000px;
   height: 650px;
   border: transparent;
@@ -452,17 +442,22 @@ const HospitalTitles = styled.div`
 `
 
 const HospitalTitle = styled.div`
+  width: 380px;
   margin-left: 10px;
   font-size: 35px;
   font-weight: 600;
 `
 const HospitalLike = styled.div`
+  width: 70px;
   font-size: 20px;
+  text-align: right;
 `
 const HospitalAddress = styled.span`
+  margin-top: 20px;
   margin-left: 10px;
   font-size: 20px;
   font-weight: 600;
+  word-break: keep-all;
 `
 
 const HospitalContent2 = styled.div`
@@ -624,5 +619,5 @@ const DoctorName = styled.span`
 const DoctorItem = styled.span``
 
 const HospitalLoad = styled.span`
-  font-size: 30px;
+  font-size: 50px;
 `

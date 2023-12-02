@@ -27,6 +27,7 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="/login" element={<SignInPage />} />
           <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/disease" element={<DiseasePage />} />
           <Route path="/user/hospitalsearch" element={<HospitalSearchPage />} />
           <Route path="/user/counseling" element={<CounselingPage />} />
           <Route
@@ -34,7 +35,6 @@ function App() {
             element={<CounselingHistoryPage />}
           />
           <Route path="/user/healthcheck" element={<HealthCheckPage />} />
-          <Route path="/user/disease" element={<DiseasePage />} />
           <Route path="/user/infoupdate" element={<UserInfoPage />} />
           <Route
             path="/user/userReservation"

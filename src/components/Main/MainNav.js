@@ -4,6 +4,8 @@ import useDetectClose from "../../hooks/useDetectClose"
 import { useNavigate } from "react-router-dom"
 
 function MainNav() {
+  const token = localStorage.getItem("token")
+  const memberId = localStorage.getItem("memberId")
   const navigate = useNavigate()
 
   const [CounselingIsOpen, CounselingRef, CounselingHandler] =
@@ -13,6 +15,10 @@ function MainNav() {
 
   const GoToMain = () => {
     navigate("/")
+  }
+
+  const GoToSignIn = () => {
+    navigate("/login")
   }
 
   const GoToLogout = () => {
@@ -45,6 +51,10 @@ function MainNav() {
 
   const GoToUserReservation = () => {
     navigate("/user/userReservation")
+  }
+
+  const GoToDisease = () => {
+    navigate("/disease")
   }
 
   return (
@@ -83,9 +93,11 @@ function MainNav() {
                 헬스케어
               </NavMenuItemTitle>
             </NavMenuItem>
-            {/* <NavMenuItem>
-              <NavMenuItemTitle>질병백과</NavMenuItemTitle>
-            </NavMenuItem> */}
+            <NavMenuItem>
+              <NavMenuItemTitle onClick={GoToDisease}>
+                질병백과
+              </NavMenuItemTitle>
+            </NavMenuItem>
             <NavMenuItem>
               <NavMenuItemTitle onClick={myPageHandler} ref={myPageRef}>
                 마이페이지
@@ -107,7 +119,12 @@ function MainNav() {
           </NavMenu>
         </NavBody>
         <NavFooter>
-          <NavLogout onClick={GoToLogout}>로그아웃</NavLogout>
+          {token !== null && memberId ? (
+            <NavLogout onClick={GoToLogout}>로그아웃</NavLogout>
+          ) : (
+            <NavLogout onClick={GoToSignIn}>로그인</NavLogout>
+          )}
+          {/* <NavLogout onClick={GoToLogout}>로그아웃</NavLogout> */}
         </NavFooter>
       </NavWrapper>
     </Wrap>

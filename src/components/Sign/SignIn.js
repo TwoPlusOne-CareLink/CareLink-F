@@ -56,7 +56,13 @@ function SignIn() {
         }
       })
       .catch((error) => {
-        alert("로그인 실패!" + error.code)
+        if (error.response && error.response.status === 400) {
+          alert("하이")
+        } else if (error.response && error.response.status === 404) {
+          alert("바이")
+        } else {
+          alert("로그인 중 오류발생!@")
+        }
       })
   }
 

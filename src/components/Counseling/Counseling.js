@@ -23,8 +23,20 @@ function Counseling() {
   const [member, setMember] = useState({})
 
   // 이미지 선택해서 미리보기까지 연결된 로직 , ref을 사용하여 Dom에 직접 접근. 백에 데이터로 보낼 img와 미리보기를 별도 구분하여 미리보기 로직 구현.
+  // 이미지 한 개 추가 한 후 다시 추가하려고 할때, 파일 선택이 되었는지에 대한 여부 관련 처리 추가
   const saveImgFile = () => {
-    const file = imgRef.current.files[0]
+    const fileInput = imgRef.current
+    if (!fileInput) {
+      console.error("imageRef.current is null or undefined.")
+      return
+    }
+
+    const file = fileInput.files[0]
+    if (!file) {
+      console.error("No File Selected")
+      return
+    }
+
     const reader = new FileReader()
     reader.onloadend = () => {
       setImageSrc(reader.result)
@@ -89,6 +101,11 @@ function Counseling() {
         if (response) {
           console.log(response)
           alert("상담 접수가 완료되었습니다.")
+          // setCounselingImage("")
+          // setCounselingTitle("")
+          // setDepartmentId("")
+          // setCounselingContent("")
+          window.location.reload()
         }
       })
       .catch((error) => {
@@ -271,7 +288,7 @@ const CounselingImg = styled.div`
   box-shadow: 8px 4px 62px 2px rgba(0, 0, 0, 0.1);
   background-image: ${({ imagesrc }) =>
     imagesrc ? `url(${imagesrc})` : `url(${defaultImg})`};
-  background-size: cover;
+  background-size: 100% 100%;
 `
 const CounselingBtn = styled.button`
   width: 170px;

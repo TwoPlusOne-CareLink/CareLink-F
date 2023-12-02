@@ -6,7 +6,7 @@ function DoctorCounselingCompleteHistory() {
   return (
     <Wrap>
       <DoctorTop>
-        <DoctorTopTitle>비대면 상담내역</DoctorTopTitle>
+        <DoctorTopTitle>나의 상담내역</DoctorTopTitle>
       </DoctorTop>
       <DoctorHistoryWrap>
         <DoctorCompleteHistoryModal />

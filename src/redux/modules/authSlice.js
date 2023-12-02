@@ -42,7 +42,7 @@ export const __signUp = createAsyncThunk(
       const data = await axiosIns.post("/signup", payload)
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.code)
+      return thunkAPI.rejectWithValue(error)
     }
   }
 )
@@ -71,7 +71,13 @@ export const authSlice = createSlice({
     },
     [__signIn.rejected]: (state, action) => {
       state.isLoading = false
-      state.message = "오류가 발생했습니다."
+      if (action.payload === 404) {
+        state.error.message = "존재하지 않는 아이디입니다."
+      } else if (action.payload === 400) {
+        state.error.message = "토큰 생성에 실패했습니다 "
+      } else {
+        state.error.message = "회원정보가 맞지 않습니다."
+      }
     },
     [__signUp.pending]: (state, action) => {
       state.isLoading = true

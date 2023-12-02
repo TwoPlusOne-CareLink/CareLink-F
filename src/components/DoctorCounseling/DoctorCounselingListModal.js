@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { styled } from "styled-components"
-import HistoryImg from "../../assets/images/DoctorImg.png"
 import CloseBtn from "../../assets/images/closewhite.png"
 import DoctorCounselingModal from "./DoctorCounselingModal"
 import DefaultCounselingImg from "../../assets/images/defaultCounseling.png"
 
 import ReactPaginate from "react-paginate"
 import { useDispatch } from "react-redux"
-import {
-  __getDoctorCounselingDetail,
-  __getDoctorCounselingList,
-} from "../../redux/modules/doctorCounselingSlice"
+import { __getDoctorCounselingList } from "../../redux/modules/doctorCounselingSlice"
 
 function DoctorCounselingListModal() {
   const dispatch = useDispatch()
@@ -70,7 +66,7 @@ function DoctorCounselingListModal() {
             </DCounselingListContent>
           ))
         ) : (
-          <CounselingLoad>로딩중입니다 ...</CounselingLoad>
+          <CounselingLoad>로딩중 ...</CounselingLoad>
         )}
         {selectedCounselingId && (
           <DCounselingModalWrap>
@@ -99,7 +95,7 @@ function DoctorCounselingListModal() {
                               </ModalContent1Text>
                             </ModalContent1Texts>
                             <ModalContent1Imgs>
-                              <ModalContent1Img />
+                              <ModalContent1Img img={item.counselingImage} />
                             </ModalContent1Imgs>
                           </DCounselingModalContent1>
                           <DoctorCounselingModal
@@ -285,8 +281,11 @@ const ModalContent1Img = styled.div`
   height: 230px;
   border: transparent;
   border-radius: 12px;
-  background-image: url(${HistoryImg});
-  background-size: cover;
+  background-image: url(${(props) =>
+    props.img
+      ? "data:image/*;base64," + props.img
+      : `${DefaultCounselingImg}`});
+  background-size: 100% 100%;
 `
 
 const DPaginationWrapper = styled.div`

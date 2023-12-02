@@ -11,7 +11,7 @@ function HospitalSearch() {
   const dispatch = useDispatch()
 
   const [hospitalData, setHospitalData] = useState()
-
+  
   useEffect(() => {
     let hospitalName = "all"
 
@@ -19,21 +19,13 @@ function HospitalSearch() {
       .then((response) => {
         if (response) {
           setHospitalData(response.payload.data)
-
-          console.log(response, "받아오냐?")
-          console.log(response.payload.data, "dd")
+          console.log(response.payload.data, "병원 데이터 로드 확인")
         }
       })
       .catch((error) => {
-        console.log(error.message)
+        console.log(error, "병원 데이터 로드 에러발생")
       })
-
-    // console.log(searchResult)
   }, [])
-
-  useEffect(() => {
-    console.log(hospitalData, "업뎃")
-  }, [hospitalData])
 
   return (
     <Wrap>
@@ -44,7 +36,6 @@ function HospitalSearch() {
         <KaKaoMapWrapper>
           <HospitalSearchMap hospital={hospitalData} />
         </KaKaoMapWrapper>
-
         <HospitalDetailModal hospitals={hospitalData} dispatch={dispatch} />
       </HospitalWrapper>
     </Wrap>
