@@ -4,9 +4,7 @@ function getToken() {
   return localStorage.getItem("token")
 }
 
-export const axiosIns = axios.create({
-  baseURL: "http://localhost:8888",
-})
+export const axiosIns = axios.create({ baseURL: "http://localhost:8888" })
 
 axiosIns.interceptors.request.use((config) => {
   const token = getToken()

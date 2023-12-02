@@ -29,7 +29,7 @@ function Main() {
   }
 
   const GoToDisease = () => {
-    navigate("/user/disease")
+    navigate("/disease")
   }
 
   const GoToMyPage = () => {

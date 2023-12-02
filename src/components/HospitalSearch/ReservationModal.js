@@ -8,6 +8,7 @@ import {
   __addReservation,
   __getReservation,
 } from "../../redux/modules/reservationSlice"
+import { AnimatePresence, motion } from "framer-motion"
 
 function ReservationModal({
   hospitalSelectedHospitalId,
@@ -140,119 +141,125 @@ function ReservationModal({
           예약하기
         </ReservationBtn>
       ))}
-      {reservationModal && (
-        <ReservationWrap>
-          <ReservationOverlay>
-            <ReservationContent>
-              <ReservationHeader>
-                <ReservationTitle>예약하기</ReservationTitle>
-              </ReservationHeader>
+      <AnimatePresence>
+        {reservationModal && (
+          <ReservationWrap>
+            <ReservationOverlay>
+              <ReservationContent
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1.5 }}
+                exit={{ opacity: 0 }}
+              >
+                <ReservationHeader>
+                  <ReservationTitle>예약하기</ReservationTitle>
+                </ReservationHeader>
 
-              <ReservationBody>
-                {hospitalReservation && hospitalReservation.length > 0 ? (
-                  hospitalReservation.map((item) => (
-                    <>
-                      <ReservationCalendarWrap>
-                        <ReservationCalendar reservations={reservations} />
-                      </ReservationCalendarWrap>
-                      <ReservationForm>
-                        <ReservationFormNames>
-                          <ReservationName>예약자</ReservationName>
+                <ReservationBody>
+                  {hospitalReservation && hospitalReservation.length > 0 ? (
+                    hospitalReservation.map((item) => (
+                      <>
+                        <ReservationCalendarWrap>
+                          <ReservationCalendar reservations={reservations} />
+                        </ReservationCalendarWrap>
+                        <ReservationForm>
+                          <ReservationFormNames>
+                            <ReservationName>예약자</ReservationName>
 
-                          <ReservationInput
-                            placeholder="예약자 성함 입력"
-                            onChange={onChangeReservationName}
-                            value={item.memberName}
-                          />
-                        </ReservationFormNames>
-                        <ReservationFormDate>
-                          <ReservationDateName>예약날짜</ReservationDateName>
-                          <ReservationDate>
-                            <DatePicker
-                              reservationDate={reservationDate}
-                              setReservationDate={setReservationDate}
+                            <ReservationInput
+                              placeholder="예약자 성함 입력"
+                              onChange={onChangeReservationName}
+                              value={item.memberName}
                             />
-                          </ReservationDate>
-                        </ReservationFormDate>
-                        <ReservationDiagnosis>
-                          <ReservationDiagnosisName>
-                            진료과목
-                          </ReservationDiagnosisName>
+                          </ReservationFormNames>
+                          <ReservationFormDate>
+                            <ReservationDateName>예약날짜</ReservationDateName>
+                            <ReservationDate>
+                              <DatePicker
+                                reservationDate={reservationDate}
+                                setReservationDate={setReservationDate}
+                              />
+                            </ReservationDate>
+                          </ReservationFormDate>
+                          <ReservationDiagnosis>
+                            <ReservationDiagnosisName>
+                              진료과목
+                            </ReservationDiagnosisName>
 
-                          <ReservationDiagnosisList
-                            onChange={onChangeDepartment}
-                          >
-                            {departments &&
-                              departments.map((department) => (
-                                <SelectDiagnosis
-                                  key={department.departmentId}
-                                  value={department.departmentId}
-                                >
-                                  {department.departmentName}
-                                </SelectDiagnosis>
-                              ))}
-                          </ReservationDiagnosisList>
-                        </ReservationDiagnosis>
-                        <ReservationTimes>
-                          <ReservationTimeName>예약시간</ReservationTimeName>
-                          <ReservationTime onChange={onChangeReservationTime}>
-                            <SelectTime>시간 선택</SelectTime>
-                            <SelectTime>09:00</SelectTime>
-                            <SelectTime>10:00</SelectTime>
-                            <SelectTime>11:00</SelectTime>
-                            <SelectTime>12:00</SelectTime>
-                            <SelectTime>14:00</SelectTime>
-                            <SelectTime>15:00</SelectTime>
-                            <SelectTime>16:00</SelectTime>
-                            <SelectTime>17:00</SelectTime>
-                            <SelectTime>18:00</SelectTime>
-                          </ReservationTime>
-                          <ReservationTimeTexts>
-                            <ReservationTimeText>
-                              한시간단위 예약가능
-                            </ReservationTimeText>
-                            <ReservationTimeText>
-                              주말 예약 불가
-                            </ReservationTimeText>
-                          </ReservationTimeTexts>
-                        </ReservationTimes>
-                        <ReservationTels>
-                          <ReservationTelName>연락처</ReservationTelName>
+                            <ReservationDiagnosisList
+                              onChange={onChangeDepartment}
+                            >
+                              {departments &&
+                                departments.map((department) => (
+                                  <SelectDiagnosis
+                                    key={department.departmentId}
+                                    value={department.departmentId}
+                                  >
+                                    {department.departmentName}
+                                  </SelectDiagnosis>
+                                ))}
+                            </ReservationDiagnosisList>
+                          </ReservationDiagnosis>
+                          <ReservationTimes>
+                            <ReservationTimeName>예약시간</ReservationTimeName>
+                            <ReservationTime onChange={onChangeReservationTime}>
+                              <SelectTime>시간 선택</SelectTime>
+                              <SelectTime>09:00</SelectTime>
+                              <SelectTime>10:00</SelectTime>
+                              <SelectTime>11:00</SelectTime>
+                              <SelectTime>12:00</SelectTime>
+                              <SelectTime>14:00</SelectTime>
+                              <SelectTime>15:00</SelectTime>
+                              <SelectTime>16:00</SelectTime>
+                              <SelectTime>17:00</SelectTime>
+                              <SelectTime>18:00</SelectTime>
+                            </ReservationTime>
+                            <ReservationTimeTexts>
+                              <ReservationTimeText>
+                                한시간단위 예약가능
+                              </ReservationTimeText>
+                              <ReservationTimeText>
+                                주말 예약 불가
+                              </ReservationTimeText>
+                            </ReservationTimeTexts>
+                          </ReservationTimes>
+                          <ReservationTels>
+                            <ReservationTelName>연락처</ReservationTelName>
 
-                          <ReservationTel
-                            placeholder="전화번호 입력"
-                            onChange={onChangeReservationTel}
-                            value={item.memberTel}
-                          />
-                        </ReservationTels>
-                        <ReservationContents>
-                          <ReservationContentName>
-                            예약내용
-                          </ReservationContentName>
-                          <ReservationContentText
-                            onChange={onChangeReservationContent}
-                            placeholder="진료받고자 하는 내용을 입력해주세요."
-                          ></ReservationContentText>
-                        </ReservationContents>
-                        <ReservationBtns>
-                          <ReservationComplete onClick={reservationComplete}>
-                            예약하기
-                          </ReservationComplete>
-                          <ReservationCancel onClick={reservationToggle}>
-                            예약취소
-                          </ReservationCancel>
-                        </ReservationBtns>
-                      </ReservationForm>
-                    </>
-                  ))
-                ) : (
-                  <ReservationLoad>로딩중입니다 ...</ReservationLoad>
-                )}
-              </ReservationBody>
-            </ReservationContent>
-          </ReservationOverlay>
-        </ReservationWrap>
-      )}
+                            <ReservationTel
+                              placeholder="전화번호 입력"
+                              onChange={onChangeReservationTel}
+                              value={item.memberTel}
+                            />
+                          </ReservationTels>
+                          <ReservationContents>
+                            <ReservationContentName>
+                              예약내용
+                            </ReservationContentName>
+                            <ReservationContentText
+                              onChange={onChangeReservationContent}
+                              placeholder="진료받고자 하는 내용을 입력해주세요."
+                            ></ReservationContentText>
+                          </ReservationContents>
+                          <ReservationBtns>
+                            <ReservationComplete onClick={reservationComplete}>
+                              예약하기
+                            </ReservationComplete>
+                            <ReservationCancel onClick={reservationToggle}>
+                              예약취소
+                            </ReservationCancel>
+                          </ReservationBtns>
+                        </ReservationForm>
+                      </>
+                    ))
+                  ) : (
+                    <ReservationLoad>로딩중 ...</ReservationLoad>
+                  )}
+                </ReservationBody>
+              </ReservationContent>
+            </ReservationOverlay>
+          </ReservationWrap>
+        )}
+      </AnimatePresence>
       <BackBtn onClick={hospitalSelectedHospitalId}>뒤로가기</BackBtn>
     </HospitalBtns>
   )
@@ -283,7 +290,7 @@ const ReservationBtn = styled.button`
     cursor: pointer;
   }
 `
-const BackBtn = styled.button`
+const BackBtn = styled(motion.button)`
   width: 150px;
   height: 50px;
   border: transparent;
@@ -318,7 +325,7 @@ const ReservationOverlay = styled.div`
   bottom: 0;
   position: fixed;
 `
-const ReservationContent = styled.div`
+const ReservationContent = styled(motion.div)`
   width: 1300px;
   height: 770px;
   border-radius: 12px;
@@ -553,3 +560,54 @@ const ReservationLoad = styled.div`
   font-size: 30px;
   text-align: center;
 `
+
+const LoadSpan = styled(motion.span)`
+  opacity: 0;
+`
+
+const moveMove = {
+  firstDot: {
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      repeat: Infinity,
+      repeatDelay: 2,
+    },
+  },
+  secondDot: {
+    opacity: 1,
+    transition: {
+      delay: 0.25,
+      duration: 0.5,
+      repeat: Infinity,
+      repeatDelay: 2,
+    },
+  },
+  thirdDot: {
+    opacity: 1,
+    transition: {
+      delay: 0.5,
+      duration: 0.5,
+      repeat: Infinity,
+      repeatDelay: 2,
+    },
+  },
+  fourDot: {
+    opacity: 1,
+    transition: {
+      delay: 0.75,
+      duration: 0.5,
+      repeat: Infinity,
+      repeatDelay: 2,
+    },
+  },
+  fiveDot: {
+    opacity: 1,
+    transition: {
+      delay: 1,
+      duration: 0.5,
+      repeat: Infinity,
+      repeatDelay: 2,
+    },
+  },
+}

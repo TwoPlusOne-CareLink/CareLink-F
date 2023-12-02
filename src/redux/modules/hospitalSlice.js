@@ -49,7 +49,7 @@ const initialState = {
   error: null,
 }
 
-// 병원찾기란에서 필요한 모든 데이터를 불러오는 요청로직
+// 병원찾기 페이지에서 전체 병원리스트 및 정보를 요청하는 로직
 export const __getHospitalInfo = createAsyncThunk(
   "GET_HOSPITALINFO",
   async (payload, thunkAPI) => {
