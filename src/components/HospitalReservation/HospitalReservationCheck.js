@@ -33,7 +33,6 @@ function HospitalReservationCheck() {
       .then((response) => {
         if (response) {
           setReservationData(response.payload.data)
-          console.log(response.payload.data, "되나요")
         }
       })
       .catch((error) => {

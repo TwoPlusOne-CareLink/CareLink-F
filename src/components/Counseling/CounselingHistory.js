@@ -46,6 +46,7 @@ const CounselingHistoryWrap = styled.div`
   width: 1300px;
   height: 800px;
   margin: auto;
+  user-select: none;
 `
 
 const CounselingHistoryHeader = styled.div`

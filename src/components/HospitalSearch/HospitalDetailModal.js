@@ -73,17 +73,16 @@ function HospitalDetailModal({ dispatch, hospitals }) {
         }
       })
       .catch((error) => {
-        console.log("에러만ㄸ므 ㅠㅠ", error)
+        console.log("에러만", error)
       })
   }
 
-  useEffect(() => {
-    console.log(hospital, "하스피럴")
-    console.log(hospitalDetail, "나와주세요")
-    console.log(doctorInfo, "닥터나와!")
-    console.log(selectedHospitalId)
-    console.log(departmentNames, "디파트먼트")
-  }, [hospitalDetail, doctorInfo, selectedHospitalId, hospitalName])
+  useEffect(() => {}, [
+    hospitalDetail,
+    doctorInfo,
+    selectedHospitalId,
+    hospitalName,
+  ])
 
   return (
     <MapSearch>
@@ -420,6 +419,7 @@ const HospitalModalContent = styled(motion.div)`
   left: 21%;
   transform: translate(10%, 0);
   position: absolute;
+  user-select: none;
 `
 const HospitalContents = styled.div`
   display: flex;

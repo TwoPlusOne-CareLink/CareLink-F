@@ -41,8 +41,6 @@ function DoctorCompleteHistoryModal() {
             counselingData.length / itemsPerPage
           )
           setPageCount(updatedPageCount)
-          console.log(counselingData)
-          console.log(counseling, "카운셀링 나오냐?")
         }
       })
       .catch((error) => {

@@ -537,7 +537,7 @@ const HistoryDoctorTexts = styled.div`
 `
 
 const HistoryDText = styled.span`
-  font-size: 30px;
+  font-size: 25px;
   text-align: center;
 `
 

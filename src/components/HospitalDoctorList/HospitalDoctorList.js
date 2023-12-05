@@ -19,7 +19,6 @@ function HospitalDoctorList() {
       .then((response) => {
         if (response) {
           setDoctorList(response.payload.data)
-          console.log(response.payload.data, "데이터")
         }
       })
       .catch((error) => {
@@ -37,7 +36,6 @@ function HospitalDoctorList() {
         .then((response) => {
           if (response) {
             setDoctorDetail([response.payload.data])
-            console.log(response.payload.data, "뜨나요")
           }
         })
         .catch((error) => {
