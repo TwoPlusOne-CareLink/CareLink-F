@@ -2,6 +2,7 @@ import React from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import Logo from "../../assets/images/Logo.jpg"
+import Swal from "sweetalert2"
 
 function DoctorMain() {
   const token = localStorage.getItem("token")
@@ -14,11 +15,17 @@ function DoctorMain() {
   }
 
   const DLogout = () => {
-    navigate("/doctor")
-    alert("로그아웃 되었습니다 !")
-    localStorage.removeItem("token")
-    localStorage.removeItem("memberId")
-    localStorage.removeItem("role")
+    Swal.fire({
+      title: "로그아웃 되었습니다.",
+      icon: "success",
+      closeOnClickOutside: false,
+      confirmButtonColor: "#223359",
+    }).then(function () {
+      navigate("/doctor")
+      localStorage.removeItem("token")
+      localStorage.removeItem("memberId")
+      localStorage.removeItem("role")
+    })
   }
 
   const DGoToCounselingList = () => {

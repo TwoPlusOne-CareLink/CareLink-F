@@ -11,8 +11,10 @@ import FullCalendar from "@fullcalendar/react"
 import dayGridPlugin from "@fullcalendar/daygrid"
 import interactionPlugin from "@fullcalendar/interaction"
 import Swal from "sweetalert2"
+import { useNavigate } from "react-router-dom"
 
 function UserReservation() {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [reservation, setReservation] = useState([])
   const [reservationId, setReservationId] = useState()
@@ -65,10 +67,13 @@ function UserReservation() {
         if (response) {
           Swal.fire({
             title: "삭제가 완료되었습니다. ",
-            showCancelButton: false,
+            icon: "success",
+            closeOnClickOutside: false,
+            confirmButtonColor: "#223359",
+          }).then(function () {
+            navigate("/user/userReservation")
           })
         }
-        window.location.reload()
       })
       .catch((error) => {
         console.log(error)

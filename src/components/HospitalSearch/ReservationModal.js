@@ -9,6 +9,7 @@ import {
   __getReservation,
 } from "../../redux/modules/reservationSlice"
 import { AnimatePresence, motion } from "framer-motion"
+import Swal from "sweetalert2"
 
 function ReservationModal({
   hospitalSelectedHospitalId,
@@ -72,10 +73,16 @@ function ReservationModal({
     dispatch(__addReservation(newReservation))
       .then((response) => {
         if (response) {
-          alert("예약이 완료되었습니다.")
-          setReservationModal(!reservationModal)
-          hospitalSelectedHospitalId()
-          window.location.reload()
+          Swal.fire({
+            title: "예약이 완료되었습니다.",
+            icon: "success",
+            closeOnClickOutside: false,
+            confirmButtonColor: "#223359",
+          }).then(function () {
+            setReservationModal(!reservationModal)
+            hospitalSelectedHospitalId()
+            window.location.reload()
+          })
         }
       })
       .catch((error) => {

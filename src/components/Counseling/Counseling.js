@@ -6,8 +6,11 @@ import {
   __addCounseling,
   __getCounselingUserInfo,
 } from "../../redux/modules/counselingSlice"
+import Swal from "sweetalert2"
+import { useNavigate } from "react-router-dom"
 
 function Counseling() {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [imageSrc, setImageSrc] = useState()
   const [counselingImage, setCounselingImage] = useState()
@@ -99,13 +102,15 @@ function Counseling() {
     dispatch(__addCounseling(counselingForm))
       .then((response) => {
         if (response) {
-          console.log(response)
-          alert("상담 접수가 완료되었습니다.")
-          // setCounselingImage("")
-          // setCounselingTitle("")
-          // setDepartmentId("")
-          // setCounselingContent("")
-          window.location.reload()
+          Swal.fire({
+            title: "상담 접수가 완료되었습니다.",
+            icon: "success",
+            closeOnClickOutside: false,
+            confirmButtonColor: "#223359",
+          }).then(function () {
+            // navigate("/hospital")
+            navigate("/user/counselinghistory")
+          })
         }
       })
       .catch((error) => {

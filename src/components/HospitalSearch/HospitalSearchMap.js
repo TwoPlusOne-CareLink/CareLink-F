@@ -30,14 +30,6 @@ export default function HospitalSearchMap({ hospital }) {
   }
 
   useEffect(() => {
-    //   let hospitalName = "all"
-
-    //   dispatch(__getHospitalInfo({ hospitalName })).then((response) => {
-    //     if (response) {
-    //       setData(response)
-    //       console.log(data, "데이터얌")
-    //     }
-    //   })
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(

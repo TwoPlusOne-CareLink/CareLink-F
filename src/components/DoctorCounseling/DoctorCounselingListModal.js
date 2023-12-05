@@ -38,9 +38,6 @@ function DoctorCounselingListModal() {
             counselingData.length / itemsPerPage
           )
           setPageCount(updatedPageCount)
-          console.log(counselingData)
-          console.log(counseling, "카운셀링 나오냐?")
-          // setCounselingId(response.payload.data.counselingId)
         }
       })
       .catch((error) => {

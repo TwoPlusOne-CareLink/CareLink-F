@@ -2,6 +2,7 @@ import React from "react"
 import styled, { css } from "styled-components"
 import useDetectClose from "../../hooks/useDetectClose"
 import { useNavigate } from "react-router-dom"
+import Swal from "sweetalert2"
 
 function MainNav() {
   const token = localStorage.getItem("token")
@@ -22,11 +23,17 @@ function MainNav() {
   }
 
   const GoToLogout = () => {
-    localStorage.removeItem("token")
-    localStorage.removeItem("memberId")
-    localStorage.removeItem("role")
-    alert("로그아웃 되었습니다. ")
-    navigate("/")
+    Swal.fire({
+      title: "로그아웃 되었습니다 !",
+      icon: "success",
+      closeOnClickOutside: false,
+      confirmButtonColor: "#223359",
+    }).then(function () {
+      navigate("/")
+      localStorage.removeItem("token")
+      localStorage.removeItem("memberId")
+      localStorage.removeItem("token")
+    })
   }
 
   const GoToHospitalSearch = () => {

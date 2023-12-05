@@ -540,7 +540,9 @@ const UserInfoAddressInput = styled.input`
 `
 const UserAddressButton = styled.button`
   padding: 7px;
-  border: transparent;
+  /* border: transparent; */
+  border: 1px solid #223359;
+  border-radius: 8px;
   background-color: white;
   font-size: 16px;
   cursor: pointer;

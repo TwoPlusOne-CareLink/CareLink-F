@@ -7,6 +7,7 @@ import {
   __addHealthCheck,
 } from "../../redux/modules/healthCheckSlice"
 import { useDispatch } from "react-redux"
+import Swal from "sweetalert2"
 
 function HealthCheck() {
   const dispatch = useDispatch()
@@ -123,9 +124,14 @@ function HealthCheck() {
     dispatch(__addHealthCheck(checkListForm))
       .then((response) => {
         if (response) {
-          alert("체크리스트 작성이 완료되었습니다.")
-          console.log(checkListForm)
-          window.location.reload()
+          Swal.fire({
+            title: "체크리스트 작성이 완료되었습니다. ",
+            icon: "success",
+            closeOnClickOutside: false,
+            confirmButtonColor: "#223359",
+          }).then(function () {
+            window.location.reload()
+          })
         }
       })
       .catch((error) => {

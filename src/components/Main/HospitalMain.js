@@ -2,6 +2,7 @@ import React from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import Logo from "../../assets/images/Logo.jpg"
+import Swal from "sweetalert2"
 
 function HospitalMain() {
   const token = localStorage.getItem("token")
@@ -13,11 +14,17 @@ function HospitalMain() {
   }
 
   const HLogout = () => {
-    alert("로그아웃이 완료되었습니다.")
-    navigate("/hospital")
-    localStorage.removeItem("token")
-    localStorage.removeItem("memberId")
-    localStorage.removeItem("role")
+    Swal.fire({
+      title: "로그아웃이 완료되었습니다.",
+      icon: "success",
+      closeOnClickOutside: false,
+      confirmButtonColor: "#223359",
+    }).then(function () {
+      navigate("/hospital")
+      localStorage.removeItem("token")
+      localStorage.removeItem("memberId")
+      localStorage.removeItem("role")
+    })
   }
 
   const GoToHospitalDoctorList = () => {
