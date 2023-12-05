@@ -4,6 +4,7 @@ import Like from "../../assets/images/heart.png"
 import CloseBtn from "../../assets/images/XBtn.png"
 import { useDispatch } from "react-redux"
 import { __addDoctorCounseling } from "../../redux/modules/doctorCounselingSlice"
+import Swal from "sweetalert2"
 
 function DoctorCounselingModal({ counselingId }) {
   const dispatch = useDispatch()
@@ -25,10 +26,16 @@ function DoctorCounselingModal({ counselingId }) {
     dispatch(__addDoctorCounseling(doctorCounselingForm))
       .then((response) => {
         if (response) {
-          alert("답변이 완료되었습니다 !")
-          setDoctorCounselingModal(!doctorCounselingModal)
-          DCounselingModalToggle()
-          window.location.reload()
+          Swal.fire({
+            title: "답변이 완료되었습니다. ",
+            icon: "success",
+            closeOnClickOutside: false,
+            confirmButtonColor: "#223359",
+          }).then(function () {
+            setDoctorCounselingModal(!doctorCounselingModal)
+            DCounselingModalToggle()
+            window.location.reload()
+          })
         }
       })
       .catch((error) => {

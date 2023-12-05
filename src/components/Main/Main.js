@@ -2,6 +2,7 @@ import React from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import Logo from "../../assets/images/Logo.jpg"
+import Swal from "sweetalert2"
 
 function Main() {
   const token = localStorage.getItem("token")
@@ -37,11 +38,17 @@ function Main() {
   }
 
   const GoToLogout = () => {
-    navigate("/")
-    alert("로그아웃이 완료되었습니다.")
-    localStorage.removeItem("token")
-    localStorage.removeItem("memberId")
-    localStorage.removeItem("role")
+    Swal.fire({
+      title: "로그아웃이 완료되었습니다.",
+      icon: "success",
+      closeOnClickOutside: false,
+      confirmButtonColor: "#223359",
+    }).then(function () {
+      navigate("/")
+      localStorage.removeItem("token")
+      localStorage.removeItem("memberId")
+      localStorage.removeItem("role")
+    })
   }
 
   return (

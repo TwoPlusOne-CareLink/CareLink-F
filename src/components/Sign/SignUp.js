@@ -11,6 +11,7 @@ import Logo from "../../assets/images/Logo.jpg"
 import CloseBtn from "../../assets/images/XBtn.png"
 import { useDispatch } from "react-redux"
 import { __signUp } from "../../redux/modules/authSlice"
+import Swal from "sweetalert2"
 
 function SignUp(props) {
   const dispatch = useDispatch()
@@ -232,12 +233,23 @@ function SignUp(props) {
     dispatch(__signUp(signUpForm))
       .then((response) => {
         if (response) {
-          alert("회원가입이 완료되었습니다. ")
-          navigate("/login")
+          Swal.fire({
+            title: "회원가입이 완료되었습니다.",
+            icon: "success",
+            closeOnClickOutside: false,
+            confirmButtonColor: "#223359",
+          }).then(function () {
+            navigate("/login")
+          })
         }
       })
       .catch((error) => {
-        alert("회원가입에 실패했습니다. " + error.code)
+        Swal.fire({
+          title: "중복된 아이디입니다. ",
+          icon: "false",
+          closeOnClickOutside: false,
+          confirmButtonColor: "#223359",
+        }).then(function () {})
       })
   }
 

@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { useNavigate } from "react-router-dom"
+import Swal from "sweetalert2"
 
 function DoctorNav() {
   const navigate = useNavigate()
@@ -10,10 +11,17 @@ function DoctorNav() {
   }
 
   const GoToLogout = () => {
-    localStorage.removeItem("token")
-    localStorage.removeItem("memberId")
-    localStorage.removeItem("role")
-    navigate("/doctor")
+    Swal.fire({
+      title: "로그아웃 되었습니다.",
+      icon: "success",
+      closeOnClickOutside: false,
+      confirmButtonColor: "#223359",
+    }).then(function () {
+      navigate("/doctor")
+      localStorage.removeItem("token")
+      localStorage.removeItem("memberId")
+      localStorage.removeItem("role")
+    })
   }
 
   const GoToDCounselingList = () => {

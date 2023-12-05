@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { __signIn } from "../../redux/modules/authSlice"
 import Logo from "../../assets/images/Logo2.jpg"
+import Swal from "sweetalert2"
 
 function SignIn() {
   const dispatch = useDispatch()
@@ -44,25 +45,41 @@ function SignIn() {
     dispatch(__signIn(loginForm))
       .then((response) => {
         if (response.payload.data.role === "ROLE_USER") {
-          alert("회원님, 환영합니다!")
-          console.log("토큰이 있어", response)
-          navigate("/")
+          Swal.fire({
+            title: "회원님, 환영합니다 !",
+            icon: "success",
+            closeOnClickOutside: false,
+            confirmButtonColor: "#223359",
+          }).then(function () {
+            navigate("/")
+          })
         } else if (response.payload.data.role === "ROLE_DOCTOR") {
-          alert("의사회원님, 환영합니다 !")
-          navigate("/doctor")
+          Swal.fire({
+            title: "의사회원님, 환영합니다 !",
+            icon: "success",
+            closeOnClickOutside: false,
+            confirmButtonColor: "#223359",
+          }).then(function () {
+            navigate("/doctor")
+          })
         } else if (response.payload.data.role === "ROLE_ADMIN") {
-          alert("병원관계자님, 환영합니다 !")
-          navigate("/hospital")
+          Swal.fire({
+            title: "의사회원님, 환영합니다 !",
+            icon: "success",
+            closeOnClickOutside: false,
+            confirmButtonColor: "#223359",
+          }).then(function () {
+            navigate("/hospital")
+          })
         }
       })
       .catch((error) => {
-        if (error.response && error.response.status === 400) {
-          alert("하이")
-        } else if (error.response && error.response.status === 404) {
-          alert("바이")
-        } else {
-          alert("로그인 중 오류발생!@")
-        }
+        Swal.fire({
+          title: "오류가 발생했습니다.",
+          icon: "false",
+          closeOnClickOutside: false,
+          confirmButtonColor: "#223359",
+        }).then(function () {})
       })
   }
 
