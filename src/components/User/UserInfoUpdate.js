@@ -37,7 +37,7 @@ function UserInfoUpdate(props) {
   const handleComplete = (data) => {
     let fullAddress = data.address
     let extraAddress = ""
-    // console.log(data);
+
     if (data.addressType === "R") {
       if (data.bname !== "") {
         extraAddress += data.bname
