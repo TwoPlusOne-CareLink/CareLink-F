@@ -71,6 +71,7 @@ function UserReservation() {
             closeOnClickOutside: false,
             confirmButtonColor: "#223359",
           }).then(function () {
+            window.location.reload()
             navigate("/user/userReservation")
           })
         }
