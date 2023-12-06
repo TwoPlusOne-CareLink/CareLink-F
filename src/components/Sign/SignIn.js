@@ -64,7 +64,7 @@ function SignIn() {
           })
         } else if (response.payload.data.role === "ROLE_ADMIN") {
           Swal.fire({
-            title: "의사회원님, 환영합니다 !",
+            title: "병원관계자님, 환영합니다 !",
             icon: "success",
             closeOnClickOutside: false,
             confirmButtonColor: "#223359",
