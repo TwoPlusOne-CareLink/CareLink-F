@@ -35,7 +35,7 @@ function HealthCheckModal({ checkListInfoDtoList }) {
         checkListInfoDtoList.length &&
         checkListInfoDtoList.map((item) => (
           <HealthCheckPost onClick={() => onHealthCheck(item.checkId)}>
-            <PostNo>{item.checkId}</PostNo>
+            {/* <PostNo>{item.checkId}</PostNo> */}
             <PostName>{item.memberName}</PostName>
             <PostText>{item.healthMemo}</PostText>
             <PostDate>{item.nowdate}</PostDate>
@@ -245,7 +245,7 @@ const PostName = styled.div`
   align-items: center;
 `
 const PostText = styled.span`
-  width: 440px;
+  width: 500px;
   height: 30px;
   overflow: hidden;
   text-overflow: ellipsis;

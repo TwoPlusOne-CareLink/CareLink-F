@@ -72,7 +72,7 @@ function UserReservation() {
             confirmButtonColor: "#223359",
           }).then(function () {
             window.location.reload()
-            navigate("/user/userReservation")
+            // navigate("/user/userReservation")
           })
         }
       })
@@ -81,9 +81,7 @@ function UserReservation() {
       })
   }
 
-  useEffect(() => {
-    console.log(reservationData, "있냐?")
-  }, [reservationData])
+  useEffect(() => {}, [reservationData])
 
   return (
     <Wrap>

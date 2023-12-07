@@ -40,6 +40,7 @@ function ReservationDatePicker({ reservationDate, setReservationDate }) {
         selectsEnd
         endDate={new Date()}
         minDate={startDate}
+        excludeDates={[new Date(2023, 11, 25)]}
         placeholderText="예약날짜"
         locale={ko}
       />

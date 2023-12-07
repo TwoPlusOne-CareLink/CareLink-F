@@ -20,7 +20,7 @@ function HealthCheckList({ checkListInfoDtoList }) {
       </HealthCheckListTitles>
       <HealthCheckListBody>
         <HealthCheckPostTitles>
-          <HealthCheckPostTitleNo>번호</HealthCheckPostTitleNo>
+          {/* <HealthCheckPostTitleNo>번호</HealthCheckPostTitleNo> */}
           <HealthCheckPostTitleName>이름</HealthCheckPostTitleName>
           <HealthCheckPostTitleText>내용</HealthCheckPostTitleText>
           <HealthCheckPostTitleDate>작성날짜</HealthCheckPostTitleDate>
@@ -85,7 +85,7 @@ const HealthCheckPostTitleName = styled.span`
   text-align: center;
 `
 const HealthCheckPostTitleText = styled.span`
-  width: 440px;
+  width: 500px;
   font-weight: 600;
   text-align: center;
 `

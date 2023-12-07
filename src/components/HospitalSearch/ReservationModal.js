@@ -10,13 +10,16 @@ import {
 } from "../../redux/modules/reservationSlice"
 import { AnimatePresence, motion } from "framer-motion"
 import Swal from "sweetalert2"
+import { useNavigate } from "react-router-dom"
 
 function ReservationModal({
   hospitalSelectedHospitalId,
   selectedHospitalId,
   hospitalId,
   hospitalDetail,
+  setSelectHospitalId,
 }) {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const [departments, setDepartments] = useState()
@@ -42,14 +45,15 @@ function ReservationModal({
           setReservations(response.payload.data.reservations)
           setReservationMember(response.payload.data.memberName)
           setReservationTel(response.payload.data.memberTel)
-          console.log(
-            [
-              response.payload.data.departments.map(
-                (department) => department.departmentId
-              ),
-            ],
-            "아니"
-          )
+          console.log(response.payload.data, "하스피럴")
+          // console.log(
+          //   [
+          //     response.payload.data.departments.map(
+          //       (department) => department.departmentId
+          //     ),
+          //   ],
+          //   "아니"
+          // )
         }
       })
       .catch((error) => {
@@ -81,7 +85,7 @@ function ReservationModal({
           }).then(function () {
             setReservationModal(!reservationModal)
             hospitalSelectedHospitalId()
-            window.location.reload()
+            navigate("/user/userReservation")
           })
         }
       })
@@ -95,7 +99,6 @@ function ReservationModal({
     const currentName = e.target.value
     // setMemberName
     // setReservationMember(currentName)
-    console.log(reservationMember)
   }
 
   // 예약 시간 감지
@@ -123,14 +126,11 @@ function ReservationModal({
   const onChangeReservationContent = (e) => {
     const currentContent = e.target.value
     setreservationContent(currentContent)
-    // console.log(currentContent)
   }
 
   // 비동기기때문에 바로 되지않으므로 함수값이 즉시 업데이트 되지않아
   // 아래와 같이 작성항 reservationTime이 변하면 업데이트 되게끔 작성
-  useEffect(() => {
-    console.log(hospitalReservation, "ddd", departments, "디파트먼츠")
-  }, [
+  useEffect(() => {}, [
     reservationTime,
     departmentName,
     hospitalReservation,
@@ -139,6 +139,7 @@ function ReservationModal({
     reservations,
     reservationMember,
     reservationTel,
+    reservationModal,
   ])
 
   return (
@@ -175,7 +176,7 @@ function ReservationModal({
                             <ReservationInput
                               placeholder="예약자 성함 입력"
                               onChange={onChangeReservationName}
-                              value={item.memberName}
+                              value={item.memberName || ""}
                             />
                           </ReservationFormNames>
                           <ReservationFormDate>
@@ -249,7 +250,7 @@ function ReservationModal({
                           </ReservationContents>
                           <ReservationBtns>
                             <ReservationComplete onClick={reservationComplete}>
-                              예약하기
+                              예약완료
                             </ReservationComplete>
                             <ReservationCancel onClick={reservationToggle}>
                               예약취소
@@ -339,7 +340,8 @@ const ReservationContent = styled(motion.div)`
   background-color: white;
   top: 0;
   left: 0;
-  transform: translate(19%, 10%);
+  transform: translate(20%, 10%);
+  position: absolute;
 `
 
 const ReservationHeader = styled.div`
@@ -360,23 +362,23 @@ const ReservationTitle = styled.span`
 `
 
 const ReservationBody = styled.div`
-  width: 1275px;
-  height: 650px;
+  width: 1300px;
+  height: 670px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `
 const ReservationCalendarWrap = styled.div`
-  width: 700px;
+  width: 900px;
   height: 600px;
   border-radius: 12px;
-  margin: 0 10px;
+  margin-right: 10px;
 `
 const ReservationForm = styled.div`
-  width: 360px;
-  height: 620px;
-  margin-top: 40px;
+  width: 400px;
+  height: 670px;
+  margin-top: 20px;
   border: transparent;
   display: flex;
   flex-direction: column;

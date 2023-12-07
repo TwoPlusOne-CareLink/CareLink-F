@@ -5,13 +5,35 @@ import { styled } from "styled-components"
 import { useEffect, useState } from "react"
 
 function ReservationCalendar({ reservations }) {
-  const events =
-    reservations &&
-    reservations.map((item) => ({
-      start: `${item.reservationDate}T${item.reservationTime}`,
-      title: `${item.departmentName}예약진료`,
-      rendering: "backgroundColor",
-    }))
+  const [events, setEvents] = useState([])
+
+  useEffect(() => {
+    const currentEvents =
+      reservations &&
+      reservations.map((item) => ({
+        start: `${item.reservationDate}T${item.reservationTime}`,
+        title: `${item.departmentName}예약진료`,
+        rendering: "backgroundColor",
+      }))
+
+    const christmas = {
+      reservationDate: "2023-12-25",
+      departmentName: "크리스마스",
+      backgroundColor: "red",
+      borderColor: "red",
+    }
+
+    setEvents([
+      ...currentEvents,
+      {
+        start: `${christmas.reservationDate}`,
+        title: `${christmas.departmentName}휴무`,
+        rendering: "backgroundColor, border",
+        backgroundColor: christmas.backgroundColor,
+        borderColor: christmas.borderColor,
+      },
+    ])
+  }, [reservations])
 
   return (
     <UpperDiv>
@@ -19,7 +41,7 @@ function ReservationCalendar({ reservations }) {
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         dayMaxEvents={true}
-        height={"600px"}
+        height={"650px"}
         buttonText={{ today: "오늘" }}
         headerToolbar={{
           start: "prev",
@@ -59,7 +81,7 @@ const UpperDiv = styled.div`
   }
 
   .fc {
-    width: 870px;
+    width: 900px;
     margin-left: 10px;
   }
 

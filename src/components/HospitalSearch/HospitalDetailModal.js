@@ -232,6 +232,7 @@ function HospitalDetailModal({ dispatch, hospitals }) {
                                 hospitalSelectedHospitalId={
                                   hospitalSelectedHospitalId
                                 }
+                                setSelectedHospitalId={setSelectedHospitalId}
                               />
                             </HospitalContent2>
                           </HospitalContents>
